@@ -2,31 +2,40 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+## Fly Setup
+
+1. [Install Fly](https://fly.io/docs/getting-started/installing-flyctl/)
+
+2. Sign up and log in to Fly
+
+    ```sh
+    flyctl auth signup
+    ```
+
+3. Setup Fly. It might ask if you want to deploy, say no since you haven't built the app yet.
+
+    ```sh
+    flyctl launch
+    ```
+
 ## Development
 
-You will be running two processes during development:
-
-- The Miniflare server (miniflare is a local environment for Cloudflare Workers)
-- The Remix development server
+From your terminal:
 
 ```sh
-# in one tab, start the remix dev server
-$ npm run dev
-
-# in another, start the miniflare server
-$ npm start
+npm run dev
 ```
 
-Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready to go!
-
-If you'd rather run everything in a single tab, you can look at [concurrently](https://npm.im/concurrently) or similar tools to run both processes in one tab.
+This starts your app in development mode, rebuilding assets on file changes.
 
 ## Deployment
 
-Use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler) to build and deploy your application to Cloudflare Workers. If you don't have it yet, follow [the installation guide](https://developers.cloudflare.com/workers/cli-wrangler/install-update) to get it setup. Be sure to [authenticate the CLI](https://developers.cloudflare.com/workers/cli-wrangler/authentication) as well.
-
-Once that's done, you should be able to deploy your app:
+If you've followed the setup instructions already, all you need to do is run this:
 
 ```sh
 npm run deploy
 ```
+
+You can run `flyctl info` to get the url and ip address of your server.
+
+Check out the [fly docs](https://fly.io/docs/getting-started/node/) for more information.
