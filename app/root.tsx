@@ -7,7 +7,10 @@ import { Footer } from './components/footer'
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: styles }]
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'icon', href: '/rumah-berbagi.jpeg' },
+  ]
 }
 
 // https://remix.run/api/conventions#default-export

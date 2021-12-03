@@ -2,38 +2,35 @@ import { Link } from 'remix'
 
 export function Header() {
   return (
-    <header className="bg-indigo-600">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="w-full py-6 flex items-center justify-between border-b border-indigo-500 lg:border-none">
-          <div className="flex items-center">
+    <header>
+      <div className="relative bg-white">
+        <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+          <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link prefetch="intent" to="/">
-              <span className="sr-only">Workflow</span>
-              <img
-                className="h-10 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                alt=""
-              />
+              <span className="sr-only">Rumah Berbagi</span>
+              <img className="h-8 w-auto sm:h-10" src="/rumah-berbagi.svg" alt="Rumah Berbagi" height={32} width={32} />
             </Link>
           </div>
-          <div className="ml-10 space-x-4">
-            <Link
-              prefetch="intent"
-              to="/login"
-              className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
-            >
-              Masuk
-            </Link>
-            <a
-              href="https://rbagi.id/dafta"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
-            >
-              Daftar
+          <nav className="hidden md:flex space-x-10">
+            <a href="https://rumahberbagi.com" target="_blank" rel="noreferrer noopener">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                Blog
+              </a>
+            </a>
+          </nav>
+          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+            <a href="https://rbagi.id/daftar" target="_blank" rel="noreferrer noopener">
+              <a className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+                Daftar
+              </a>
             </a>
           </div>
         </div>
-      </nav>
+      </div>
     </header>
   )
 }
