@@ -1,10 +1,9 @@
-name = "remix-cloudflare-workers"
+name = "kelas-rbagi"
 type = "javascript"
 
-zone_id = ""
-account_id = ""
-route = ""
+account_id = "1d60533bd63392b6dc25160f907c4f76"
 workers_dev = true
+compatibility_date = "2021-12-03"
 
 [site]
 bucket = "./public"
