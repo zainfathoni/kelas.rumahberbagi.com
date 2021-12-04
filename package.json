@@ -1,8 +1,8 @@
 {
-  "private": true,
+  "private": false,
   "name": "remix-app-template",
   "description": "",
-  "license": "",
+  "license": "MIT",
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
