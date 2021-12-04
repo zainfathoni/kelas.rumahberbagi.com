@@ -17,26 +17,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Role {
-  id          String   @id @default(uuid())
-  userId      String?
-  user        User?    @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String
-  description String
-}
-
 model User {
   id            String         @id @default(uuid())
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   email         String         @unique(map: "User.email_unique")
-  password      String
+  passwordHash  String
   name          String
   phoneNumber   String
   instagram     String?
-  roles         Role[]
+  role          String
   courses       Course[]
   subscriptions Subscription[]
 }
