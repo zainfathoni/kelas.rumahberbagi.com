@@ -1,7 +1,7 @@
 {
   "private": false,
-  "name": "remix-app-template",
-  "description": "",
+  "name": "kelas-rumah-berbagi",
+  "description": "Kelas Rumah Berbagi",
   "license": "MIT",
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
