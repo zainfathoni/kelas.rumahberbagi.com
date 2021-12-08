@@ -7,41 +7,43 @@ const ROLES = {
   MEMBER: 'MEMBER',
 }
 
-// this is a hashed version of "twixrox"
-const passwordHash = '$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u'
-const phoneNumber = '6512345678'
-
-async function seed() {
+async function main() {
   await Promise.all(
     getUsers().map((user) =>
       prisma.user.create({
-        data: {
-          ...user,
-          passwordHash,
-          phoneNumber,
-        },
+        data: user,
       })
     )
   )
 }
 
-seed()
+main()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
 
 function getUsers() {
   return [
     {
       email: 'me@zainf.dev',
       name: 'Zain',
+      phoneNumber: '6512345678',
       role: ROLES.ADMIN,
     },
     {
       email: 'vika@rbagi.id',
       name: 'Vika',
+      phoneNumber: '6512345678',
       role: ROLES.AUTHOR,
     },
     {
       email: 'streamyard@zainf.dev',
       name: 'Streamyard',
+      phoneNumber: '6512345678',
       role: ROLES.MEMBER,
     },
   ]
