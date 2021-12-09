@@ -17,7 +17,16 @@ model User {
   instagram     String?
   role          String
   courses       Course[]
+  sessions      Session[]
   subscriptions Subscription[]
+}
+
+model Session {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  userId         String
+  expirationDate DateTime
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
