@@ -93,8 +93,8 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
 
 function Layout({ children }: { children: React.ReactNode }) {
   const matches = useMatches()
-  console.log(matches)
   const authenticated = matches.find(({ pathname }) => pathname === '/dashboard')
+
   return (
     <div className="remix-app">
       {authenticated ? null : <Header />}

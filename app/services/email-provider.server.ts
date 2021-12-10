@@ -37,7 +37,5 @@ export async function sendEmail({ to, from, subject, html }: MailgunMessage) {
     },
   })
 
-  console.log(response.headers)
-
   return response
 }
