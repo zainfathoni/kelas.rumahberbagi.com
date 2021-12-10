@@ -14,5 +14,10 @@ export let sendEmail: KCDSendEmailFunction<User> = async (options) => {
     </p>
   )
 
-  await emailProvider.sendEmail(options.emailAddress, subject, body)
+  await emailProvider.sendEmail({
+    to: options.emailAddress,
+    from: 'admin@rumahberbagi.com',
+    subject,
+    html: body,
+  })
 }
