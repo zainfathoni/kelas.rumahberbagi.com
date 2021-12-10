@@ -1,11 +1,6 @@
 import { PrismaClient } from '@prisma/client'
+import { ROLES } from '~/models/user'
 const prisma = new PrismaClient()
-
-const ROLES = {
-  ADMIN: 'ADMIN',
-  AUTHOR: 'AUTHOR',
-  MEMBER: 'MEMBER',
-}
 
 async function main() {
   await Promise.all(
