@@ -9,7 +9,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     // This redirect is optional, if not defined the user will be returnted by
     // the `authenticate` function and you can render something on this page
     // manually redirect the user.
-    successRedirect: '/me',
+    successRedirect: '/dashboard',
     // If something failed we take them back to the login page
     // This redirect is optional, if not defined any error will be throw and
     // the ErrorBoundary will be rendered.
