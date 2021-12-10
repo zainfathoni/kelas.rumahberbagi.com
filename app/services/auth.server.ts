@@ -5,12 +5,12 @@ import { sendEmail } from '~/services/email.server'
 import { User } from '@prisma/client'
 import { createUserByEmail, getUserByEmail } from '~/models/user'
 import { verifyEmailAddress } from '~/services/verifier.server'
+import { getRequiredServerEnvVar } from '~/utils/misc'
 
 // This secret is used to encrypt the token sent in the magic link and the
 // session used to validate someone else is not trying to sign-in as another
 // user.
-let secret = process.env.MAGIC_LINK_SECRET
-if (!secret) throw new Error('Missing MAGIC_LINK_SECRET env variable.')
+let secret = getRequiredServerEnvVar('MAGIC_LINK_SECRET')
 
 export let auth = new Authenticator<User>(sessionStorage)
 

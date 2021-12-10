@@ -1,5 +1,6 @@
 // app/session.server.ts
 import { createCookieSessionStorage } from 'remix'
+import { getRequiredServerEnvVar } from '~/utils/misc'
 
 export let sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -7,7 +8,7 @@ export let sessionStorage = createCookieSessionStorage({
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: ['s3cr3t'],
+    secrets: [getRequiredServerEnvVar('SESSION_SECRET')],
     secure: process.env.NODE_ENV === 'production',
   },
 })
