@@ -1,4 +1,3 @@
-// app/services/verifier.server.ts
 import { KCDVerifyEmailFunction } from 'remix-auth'
 import { isEmailBurner } from 'burner-email-providers'
 import isEmail from 'validator/lib/isEmail'

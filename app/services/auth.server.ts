@@ -1,4 +1,3 @@
-// app/services/auth.server.ts
 import { Authenticator, KCDStrategy } from 'remix-auth'
 import { sessionStorage } from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'

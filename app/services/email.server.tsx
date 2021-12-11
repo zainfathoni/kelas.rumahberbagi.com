@@ -1,4 +1,3 @@
-// app/services/email.server.tsx
 import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { KCDSendEmailFunction } from 'remix-auth'

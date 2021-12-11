@@ -1,4 +1,3 @@
-// app/routes/magic.tsx
 import { LoaderFunction, ActionFunction, json } from 'remix'
 import { auth } from '~/services/auth.server'
 import { sessionStorage } from '~/services/session.server'

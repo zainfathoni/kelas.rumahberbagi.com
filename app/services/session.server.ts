@@ -1,4 +1,3 @@
-// app/session.server.ts
 import { createCookieSessionStorage } from 'remix'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
