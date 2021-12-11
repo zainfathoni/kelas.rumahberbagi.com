@@ -10,7 +10,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // This session key `kcd:magiclink` is the default one used by the KCDStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
-  if (session.has('kcd:magiclink')) return json({ magicLinkSent: true })
+  if (session.has('zain:magiclink')) return json({ magicLinkSent: true })
   return json({ magicLinkSent: false })
 }
 

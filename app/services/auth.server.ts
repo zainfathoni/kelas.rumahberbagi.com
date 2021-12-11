@@ -17,7 +17,7 @@ export let auth = new Authenticator<User>(sessionStorage)
 // after clicking on the magic link
 auth.use(
   new KCDStrategy(
-    { verifyEmailAddress, sendEmail, secret, callbackURL: '/magic' },
+    { verifyEmailAddress, sendEmail, secret, callbackURL: '/magic', sessionMagicLinkKey: 'zain:magiclink' },
     // In the verify callback you will only receive the email address and you
     // should return the user instance
     async (email) => {
