@@ -8,4 +8,5 @@ node_modules
 /app/tailwind.css
 /prisma/dev.db
 .env
+.env.staging
 .DS_Store
