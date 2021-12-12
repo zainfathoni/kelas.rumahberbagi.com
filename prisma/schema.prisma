@@ -12,21 +12,12 @@ model User {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   email         String         @unique(map: "User.email_unique")
-  name          String
+  name          String?
   phoneNumber   String?
   instagram     String?
   role          String
   courses       Course[]
-  sessions      Session[]
   subscriptions Subscription[]
-}
-
-model Session {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  userId         String
-  expirationDate DateTime
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {

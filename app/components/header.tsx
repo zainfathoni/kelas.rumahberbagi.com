@@ -22,14 +22,12 @@ export function Header() {
             </a>
           </nav>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a
-              href="https://rbagi.id/daftar"
-              target="_blank"
-              rel="noreferrer noopener"
+            <Link
+              to="/login"
               className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
             >
-              Daftar
-            </a>
+              Masuk
+            </Link>
           </div>
         </div>
       </div>
