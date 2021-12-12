@@ -1,4 +1,4 @@
-import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch } from 'remix'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, useMatches } from 'remix'
 import type { LinksFunction } from 'remix'
 
 import styles from './tailwind.css'
@@ -92,11 +92,14 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
+  const matches = useMatches()
+  const authenticated = matches.find(({ pathname }) => pathname === '/dashboard')
+
   return (
     <div className="remix-app">
-      <Header />
+      {authenticated ? null : <Header />}
       <main>{children}</main>
-      <Footer />
+      {authenticated ? null : <Footer />}
     </div>
   )
 }

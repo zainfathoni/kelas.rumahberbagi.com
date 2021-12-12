@@ -6,3 +6,7 @@ node_modules
 /public/build
 /.mf
 /app/tailwind.css
+/prisma/dev.db
+.env
+.env.staging
+.DS_Store
