@@ -18,6 +18,7 @@ import { User } from '@prisma/client'
 import { Form, LoaderFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
+import { Badge } from '~/components/badge'
 
 export let loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
@@ -317,15 +318,17 @@ export default function Dashboard() {
                         <div className="mt-6">
                           <dl className="divide-y divide-gray-200">
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                              <dt className="text-sm font-medium text-gray-500">Name</dt>
+                              <dt className="text-sm font-medium text-gray-500">Nama</dt>
                               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">{user.name}</span>
+                                <span className="flex-grow">
+                                  {user.name ?? <Badge>Cantumkan nama Anda untuk melanjutkan</Badge>}
+                                </span>
                                 <span className="ml-4 flex-shrink-0">
                                   <button
                                     type="button"
                                     className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                                   >
-                                    Update
+                                    Ubah
                                   </button>
                                 </span>
                               </dd>
@@ -369,6 +372,22 @@ export default function Dashboard() {
                                     className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                                   >
                                     Update
+                                  </button>
+                                </span>
+                              </dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                              <dt className="text-sm font-medium text-gray-500">Nomor WhatsApp</dt>
+                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <span className="flex-grow">
+                                  {user.phoneNumber ?? <Badge>Tambahkan nomor WhatsApp Anda untuk melanjutkan</Badge>}
+                                </span>
+                                <span className="ml-4 flex-shrink-0">
+                                  <button
+                                    type="button"
+                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                                  >
+                                    Ubah
                                   </button>
                                 </span>
                               </dd>
