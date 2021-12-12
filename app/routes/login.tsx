@@ -2,11 +2,11 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import type { ActionFunction, LoaderFunction } from 'remix'
 import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
-import { sessionStorage } from '~/services/session.server'
+import { getUserSession } from '~/services/session.server'
 
 export let loader: LoaderFunction = async ({ request }) => {
   await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
-  let session = await sessionStorage.getSession(request.headers.get('Cookie'))
+  let session = await getUserSession(request)
   // This session key `kcd:magiclink` is the default one used by the KCDStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.

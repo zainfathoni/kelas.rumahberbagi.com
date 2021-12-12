@@ -8,14 +8,14 @@ import {
   DocumentSearchIcon,
   HomeIcon,
   MenuAlt2Icon,
-  QuestionMarkCircleIcon,
+  LogoutIcon,
   UsersIcon,
   XIcon,
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
 import { User } from '@prisma/client'
-import type { LoaderFunction } from 'remix'
+import { Form, LoaderFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 
@@ -33,10 +33,6 @@ const navigation = [
   { name: 'Messages', href: '#', icon: ChatIcon, current: false },
   { name: 'Team', href: '#', icon: UsersIcon, current: false },
   { name: 'Settings', href: '#', icon: CogIcon, current: true },
-]
-const secondaryNavigation = [
-  { name: 'Help', href: '#', icon: QuestionMarkCircleIcon },
-  { name: 'Logout', href: '#', icon: CogIcon },
 ]
 const tabs = [
   { name: 'General', href: '#', current: true },
@@ -138,19 +134,18 @@ export default function Dashboard() {
                       ))}
                     </div>
                     <div className="mt-auto pt-10 space-y-1">
-                      {secondaryNavigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
+                      <Form action="/logout" method="post">
+                        <button
+                          type="submit"
                           className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                         >
-                          <item.icon
+                          <LogoutIcon
                             className="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                             aria-hidden="true"
                           />
-                          {item.name}
-                        </a>
-                      ))}
+                          Logout
+                        </button>
+                      </Form>
                     </div>
                   </nav>
                 </div>
@@ -199,16 +194,15 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex-shrink-0 block w-full">
-              {secondaryNavigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
+              <Form action="/logout" method="post">
+                <button
+                  type="submit"
                   className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  <item.icon className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" aria-hidden="true" />
-                  {item.name}
-                </a>
-              ))}
+                  <LogoutIcon className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" aria-hidden="true" />
+                  Logout
+                </button>
+              </Form>
             </div>
           </nav>
         </div>
