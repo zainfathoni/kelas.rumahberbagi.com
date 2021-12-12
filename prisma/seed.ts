@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { ROLES } from '~/models/user'
+import { ROLES } from '../app/models/enum'
 const prisma = new PrismaClient()
 
 async function main() {
