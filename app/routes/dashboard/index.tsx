@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { Dialog, Switch, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import {
   BellIcon,
   BriefcaseIcon,
@@ -12,7 +12,7 @@ import {
   UsersIcon,
   XIcon,
 } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
+import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/solid'
 
 import { User } from '@prisma/client'
 import { Form, LoaderFunction } from 'remix'
@@ -50,8 +50,6 @@ function classNames(...classes: string[]) {
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] = useState(true)
-  const [autoUpdateApplicantDataEnabled, setAutoUpdateApplicantDataEnabled] = useState(false)
 
   let { user } = useLoaderData<{ user: User }>()
 
@@ -306,206 +304,99 @@ export default function Dashboard() {
                           </nav>
                         </div>
                       </div>
+                    </div>
 
-                      {/* Description list with inline editing */}
-                      <div className="mt-10 divide-y divide-gray-200">
-                        <div className="space-y-1">
-                          <h3 className="text-lg leading-6 font-medium text-gray-900">Profile</h3>
-                          <p className="max-w-2xl text-sm text-gray-500">
-                            This information will be displayed publicly so be careful what you share.
-                          </p>
+                    {/* Description list with inline editing */}
+                    <div className="mt-10 sm:mt-0">
+                      <div className="md:grid md:grid-cols-3 md:gap-6">
+                        <div className="md:col-span-1">
+                          <div className="px-4 sm:px-0">
+                            <h3 className="text-lg font-medium leading-6 text-gray-900">Data Diri</h3>
+                            <p className="mt-1 text-sm text-gray-600">Untuk keperluan proses administrasi akun Anda.</p>
+                          </div>
                         </div>
-                        <div className="mt-6">
-                          <dl className="divide-y divide-gray-200">
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                              <dt className="text-sm font-medium text-gray-500">Nama</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">
-                                  {user.name ?? <Badge>Cantumkan nama Anda untuk melanjutkan</Badge>}
-                                </span>
-                                <span className="ml-4 flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Ubah
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                              <dt className="text-sm font-medium text-gray-500">Photo</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">
-                                  <img
-                                    className="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt=""
-                                  />
-                                </span>
-                                <span className="ml-4 flex-shrink-0 flex items-start space-x-4">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Update
-                                  </button>
-                                  <span className="text-gray-300" aria-hidden="true">
-                                    |
-                                  </span>
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Remove
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                              <dt className="text-sm font-medium text-gray-500">Email</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">{user.email}</span>
-                                <span className="ml-4 flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Update
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                              <dt className="text-sm font-medium text-gray-500">Nomor WhatsApp</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">
-                                  {user.phoneNumber ?? <Badge>Tambahkan nomor WhatsApp Anda untuk melanjutkan</Badge>}
-                                </span>
-                                <span className="ml-4 flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Ubah
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200">
-                              <dt className="text-sm font-medium text-gray-500">Job title</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">Human Resources Manager</span>
-                                <span className="ml-4 flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Update
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                          </dl>
-                        </div>
-                      </div>
+                        <div className="mt-5 md:mt-0 md:col-span-2">
+                          <form action="#" method="POST">
+                            <div className="shadow overflow-hidden sm:rounded-md">
+                              <div className="px-4 py-5 bg-white sm:p-6">
+                                <div className="grid grid-cols-6 gap-6">
+                                  <div className="col-span-6">
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                      Nama Lengkap
+                                    </label>
+                                    <div className="mt-1 relative rounded-md shadow-sm">
+                                      <input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        className="block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                                        placeholder="Cantumkan nama lengkap Anda"
+                                        value={user.name ?? ''}
+                                        aria-invalid="true"
+                                        aria-describedby="email-error"
+                                      />
+                                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
+                                      </div>
+                                    </div>
+                                    <p className="mt-2 text-sm text-red-600" id="email-error">
+                                      Nama wajib diisi
+                                    </p>
+                                  </div>
 
-                      <div className="mt-10 divide-y divide-gray-200">
-                        <div className="space-y-1">
-                          <h3 className="text-lg leading-6 font-medium text-gray-900">Account</h3>
-                          <p className="max-w-2xl text-sm text-gray-500">
-                            Manage how information is displayed on your account.
-                          </p>
-                        </div>
-                        <div className="mt-6">
-                          <dl className="divide-y divide-gray-200">
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                              <dt className="text-sm font-medium text-gray-500">Language</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">English</span>
-                                <span className="ml-4 flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Update
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                              <dt className="text-sm font-medium text-gray-500">Date format</dt>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <span className="flex-grow">DD-MM-YYYY</span>
-                                <span className="ml-4 flex-shrink-0 flex items-start space-x-4">
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Update
-                                  </button>
-                                  <span className="text-gray-300" aria-hidden="true">
-                                    |
-                                  </span>
-                                  <button
-                                    type="button"
-                                    className="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                  >
-                                    Remove
-                                  </button>
-                                </span>
-                              </dd>
-                            </div>
-                            <Switch.Group as="div" className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                              <Switch.Label as="dt" className="text-sm font-medium text-gray-500" passive>
-                                Automatic timezone
-                              </Switch.Label>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <Switch
-                                  checked={automaticTimezoneEnabled}
-                                  onChange={setAutomaticTimezoneEnabled}
-                                  className={classNames(
-                                    automaticTimezoneEnabled ? 'bg-purple-600' : 'bg-gray-200',
-                                    'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto'
-                                  )}
+                                  <div className="col-span-6">
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                      Alamat Email
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name="email"
+                                      id="email"
+                                      disabled
+                                      value={user.email}
+                                      autoComplete="email"
+                                      className="disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                  <div className="col-span-6 sm:col-span-3">
+                                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+                                      Nomor WhatsApp
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name="phoneNumber"
+                                      id="phoneNumber"
+                                      placeholder="+6281234567890"
+                                      autoComplete="tel"
+                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+
+                                  <div className="col-span-6 sm:col-span-3">
+                                    <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">
+                                      Akun Instagram
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name="instagram"
+                                      id="instagram"
+                                      placeholder="@user.name"
+                                      autoComplete="nickname"
+                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                <button
+                                  type="submit"
+                                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                  <span
-                                    aria-hidden="true"
-                                    className={classNames(
-                                      automaticTimezoneEnabled ? 'translate-x-5' : 'translate-x-0',
-                                      'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                                    )}
-                                  />
-                                </Switch>
-                              </dd>
-                            </Switch.Group>
-                            <Switch.Group
-                              as="div"
-                              className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200"
-                            >
-                              <Switch.Label as="dt" className="text-sm font-medium text-gray-500" passive>
-                                Auto-update applicant data
-                              </Switch.Label>
-                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <Switch
-                                  checked={autoUpdateApplicantDataEnabled}
-                                  onChange={setAutoUpdateApplicantDataEnabled}
-                                  className={classNames(
-                                    autoUpdateApplicantDataEnabled ? 'bg-purple-600' : 'bg-gray-200',
-                                    'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto'
-                                  )}
-                                >
-                                  <span
-                                    aria-hidden="true"
-                                    className={classNames(
-                                      autoUpdateApplicantDataEnabled ? 'translate-x-5' : 'translate-x-0',
-                                      'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                                    )}
-                                  />
-                                </Switch>
-                              </dd>
-                            </Switch.Group>
-                          </dl>
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
