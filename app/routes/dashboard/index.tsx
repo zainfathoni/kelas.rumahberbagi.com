@@ -144,7 +144,7 @@ export default function Dashboard() {
                             className="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                             aria-hidden="true"
                           />
-                          Logout
+                          Keluar
                         </button>
                       </Form>
                     </div>
@@ -201,7 +201,7 @@ export default function Dashboard() {
                   className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
                   <LogoutIcon className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" aria-hidden="true" />
-                  Logout
+                  Keluar
                 </button>
               </Form>
             </div>

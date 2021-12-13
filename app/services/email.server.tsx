@@ -4,18 +4,18 @@ import type { KCDSendEmailFunction } from 'remix-auth'
 import * as emailProvider from '~/services/email-provider.server'
 
 export let sendEmail: KCDSendEmailFunction<User> = async (options) => {
-  let subject = "Here's your Magic sign-in link"
+  let subject = 'Link login untuk Kelas Rumah Berbagi'
   let body = renderToString(
     <p>
-      Hi {options.user?.name || 'there'},<br />
+      Halo {options.user?.name || 'pengguna baru'},<br />
       <br />
-      <a href={options.magicLink}>Click here to login on example.app</a>
+      <a href={options.magicLink}>Klik di sini untuk masuk ke kelas.rumahberbagi.com</a>
     </p>
   )
 
   await emailProvider.sendEmail({
     to: options.emailAddress,
-    from: 'admin@rumahberbagi.com',
+    from: 'Rumah Berbagi <admin@rumahberbagi.com>',
     subject,
     html: body,
   })
