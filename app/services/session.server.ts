@@ -18,7 +18,12 @@ export function getUserSession(request: Request) {
 
 export async function logout(request: Request) {
   let session = await getUserSession(request)
-  return redirect('/', {
+  let form = await request.formData()
+  let redirectTo = form.get('redirectTo') ?? '/'
+  if (typeof redirectTo !== 'string') {
+    return { formError: `Form not submitted correctly.` }
+  }
+  return redirect(redirectTo, {
     headers: {
       'Set-Cookie': await sessionStorage.destroySession(session),
     },
