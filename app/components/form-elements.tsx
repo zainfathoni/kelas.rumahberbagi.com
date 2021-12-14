@@ -3,12 +3,14 @@ import clsx from 'clsx'
 import { useId } from '@reach/auto-id'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 
+export type InputStatus = 'default' | 'error'
+
 function Label({ className, ...labelProps }: JSX.IntrinsicElements['label']) {
   return <label {...labelProps} className={clsx('block text-sm font-medium text-gray-700', className)} />
 }
 
 type InputProps = (({ type: 'textarea' } & JSX.IntrinsicElements['textarea']) | JSX.IntrinsicElements['input']) & {
-  error?: string | null
+  status?: InputStatus
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(props, ref) {
@@ -24,7 +26,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
   return (
     <div className="mt-1 relative rounded-md shadow-sm">
       <input {...(props as JSX.IntrinsicElements['input'])} className={className} ref={ref} type="text" />
-      {props.error ? (
+      {props.status === 'error' ? (
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
           <ExclamationCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
         </div>
@@ -59,21 +61,36 @@ export const Field = React.forwardRef<
     className?: string
     required?: boolean
     readOnly?: boolean
-    error?: string | null
+    getFieldError?: (value: string) => string | null
     description?: React.ReactNode
   } & InputProps
->(function Field({ defaultValue, error, name, label, className, required, readOnly, description, id, ...props }, ref) {
+>(function Field(
+  { defaultValue, getFieldError, name, label, className, required, readOnly, description, id, ...props },
+  ref
+) {
   const prefix = useId()
   const inputId = id ?? `${prefix}-${name}`
   const errorId = `${inputId}-error`
   const descriptionId = `${inputId}-description`
 
+  const [value, setValue] = React.useState(defaultValue ?? '')
+  const [touched, setTouched] = React.useState(false)
+
+  let errorMessage
+  if (required && !value) {
+    errorMessage = `${label} wajib diisi`
+  } else if (getFieldError) {
+    errorMessage = getFieldError(value)
+  }
+
+  const status = touched && errorMessage ? 'error' : 'default'
+
   return (
     <div className={className}>
       <div className="flex justify-between">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+        <Label htmlFor={name} className="block text-sm font-medium text-gray-700">
           {label}
-        </label>
+        </Label>
         {required || readOnly ? null : (
           <span className="text-sm text-gray-500" id="instagram-optional">
             Opsional
@@ -85,7 +102,7 @@ export const Field = React.forwardRef<
         ref={ref}
         {...(props as InputProps)}
         className={
-          error
+          status === 'error'
             ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
             : undefined
         }
@@ -96,38 +113,13 @@ export const Field = React.forwardRef<
         aria-required={required ? 'true' : undefined}
         readOnly={readOnly}
         disabled={readOnly}
-        defaultValue={defaultValue}
-        error={error}
-        aria-describedby={error ? errorId : description ? descriptionId : undefined}
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        onBlur={() => setTouched(true)}
+        status={status}
+        aria-describedby={errorMessage ? errorId : description ? descriptionId : undefined}
       />
-      {error ? <InputError id={errorId}>{error}</InputError> : null}
-    </div>
-  )
-
-  return (
-    <div className={clsx('mb-8', className)}>
-      <div className="flex gap-2 items-baseline justify-between mb-4">
-        <Label htmlFor={inputId}>{label}</Label>
-        {error ? (
-          <InputError id={errorId}>{error}</InputError>
-        ) : description ? (
-          <div id={descriptionId} className="text-primary text-lg">
-            {description}
-          </div>
-        ) : null}
-      </div>
-
-      <Input
-        // @ts-expect-error no idea 🤷‍♂️
-        ref={ref}
-        {...(props as InputProps)}
-        name={name}
-        id={inputId}
-        autoComplete={name}
-        required
-        defaultValue={defaultValue}
-        aria-describedby={error ? errorId : description ? descriptionId : undefined}
-      />
+      {status === 'error' ? <InputError id={errorId}>{errorMessage}</InputError> : null}
     </div>
   )
 })

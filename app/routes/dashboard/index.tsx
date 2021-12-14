@@ -14,9 +14,9 @@ import {
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
-import { User } from '@prisma/client'
-import { Form, LoaderFunction } from 'remix'
-import { json, useLoaderData } from 'remix'
+import type { User } from '@prisma/client'
+import type { LoaderFunction } from 'remix'
+import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Field } from '~/components/form-elements'
@@ -305,7 +305,7 @@ export default function Dashboard() {
                           </div>
                         </div>
                         <div className="mt-5 md:mt-0 md:col-span-2">
-                          <form action="#" method="POST">
+                          <Form action="/dashboard" method="post">
                             <div className="shadow overflow-hidden sm:rounded-md">
                               <div className="px-4 py-5 bg-white sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
@@ -319,7 +319,6 @@ export default function Dashboard() {
                                     autoCapitalize="words"
                                     required
                                     aria-invalid={user.name ? 'false' : 'true'}
-                                    error={user.name ? null : 'Nama wajib diisi'}
                                   />
                                   <Field
                                     className="col-span-6"
@@ -356,7 +355,7 @@ export default function Dashboard() {
                                 </button>
                               </div>
                             </div>
-                          </form>
+                          </Form>
                         </div>
                       </div>
                     </div>
