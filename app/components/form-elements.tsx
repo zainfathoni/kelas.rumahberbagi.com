@@ -2,6 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { useId } from '@reach/auto-id'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { validateRequired } from '~/utils/validators'
 
 export type InputStatus = 'default' | 'error'
 
@@ -76,12 +77,7 @@ export const Field = React.forwardRef<
   const [value, setValue] = React.useState(defaultValue ?? '')
   const [touched, setTouched] = React.useState(false)
 
-  let errorMessage
-  if (required && !value) {
-    errorMessage = `${label} wajib diisi`
-  } else if (getFieldError) {
-    errorMessage = getFieldError(value)
-  }
+  const errorMessage = (required ? validateRequired(label, value) : undefined) ?? getFieldError?.(value)
 
   const status = touched && errorMessage ? 'error' : 'default'
 

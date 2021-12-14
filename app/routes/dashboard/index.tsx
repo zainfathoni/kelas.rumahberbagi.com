@@ -15,17 +15,61 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 import type { User } from '@prisma/client'
-import type { LoaderFunction } from 'remix'
+import { ActionFunction, LoaderFunction, useActionData, useTransition } from 'remix'
 import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Field } from '~/components/form-elements'
+import { validateRequired } from '~/utils/validators'
+import { db } from '~/utils/db.server'
 
 export let loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
   // the login page.
   let user = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+  // TODO: Get the latest updated user?
   return json({ user })
+}
+
+type ActionData = {
+  formError?: string
+  fieldErrors?: {
+    name: string | undefined
+    phoneNumber: string | undefined
+    instagram: string | undefined
+  }
+  fields?: {
+    name: string
+    phoneNumber: string
+    instagram: string
+  }
+}
+
+export let action: ActionFunction = async ({ request }) => {
+  let user = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+
+  let form = await request.formData()
+  let name = form.get('name')
+  let phoneNumber = form.get('phoneNumber')
+  let instagram = form.get('instagram')
+  // TODO: Use `zod` instead
+  if (typeof name !== 'string' || typeof phoneNumber !== 'string') {
+    return { formError: 'Form not submitted correctly.' }
+  }
+
+  let fieldErrors = {
+    name: validateRequired('Nama Lengkap', name),
+    phoneNumber: validateRequired('Nomor WhatsApp', phoneNumber),
+  }
+  let fields = { name, phoneNumber, instagram }
+  if (Object.values(fieldErrors).some(Boolean)) {
+    return { fieldErrors, fields }
+  }
+
+  let updatedUser = await db.user.update({ where: { id: user.id }, data: fields })
+  // TODO: commit data to the session?
+
+  return { user: updatedUser }
 }
 
 const navigation = [
@@ -53,6 +97,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   let { user } = useLoaderData<{ user: User }>()
+  let actionData = useActionData<ActionData>()
 
   return (
     <>
@@ -305,7 +350,7 @@ export default function Dashboard() {
                           </div>
                         </div>
                         <div className="mt-5 md:mt-0 md:col-span-2">
-                          <Form action="/dashboard" method="post">
+                          <Form method="post">
                             <div className="shadow overflow-hidden sm:rounded-md">
                               <div className="px-4 py-5 bg-white sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
@@ -334,6 +379,7 @@ export default function Dashboard() {
                                     name="phoneNumber"
                                     label="Nomor WhatsApp"
                                     placeholder="+6281234567890"
+                                    defaultValue={user.phoneNumber ?? ''}
                                     required
                                     autoComplete="tel"
                                   />
@@ -342,6 +388,7 @@ export default function Dashboard() {
                                     name="instagram"
                                     label="Instagram"
                                     placeholder="@user.name"
+                                    defaultValue={user.instagram ?? ''}
                                     autoComplete="nickname"
                                   />
                                 </div>
