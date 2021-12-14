@@ -99,13 +99,7 @@ export default function Dashboard() {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 px-4 flex items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/easywire-logo-purple-600-mark-gray-900-text.svg"
-                    alt="Easywire"
-                  />
-                </div>
+                <LogoWithText />
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                   <nav className="h-full flex flex-col">
                     <div className="space-y-1">
@@ -160,13 +154,7 @@ export default function Dashboard() {
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <nav className="bg-gray-50 border-r border-gray-200 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
-            <div className="flex-shrink-0 px-4 flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/easywire-logo-purple-600-mark-gray-900-text.svg"
-                alt="Easywire"
-              />
-            </div>
+            <LogoWithText />
             <div className="flex-grow mt-5">
               <div className="space-y-1">
                 {navigation.map((item) => (
