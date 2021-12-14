@@ -12,13 +12,12 @@ import {
   UsersIcon,
   XIcon,
 } from '@heroicons/react/outline'
-import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/solid'
+import { SearchIcon } from '@heroicons/react/solid'
 
 import { User } from '@prisma/client'
 import { Form, LoaderFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
-import { Badge } from '~/components/badge'
 import { LogoWithText } from '~/components/logo'
 import { Field } from '~/components/form-elements'
 
