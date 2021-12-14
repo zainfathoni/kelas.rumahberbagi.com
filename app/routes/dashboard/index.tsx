@@ -19,6 +19,8 @@ import { Form, LoaderFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { Badge } from '~/components/badge'
+import { LogoWithText } from '~/components/logo'
+import { Field } from '~/components/form-elements'
 
 export let loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
@@ -308,71 +310,42 @@ export default function Dashboard() {
                             <div className="shadow overflow-hidden sm:rounded-md">
                               <div className="px-4 py-5 bg-white sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
-                                  <div className="col-span-6">
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                      Nama Lengkap
-                                    </label>
-                                    <div className="mt-1 relative rounded-md shadow-sm">
-                                      <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        className="block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                                        placeholder="Cantumkan nama lengkap Anda"
-                                        value={user.name ?? ''}
-                                        aria-invalid="true"
-                                        aria-describedby="email-error"
-                                      />
-                                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
-                                      </div>
-                                    </div>
-                                    <p className="mt-2 text-sm text-red-600" id="email-error">
-                                      Nama wajib diisi
-                                    </p>
-                                  </div>
-
-                                  <div className="col-span-6">
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                      Alamat Email
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="email"
-                                      id="email"
-                                      disabled
-                                      value={user.email}
-                                      autoComplete="email"
-                                      className="disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                  <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                                      Nomor WhatsApp
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="phoneNumber"
-                                      id="phoneNumber"
-                                      placeholder="+6281234567890"
-                                      autoComplete="tel"
-                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-
-                                  <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">
-                                      Akun Instagram
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="instagram"
-                                      id="instagram"
-                                      placeholder="@user.name"
-                                      autoComplete="nickname"
-                                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
+                                  <Field
+                                    className="col-span-6"
+                                    name="name"
+                                    label="Nama Lengkap"
+                                    placeholder="Cantumkan nama lengkap Anda"
+                                    defaultValue={user.name ?? ''}
+                                    autoComplete="name"
+                                    autoCapitalize="words"
+                                    required
+                                    aria-invalid={user.name ? 'false' : 'true'}
+                                    error={user.name ? null : 'Nama wajib diisi'}
+                                  />
+                                  <Field
+                                    className="col-span-6"
+                                    name="email"
+                                    label="Alamat Email"
+                                    placeholder="alamat.email@gmail.com"
+                                    defaultValue={user.email}
+                                    readOnly
+                                    autoComplete="tel"
+                                  />
+                                  <Field
+                                    className="col-span-6 lg:col-span-3"
+                                    name="phoneNumber"
+                                    label="Nomor WhatsApp"
+                                    placeholder="+6281234567890"
+                                    required
+                                    autoComplete="tel"
+                                  />
+                                  <Field
+                                    className="col-span-6 lg:col-span-3"
+                                    name="instagram"
+                                    label="Instagram"
+                                    placeholder="@user.name"
+                                    autoComplete="nickname"
+                                  />
                                 </div>
                               </div>
                               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
