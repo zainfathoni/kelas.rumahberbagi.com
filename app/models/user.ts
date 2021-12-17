@@ -5,6 +5,10 @@ export async function getUserByEmail(email: string) {
   return await db.user.findUnique({ where: { email } })
 }
 
+export async function getUser(id: string) {
+  return await db.user.findUnique({ where: { id } })
+}
+
 export async function createUserByEmail(email: string) {
   return await db.user.create({
     data: {

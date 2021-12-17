@@ -66,11 +66,22 @@ export default function Login() {
                 </div>
               </Form>
               {magicLinkSent ? (
-                <div className="flex items-center justify-center py-2">
-                  <div className="text-sm">
-                    <span className="font-medium">✨ Link telah dikirim ke alamat email Anda ✨</span>
+                <Form action="/logout" method="post">
+                  <input type="hidden" name="redirectTo" value="/login" />
+                  <div className="flex items-center justify-center py-2">
+                    <div className="text-sm">
+                      <span className="font-medium">✨ Link telah dikirim ke alamat email Anda ✨</span>
+                    </div>
                   </div>
-                </div>
+                  <div className="flex items-center justify-between py-2 text-sm">
+                    <div>
+                      <span className="font-medium">Belum menerima email?</span>
+                    </div>
+                    <button type="submit" className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline">
+                      Coba lagi
+                    </button>
+                  </div>
+                </Form>
               ) : null}
             </div>
           </div>
