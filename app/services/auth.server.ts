@@ -25,7 +25,6 @@ auth.use(
       if (user === null) {
         user = await createUserByEmail(email)
       }
-      console.log(user)
       return user
     }
   )
