@@ -19,6 +19,10 @@ const config: PlaywrightTestConfig = {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    {
+      name: 'noscript',
+      use: { ...devices['Desktop Chrome'], javaScriptEnabled: false },
+    },
   ],
 }
 export default config
