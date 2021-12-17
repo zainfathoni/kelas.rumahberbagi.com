@@ -13,6 +13,7 @@
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
+    "test": "playwright test",
     "deploy": "flyctl deploy"
   },
   "dependencies": {
