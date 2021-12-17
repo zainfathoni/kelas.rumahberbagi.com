@@ -14,6 +14,7 @@ model User {
   email         String         @unique(map: "User.email_unique")
   name          String?
   phoneNumber   String?
+  telegram      String?
   instagram     String?
   role          String
   courses       Course[]

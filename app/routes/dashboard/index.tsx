@@ -15,19 +15,26 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 import type { User } from '@prisma/client'
-import { ActionFunction, LoaderFunction, useActionData, useTransition } from 'remix'
+import { ActionFunction, LoaderFunction, redirect, useActionData, useTransition } from 'remix'
 import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Field } from '~/components/form-elements'
 import { validateRequired } from '~/utils/validators'
 import { db } from '~/utils/db.server'
+import { getUser } from '~/models/user'
+import { logout } from '~/services/session.server'
 
 export let loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
   // the login page.
-  let user = await auth.isAuthenticated(request, { failureRedirect: '/login' })
-  // TODO: Get the latest updated user?
+  let { id } = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+
+  // Get the user data from the database.
+  let user = await getUser(id)
+  if (!user) {
+    return logout(request)
+  }
   return json({ user })
 }
 
@@ -37,11 +44,13 @@ type ActionData = {
     name: string | undefined
     phoneNumber: string | undefined
     instagram: string | undefined
+    telegram: string | undefined
   }
   fields?: {
     name: string
     phoneNumber: string
     instagram: string
+    telegram: string
   }
 }
 
@@ -52,8 +61,14 @@ export let action: ActionFunction = async ({ request }) => {
   let name = form.get('name')
   let phoneNumber = form.get('phoneNumber')
   let instagram = form.get('instagram')
+  let telegram = form.get('telegram')
   // TODO: Use `zod` instead
-  if (typeof name !== 'string' || typeof phoneNumber !== 'string') {
+  if (
+    typeof name !== 'string' ||
+    typeof phoneNumber !== 'string' ||
+    typeof instagram !== 'string' ||
+    typeof telegram !== 'string'
+  ) {
     return { formError: 'Form not submitted correctly.' }
   }
 
@@ -61,13 +76,12 @@ export let action: ActionFunction = async ({ request }) => {
     name: validateRequired('Nama Lengkap', name),
     phoneNumber: validateRequired('Nomor WhatsApp', phoneNumber),
   }
-  let fields = { name, phoneNumber, instagram }
+  let fields = { name, phoneNumber, instagram, telegram }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
 
   let updatedUser = await db.user.update({ where: { id: user.id }, data: fields })
-  // TODO: commit data to the session?
 
   return { user: updatedUser }
 }
@@ -366,7 +380,7 @@ export default function Dashboard() {
                                     aria-invalid={user.name ? 'false' : 'true'}
                                   />
                                   <Field
-                                    className="col-span-6"
+                                    className="col-span-6 lg:col-span-3"
                                     name="email"
                                     label="Alamat Email"
                                     placeholder="alamat.email@gmail.com"
@@ -385,8 +399,16 @@ export default function Dashboard() {
                                   />
                                   <Field
                                     className="col-span-6 lg:col-span-3"
+                                    name="telegram"
+                                    label="Username Telegram"
+                                    placeholder="@username"
+                                    defaultValue={user.telegram ?? ''}
+                                    autoComplete="nickname"
+                                  />
+                                  <Field
+                                    className="col-span-6 lg:col-span-3"
                                     name="instagram"
-                                    label="Instagram"
+                                    label="Username Instagram"
                                     placeholder="@user.name"
                                     defaultValue={user.instagram ?? ''}
                                     autoComplete="nickname"
