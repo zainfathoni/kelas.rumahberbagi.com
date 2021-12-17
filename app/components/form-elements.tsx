@@ -88,7 +88,7 @@ export const Field = React.forwardRef<
           {label}
         </Label>
         {required || readOnly ? null : (
-          <span className="text-sm text-gray-500" id="instagram-optional">
+          <span className="text-sm text-gray-500" id={descriptionId}>
             Opsional
           </span>
         )}
