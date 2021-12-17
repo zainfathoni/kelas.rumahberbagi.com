@@ -6,7 +6,7 @@ test.describe('Playwright', () => {
     await page.goto('https://playwright.dev/')
   })
 
-  test('my test', async ({ page }) => {
+  test('Example', async ({ page }) => {
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle(/Playwright/)
 

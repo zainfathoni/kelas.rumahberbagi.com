@@ -5,7 +5,7 @@ test.use({
   storageState: 'e2e/auth.json',
 })
 
-test('test', async ({ page, noscript }) => {
+test('Dashboard', async ({ page, noscript }) => {
   // Go to http://localhost:3000/dashboard
   await page.goto('http://localhost:3000/dashboard')
 
