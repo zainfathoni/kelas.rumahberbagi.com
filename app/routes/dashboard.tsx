@@ -20,7 +20,7 @@ import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Field } from '~/components/form-elements'
-import { validateRequired } from '~/utils/validators'
+import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
@@ -74,16 +74,16 @@ export let action: ActionFunction = async ({ request }) => {
 
   let fieldErrors = {
     name: validateRequired('Nama Lengkap', name),
-    phoneNumber: validateRequired('Nomor WhatsApp', phoneNumber),
+    phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
   }
   let fields = { name, phoneNumber, instagram, telegram }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
 
-  let updatedUser = await db.user.update({ where: { id: user.id }, data: fields })
+  await db.user.update({ where: { id: user.id }, data: fields })
 
-  return { user: updatedUser }
+  return redirect('/dashboard')
 }
 
 const navigation = [
@@ -393,7 +393,9 @@ export default function Dashboard() {
                                     name="phoneNumber"
                                     label="Nomor WhatsApp"
                                     placeholder="+6281234567890"
-                                    defaultValue={user.phoneNumber ?? ''}
+                                    defaultValue={actionData?.fields?.phoneNumber ?? user.phoneNumber ?? ''}
+                                    error={actionData?.fieldErrors?.phoneNumber}
+                                    validator={validatePhoneNumber}
                                     required
                                     autoComplete="tel"
                                   />

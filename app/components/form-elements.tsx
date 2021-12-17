@@ -1,5 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
+import type { Validator } from '~/utils/validators'
 import { useId } from '@reach/auto-id'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
@@ -62,11 +63,12 @@ export const Field = React.forwardRef<
     className?: string
     required?: boolean
     readOnly?: boolean
-    getFieldError?: (value: string) => string | null
+    error?: string
+    validator?: Validator
     description?: React.ReactNode
   } & InputProps
 >(function Field(
-  { defaultValue, getFieldError, name, label, className, required, readOnly, description, id, ...props },
+  { defaultValue, error, validator, name, label, className, required, readOnly, description, id, ...props },
   ref
 ) {
   const prefix = useId()
@@ -77,9 +79,9 @@ export const Field = React.forwardRef<
   const [value, setValue] = React.useState(defaultValue ?? '')
   const [touched, setTouched] = React.useState(false)
 
-  const errorMessage = (required ? validateRequired(label, value) : undefined) ?? getFieldError?.(value)
+  const errorMessage = validator?.(label, value) ?? (required ? validateRequired(label, value) : undefined) ?? error
 
-  const status = touched && errorMessage ? 'error' : 'default'
+  const status = (touched && errorMessage) || error ? 'error' : 'default'
 
   return (
     <div className={className}>
@@ -114,6 +116,7 @@ export const Field = React.forwardRef<
         onBlur={() => setTouched(true)}
         status={status}
         aria-describedby={errorMessage ? errorId : description ? descriptionId : undefined}
+        aria-invalid={Boolean(errorMessage) ? true : Boolean(error) ? true : undefined}
       />
       {status === 'error' ? <InputError id={errorId}>{errorMessage}</InputError> : null}
     </div>
