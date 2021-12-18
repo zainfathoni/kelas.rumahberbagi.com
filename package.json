@@ -7,16 +7,19 @@
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
   "scripts": {
-    "build": "npm run build:css && remix build",
+    "build": "npm run build:css && npm run build:remix",
     "build:css": "tailwindcss --minify -o ./app/tailwind.css",
+    "build:remix": "remix build --sourcemap",
     "dev": "concurrently -k \"npm run dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
+    "test": "playwright test",
     "deploy": "flyctl deploy"
   },
   "dependencies": {
     "@headlessui/react": "1.4.2",
+    "@heroicons/react": "1.0.5",
     "@prisma/client": "3.6.0",
     "@reach/auto-id": "0.16.0",
     "@remix-run/react": "^1.0.6",
@@ -24,6 +27,7 @@
     "@types/validator": "13.7.0",
     "burner-email-providers": "1.0.67",
     "clsx": "1.1.1",
+    "dotenv": "10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remix": "^1.0.6",
@@ -31,13 +35,14 @@
     "validator": "13.7.0"
   },
   "devDependencies": {
-    "@heroicons/react": "1.0.5",
+    "@playwright/test": "1.17.1",
     "@remix-run/dev": "^1.0.6",
     "@tailwindcss/forms": "0.3.4",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "concurrently": "6.4.0",
     "esbuild-register": "3.2.0",
+    "msw": "0.36.3",
     "prisma": "3.6.0",
     "tailwindcss": "2.2.19",
     "typescript": "^4.1.2"
