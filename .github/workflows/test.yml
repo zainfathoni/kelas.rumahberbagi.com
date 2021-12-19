@@ -31,3 +31,5 @@ jobs:
           CI: true
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           MAGIC_LINK_SECRET: ${{ secrets.MAGIC_LINK_SECRET }}
+          MAILGUN_SENDING_KEY: nothing # Unnecessary for testing
+          MAILGUN_DOMAIN: nothing # Unnecessary for testing
