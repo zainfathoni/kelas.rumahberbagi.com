@@ -1,11 +1,6 @@
 import * as React from 'react'
 
 export const HeroSection = (): JSX.Element => {
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-    window.open('https://rbagi.id/daftar', '_blank')
-  }
-
   const handleWatchVideo = () => {
     window.open('https://rbagi.id/video-tahun-prasekolahku', '_blank')
   }
