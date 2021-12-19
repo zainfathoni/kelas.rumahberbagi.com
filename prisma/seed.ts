@@ -26,19 +26,17 @@ function getUsers() {
     {
       email: 'me@zainf.dev',
       name: 'Zain',
-      phoneNumber: '6512345678',
+      phoneNumber: '+6512345678',
       role: ROLES.ADMIN,
     },
     {
       email: 'vika@rbagi.id',
       name: 'Vika',
-      phoneNumber: '6512345678',
       role: ROLES.AUTHOR,
     },
     {
-      email: 'streamyard@zainf.dev',
-      name: 'Streamyard',
-      phoneNumber: '6512345678',
+      email: 'pk@zainf.dev',
+      name: 'Pejuang Kode',
       role: ROLES.MEMBER,
     },
   ]
