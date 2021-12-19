@@ -1,4 +1,6 @@
-# Welcome to Remix
+# Kelas Rumah Berbagi
+
+![CI](https://github.com/zainfathoni/kelas.rumahberbagi.com/actions/workflows/test.yml/badge.svg)
 
 - [Remix Docs](https://remix.run/docs)
 
