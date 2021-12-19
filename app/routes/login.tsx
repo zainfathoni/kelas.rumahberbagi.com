@@ -1,4 +1,4 @@
-import type { ActionFunction, LoaderFunction } from 'remix'
+import { ActionFunction, LoaderFunction, useTransition } from 'remix'
 import { Form, json, useLoaderData } from 'remix'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
@@ -27,6 +27,7 @@ export let action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
   let { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
+  let { state } = useTransition()
 
   return (
     <div className="min-h-full flex max-w-7xl mx-auto">
@@ -57,8 +58,8 @@ export default function Login() {
                 </div>
 
                 <div>
-                  <Button type="submit" disabled={magicLinkSent} className="w-full">
-                    Kirim link ke alamat email
+                  <Button type="submit" disabled={state === 'submitting' || magicLinkSent} className="w-full">
+                    {state === 'submitting' ? 'Sedang memproses...' : 'Kirim link ke alamat email'}
                   </Button>
                 </div>
               </Form>
