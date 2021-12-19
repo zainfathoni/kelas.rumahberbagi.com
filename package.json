@@ -15,7 +15,7 @@
     "postinstall": "remix setup node",
     "start": "remix-serve build",
     "test": "playwright test",
-    "pretest:e2e:run": "npx prisma migrate reset --force && npm run build",
+    "pretest:e2e:run": "npm run build",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test",
     "test:e2e:run": "cross-env RUNNING_E2E=true start-server-and-test start http-get://localhost:3000/ test",
     "deploy": "flyctl deploy"
