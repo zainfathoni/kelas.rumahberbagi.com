@@ -1,5 +1,6 @@
 import type { ActionFunction, LoaderFunction } from 'remix'
 import { Form, json, useLoaderData } from 'remix'
+import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
 import { getUserSession } from '~/services/session.server'
 
@@ -56,13 +57,9 @@ export default function Login() {
                 </div>
 
                 <div>
-                  <button
-                    type="submit"
-                    disabled={magicLinkSent}
-                    className="disabled:opacity-50 disabled:cursor-not-allowed w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
+                  <Button type="submit" disabled={magicLinkSent} className="w-full">
                     Kirim link ke alamat email
-                  </button>
+                  </Button>
                 </div>
               </Form>
               {magicLinkSent ? (
