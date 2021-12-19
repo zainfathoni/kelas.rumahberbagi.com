@@ -19,7 +19,7 @@ import { ActionFunction, LoaderFunction, redirect, useActionData, useTransition 
 import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
-import { Field } from '~/components/form-elements'
+import { Button, Field } from '~/components/form-elements'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
@@ -112,6 +112,7 @@ export default function Dashboard() {
 
   let { user } = useLoaderData<{ user: User }>()
   let actionData = useActionData<ActionData>()
+  let { state } = useTransition()
 
   return (
     <>
@@ -418,12 +419,9 @@ export default function Dashboard() {
                                 </div>
                               </div>
                               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <button
-                                  type="submit"
-                                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                  Save
-                                </button>
+                                <Button type="submit" disabled={state === 'submitting'} className="inline-flex">
+                                  Simpan
+                                </Button>
                               </div>
                             </div>
                           </Form>
