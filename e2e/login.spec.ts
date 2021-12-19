@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
+import { test } from './base-test'
 
-test('Login', async ({ page }) => {
+test('Login', async ({ page, queries: { getByRole } }) => {
   // Go to http://localhost:3000/
   await page.goto('http://localhost:3000/')
 
@@ -8,11 +9,13 @@ test('Login', async ({ page }) => {
   await page.click('text=Masuk')
   await expect(page).toHaveURL('http://localhost:3000/login')
 
-  // Click input[name="email"]
-  await page.click('input[name="email"]')
+  // Query email
+  const email = await getByRole('textbox', {
+    name: /alamat email/i,
+  })
 
-  // Fill input[name="email"]
-  await page.fill('input[name="email"]', 'me@zainf.dev')
+  // Fill email
+  await email.fill('me@zainf.dev')
 
   // Click text=Kirim link ke alamat email
   await Promise.all([

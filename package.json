@@ -39,6 +39,7 @@
     "validator": "13.7.0"
   },
   "devDependencies": {
+    "@playwright-testing-library/test": "4.0.1",
     "@playwright/test": "1.17.1",
     "@remix-run/dev": "1.1.1",
     "@tailwindcss/forms": "0.3.4",
