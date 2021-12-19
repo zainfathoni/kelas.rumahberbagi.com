@@ -34,6 +34,5 @@ jobs:
           CI: true
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           MAGIC_LINK_SECRET: ${{ secrets.MAGIC_LINK_SECRET }}
-          DATABASE_URL: "file:./test.db" # Provided database file to match with e2e/auth.json
           MAILGUN_SENDING_KEY: nothing # Unnecessary for testing
           MAILGUN_DOMAIN: nothing # Unnecessary for testing
