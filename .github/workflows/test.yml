@@ -29,6 +29,7 @@ jobs:
         run: npm run test:e2e:run
         env:
           CI: true
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           MAGIC_LINK_SECRET: ${{ secrets.MAGIC_LINK_SECRET }}
           MAILGUN_SENDING_KEY: nothing # Unnecessary for testing
