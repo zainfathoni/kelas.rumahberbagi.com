@@ -15,7 +15,9 @@
     "postinstall": "remix setup node",
     "start": "remix-serve build",
     "test": "playwright test",
-    "test:e2e:dev": "start-server-and-test dev http-get://localhost:3000/ test",
+    "pretest:e2e:run": "npm run build",
+    "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test",
+    "test:e2e:run": "cross-env RUNNING_E2E=true start-server-and-test start http-get://localhost:3000/ test",
     "deploy": "flyctl deploy"
   },
   "dependencies": {
@@ -28,6 +30,7 @@
     "@types/validator": "13.7.0",
     "burner-email-providers": "1.0.67",
     "clsx": "1.1.1",
+    "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
