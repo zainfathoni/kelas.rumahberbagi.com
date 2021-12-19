@@ -12,9 +12,6 @@ test('Dashboard', async ({ page, noscript }) => {
   // Click [placeholder="+6281234567890"]
   await page.click('[placeholder="+6281234567890"]')
 
-  // Press a with modifiers
-  await page.press('[placeholder="+6281234567890"]', 'Meta+a')
-
   // Fill [placeholder="+6281234567890"]
   await page.fill('[placeholder="+6281234567890"]', '6512345678')
 
@@ -28,20 +25,11 @@ test('Dashboard', async ({ page, noscript }) => {
     ).toBeVisible()
   }
 
-  // Click [placeholder="+6281234567890"]
-  await page.click('[placeholder="+6281234567890"]')
-
-  // Press a with modifiers
-  await page.press('[placeholder="+6281234567890"]', 'Meta+a')
-
-  // Press ArrowLeft
-  await page.press('[placeholder="+6281234567890"]', 'ArrowLeft')
-
   // Fill [placeholder="+6281234567890"]
   await page.fill('[placeholder="+6281234567890"]', '+6512345678')
 
   // Click text=Save
-  await Promise.all([page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard' }*/), page.click('text=Save')])
+  await Promise.all([page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard' }*/), page.click('text=Simpan')])
 
   // Expect invisibility
   await expect(
