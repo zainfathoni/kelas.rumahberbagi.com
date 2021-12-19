@@ -1,0 +1,38 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+name: CI
+
+jobs:
+  test:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install operating system dependencies
+        run: npx playwright install-deps
+      
+      - name: Install Playwright browsers
+        run: npx playwright install
+      
+      - name: Run tests
+        run: npm run test:e2e:run
+        env:
+          CI: true
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          MAGIC_LINK_SECRET: ${{ secrets.MAGIC_LINK_SECRET }}
+          MAILGUN_SENDING_KEY: nothing # Unnecessary for testing
+          MAILGUN_DOMAIN: nothing # Unnecessary for testing
