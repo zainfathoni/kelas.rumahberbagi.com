@@ -1,11 +1,12 @@
-// my-test.ts
 import { test as base } from '@playwright/test'
+import { fixtures, TestingLibraryFixtures } from '@playwright-testing-library/test/fixture'
 
-export type TestOptions = {
+interface Fixtures extends TestingLibraryFixtures {
   noscript: boolean
 }
 
-export const test = base.extend<TestOptions>({
+export const test = base.extend<Fixtures>({
+  ...fixtures,
   // Default value for the person.
   noscript: false,
 })
