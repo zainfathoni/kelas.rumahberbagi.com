@@ -86,7 +86,7 @@ export const Field = React.forwardRef<
   return (
     <div className={className}>
       <div className="flex justify-between">
-        <Label htmlFor={name} className="block text-sm font-medium text-gray-700">
+        <Label htmlFor={inputId} className="block text-sm font-medium text-gray-700">
           {label}
         </Label>
         {required || readOnly ? null : (
