@@ -7,8 +7,8 @@ on:
 name: CI
 
 jobs:
-  install-deps:
-    name: Install dependencies
+  cache-deps:
+    name: Cache dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,7 +25,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: "."
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-i
@@ -33,21 +33,24 @@ jobs:
   type-check:
     name: Type check
     runs-on: ubuntu-latest
-    needs: install-deps
+    needs: cache-deps
     steps:
       - name: Restore cached dependencies
         uses: actions/cache@v2
         with:
-          path: "."
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-i
       
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
-
+      
       - name: Type check
         run: npm run type-check
         env:
@@ -56,21 +59,24 @@ jobs:
   test:
     name: End-to-end test
     runs-on: ubuntu-latest
-    needs: install-deps
+    needs: cache-deps
     steps:
       - name: Restore cached dependencies
         uses: actions/cache@v2
         with:
-          path: "."
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-i
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
       
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
-
+      
       - name: Install operating system dependencies
         run: npx playwright install-deps
       
