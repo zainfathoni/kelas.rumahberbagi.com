@@ -7,8 +7,8 @@ on:
 name: CI
 
 jobs:
-  test:
-    name: End-to-end test
+  install-deps:
+    name: Install dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,6 +21,28 @@ jobs:
 
       - name: Install locked dependencies
         run: npm ci
+      
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
+
+  test:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+    needs: install-deps
+    steps:
+      - name: Restore cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
 
       - name: Install operating system dependencies
         run: npx playwright install-deps
