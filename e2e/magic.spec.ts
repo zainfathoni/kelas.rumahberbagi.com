@@ -8,7 +8,7 @@ test.use({
 const magicLink =
   'http://localhost:3000/magic?token=278a57887a3fc760986f0253a4b3f09d%3A8e46a19ec0a21a46d1943bd9f339bce9fa37268df55134360620b7624535da03ffd7ee5bb953d4dea98f19b220b5affd56544b87e53dc60d29a3981765e8af9a307afd02910818cc58f957eec3eb3e183ad5483bff7798e6bb66c7e65cb8a7b0d7a23afbae181ed38884'
 
-test('Magic Link', async ({ page }) => {
+test.skip('Magic Link', async ({ page }) => {
   // Go to the magic link
   await page.goto(magicLink)
 

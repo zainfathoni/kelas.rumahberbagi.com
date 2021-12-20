@@ -7,8 +7,8 @@ on:
 name: CI
 
 jobs:
-  test:
-    name: End-to-end test
+  cache-npm:
+    name: Cache NPM libraries
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,16 +19,107 @@ jobs:
         with:
           node-version: "14.x"
 
+      - name: Restore NPM cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
+      - name: Install locked dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Cache NPM
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
+  type-check:
+    name: Type check
+    runs-on: ubuntu-latest
+    needs: cache-npm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Restore NPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+        env:
+          CI: true
+
+  test:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+    needs: cache-npm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Restore NPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
       - name: Install locked dependencies
         run: npm ci
 
       - name: Install operating system dependencies
         run: npx playwright install-deps
-      
+
+      - name: Restore cached Playwright dependencies
+        id: cache-playwright
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-i
+
       - name: Install Playwright browsers
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install
-      
-      - name: Run tests
+
+      - name: Cache Playwright dependencies
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-i
+
+      - name: Run end-to-end tests
         run: npm run test:e2e:run
         env:
           CI: true

@@ -1,7 +1,7 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test'
-import { TestOptions } from './e2e/base-test'
+import { Fixtures } from './e2e/base-test'
 
-const config: PlaywrightTestConfig<TestOptions> = {
+const config: PlaywrightTestConfig<Fixtures> = {
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   use: {
@@ -22,7 +22,11 @@ const config: PlaywrightTestConfig<TestOptions> = {
     },
     {
       name: 'noscript',
-      use: { ...devices['Desktop Chrome'], javaScriptEnabled: false, noscript: true },
+      use: {
+        ...devices['Desktop Chrome'],
+        javaScriptEnabled: false,
+        noscript: true,
+      },
     },
   ],
 }
