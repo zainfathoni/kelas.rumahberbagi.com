@@ -7,8 +7,8 @@ on:
 name: CI
 
 jobs:
-  cache-deps:
-    name: Cache dependencies
+  cache-npm:
+    name: Cache NPM libraries
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Restore cached dependencies
+      - name: Restore NPM cache
         uses: actions/cache@v2
         id: cache
         with:
@@ -32,7 +32,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       
-      - name: Cache dependencies
+      - name: Cache NPM
         if: steps.cache.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         with:
@@ -44,7 +44,7 @@ jobs:
   type-check:
     name: Type check
     runs-on: ubuntu-latest
-    needs: cache-deps
+    needs: cache-npm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Restore cached dependencies
+      - name: Restore NPM cache
         uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -73,7 +73,7 @@ jobs:
   test:
     name: End-to-end test
     runs-on: ubuntu-latest
-    needs: cache-deps
+    needs: cache-npm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -83,7 +83,7 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Restore cached dependencies
+      - name: Restore NPM cache
         uses: actions/cache@v2
         with:
           path: ~/.npm
