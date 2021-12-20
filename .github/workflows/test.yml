@@ -28,6 +28,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install
       
+      # TODO: Run type-checking in parallel
+      - name: Type check
+        run: npm run type-check
+        env:
+          CI: true
+      
       - name: Run tests
         run: npm run test:e2e:run
         env:

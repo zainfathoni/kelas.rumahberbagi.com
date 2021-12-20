@@ -1,7 +1,10 @@
 import { test as base } from '@playwright/test'
-import { fixtures, TestingLibraryFixtures } from '@playwright-testing-library/test/fixture'
+import {
+  fixtures,
+  TestingLibraryFixtures,
+} from '@playwright-testing-library/test/fixture'
 
-interface Fixtures extends TestingLibraryFixtures {
+export interface Fixtures extends TestingLibraryFixtures {
   noscript: boolean
 }
 

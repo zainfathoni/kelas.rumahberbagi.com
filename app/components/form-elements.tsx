@@ -8,34 +8,57 @@ import { validateRequired } from '~/utils/validators'
 export type InputStatus = 'default' | 'error'
 
 function Label({ className, ...labelProps }: JSX.IntrinsicElements['label']) {
-  return <label {...labelProps} className={clsx('block text-sm font-medium text-gray-700', className)} />
+  return (
+    <label
+      {...labelProps}
+      className={clsx('block text-sm font-medium text-gray-700', className)}
+    />
+  )
 }
 
-type InputProps = (({ type: 'textarea' } & JSX.IntrinsicElements['textarea']) | JSX.IntrinsicElements['input']) & {
+type InputProps = (
+  | ({ type: 'textarea' } & JSX.IntrinsicElements['textarea'])
+  | JSX.IntrinsicElements['input']
+) & {
   status?: InputStatus
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(props, ref) {
-  const className = clsx(
-    'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md disabled:bg-gray-50 disabled:text-gray-700 disabled:cursor-not-allowed',
-    props.className
-  )
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  function Input(props, ref) {
+    const className = clsx(
+      'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md disabled:bg-gray-50 disabled:text-gray-700 disabled:cursor-not-allowed',
+      props.className
+    )
 
-  if (props.type === 'textarea') {
-    return <textarea {...(props as JSX.IntrinsicElements['textarea'])} className={className} />
+    if (props.type === 'textarea') {
+      return (
+        <textarea
+          {...(props as JSX.IntrinsicElements['textarea'])}
+          className={className}
+        />
+      )
+    }
+
+    return (
+      <div className="mt-1 relative rounded-md shadow-sm">
+        <input
+          {...(props as JSX.IntrinsicElements['input'])}
+          className={className}
+          ref={ref}
+          type="text"
+        />
+        {props.status === 'error' ? (
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <ExclamationCircleIcon
+              className="h-5 w-5 text-red-500"
+              aria-hidden="true"
+            />
+          </div>
+        ) : null}
+      </div>
+    )
   }
-
-  return (
-    <div className="mt-1 relative rounded-md shadow-sm">
-      <input {...(props as JSX.IntrinsicElements['input'])} className={className} ref={ref} type="text" />
-      {props.status === 'error' ? (
-        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <ExclamationCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
-        </div>
-      ) : null}
-    </div>
-  )
-})
+)
 
 interface InputErrorProps {
   id: string
@@ -68,7 +91,19 @@ export const Field = React.forwardRef<
     description?: React.ReactNode
   } & InputProps
 >(function Field(
-  { defaultValue, error, validator, name, label, className, required, readOnly, description, id, ...props },
+  {
+    defaultValue,
+    error,
+    validator,
+    name,
+    label,
+    className,
+    required,
+    readOnly,
+    description,
+    id,
+    ...props
+  },
   ref
 ) {
   const prefix = useId()
@@ -79,14 +114,20 @@ export const Field = React.forwardRef<
   const [value, setValue] = React.useState(defaultValue ?? '')
   const [touched, setTouched] = React.useState(false)
 
-  const errorMessage = validator?.(label, value) ?? (required ? validateRequired(label, value) : undefined) ?? error
+  const errorMessage =
+    validator?.(label, value) ??
+    (required ? validateRequired(label, value) : undefined) ??
+    error
 
   const status = (touched && errorMessage) || error ? 'error' : 'default'
 
   return (
     <div className={className}>
       <div className="flex justify-between">
-        <Label htmlFor={inputId} className="block text-sm font-medium text-gray-700">
+        <Label
+          htmlFor={inputId}
+          className="block text-sm font-medium text-gray-700"
+        >
           {label}
         </Label>
         {required || readOnly ? null : (
@@ -112,13 +153,21 @@ export const Field = React.forwardRef<
         readOnly={readOnly}
         disabled={readOnly}
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={(event: React.BaseSyntheticEvent) =>
+          setValue(event.currentTarget.value)
+        }
         onBlur={() => setTouched(true)}
         status={status}
-        aria-describedby={errorMessage ? errorId : description ? descriptionId : undefined}
-        aria-invalid={Boolean(errorMessage) ? true : Boolean(error) ? true : undefined}
+        aria-describedby={
+          errorMessage ? errorId : description ? descriptionId : undefined
+        }
+        aria-invalid={
+          Boolean(errorMessage) ? true : Boolean(error) ? true : undefined
+        }
       />
-      {status === 'error' ? <InputError id={errorId}>{errorMessage}</InputError> : null}
+      {status === 'error' ? (
+        <InputError id={errorId}>{errorMessage}</InputError>
+      ) : null}
     </div>
   )
 })
