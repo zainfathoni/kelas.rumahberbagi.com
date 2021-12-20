@@ -40,6 +40,8 @@
     "validator": "13.7.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-conventional": "15.0.0",
     "@playwright-testing-library/test": "4.0.1",
     "@playwright/test": "1.17.1",
     "@remix-run/dev": "1.1.1",
