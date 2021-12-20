@@ -15,6 +15,7 @@
     "postinstall": "remix setup node",
     "prepare": "husky install",
     "start": "remix-serve build",
+    "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db npm start",
     "test": "playwright test",
     "pretest:e2e:run": "npm run build",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test",
