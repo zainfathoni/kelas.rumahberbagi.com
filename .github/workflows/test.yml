@@ -94,30 +94,31 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
  
+      - name: Restore cached Playwright dependencies
+        id: cache-playwright
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-i
+      
       - name: Install operating system dependencies
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install-deps
 
-      - name: Restore cached browsers
-        id: cache-browsers
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-i
-      
       - name: Install Playwright browsers
-        if: steps.cache-browsers.outputs.cache-hit != 'true'
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install
       
-      - name: Cache browser dependencies
-        if: steps.cache-browsers.outputs.cache-hit != 'true'
+      - name: Cache Playwright dependencies
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-i
+            ${{ runner.os }}-playwright-i
       
       - name: Run end-to-end tests
         run: npm run test:e2e:run
