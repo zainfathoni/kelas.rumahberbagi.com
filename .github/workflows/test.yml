@@ -51,6 +51,9 @@ jobs:
         with:
           node-version: "14.x"
       
+      - name: Install locked dependencies
+        run: npm ci
+
       - name: Type check
         run: npm run type-check
         env:
@@ -77,6 +80,9 @@ jobs:
         with:
           node-version: "14.x"
       
+      - name: Install locked dependencies
+        run: npm ci
+
       - name: Install operating system dependencies
         run: npx playwright install-deps
       
