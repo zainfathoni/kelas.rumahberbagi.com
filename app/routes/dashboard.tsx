@@ -15,14 +15,15 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 import type { User } from '@prisma/client'
+import type { ActionFunction, LoaderFunction } from 'remix'
 import {
-  ActionFunction,
-  LoaderFunction,
   redirect,
   useActionData,
   useTransition,
+  Form,
+  json,
+  useLoaderData,
 } from 'remix'
-import { Form, json, useLoaderData } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Button, Field } from '~/components/form-elements'

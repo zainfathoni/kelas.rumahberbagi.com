@@ -1,7 +1,7 @@
 import { Authenticator, KCDStrategy } from 'remix-auth'
+import { User } from '@prisma/client'
 import { sessionStorage } from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'
-import { User } from '@prisma/client'
 import { createUserByEmail, getUserByEmail } from '~/models/user'
 import { verifyEmailAddress } from '~/services/verifier.server'
 import { getRequiredServerEnvVar } from '~/utils/misc'

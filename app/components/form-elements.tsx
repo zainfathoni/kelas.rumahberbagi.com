@@ -1,8 +1,8 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import type { Validator } from '~/utils/validators'
 import { useId } from '@reach/auto-id'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import type { Validator } from '~/utils/validators'
 import { validateRequired } from '~/utils/validators'
 
 export type InputStatus = 'default' | 'error'

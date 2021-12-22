@@ -11,8 +11,8 @@ import {
 import type { LinksFunction } from 'remix'
 
 import styles from './tailwind.css'
-import { Header } from '~/components/header'
 import { Footer } from './components/footer'
+import { Header } from '~/components/header'
 
 // https://remix.run/api/app#links
 export const links: LinksFunction = () => {
