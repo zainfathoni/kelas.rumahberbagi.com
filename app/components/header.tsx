@@ -8,7 +8,13 @@ export function Header() {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link prefetch="intent" to="/">
               <span className="sr-only">Rumah Berbagi</span>
-              <img className="h-8 w-auto sm:h-10" src="/rumah-berbagi.svg" alt="Rumah Berbagi" height={32} width={32} />
+              <img
+                className="h-8 w-auto sm:h-10"
+                src="/rumah-berbagi.svg"
+                alt="Rumah Berbagi"
+                height={32}
+                width={32}
+              />
             </Link>
           </div>
           <nav className="flex space-x-10">

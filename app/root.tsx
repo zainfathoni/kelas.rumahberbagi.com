@@ -1,4 +1,13 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, useMatches } from 'remix'
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useCatch,
+  useMatches,
+} from 'remix'
 import type { LinksFunction } from 'remix'
 
 import styles from './tailwind.css'
@@ -35,7 +44,10 @@ export function ErrorBoundary({ error }: { error: Error }) {
           <h1>There was an error</h1>
           <p>{error.message}</p>
           <hr />
-          <p>Hey, developer, you should replace this with what you want your users to see.</p>
+          <p>
+            Hey, developer, you should replace this with what you want your
+            users to see.
+          </p>
         </div>
       </Layout>
     </Document>
@@ -49,10 +61,17 @@ export function CatchBoundary() {
   let message
   switch (caught.status) {
     case 401:
-      message = <p>Oops! Looks like you tried to visit a page that you do not have access to.</p>
+      message = (
+        <p>
+          Oops! Looks like you tried to visit a page that you do not have access
+          to.
+        </p>
+      )
       break
     case 404:
-      message = <p>Oops! Looks like you tried to visit a page that does not exist.</p>
+      message = (
+        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
+      )
       break
 
     default:
@@ -71,7 +90,13 @@ export function CatchBoundary() {
   )
 }
 
-function Document({ children, title }: { children: React.ReactNode; title?: string }) {
+function Document({
+  children,
+  title,
+}: {
+  children: React.ReactNode
+  title?: string
+}) {
   return (
     <html lang="en" className="h-full bg-gray-50">
       <head>
@@ -93,7 +118,9 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
 
 function Layout({ children }: { children: React.ReactNode }) {
   const matches = useMatches()
-  const authenticated = matches.find(({ pathname }) => pathname === '/dashboard')
+  const authenticated = matches.find(
+    ({ pathname }) => pathname === '/dashboard'
+  )
 
   return (
     <div className="remix-app">

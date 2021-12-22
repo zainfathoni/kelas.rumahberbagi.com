@@ -10,7 +10,10 @@ export let loader: LoaderFunction = async ({ request }) => {
   // This session key `kcd:magiclink` is the default one used by the KCDStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
-  return json({ user: session.get('user'), magicLinkSent: session.has('zain:magiclink') })
+  return json({
+    user: session.get('user'),
+    magicLinkSent: session.has('zain:magiclink'),
+  })
 }
 
 export let action: ActionFunction = async ({ request }) => {
@@ -34,7 +37,9 @@ export default function Login() {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 lg:px-8 lg:flex-none">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Masuk ke akun Anda</h2>
+            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+              Masuk ke akun Anda
+            </h2>
             <p className="mt-2 text-sm text-gray-600">atau buat akun baru</p>
           </div>
 
@@ -42,7 +47,10 @@ export default function Login() {
             <div className="mt-6">
               <Form action="/login" method="post" className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Alamat email
                   </label>
                   <div className="mt-1">
@@ -58,8 +66,14 @@ export default function Login() {
                 </div>
 
                 <div>
-                  <Button type="submit" disabled={state === 'submitting' || magicLinkSent} className="w-full">
-                    {state === 'submitting' ? 'Sedang memproses...' : 'Kirim link ke alamat email'}
+                  <Button
+                    type="submit"
+                    disabled={state === 'submitting' || magicLinkSent}
+                    className="w-full"
+                  >
+                    {state === 'submitting'
+                      ? 'Sedang memproses...'
+                      : 'Kirim link ke alamat email'}
                   </Button>
                 </div>
               </Form>
@@ -68,14 +82,19 @@ export default function Login() {
                   <input type="hidden" name="redirectTo" value="/login" />
                   <div className="flex items-center justify-center py-2">
                     <div className="text-sm">
-                      <span className="font-medium">✨ Link telah dikirim ke alamat email Anda ✨</span>
+                      <span className="font-medium">
+                        ✨ Link telah dikirim ke alamat email Anda ✨
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-2 text-sm">
                     <div>
                       <span className="font-medium">Belum menerima email?</span>
                     </div>
-                    <button type="submit" className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline">
+                    <button
+                      type="submit"
+                      className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
+                    >
                       Coba lagi
                     </button>
                   </div>
@@ -86,7 +105,11 @@ export default function Login() {
         </div>
       </div>
       <div className="hidden lg:block relative w-0 flex-1">
-        <img className="absolute inset-0 h-full w-full object-contain" src="/rumah-berbagi.svg" alt="Rumah Berbagi" />
+        <img
+          className="absolute inset-0 h-full w-full object-contain"
+          src="/rumah-berbagi.svg"
+          alt="Rumah Berbagi"
+        />
       </div>
     </div>
   )

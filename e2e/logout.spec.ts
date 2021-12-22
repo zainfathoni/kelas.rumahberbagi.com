@@ -10,7 +10,10 @@ test('Logout', async ({ page }) => {
   await page.goto('http://localhost:3000/dashboard')
 
   // Click text=Keluar
-  await Promise.all([page.waitForNavigation(/*{ url: 'http://localhost:3000/' }*/), page.click('text=Keluar')])
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/' }*/),
+    page.click('text=Keluar'),
+  ])
 
   // Expect text=Masuk to be visible and linking to the
   const loginLink = page.locator('text=Masuk').first()
