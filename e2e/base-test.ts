@@ -10,6 +10,6 @@ export interface Fixtures extends TestingLibraryFixtures {
 
 export const test = base.extend<Fixtures>({
   ...fixtures,
-  // Default value for the person.
+  // Default value for noscript
   noscript: false,
 })

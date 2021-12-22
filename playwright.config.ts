@@ -8,7 +8,6 @@ const config: PlaywrightTestConfig<Fixtures> = {
     trace: 'on-first-retry',
   },
   projects: [
-    /* TODO: Test mobile browsers
     // "Pixel 4" tests use Chromium browser.
     {
       name: 'Pixel 4',
@@ -25,7 +24,6 @@ const config: PlaywrightTestConfig<Fixtures> = {
         ...devices['iPhone 11'],
       },
     },
-    */
     // Desktop tests use Firefox browser.
     {
       name: 'firefox',
