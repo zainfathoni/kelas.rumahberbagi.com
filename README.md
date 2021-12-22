@@ -68,6 +68,10 @@ If you want, you can also manually run those commands above.
 - [Tailwind UI](https://tailwindui.com/)
 - [Testing Playground](https://testing-playground.com/)
 
+#### Editor
+
+If you're using Visual Studio Code, you can install the recommended extensions for this project by [using `@recommended` filter](https://code.visualstudio.com/docs/editor/extension-marketplace#_extensions-view-filters).
+
 ### Documentation
 
 - [Remix Docs](https://remix.run/docs)
