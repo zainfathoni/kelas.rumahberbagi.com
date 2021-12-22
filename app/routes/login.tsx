@@ -4,9 +4,9 @@ import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
 import { getUserSession } from '~/services/session.server'
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
-  let session = await getUserSession(request)
+  const session = await getUserSession(request)
   // This session key `kcd:magiclink` is the default one used by the KCDStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
@@ -16,7 +16,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   })
 }
 
-export let action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request }) => {
   // The success redirect is required in this action, this is where the user is
   // going to be redirected after the magic link is sent, note that here the
   // user is not yet authenticated, so you can't send it to a private page.
@@ -29,8 +29,8 @@ export let action: ActionFunction = async ({ request }) => {
 }
 
 export default function Login() {
-  let { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
-  let { state } = useTransition()
+  const { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
+  const { state } = useTransition()
 
   return (
     <div className="min-h-full flex max-w-7xl mx-auto">

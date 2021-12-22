@@ -31,15 +31,15 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
   // the login page.
-  let { id } = await auth.isAuthenticated(request, {
+  const { id } = await auth.isAuthenticated(request, {
     failureRedirect: '/login',
   })
 
   // Get the user data from the database.
-  let user = await getUser(id)
+  const user = await getUser(id)
   if (!user) {
     return logout(request)
   }
@@ -62,14 +62,16 @@ type ActionData = {
   }
 }
 
-export let action: ActionFunction = async ({ request }) => {
-  let user = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+export const action: ActionFunction = async ({ request }) => {
+  const user = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
 
-  let form = await request.formData()
-  let name = form.get('name')
-  let phoneNumber = form.get('phoneNumber')
-  let instagram = form.get('instagram')
-  let telegram = form.get('telegram')
+  const form = await request.formData()
+  const name = form.get('name')
+  const phoneNumber = form.get('phoneNumber')
+  const instagram = form.get('instagram')
+  const telegram = form.get('telegram')
   // TODO: Use `zod` instead
   if (
     typeof name !== 'string' ||
@@ -80,11 +82,11 @@ export let action: ActionFunction = async ({ request }) => {
     return { formError: 'Form not submitted correctly.' }
   }
 
-  let fieldErrors = {
+  const fieldErrors = {
     name: validateRequired('Nama Lengkap', name),
     phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
   }
-  let fields = { name, phoneNumber, instagram, telegram }
+  const fields = { name, phoneNumber, instagram, telegram }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
@@ -118,9 +120,9 @@ function classNames(...classes: string[]) {
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  let { user } = useLoaderData<{ user: User }>()
-  let actionData = useActionData<ActionData>()
-  let { state } = useTransition()
+  const { user } = useLoaderData<{ user: User }>()
+  const actionData = useActionData<ActionData>()
+  const { state } = useTransition()
 
   return (
     <>

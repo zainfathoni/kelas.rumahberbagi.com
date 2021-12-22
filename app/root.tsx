@@ -15,7 +15,7 @@ import { Header } from '~/components/header'
 import { Footer } from './components/footer'
 
 // https://remix.run/api/app#links
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: styles },
     { rel: 'icon', href: '/rumah-berbagi.jpeg' },
@@ -56,7 +56,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 
 // https://remix.run/docs/en/v1/api/conventions#catchboundary
 export function CatchBoundary() {
-  let caught = useCatch()
+  const caught = useCatch()
 
   let message
   switch (caught.status) {

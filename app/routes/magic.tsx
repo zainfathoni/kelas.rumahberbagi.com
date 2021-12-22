@@ -1,8 +1,7 @@
-import { LoaderFunction, ActionFunction, json } from 'remix'
+import type { LoaderFunction } from 'remix'
 import { auth } from '~/services/auth.server'
-import { sessionStorage } from '~/services/session.server'
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   await auth.authenticate('kcd', request, {
     // If the user was authenticated, we redirect them to their profile page
     // This redirect is optional, if not defined the user will be returnted by

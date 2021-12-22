@@ -1,7 +1,7 @@
 import { createCookieSessionStorage, redirect } from 'remix'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
-export let sessionStorage = createCookieSessionStorage({
+export const sessionStorage = createCookieSessionStorage({
   cookie: {
     name: '_session',
     sameSite: 'lax',
@@ -22,9 +22,9 @@ export function getUserSession(request: Request) {
 }
 
 export async function logout(request: Request) {
-  let session = await getUserSession(request)
-  let form = await request.formData()
-  let redirectTo = form.get('redirectTo') ?? '/'
+  const session = await getUserSession(request)
+  const form = await request.formData()
+  const redirectTo = form.get('redirectTo') ?? '/'
   if (typeof redirectTo !== 'string') {
     return { formError: `Form not submitted correctly.` }
   }
@@ -35,4 +35,4 @@ export async function logout(request: Request) {
   })
 }
 
-export let { getSession, commitSession, destroySession } = sessionStorage
+export const { getSession, commitSession, destroySession } = sessionStorage

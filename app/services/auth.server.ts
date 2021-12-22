@@ -9,9 +9,9 @@ import { getRequiredServerEnvVar } from '~/utils/misc'
 // This secret is used to encrypt the token sent in the magic link and the
 // session used to validate someone else is not trying to sign-in as another
 // user.
-let secret = getRequiredServerEnvVar('MAGIC_LINK_SECRET')
+const secret = getRequiredServerEnvVar('MAGIC_LINK_SECRET')
 
-export let auth = new Authenticator<User>(sessionStorage)
+export const auth = new Authenticator<User>(sessionStorage)
 
 // Here we need the sendEmail, the secret and the URL where the user is sent
 // after clicking on the magic link

@@ -3,9 +3,9 @@ import { renderToString } from 'react-dom/server'
 import type { KCDSendEmailFunction } from 'remix-auth'
 import * as emailProvider from '~/services/email-provider.server'
 
-export let sendEmail: KCDSendEmailFunction<User> = async (options) => {
-  let subject = 'Link login untuk Kelas Rumah Berbagi'
-  let body = renderToString(
+export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
+  const subject = 'Link login untuk Kelas Rumah Berbagi'
+  const body = renderToString(
     <p>
       Halo {options.user?.name || 'pengguna baru'},<br />
       <br />

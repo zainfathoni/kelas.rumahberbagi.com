@@ -21,6 +21,8 @@ type InputProps = (
   | JSX.IntrinsicElements['input']
 ) & {
   status?: InputStatus
+  type?: 'textarea'
+  className?: string
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -89,6 +91,7 @@ export const Field = React.forwardRef<
     error?: string
     validator?: Validator
     description?: React.ReactNode
+    id?: string
   } & InputProps
 >(function Field(
   {
@@ -161,9 +164,7 @@ export const Field = React.forwardRef<
         aria-describedby={
           errorMessage ? errorId : description ? descriptionId : undefined
         }
-        aria-invalid={
-          Boolean(errorMessage) ? true : Boolean(error) ? true : undefined
-        }
+        aria-invalid={errorMessage ? true : error ? true : undefined}
       />
       {status === 'error' ? (
         <InputError id={errorId}>{errorMessage}</InputError>
