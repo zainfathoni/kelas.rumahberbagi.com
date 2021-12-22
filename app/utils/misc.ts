@@ -7,6 +7,8 @@ function getRequiredEnvVarFromObj(
   const envVal = obj[key]
   if (envVal) {
     value = envVal
+  } else if (obj.RUNNING_E2E === 'true') {
+    value = `${key}-e2e-value`
   } else if (obj.NODE_ENV === 'production') {
     throw new Error(`${key} is a required env variable`)
   }
