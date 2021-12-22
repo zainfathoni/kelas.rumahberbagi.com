@@ -65,7 +65,10 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Type check
+      - name: Build CSS assets from Tailwind CSS
+        run: npm run build:css
+
+      - name: Lint files
         run: npm run lint
         env:
           CI: true
