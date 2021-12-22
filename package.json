@@ -22,7 +22,7 @@
     "prestart": "npm run build",
     "postinstall": "remix setup node",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test",
-    "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start http-get://localhost:3000/ test",
+    "test:e2e:run": "cross-env RUNNING_E2E=true start-server-and-test start:e2e http-get://localhost:3000/ test",
     "type-check": "tsc --noEmit",
     "setup": "npm install && prisma migrate reset --force && npm run test:e2e:run",
     "deploy": "flyctl deploy"
