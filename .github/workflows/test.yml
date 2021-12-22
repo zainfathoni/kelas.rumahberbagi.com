@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Restore NPM cache
         uses: actions/cache@v2
@@ -41,6 +41,38 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-i
 
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    needs: cache-npm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Restore NPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-i
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build CSS assets from Tailwind CSS
+        run: npm run build:css
+
+      - name: Lint files
+        run: npm run lint
+        env:
+          CI: true
+
   type-check:
     name: Type check
     runs-on: ubuntu-latest
@@ -48,11 +80,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Restore NPM cache
         uses: actions/cache@v2
@@ -72,6 +104,7 @@ jobs:
 
   test:
     name: End-to-end test
+    if: github.repository == 'zainfathoni/kelas.rumahberbagi.com'
     runs-on: ubuntu-latest
     needs: cache-npm
     steps:
@@ -81,13 +114,13 @@ jobs:
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Restore NPM cache
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-node-i
 
@@ -102,7 +135,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-playwright-i
 
@@ -115,7 +148,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-playwright-i
 

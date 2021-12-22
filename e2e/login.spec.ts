@@ -24,5 +24,7 @@ test('Login', async ({ page, queries: { getByRole } }) => {
   ])
 
   // Click text=✨ Link telah dikirim ke alamat email Anda ✨
-  await expect(page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()).toBeVisible()
+  await expect(
+    page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
+  ).toBeVisible()
 })

@@ -3,17 +3,22 @@ import { renderToString } from 'react-dom/server'
 import type { KCDSendEmailFunction } from 'remix-auth'
 import * as emailProvider from '~/services/email-provider.server'
 
-export let sendEmail: KCDSendEmailFunction<User> = async (options) => {
-  let subject = 'Link login untuk Kelas Rumah Berbagi'
-  let body = renderToString(
+export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
+  const subject = 'Link login untuk Kelas Rumah Berbagi'
+  const body = renderToString(
     <p>
       Halo {options.user?.name || 'pengguna baru'},<br />
       <br />
-      <a href={options.magicLink}>Klik di sini untuk masuk ke kelas.rumahberbagi.com</a>
+      <a href={options.magicLink}>
+        Klik di sini untuk masuk ke kelas.rumahberbagi.com
+      </a>
     </p>
   )
 
-  if (process.env.RUNNING_E2E === 'true' || process.env.NODE_ENV === 'development') {
+  if (
+    process.env.RUNNING_E2E === 'true' ||
+    process.env.NODE_ENV === 'development'
+  ) {
     // TODO: Mock the HTTP transport layer properly by using MSW
     console.log(options.magicLink)
   } else {

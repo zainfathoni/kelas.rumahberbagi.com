@@ -29,13 +29,16 @@ export async function sendEmail({ to, from, subject, html }: MailgunMessage) {
     html,
   })
 
-  const response = await fetch(`https://api.mailgun.net/v3/${mailgunDomain}/messages`, {
-    method: 'post',
-    body,
-    headers: {
-      Authorization: `Basic ${auth}`,
-    },
-  })
+  const response = await fetch(
+    `https://api.mailgun.net/v3/${mailgunDomain}/messages`,
+    {
+      method: 'post',
+      body,
+      headers: {
+        Authorization: `Basic ${auth}`,
+      },
+    }
+  )
 
   return response
 }

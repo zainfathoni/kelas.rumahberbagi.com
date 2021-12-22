@@ -1,17 +1,22 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import type { Validator } from '~/utils/validators'
 import { useId } from '@reach/auto-id'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import type { Validator } from '~/utils/validators'
 import { validateRequired } from '~/utils/validators'
 
 export type InputStatus = 'default' | 'error'
 
-function Label({ className, ...labelProps }: JSX.IntrinsicElements['label']) {
+function Label({
+  className,
+  htmlFor,
+  ...labelProps
+}: JSX.IntrinsicElements['label']) {
   return (
     <label
       {...labelProps}
       className={clsx('block text-sm font-medium text-gray-700', className)}
+      htmlFor={htmlFor}
     />
   )
 }
@@ -21,6 +26,8 @@ type InputProps = (
   | JSX.IntrinsicElements['input']
 ) & {
   status?: InputStatus
+  type?: 'textarea'
+  className?: string
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -89,6 +96,7 @@ export const Field = React.forwardRef<
     error?: string
     validator?: Validator
     description?: React.ReactNode
+    id?: string
   } & InputProps
 >(function Field(
   {
@@ -161,9 +169,7 @@ export const Field = React.forwardRef<
         aria-describedby={
           errorMessage ? errorId : description ? descriptionId : undefined
         }
-        aria-invalid={
-          Boolean(errorMessage) ? true : Boolean(error) ? true : undefined
-        }
+        aria-invalid={errorMessage ? true : error ? true : undefined}
       />
       {status === 'error' ? (
         <InputError id={errorId}>{errorMessage}</InputError>

@@ -15,8 +15,15 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 import type { User } from '@prisma/client'
-import { ActionFunction, LoaderFunction, redirect, useActionData, useTransition } from 'remix'
-import { Form, json, useLoaderData } from 'remix'
+import type { ActionFunction, LoaderFunction } from 'remix'
+import {
+  redirect,
+  useActionData,
+  useTransition,
+  Form,
+  json,
+  useLoaderData,
+} from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { Button, Field } from '~/components/form-elements'
@@ -25,13 +32,15 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
   // the login page.
-  let { id } = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+  const { id } = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
 
   // Get the user data from the database.
-  let user = await getUser(id)
+  const user = await getUser(id)
   if (!user) {
     return logout(request)
   }
@@ -54,14 +63,16 @@ type ActionData = {
   }
 }
 
-export let action: ActionFunction = async ({ request }) => {
-  let user = await auth.isAuthenticated(request, { failureRedirect: '/login' })
+export const action: ActionFunction = async ({ request }) => {
+  const user = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
 
-  let form = await request.formData()
-  let name = form.get('name')
-  let phoneNumber = form.get('phoneNumber')
-  let instagram = form.get('instagram')
-  let telegram = form.get('telegram')
+  const form = await request.formData()
+  const name = form.get('name')
+  const phoneNumber = form.get('phoneNumber')
+  const instagram = form.get('instagram')
+  const telegram = form.get('telegram')
   // TODO: Use `zod` instead
   if (
     typeof name !== 'string' ||
@@ -72,11 +83,11 @@ export let action: ActionFunction = async ({ request }) => {
     return { formError: 'Form not submitted correctly.' }
   }
 
-  let fieldErrors = {
+  const fieldErrors = {
     name: validateRequired('Nama Lengkap', name),
     phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
   }
-  let fields = { name, phoneNumber, instagram, telegram }
+  const fields = { name, phoneNumber, instagram, telegram }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
@@ -110,15 +121,19 @@ function classNames(...classes: string[]) {
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  let { user } = useLoaderData<{ user: User }>()
-  let actionData = useActionData<ActionData>()
-  let { state } = useTransition()
+  const { user } = useLoaderData<{ user: User }>()
+  const actionData = useActionData<ActionData>()
+  const { state } = useTransition()
 
   return (
     <>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
-          <Dialog as="div" className="fixed inset-0 z-40 flex md:hidden" onClose={setSidebarOpen}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 z-40 flex md:hidden"
+            onClose={setSidebarOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -155,7 +170,10 @@ export default function Dashboard() {
                       className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:bg-gray-600"
                       onClick={() => setSidebarOpen(false)}
                     >
-                      <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      <XIcon
+                        className="h-6 w-6 text-white"
+                        aria-hidden="true"
+                      />
                       <span className="sr-only">Close sidebar</span>
                     </button>
                   </div>
@@ -178,7 +196,9 @@ export default function Dashboard() {
                         >
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-purple-500' : 'text-gray-400 group-hover:text-gray-500',
+                              item.current
+                                ? 'text-purple-500'
+                                : 'text-gray-400 group-hover:text-gray-500',
                               'mr-4 flex-shrink-0 h-6 w-6'
                             )}
                             aria-hidden="true"
@@ -231,7 +251,9 @@ export default function Dashboard() {
                   >
                     <item.icon
                       className={classNames(
-                        item.current ? 'text-purple-500' : 'text-gray-400 group-hover:text-gray-500',
+                        item.current
+                          ? 'text-purple-500'
+                          : 'text-gray-400 group-hover:text-gray-500',
                         'mr-3 flex-shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"
@@ -247,7 +269,10 @@ export default function Dashboard() {
                   type="submit"
                   className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  <LogoutIcon className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" aria-hidden="true" />
+                  <LogoutIcon
+                    className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
+                    aria-hidden="true"
+                  />
                   Keluar
                 </button>
               </Form>
@@ -278,7 +303,10 @@ export default function Dashboard() {
                     </label>
                     <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                        <SearchIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
+                        <SearchIcon
+                          className="flex-shrink-0 h-5 w-5"
+                          aria-hidden="true"
+                        />
                       </div>
                       <input
                         name="mobile-search-field"
@@ -313,7 +341,9 @@ export default function Dashboard() {
               <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
                 <div className="pt-10 pb-16">
                   <div className="px-4 sm:px-6 md:px-0">
-                    <h1 className="text-3xl font-extrabold text-gray-900">Settings</h1>
+                    <h1 className="text-3xl font-extrabold text-gray-900">
+                      Settings
+                    </h1>
                   </div>
                   <div className="px-4 sm:px-6 md:px-0">
                     <div className="py-6">
@@ -360,8 +390,12 @@ export default function Dashboard() {
                       <div className="md:grid md:grid-cols-3 md:gap-6">
                         <div className="md:col-span-1">
                           <div className="px-4 sm:px-0">
-                            <h3 className="text-lg font-medium leading-6 text-gray-900">Data Diri</h3>
-                            <p className="mt-1 text-sm text-gray-600">Untuk keperluan proses administrasi akun Anda.</p>
+                            <h3 className="text-lg font-medium leading-6 text-gray-900">
+                              Data Diri
+                            </h3>
+                            <p className="mt-1 text-sm text-gray-600">
+                              Untuk keperluan proses administrasi akun Anda.
+                            </p>
                           </div>
                         </div>
                         <div className="mt-5 md:mt-0 md:col-span-2">
@@ -394,7 +428,11 @@ export default function Dashboard() {
                                     name="phoneNumber"
                                     label="Nomor WhatsApp"
                                     placeholder="+6281234567890"
-                                    defaultValue={actionData?.fields?.phoneNumber ?? user.phoneNumber ?? ''}
+                                    defaultValue={
+                                      actionData?.fields?.phoneNumber ??
+                                      user.phoneNumber ??
+                                      ''
+                                    }
                                     error={actionData?.fieldErrors?.phoneNumber}
                                     validator={validatePhoneNumber}
                                     required
@@ -419,7 +457,11 @@ export default function Dashboard() {
                                 </div>
                               </div>
                               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <Button type="submit" disabled={state === 'submitting'} className="inline-flex">
+                                <Button
+                                  type="submit"
+                                  disabled={state === 'submitting'}
+                                  className="inline-flex"
+                                >
                                   Simpan
                                 </Button>
                               </div>

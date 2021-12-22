@@ -1,7 +1,7 @@
 function getRequiredEnvVarFromObj(
   obj: Record<string, string | undefined>,
   key: string,
-  devValue: string = `${key}-dev-value`
+  devValue = `${key}-dev-value`
 ) {
   let value = devValue
   const envVal = obj[key]
