@@ -19,9 +19,10 @@
     "start": "remix-serve build",
     "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db npm start",
     "test": "playwright test",
-    "pretest:e2e:run": "npm run build",
+    "prestart": "npm run build",
     "postinstall": "remix setup node",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test",
+    "test:e2e:local": "cross-env RUNNING_E2E=true start-server-and-test start:e2e http-get://localhost:3000/ test",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start http-get://localhost:3000/ test",
     "type-check": "tsc --noEmit",
     "deploy": "flyctl deploy"
