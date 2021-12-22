@@ -7,11 +7,16 @@ import { validateRequired } from '~/utils/validators'
 
 export type InputStatus = 'default' | 'error'
 
-function Label({ className, ...labelProps }: JSX.IntrinsicElements['label']) {
+function Label({
+  className,
+  htmlFor,
+  ...labelProps
+}: JSX.IntrinsicElements['label']) {
   return (
     <label
       {...labelProps}
       className={clsx('block text-sm font-medium text-gray-700', className)}
+      htmlFor={htmlFor}
     />
   )
 }
