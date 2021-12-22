@@ -35,6 +35,7 @@ Run this command to perform the initial setup while making sure that the app can
 npm run setup
 ```
 
+
 Finally, run the development server to start developing.
 
 ```sh
@@ -68,9 +69,11 @@ If you want, you can also manually run those commands above.
 - [Tailwind UI](https://tailwindui.com/)
 - [Testing Playground](https://testing-playground.com/)
 
-#### Editor
+#### Code Editor
 
 If you're using Visual Studio Code, you can install the recommended extensions for this project by [using `@recommended` filter](https://code.visualstudio.com/docs/editor/extension-marketplace#_extensions-view-filters).
+
+![Recommended VS Code Extensions](https://user-images.githubusercontent.com/6315466/147128206-3b1acdaa-213f-4e2b-a0a3-4b8c63bc881d.png)
 
 ### Documentation
 
