@@ -22,22 +22,22 @@ or if you're cloning using SSH.
 git clone git@github.com:zainfathoni/kelas.rumahberbagi.com.git
 ```
 
-Then, install dependencies and fetch data to your local machine.
+Then go to the directory and copy the example environment variables into an ignored `.env` file
 
 ```sh
 cd kelas.rumahberbagi.com
-npm install
-```
-
-Copy the example environment variables into an ignored `.env` file
-
-```sh
 cp .env.example .env
 ```
 
-Finally, run the development server.
+Run this command to perform the initial setup while making sure that the app can run properly in your local.
 
-```bash
+```sh
+npm run setup
+```
+
+Finally, run the development server to start developing.
+
+```sh
 npm run dev
 ```
 
@@ -46,7 +46,19 @@ This starts your app in development mode, rebuilding assets on file changes.
 
 ### Testing
 
-TBD
+Run this command to start the end-to-end testing locally.
+
+```sh
+npm run test:e2e:run
+```
+
+Here's what that script does (along with the corresponding NPM commands):
+
+1. It builds the app (`npm run build`)
+2. It starts the server using the test database (`npm run start:e2e`)
+3. After <http://localhost:3000/> is available, it starts testing (`npm t` a.k.a. `npm test` a.k.a. `npm run test`)
+
+If you want, you can also manually run those commands above.
 
 ## Tools & References
 
