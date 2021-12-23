@@ -1,0 +1,31 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "zainfathoni",
+      "name": "Zain Fathoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6315466?v=4",
+      "profile": "https://zainf.dev",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "maintenance",
+        "tool",
+        "test",
+        "projectManagement",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "kelas.rumahberbagi.com",
+  "projectOwner": "zainfathoni",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
