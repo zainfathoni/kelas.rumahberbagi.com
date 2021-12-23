@@ -6,8 +6,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Build Status][build-badge]][build]
-[![MIT License][license-badge]][license]
+[![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
 
 Online course platform for Rumah Berbagi.
 
@@ -29,14 +28,16 @@ or if you're cloning using SSH.
 git clone git@github.com:zainfathoni/kelas.rumahberbagi.com.git
 ```
 
-Then go to the directory and copy the example environment variables into an ignored `.env` file
+Then go to the directory and copy the example environment variables into an
+ignored `.env` file
 
 ```sh
 cd kelas.rumahberbagi.com
 cp .env.example .env
 ```
 
-Run this command to perform the initial setup while making sure that the app can run properly in your local.
+Run this command to perform the initial setup while making sure that the app can
+run properly in your local.
 
 ```sh
 npm run setup
@@ -48,8 +49,8 @@ Finally, run the development server to start developing.
 npm run dev
 ```
 
-Open <http://localhost:3000> with your browser to see the result.
-This starts your app in development mode, rebuilding assets on file changes.
+Open <http://localhost:3000> with your browser to see the result. This starts
+your app in development mode, rebuilding assets on file changes.
 
 ### Testing
 
@@ -63,7 +64,8 @@ Here's what that script does (along with the corresponding NPM commands):
 
 1. It builds the app (`npm run build`)
 2. It starts the server using the test database (`npm run start:e2e`)
-3. After <http://localhost:3000/> is available, it starts testing (`npm t` a.k.a. `npm test` a.k.a. `npm run test`)
+3. After <http://localhost:3000/> is available, it starts testing (`npm t`
+   a.k.a. `npm test` a.k.a. `npm run test`)
 
 If you want, you can also manually run those commands above.
 
@@ -77,7 +79,9 @@ If you want, you can also manually run those commands above.
 
 #### Code Editor
 
-If you're using Visual Studio Code, you can install the recommended extensions for this project by [using `@recommended` filter](https://code.visualstudio.com/docs/editor/extension-marketplace#_extensions-view-filters).
+If you're using Visual Studio Code, you can install the recommended extensions
+for this project by
+[using `@recommended` filter](https://code.visualstudio.com/docs/editor/extension-marketplace#_extensions-view-filters).
 
 ![Recommended VS Code Extensions](https://user-images.githubusercontent.com/6315466/147128206-3b1acdaa-213f-4e2b-a0a3-4b8c63bc881d.png)
 
@@ -90,15 +94,18 @@ If you're using Visual Studio Code, you can install the recommended extensions f
 
 ### Prisma commands
 
-Learn more about this [Prisma schema file](prisma/schema.prisma) in the docs: <https://pris.ly/d/prisma-schema>
+Learn more about this [Prisma schema file](prisma/schema.prisma) in the docs:
+<https://pris.ly/d/prisma-schema>
 
 Commands to know:
 
 - `npx prisma generate` - update TypeScript definitions based on this schema
 - `npx prisma db push` - push the schema changes to the database
 - `npx prisma studio` - open the Studio, which allows you to edit the schema.
-- `npx prisma migrate reset` - reset the migrations to the last version. This will reset the DB and run the seed script
-- `npx prisma migrate dev --name <descriptive-name>` - generate a migration file for any changes you make to the schema (this will be committed).
+- `npx prisma migrate reset` - reset the migrations to the last version. This
+  will reset the DB and run the seed script
+- `npx prisma migrate dev --name <descriptive-name>` - generate a migration file
+  for any changes you make to the schema (this will be committed).
 
 ### Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️
 
@@ -110,7 +117,8 @@ Commands to know:
    flyctl auth signup
    ```
 
-3. Setup Fly. It might ask if you want to deploy, say no since you haven't built the app yet.
+3. Setup Fly. It might ask if you want to deploy, say no since you haven't built
+   the app yet.
 
    ```sh
    flyctl launch
@@ -118,7 +126,8 @@ Commands to know:
 
 ### Deployment
 
-If you've followed the setup instructions already, all you need to do is run this:
+If you've followed the setup instructions already, all you need to do is run
+this:
 
 ```sh
 npm run deploy
@@ -126,7 +135,8 @@ npm run deploy
 
 You can run `flyctl info` to get the url and ip address of your server.
 
-Check out the [fly docs](https://fly.io/docs/getting-started/node/) for more information.
+Check out the [fly docs](https://fly.io/docs/getting-started/node/) for more
+information.
 
 ## Contributing
 
@@ -135,7 +145,11 @@ See our contribution guidelines in these languages:
 - [English](CONTRIBUTING.md)
 - [Indonesian](CONTRIBUTING_ID.md)
 
-When contributing to our project, please use English when communicating with other people in issues and/or pull requests. [Click here](CONTRIBUTING.md#why-are-we-using-english-in-our-issues--prs) to read why. ([Bahasa Indonesia](CONTRIBUTING_ID.md#mengapa-kita-menggunakan-bahasa-inggris-dalam-menulis-issue-dan-pull-request))
+When contributing to our project, please use English when communicating with
+other people in issues and/or pull requests.
+[Click here](CONTRIBUTING.md#why-are-we-using-english-in-our-issues--prs) to
+read why.
+([Bahasa Indonesia](CONTRIBUTING_ID.md#mengapa-kita-menggunakan-bahasa-inggris-dalam-menulis-issue-dan-pull-request))
 
 <!-- prettier-ignore-start -->
 
@@ -148,7 +162,8 @@ When contributing to our project, please use English when communicating with oth
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people
+([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -164,4 +179,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!

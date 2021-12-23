@@ -25,7 +25,8 @@ labels: enhancement
 
 <!-- Scenario title -->
 
-- **Given** <!-- the initial context at the beginning of the scenario, in one or more clauses -->
+- **Given**
+  <!-- the initial context at the beginning of the scenario, in one or more clauses -->
 - **when** <!-- the event that triggers the scenario -->
 - **then** <!-- the expected outcome, in one or more clauses -->
 
