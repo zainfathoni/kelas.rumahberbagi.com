@@ -9,7 +9,7 @@ test.use({
 
 test('Dashboard', async ({ page, noscript, queries: { getByRole } }) => {
   // Go to http://localhost:3000/dashboard
-  await page.goto('http://localhost:3000/dashboard')
+  await page.goto('/dashboard')
 
   // Query phoneNumber
   const phoneNumber = await getByRole('textbox', {
