@@ -7,7 +7,7 @@ test.use({
 
 test('Logout', async ({ page, isMobile, queries: { getByRole } }) => {
   // Go to http://localhost:3000/dashboard
-  await page.goto('http://localhost:3000/dashboard')
+  await page.goto('/dashboard')
 
   if (isMobile) {
     const openSidebar = await getByRole('button', {

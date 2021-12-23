@@ -3,7 +3,7 @@ import { test } from './base-test'
 
 test('Login', async ({ page, queries: { getByRole } }) => {
   // Go to http://localhost:3000/
-  await page.goto('http://localhost:3000/')
+  await page.goto('/')
 
   // Click text=Masuk
   await page.click('text=Masuk')

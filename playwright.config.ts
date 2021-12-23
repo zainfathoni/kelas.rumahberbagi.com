@@ -6,6 +6,7 @@ const config: PlaywrightTestConfig<Fixtures> = {
   retries: process.env.CI ? 2 : 0,
   use: {
     trace: 'on-first-retry',
+    baseURL: 'http://localhost:3000',
   },
   projects: [
     // "Pixel 4" tests use Chromium browser.
