@@ -120,7 +120,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
+          key:
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{
+            hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-node-i
 
@@ -135,7 +137,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
+          key:
+            ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json')
+            }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-playwright-i
 
@@ -148,7 +152,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
+          key:
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{
+            hashFiles('**/playwright.config.ts') }}
           restore-keys: |
             ${{ runner.os }}-playwright-i
 
