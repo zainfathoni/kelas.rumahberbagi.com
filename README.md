@@ -2,7 +2,7 @@
 
 Online course platform for Rumah Berbagi.
 
-![CI][ci-badge]
+[![Build Status][build-badge]][build]
 
 ## Getting started
 
@@ -34,7 +34,6 @@ Run this command to perform the initial setup while making sure that the app can
 ```sh
 npm run setup
 ```
-
 
 Finally, run the development server to start developing.
 
@@ -133,6 +132,7 @@ When contributing to our project, please use English when communicating with oth
 
 <!-- prettier-ignore-start -->
 
-[ci-badge]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions/workflows/test.yml/badge.svg
+[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
+[build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
 
 <!-- prettier-ignore-end -->
