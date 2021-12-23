@@ -3,6 +3,7 @@
 Online course platform for Rumah Berbagi.
 
 [![Build Status][build-badge]][build]
+[![MIT License][license-badge]][license]
 
 ## Getting started
 
@@ -132,7 +133,9 @@ When contributing to our project, please use English when communicating with oth
 
 <!-- prettier-ignore-start -->
 
-[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
+[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github
 [build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
+[license-badge]: https://img.shields.io/badge/license-MIT-blue
+[license]: LICENSE
 
 <!-- prettier-ignore-end -->
