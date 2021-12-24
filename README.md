@@ -20,6 +20,7 @@
 Online course platform for Rumah Berbagi.
 
 - [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
+  - [What this project is about](#what-this-project-is-about)
   - [Getting started](#getting-started)
     - [Development](#development)
     - [Testing](#testing)
@@ -34,6 +35,11 @@ Online course platform for Rumah Berbagi.
   - [Contributing](#contributing)
     - [Important links](#important-links)
   - [Contributors ✨](#contributors-)
+
+## What this project is about
+
+- [English](docs/index.md)
+- [Indonesian](https://rbagi.id/gh/22)
 
 ## Getting started
 
