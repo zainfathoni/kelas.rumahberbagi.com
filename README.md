@@ -19,6 +19,22 @@
 
 Online course platform for Rumah Berbagi.
 
+- [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
+  - [Getting started](#getting-started)
+    - [Development](#development)
+    - [Testing](#testing)
+  - [Tools & References](#tools--references)
+    - [Tools](#tools)
+      - [Code Editor](#code-editor)
+    - [Documentation](#documentation)
+  - [Frequently Used Commands](#frequently-used-commands)
+    - [Prisma commands](#prisma-commands)
+    - [Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️](#fly-setup-️-warning-the-deployment-setup-is-untested-yet-️)
+    - [Deployment](#deployment)
+  - [Contributing](#contributing)
+    - [Important links](#important-links)
+  - [Contributors ✨](#contributors-)
+
 ## Getting started
 
 ### Development
