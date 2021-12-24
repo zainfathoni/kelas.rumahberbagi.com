@@ -2,6 +2,7 @@
 
 - [Berkontribusi ke Kelas Rumah Berbagi](#berkontribusi-ke-kelas-rumah-berbagi)
   - [Cara berkontribusi](#cara-berkontribusi)
+    - [Gambaran umum proyek](#gambaran-umum-proyek)
     - [Menemukan atau membuat _issues_](#menemukan-atau-membuat-issues)
       - [_Open Issues_](#open-issues)
       - [_Closed Issues_](#closed-issues)
@@ -29,6 +30,11 @@
 Dalam proyek ini, kita memaksimalkan penggunaan fitur-fitur GitHub untuk
 mendokumentasikan dan memberikan sinyal terhadap kemajuan apapun dalam
 pengerjaan website ini.
+
+### Gambaran umum proyek
+
+Untuk melihat visualisasi gambaran umum status proyek, silakan kunjungi
+[rbagi.id/github-project](https://rbagi.id/github-project).
 
 ### Menemukan atau membuat _issues_
 
