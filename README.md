@@ -178,10 +178,15 @@ read why.
 
 ### Important links
 
-| Description      | Link                                                       |
-| ---------------- | ---------------------------------------------------------- |
-| Project overview | [rbagi.id/github-project](https://rbagi.id/github-project) |
-| Issue shortlink  | [rbagi.id/gh/:issue-id](https://rbagi.id/gh)               |
+<!-- markdownlint-disable line-length -->
+
+| Description                  | Link                                                       |
+| ---------------------------- | ---------------------------------------------------------- |
+| Project overview             | [rbagi.id/github-project](https://rbagi.id/github-project) |
+| Issue shortlink              | [rbagi.id/gh/:issue-id](https://rbagi.id/gh)               |
+| First-time contributors link | [rbagi.id/contribute](https://rbagi.id/contribute)         |
+
+<!-- markdownlint-restore -->
 
 ## Contributors ✨
 
