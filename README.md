@@ -8,7 +8,32 @@
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
 
+<!-- prettier-ignore-start -->
+
+[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
+[build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
+[license-badge]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
+[license]: LICENSE
+
+<!-- prettier-ignore-end -->
+
 Online course platform for Rumah Berbagi.
+
+- [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
+  - [Getting started](#getting-started)
+    - [Development](#development)
+    - [Testing](#testing)
+  - [Tools & References](#tools--references)
+    - [Tools](#tools)
+      - [Code Editor](#code-editor)
+    - [Documentation](#documentation)
+  - [Frequently Used Commands](#frequently-used-commands)
+    - [Prisma commands](#prisma-commands)
+    - [Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️](#fly-setup-️-warning-the-deployment-setup-is-untested-yet-️)
+    - [Deployment](#deployment)
+  - [Contributing](#contributing)
+    - [Important links](#important-links)
+  - [Contributors ✨](#contributors-)
 
 ## Getting started
 
@@ -151,14 +176,12 @@ other people in issues and/or pull requests.
 read why.
 ([Bahasa Indonesia](CONTRIBUTING_ID.md#mengapa-kita-menggunakan-bahasa-inggris-dalam-menulis-issue-dan-pull-request))
 
-<!-- prettier-ignore-start -->
+### Important links
 
-[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
-[build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
-[license-badge]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
-[license]: LICENSE
-
-<!-- prettier-ignore-end -->
+| Description      | Link                                                       |
+| ---------------- | ---------------------------------------------------------- |
+| Project overview | [rbagi.id/github-project](https://rbagi.id/github-project) |
+| Issue shortlink  | [rbagi.id/gh/:issue-id](https://rbagi.id/gh)               |
 
 ## Contributors ✨
 

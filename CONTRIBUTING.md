@@ -2,6 +2,7 @@
 
 - [Contributing to Kelas Rumah Berbagi](#contributing-to-kelas-rumah-berbagi)
   - [How to contribute](#how-to-contribute)
+    - [Project overview](#project-overview)
     - [Finding or creating issues](#finding-or-creating-issues)
       - [Open Issues](#open-issues)
       - [Closed Issues](#closed-issues)
@@ -28,6 +29,11 @@
 
 In this project, we are heavily utilising GitHub features to document and signal
 any progress in the website development.
+
+### Project overview
+
+To visualize the overview state of the project, you can visit
+[rbagi.id/github-project](https://rbagi.id/github-project).
 
 ### Finding or creating issues
 
