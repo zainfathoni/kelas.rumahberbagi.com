@@ -151,6 +151,13 @@ other people in issues and/or pull requests.
 read why.
 ([Bahasa Indonesia](CONTRIBUTING_ID.md#mengapa-kita-menggunakan-bahasa-inggris-dalam-menulis-issue-dan-pull-request))
 
+### Important links
+
+| Description      | Link                                                       |
+| ---------------- | ---------------------------------------------------------- |
+| Project overview | [rbagi.id/github-project](https://rbagi.id/github-project) |
+| Issue shortlink  | [rbagi.id/gh/:issue-id](https://rbagi.id/gh)               |
+
 <!-- prettier-ignore-start -->
 
 [build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
