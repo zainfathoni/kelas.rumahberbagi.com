@@ -1,0 +1,65 @@
+@startuml "Entity Relationship Diagram"
+title Entity Relationship Diagram
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as user {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *email : text <<unique>>
+  name : text
+  phoneNumber : text
+  telegram: text
+  instagram: text
+  *role: text
+}
+
+entity "Course" as course {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *authorId : text <<FK>>
+  *name: text
+  *description: text
+  *price: number
+  *image: text
+  *category: text
+}
+
+entity "Subscription" as subscription {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *userId : uuid <<FK>>
+  *courseId: uuid <<FK>>
+  status : text
+}
+
+entity "Transaction" as transaction {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *userId : uuid <<FK>>
+  *subscriptionId : uuid <<FK>>
+  *bankName: text
+  *bankAccountNumber: text
+  *bankAccountName: text
+  *mount : number
+  status : text
+}
+
+user ||..|{ course
+user }|.-o{ subscription
+course ||..o{ subscription
+transaction }o..||subscription
+user ||..o{ transaction
+@enduml

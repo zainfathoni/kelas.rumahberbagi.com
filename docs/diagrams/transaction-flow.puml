@@ -1,4 +1,6 @@
-@startuml "Payment Flow"
+@startuml "Transaction Flow"
+title "Transaction Flow"
+
 collections Banks
 actor User
 actor Author

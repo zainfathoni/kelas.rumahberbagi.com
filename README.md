@@ -20,14 +20,14 @@
 Online course platform for Rumah Berbagi.
 
 - [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
-  - [What this project is about](#what-this-project-is-about)
+  - [Documentation](#documentation)
   - [Getting started](#getting-started)
     - [Development](#development)
     - [Testing](#testing)
   - [Tools & References](#tools--references)
     - [Tools](#tools)
       - [Code Editor](#code-editor)
-    - [Documentation](#documentation)
+    - [References](#references)
   - [Frequently Used Commands](#frequently-used-commands)
     - [Prisma commands](#prisma-commands)
     - [Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️](#fly-setup-️-warning-the-deployment-setup-is-untested-yet-️)
@@ -36,10 +36,10 @@ Online course platform for Rumah Berbagi.
     - [Important links](#important-links)
   - [Contributors ✨](#contributors-)
 
-## What this project is about
+## Documentation
 
-- [English](docs/index.md)
-- [Indonesian](https://rbagi.id/gh/22)
+- [Main Docs](docs/index.md)
+- [Hackathon Announcement](https://rbagi.id/gh/22)
 
 ## Getting started
 
@@ -116,7 +116,7 @@ for this project by
 
 ![Recommended VS Code Extensions](https://user-images.githubusercontent.com/6315466/147128206-3b1acdaa-213f-4e2b-a0a3-4b8c63bc881d.png)
 
-### Documentation
+### References
 
 - [Remix Docs](https://remix.run/docs)
 - [Tailwind CSS](https://tailwindcss.com/)

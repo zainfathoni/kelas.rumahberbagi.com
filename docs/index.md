@@ -1,7 +1,7 @@
 # Kelas Rumah Berbagi Docs
 
 Welcome to Kelas Rumah Berbagi project. This document explains about this
-project's features, [use cases](use-cases.md), tech stack, and application
+project's features, [UML diagrams](diagrams.md), tech stack, and application
 architecture.
 
 ## Purpose
