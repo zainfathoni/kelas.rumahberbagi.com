@@ -8,6 +8,15 @@
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
 
+<!-- prettier-ignore-start -->
+
+[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
+[build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
+[license-badge]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
+[license]: LICENSE
+
+<!-- prettier-ignore-end -->
+
 Online course platform for Rumah Berbagi.
 
 ## Getting started
@@ -157,15 +166,6 @@ read why.
 | ---------------- | ---------------------------------------------------------- |
 | Project overview | [rbagi.id/github-project](https://rbagi.id/github-project) |
 | Issue shortlink  | [rbagi.id/gh/:issue-id](https://rbagi.id/gh)               |
-
-<!-- prettier-ignore-start -->
-
-[build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
-[build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
-[license-badge]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
-[license]: LICENSE
-
-<!-- prettier-ignore-end -->
 
 ## Contributors ✨
 
