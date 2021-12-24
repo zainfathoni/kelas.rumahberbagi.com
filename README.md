@@ -38,6 +38,7 @@ Online course platform for Rumah Berbagi.
 
 ## What this project is about
 
+- [English](docs/index.md)
 - [Indonesian](https://rbagi.id/gh/22)
 
 ## Getting started
