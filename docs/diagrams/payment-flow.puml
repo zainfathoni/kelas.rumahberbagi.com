@@ -1,0 +1,58 @@
+@startuml "Payment Flow"
+collections Banks
+actor User
+actor Author
+boundary Frontend as FE
+control Backend as BE
+database Database as DB
+
+autonumber
+autoactivate on
+
+User -> FE: Purchase Course
+return Instructions
+User -> Banks: Pay
+return Receipt
+User -> FE: Payment Confirmation Form
+return WhatsApp Link
+User -> Author: Contact WhatsApp
+return Reply
+
+autoactivate off
+User -> Author: Upload Receipt
+autoactivate on
+
+Author -> FE: View User Detail
+FE -> BE: Load User Detail
+BE -> DB: Query
+return data
+return data
+return User Detail
+
+Author -> Banks: Verify Payment
+
+autoactivate off
+
+alt Not Confirmed
+  Banks --> Author: Payment Not Received
+  autoactivate on
+  Author -> User: Contact WhatsApp
+  return Reply
+else Confirmed
+  return Payment Received
+  Author -> FE: Approve Payment
+  FE -> BE: Action Approve Payment
+  BE -> DB: Mutate
+  return data
+
+  autoactivate off
+  BE -> User: Notify Email
+  autoactivate on
+
+  return data
+  return Payment Approval
+end
+
+User -> FE: Consume Course
+return Course Content
+@enduml

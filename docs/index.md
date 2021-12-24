@@ -1,7 +1,8 @@
 # Kelas Rumah Berbagi Docs
 
 Welcome to Kelas Rumah Berbagi project. This document explains about this
-project's use cases, architecture, and tech stacks.
+project's features, [use cases](use-cases.md), tech stack, and application
+architecture.
 
 ## Purpose
 
@@ -10,7 +11,7 @@ of content. The initial build includes a simple mechanism of online course
 purchase and access.
 
 We plan to maintain this project for the long term. As guidance in making
-decisions, we hold on to [some values we defined here](./values.md).
+decisions, we hold on to [some values we defined here](values.md).
 
 ## List of Features
 
