@@ -1,28 +1,33 @@
 @startuml "Use Cases"
-
+title Use Cases
 left to right direction
 
 actor User as user
 actor Author as author
 actor Admin as admin
 
-package Platform {
-  usecase Authenticate as auth
+usecase Authenticate as auth
+
+package Course {
   usecase "Create Course" as create
-  usecase "Purchase Course" as purchase
   usecase "Consume Course" as consume
-  usecase "Confirm Purchase" as confirm
+  package Transaction {
+    usecase "Purchase Course" as purchase
+    usecase "Confirm Purchase" as confirm
+    usecase "Grant Course" as grant
+  }
 }
 
 user <|-- author
 author <|-- admin
 consume <|-- create
 purchase <|-- confirm
+confirm <|-- grant
 
-user --> auth
+user -left-> auth
 author --> create
 user --> purchase
-admin --> confirm
+author --> confirm
+admin --> grant
 user --> consume
-
 @enduml
