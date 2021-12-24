@@ -1,0 +1,28 @@
+@startuml "Use Cases"
+
+left to right direction
+
+actor User as user
+actor Author as author
+actor Admin as admin
+
+package Platform {
+  usecase Authenticate as auth
+  usecase "Create Course" as create
+  usecase "Purchase Course" as purchase
+  usecase "Consume Course" as consume
+  usecase "Confirm Purchase" as confirm
+}
+
+user <|-- author
+author <|-- admin
+consume <|-- create
+purchase <|-- confirm
+
+user --> auth
+author --> create
+user --> purchase
+admin --> confirm
+user --> consume
+
+@enduml
