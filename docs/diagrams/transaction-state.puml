@@ -1,6 +1,7 @@
 @startuml "Transaction State Diagram"
 title Transaction State Diagram
 hide empty description
+left to right direction
 
 [*] --> SUBMITTED
 SUBMITTED --> VERIFIED
