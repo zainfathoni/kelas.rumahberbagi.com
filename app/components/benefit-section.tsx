@@ -2,7 +2,7 @@ import * as React from 'react'
 // import Image from "next/image";
 
 type BenefitDescriptionProps = {
-  children: string
+  children: React.ReactElement<any, any>
 }
 
 type commonProps = {
@@ -12,12 +12,12 @@ type commonProps = {
   image: string
 }
 
-// type BenefitContainerImageProps = {
-//   src: string,
-//   alt: string,
-//   height: string,
-//   width: string
-// };
+type BenefitContainerImageProps = {
+  src: string
+  alt: string
+  height: string
+  width: string
+}
 
 type BenefitItemProps = {
   title: string
@@ -145,15 +145,20 @@ export const BenefitBottomContainer: React.FC<commonProps> = ({
   </div>
 )
 
-// export const BenefitContainerImage: React.FC<BenefitContainerImageProps> = ({ src, alt, height, width }) => (
-//   <Image
-//     className="relative mx-auto rounded-xl"
-//     src={src}
-//     alt={alt}
-//     height={height}
-//     width={width}
-//   />
-// );
+export const BenefitContainerImage: React.FC<BenefitContainerImageProps> = ({
+  src,
+  alt,
+  height,
+  width,
+}) => (
+  <img
+    className="relative mx-auto rounded-xl"
+    src={src}
+    alt={alt}
+    height={height}
+    width={width}
+  ></img>
+)
 
 export const BenefitItem: React.FC<BenefitItemProps> = ({
   icon,
