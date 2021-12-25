@@ -169,19 +169,23 @@ export default function HomePage() {
             <Pricing.Item>Video rekaman kelas</Pricing.Item>
           </Pricing.Included>
         </Pricing>
-        <Faq title="FAQ (Tanya Jawab)">
-          <Faq.Description>
-            Tidak menemukan jawaban yang Anda cari? Hubungi saya{' '}
-            <a
-              href="https://www.instagram.com/vika.riandini/"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              melalui Instagram
-            </a>
-            .
-          </Faq.Description>
+        <Faq
+          title="FAQ (Tanya Jawab)"
+          description={
+            <Faq.Description>
+              Tidak menemukan jawaban yang Anda cari? Hubungi saya{' '}
+              <a
+                href="https://www.instagram.com/vika.riandini/"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                melalui Instagram
+              </a>
+              .
+            </Faq.Description>
+          }
+        >
           <Faq.Content>
             <div>
               <Faq.Question>Kelas ini untuk siapa?</Faq.Question>
@@ -242,10 +246,15 @@ export default function HomePage() {
           <CtaDescription>Anda berminat?</CtaDescription>
           <CtaButton>Daftar sekarang</CtaButton>
         </CtaSection>
-        <Faq title="Kebijakan Privasi" id="privacy-policy">
-          <Faq.Description>
-            Kebijakan privasi dan keanggotaan kelas
-          </Faq.Description>
+        <Faq
+          title="Kebijakan Privasi"
+          id="privacy-policy"
+          description={
+            <Faq.Description>
+              Kebijakan privasi dan keanggotaan kelas
+            </Faq.Description>
+          }
+        >
           <Faq.Content>
             <div>
               <Faq.Question>

@@ -31,20 +31,15 @@ const Answer = ({ children }: AnswerProps): JSX.Element => (
 type FaqProps = {
   id?: string
   title: string
+  description: React.ReactNode
   children: React.ReactNode
 }
-export const Faq = ({ id = 'faq', title, children }: FaqProps): JSX.Element => {
-  let description, qa
-  React.Children.forEach(children, (child: React.ReactElement) => {
-    switch (child.type) {
-      case Description:
-        description = child
-        break
-      case Content:
-        qa = child
-        break
-    }
-  })
+export const Faq = ({
+  id = 'faq',
+  title,
+  description,
+  children,
+}: FaqProps): JSX.Element => {
   return (
     <div className="bg-white" id={id}>
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -53,7 +48,7 @@ export const Faq = ({ id = 'faq', title, children }: FaqProps): JSX.Element => {
             <h2 className="text-3xl font-extrabold text-gray-900">{title}</h2>
             {description}
           </div>
-          <div className="mt-12 lg:mt-0 lg:col-span-2">{qa}</div>
+          <div className="mt-12 lg:mt-0 lg:col-span-2">{children}</div>
         </div>
       </div>
     </div>
