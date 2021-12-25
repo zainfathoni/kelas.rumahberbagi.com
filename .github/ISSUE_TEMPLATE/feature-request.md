@@ -21,6 +21,8 @@ labels: enhancement
 
 <!-- A description of each specific scenario of the narrative with the following structure: -->
 
+<!-- Add screenshots, if available -->
+
 ### Scenario 1
 
 <!-- Scenario title -->
