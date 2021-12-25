@@ -1,4 +1,7 @@
 {
+  "no-inline-html": {
+    "allowed_elements": ["details", "summary"]
+  },
   "ul-style": {
     "style": "dash"
   }

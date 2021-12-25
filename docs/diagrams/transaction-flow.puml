@@ -2,7 +2,7 @@
 title "Transaction Flow"
 
 collections Banks
-actor User
+actor Member
 actor Author
 boundary Frontend as FE
 control Backend as BE
@@ -11,25 +11,25 @@ database Database as DB
 autonumber
 autoactivate on
 
-User -> FE: Purchase Course
+Member -> FE: Purchase Course
 return Instructions
-User -> Banks: Pay
+Member -> Banks: Pay
 return Receipt
-User -> FE: Payment Confirmation Form
+Member -> FE: Confirm Payment
 return WhatsApp Link
-User -> Author: Contact WhatsApp
+Member -> Author: Contact WhatsApp
 return Reply
 
 autoactivate off
-User -> Author: Upload Receipt
+Member -> Author: Upload Receipt
 autoactivate on
 
-Author -> FE: View User Detail
-FE -> BE: Load User Detail
+Author -> FE: View Member Detail
+FE -> BE: Loader
 BE -> DB: Query
-return data
-return data
-return User Detail
+return Data
+return Data
+return Member Detail
 
 Author -> Banks: Verify Payment
 
@@ -38,23 +38,23 @@ autoactivate off
 alt Not Confirmed
   Banks --> Author: Payment Not Received
   autoactivate on
-  Author -> User: Contact WhatsApp
+  Author -> Member: Contact WhatsApp
   return Reply
 else Confirmed
   return Payment Received
-  Author -> FE: Approve Payment
-  FE -> BE: Action Approve Payment
-  BE -> DB: Mutate
-  return data
+  Author -> FE: Verify Purchase
+  FE -> BE: Action
+  BE -> DB: Mutation
+  return Data
 
   autoactivate off
-  BE -> User: Notify Email
+  BE -> Member: Notify via Email
   autoactivate on
 
-  return data
-  return Payment Approval
+  return Data
+  return Purchase Verified
 end
 
-User -> FE: Consume Course
+Member -> FE: Consume Course
 return Course Content
 @enduml
