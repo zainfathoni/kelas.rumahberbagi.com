@@ -25,10 +25,10 @@ Member -> Author: Upload Receipt
 autoactivate on
 
 Author -> FE: View Member Detail
-FE -> BE: Load Member Detail
+FE -> BE: Loader
 BE -> DB: Query
-return Response
-return Member Detail
+return Data
+return Data
 return Member Detail
 
 Author -> Banks: Verify Payment
@@ -43,15 +43,15 @@ alt Not Confirmed
 else Confirmed
   return Payment Received
   Author -> FE: Verify Purchase
-  FE -> BE: Action Verify Purchase
+  FE -> BE: Action
   BE -> DB: Mutation
-  return Response
+  return Data
 
   autoactivate off
-  BE -> Member: Notify Email
+  BE -> Member: Notify via Email
   autoactivate on
 
-  return Purchase Verified
+  return Data
   return Purchase Verified
 end
 
