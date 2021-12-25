@@ -1,0 +1,9 @@
+@startuml "Subscription State Diagram"
+title Subscription State Diagram
+hide empty description
+
+[*] --> INACTIVE
+INACTIVE --> ACTIVE
+ACTIVE --> INACTIVE
+INACTIVE -right-> [*]
+@enduml
