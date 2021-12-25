@@ -60,8 +60,8 @@ export const action: ActionFunction = async ({ request }) => {
   if (
     typeof name !== 'string' ||
     typeof phoneNumber !== 'string' ||
-    typeof instagram !== 'string' ||
-    typeof telegram !== 'string'
+    (typeof instagram !== 'string' && typeof instagram !== 'object') ||
+    (typeof telegram !== 'string' && typeof telegram !== 'object')
   ) {
     return { formError: 'Form not submitted correctly.' }
   }
@@ -77,7 +77,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await db.user.update({ where: { id: user.id }, data: fields })
 
-  return redirect('/dashboard')
+  return redirect('/dashboard/settings')
 }
 
 const tabs = [
