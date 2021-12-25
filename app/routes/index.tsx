@@ -1,5 +1,6 @@
 import type { MetaFunction } from 'remix'
 import { HeroSection } from '~/components/hero-section'
+import { BenefitSection } from '~/components/benefit-section'
 
 export const meta: MetaFunction = () => {
   return {
@@ -9,5 +10,12 @@ export const meta: MetaFunction = () => {
 }
 
 export default function HomePage() {
-  return <HeroSection />
+  return (
+    <div>
+      <main>
+        <HeroSection />
+        <BenefitSection title="Mendidik anak usia Prasekolah dengan lembut, bahagia, dan cinta"></BenefitSection>
+      </main>
+    </div>
+  )
 }
