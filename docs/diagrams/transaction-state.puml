@@ -1,0 +1,8 @@
+@startuml "Transaction State Diagram"
+title Transaction State Diagram
+hide empty description
+
+[*] --> SUBMITTED
+SUBMITTED --> VERIFIED
+VERIFIED --> [*]
+@enduml
