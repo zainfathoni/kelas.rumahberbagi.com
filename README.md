@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -22,6 +22,7 @@ Online course platform for Rumah Berbagi.
 - [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
   - [Documentation](#documentation)
   - [Getting started](#getting-started)
+    - [System Requirements](#system-requirements)
     - [Development](#development)
     - [Testing](#testing)
   - [Tools & References](#tools--references)
@@ -42,6 +43,11 @@ Online course platform for Rumah Berbagi.
 - [Hackathon Announcement](https://rbagi.id/gh/22)
 
 ## Getting started
+
+### System Requirements
+
+- [Node.js](https://nodejs.org/) >= 16.0.0
+- [git](https://git-scm.com/) >= 2.7.0
 
 ### Development
 
@@ -207,6 +213,7 @@ Thanks goes to these wonderful people
 <table>
   <tr>
     <td align="center"><a href="https://zainf.dev"><img src="https://avatars.githubusercontent.com/u/6315466?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zain Fathoni</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Code">💻</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Documentation">📖</a> <a href="#design-zainfathoni" title="Design">🎨</a> <a href="#maintenance-zainfathoni" title="Maintenance">🚧</a> <a href="#tool-zainfathoni" title="Tools">🔧</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Tests">⚠️</a> <a href="#projectManagement-zainfathoni" title="Project Management">📆</a> <a href="#ideas-zainfathoni" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://retry19.com"><img src="https://avatars.githubusercontent.com/u/39640211?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Reza Rachmanuddin</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/issues?q=author%3Aretry19" title="Bug reports">🐛</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=retry19" title="Code">💻</a></td>
   </tr>
 </table>
 
