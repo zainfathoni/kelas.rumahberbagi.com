@@ -30,6 +30,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ user })
 }
 
+interface UserFields {
+  name: string
+  phoneNumber: string
+  instagram: string
+  telegram: string
+}
+
 type ActionData = {
   formError?: string
   fieldErrors?: {
@@ -38,12 +45,7 @@ type ActionData = {
     instagram: string | undefined
     telegram: string | undefined
   }
-  fields?: {
-    name: string
-    phoneNumber: string
-    instagram: string
-    telegram: string
-  }
+  fields?: UserFields
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -70,7 +72,12 @@ export const action: ActionFunction = async ({ request }) => {
     name: validateRequired('Nama Lengkap', name),
     phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
   }
-  const fields = { name, phoneNumber, instagram, telegram }
+  const fields: UserFields = {
+    name,
+    phoneNumber,
+    instagram: String(instagram),
+    telegram: String(telegram),
+  }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
