@@ -15,7 +15,7 @@ Member -> FE: Purchase Course
 return Instructions
 Member -> Banks: Pay
 return Receipt
-Member -> FE: Payment Confirmation Form
+Member -> FE: Confirm Payment
 return WhatsApp Link
 Member -> Author: Contact WhatsApp
 return Reply
@@ -25,10 +25,10 @@ Member -> Author: Upload Receipt
 autoactivate on
 
 Author -> FE: View Member Detail
-FE -> BE: Load Member Detail
+FE -> BE: Loader
 BE -> DB: Query
-return data
-return data
+return Data
+return Data
 return Member Detail
 
 Author -> Banks: Verify Payment
@@ -42,17 +42,17 @@ alt Not Confirmed
   return Reply
 else Confirmed
   return Payment Received
-  Author -> FE: Approve Payment
-  FE -> BE: Action Approve Payment
-  BE -> DB: Mutate
-  return data
+  Author -> FE: Verify Purchase
+  FE -> BE: Action
+  BE -> DB: Mutation
+  return Data
 
   autoactivate off
-  BE -> Member: Notify Email
+  BE -> Member: Notify via Email
   autoactivate on
 
-  return data
-  return Payment Approval
+  return Data
+  return Purchase Verified
 end
 
 Member -> FE: Consume Course
