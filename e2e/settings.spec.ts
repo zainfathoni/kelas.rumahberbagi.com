@@ -7,7 +7,11 @@ test.use({
   storageState: 'e2e/auth.json',
 })
 
-test('Settings', async ({ page, noscript, queries: { getByRole } }) => {
+test('Validate phone number when updating data', async ({
+  page,
+  noscript,
+  queries: { getByRole },
+}) => {
   // Go to http://localhost:3000/dashboard/settings
   await page.goto('/dashboard/settings')
   // Query phoneNumber
@@ -43,4 +47,51 @@ test('Settings', async ({ page, noscript, queries: { getByRole } }) => {
       )
       .first()
   ).not.toBeVisible()
+})
+
+test('Validate name when updating data', async ({
+  page,
+  noscript,
+  queries: { getByRole },
+}) => {
+  await page.goto('/dashboard/settings')
+
+  const name = await getByRole('textbox', {
+    name: /nama lengkap/i,
+  })
+
+  await name.fill('')
+  await name.press('Tab')
+
+  if (!noscript) {
+    await expect(
+      page.locator('text=Nama Lengkap wajib diisi').first()
+    ).toBeVisible()
+  }
+
+  await name.fill('Lorem I')
+  await page.click('text=Simpan')
+
+  await expect(
+    page.locator('text=Nama Lengkap wajib diisi').first()
+  ).not.toBeVisible()
+})
+
+test('Update profile', async ({ page }) => {
+  await page.goto('/dashboard/settings')
+
+  await page.fill('[name="name"]', 'Lorem Ipsum')
+  await page.fill('[name="phoneNumber"]', '+6289123456')
+  await page.fill('[name="telegram"]', '@lorem_tl')
+  await page.fill('[name="instagram"]', '@lorem_ig')
+
+  await page.click('text=Simpan')
+
+  // Reload page to make sure getting the latest user data
+  await page.reload()
+
+  await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
+  await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
+  await expect(page.locator('[value="@lorem_tl"]').first()).toBeVisible()
+  await expect(page.locator('[value="@lorem_ig"]').first()).toBeVisible()
 })
