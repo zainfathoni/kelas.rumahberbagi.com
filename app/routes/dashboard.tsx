@@ -36,12 +36,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
   { name: 'Jobs', href: '#', icon: BriefcaseIcon, current: false },
   { name: 'Applications', href: '#', icon: DocumentSearchIcon, current: false },
   { name: 'Messages', href: '#', icon: ChatIcon, current: false },
   { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Settings', href: '#', icon: CogIcon, current: false },
+  {
+    name: 'Settings',
+    href: '/dashboard/settings',
+    icon: CogIcon,
+    current: false,
+  },
 ]
 
 function classNames(...classes: string[]) {
