@@ -157,11 +157,15 @@ export default function HomePage() {
           <Content.Item>Menulis</Content.Item>
           <Content.Item>Pengisian planner</Content.Item>
         </Content>
-        <Pricing title="Biaya kelas">
-          <Pricing.Description>
-            Biaya baru dibayarkan setelah Anda terkonfirmasi sebagai peserta
-            kelas
-          </Pricing.Description>
+        <Pricing
+          title="Biaya kelas"
+          description={
+            <Pricing.Description>
+              Biaya baru dibayarkan setelah Anda terkonfirmasi sebagai peserta
+              kelas
+            </Pricing.Description>
+          }
+        >
           <Pricing.Included title="Biaya termasuk">
             <Pricing.Item>Handout berupa catatan bergambar</Pricing.Item>
             <Pricing.Item>Printable planner</Pricing.Item>

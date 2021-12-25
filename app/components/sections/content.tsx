@@ -4,7 +4,7 @@ type ItemProps = {
   children: React.ReactNode
 }
 const Item = ({ children }: ItemProps): JSX.Element => (
-  <div className="relative" key={children}>
+  <div className="relative">
     <CheckIcon aria-hidden="true" className="absolute h-6 w-6 text-green-500" />
     <p className="ml-9 text-lg leading-6 font-medium text-gray-900">
       {children}

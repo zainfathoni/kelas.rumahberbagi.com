@@ -53,20 +53,14 @@ const Included = ({ title, children }: IncludedProps): JSX.Element => (
 
 type PricingProps = {
   title: string
-  children: React.ReactNode // TODO: Allow Description and Included types only
+  description: React.ReactNode
+  children: React.ReactNode
 }
-export const Pricing = ({ title, children }: PricingProps): JSX.Element => {
-  let description, included
-  React.Children.forEach(children, (child: React.ReactElement) => {
-    switch (child.type) {
-      case Description:
-        description = child
-        break
-      case Included:
-        included = child
-        break
-    }
-  })
+export const Pricing = ({
+  title,
+  description,
+  children,
+}: PricingProps): JSX.Element => {
   return (
     <div className="bg-gray-100" id="biaya">
       <div className="pt-12 sm:pt-16 lg:pt-20">
@@ -93,7 +87,7 @@ export const Pricing = ({ title, children }: PricingProps): JSX.Element => {
                   sebelum kelas dimulai supaya kami dapat mengembalikan dana
                   Anda sekaligus membuka slot untuk calon peserta kelas lainnya.
                 </p>
-                {included}
+                {children}
               </div>
               <div className="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
                 <p className="text-lg leading-6 font-medium text-gray-900">
