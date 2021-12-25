@@ -15,7 +15,7 @@ const Content = ({ children }: ContentProps): JSX.Element => (
 )
 
 type QuestionProps = {
-  children: string
+  children: React.ReactNode
 }
 const Question = ({ children }: QuestionProps): JSX.Element => (
   <dt className="text-lg leading-6 font-medium text-gray-900">{children}</dt>

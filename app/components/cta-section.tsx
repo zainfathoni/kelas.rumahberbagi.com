@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 type commonProps = {
-  children: string
+  children: React.ReactNode
 }
 
 export const CtaTitle: React.FC<commonProps> = ({ children }) => (

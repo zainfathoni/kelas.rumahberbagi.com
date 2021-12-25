@@ -1,7 +1,7 @@
 import { CheckIcon } from '@heroicons/react/outline'
 
 type ItemProps = {
-  children: string
+  children: React.ReactNode
 }
 const Item = ({ children }: ItemProps): JSX.Element => (
   <div className="relative" key={children}>

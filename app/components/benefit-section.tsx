@@ -2,39 +2,39 @@ import * as React from 'react'
 // import Image from "next/image";
 
 type BenefitDescriptionProps = {
-  children: React.ReactElement<any, any>
+  children: React.ReactNode
 }
 
-type commonProps = {
+type CommonProps = {
   title: string
-  children: string
+  children: React.ReactNode
   description: string
-  image: string
+  image: React.ReactNode
 }
 
 type BenefitContainerImageProps = {
   src: string
   alt: string
-  height: string
-  width: string
+  height: number
+  width: number
 }
 
 type BenefitItemProps = {
   title: string
-  children: string
-  icon: string
+  children: React.ReactNode
+  icon: React.ReactNode
 }
 
 type BenefitSectionProps = {
   title: string
-  children: string
+  children: React.ReactNode
 }
 
 export const BenefitDescription: React.FC<BenefitDescriptionProps> = ({
   children,
 }) => <p className="mt-4 max-w-3xl text-xl text-gray-500">{children}</p>
 
-export const BenefitTopContainer: React.FC<commonProps> = ({
+export const BenefitTopContainer: React.FC<CommonProps> = ({
   children,
   title,
   description,
@@ -88,7 +88,7 @@ export const BenefitTopContainer: React.FC<commonProps> = ({
   </div>
 )
 
-export const BenefitBottomContainer: React.FC<commonProps> = ({
+export const BenefitBottomContainer: React.FC<CommonProps> = ({
   children,
   title,
   description,
@@ -182,34 +182,18 @@ export const BenefitSection: React.FC<BenefitSectionProps> = ({
   children,
   title,
 }) => {
-  let top,
-    bottom: Array<string | number | boolean | null | undefined> = []
-  const descriptions: Array<string> = []
-  React.Children.forEach(
-    children,
-    (
-      child:
-        | string
-        | number
-        | boolean
-        | React.ReactNodeArray
-        | React.ReactPortal
-        | null
-        | undefined
-    ) => {
-      switch (child.type) {
-        case BenefitDescription:
-          descriptions.push(child)
-          break
-        case BenefitTopContainer:
-          top = child
-          break
-        case BenefitBottomContainer:
-          bottom = child
-          break
-      }
+  let top: React.ReactNode
+  let bottom: React.ReactNode
+  const descriptions: Array<React.ReactNode> = []
+  React.Children.forEach(children, (child: React.ReactNode) => {
+    if (child instanceof BenefitDescription) {
+      descriptions.push(child)
+    } else if (child instanceof BenefitTopContainer) {
+      top = child
+    } else if (child instanceof BenefitBottomContainer) {
+      bottom = child
     }
-  )
+  })
 
   return (
     <div className="py-16 bg-gray-50 overflow-hidden lg:py-24" id="benefit">

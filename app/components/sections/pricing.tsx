@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 type DescriptionProps = {
-  children: string
+  children: React.ReactNode
 }
 
 const Description = ({ children }: DescriptionProps): JSX.Element => (
@@ -9,7 +9,7 @@ const Description = ({ children }: DescriptionProps): JSX.Element => (
 )
 
 type ItemProps = {
-  children: string
+  children: React.ReactNode
 }
 
 const Item = ({ children }: ItemProps): JSX.Element => (
