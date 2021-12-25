@@ -36,7 +36,81 @@ export default function HomePage() {
     <div>
       <main>
         <HeroSection />
-        <BenefitSection title="Mendidik anak usia Prasekolah dengan lembut, bahagia, dan cinta">
+        <BenefitSection
+          title="Mendidik anak usia Prasekolah dengan lembut, bahagia, dan cinta"
+          top={
+            <BenefitTopContainer
+              title="Kelas yang nyaman dan mudah"
+              description="Agar kelas ini nyaman diikuti dan mudah untuk dirujuk kembali di kemudian hari, maka saya sediakan:"
+              image={
+                <BenefitContainerImage
+                  src="/images/planner-preview.jpeg"
+                  alt="Halaman perencanaan"
+                  height={1280}
+                  width={937}
+                />
+              }
+            >
+              <BenefitItem
+                icon={<FileInvoiceIcon />}
+                title="Handout dan catatan bergambar (sketch note)"
+              >
+                Untuk membantu memahami materi yang saya sampaikan, saya
+                sediakan catatan visual yang menyenangkan yang saya tulis dan
+                gambar sendiri.
+              </BenefitItem>
+              <BenefitItem
+                icon={<FileSignatureIcon />}
+                title="Printable planner"
+              >
+                Setelah memahami materi, kita akan mengeksplorasi planner untuk
+                membantumu menavigasi pendidikan dan kehidupan mereka
+                sehari-hari. Planner yang bisa dikostumisasi sesuai dengan
+                kebutuhan kalian dan anak.
+              </BenefitItem>
+              <BenefitItem icon={<FileVideoIcon />} title="Video rekaman">
+                Kelas akan saya rekam dan saya bagikan kepada kalian agar bisa
+                diakses seumur hidup
+              </BenefitItem>
+              <BenefitItem
+                icon={<WhatsAppIcon />}
+                title="Grup WhatsApp sementara"
+              >
+                Saya akan buatkan grup WhatsApp sementara selama 1 bulan, untuk
+                sarana berdiskusi jika ada hal-hal yang masih ingin ditanyakan.
+              </BenefitItem>
+            </BenefitTopContainer>
+          }
+          bottom={
+            <BenefitBottomContainer
+              title="Interaksi dua arah"
+              description="Saya akan ajak teman-teman untuk menyelami materi dengan:"
+              image={
+                <BenefitContainerImage
+                  src="/images/interaction-preview.jpeg"
+                  alt="Materi interaksi di kelas"
+                  height={959}
+                  width={1280}
+                />
+              }
+            >
+              <BenefitItem
+                icon={<ChalkboardTeacherIcon />}
+                title="Langsung dan intensif"
+              >
+                Interaksi langsung di dalam kelas melalui Zoom. Ukuran kelas
+                yang kecil memungkinkan proses diskusi yang mendalam.
+              </BenefitItem>
+              <BenefitItem
+                icon={<CommentsAltIcon />}
+                title="Demonstrasi dan diskusi"
+              >
+                Saya akan mendemonstrasikan pengisian lembar perencanaan yang
+                telah disediakan disertai dengan diskusi dan tanya jawab.
+              </BenefitItem>
+            </BenefitBottomContainer>
+          }
+        >
           <BenefitDescription>
             Menjadi seorang ibu baru dengan anak usia prasekolah adalah satu
             pekerjaan yang menantang. Kita tidak sedang membesarkan tanaman atau
@@ -62,71 +136,6 @@ export default function HomePage() {
             ibu stress. Kita akan melangkah ke dunia pendidikan yang simpel,
             klasik, dan menyenangkan tanpa mengorbankan kewarasan kita.
           </BenefitDescription>
-          <BenefitTopContainer
-            title="Kelas yang nyaman dan mudah"
-            description="Agar kelas ini nyaman diikuti dan mudah untuk dirujuk kembali di kemudian hari, maka saya sediakan:"
-            image={
-              <BenefitContainerImage
-                src="/images/planner-preview.jpeg"
-                alt="Halaman perencanaan"
-                height={1280}
-                width={937}
-              />
-            }
-          >
-            <BenefitItem
-              icon={<FileInvoiceIcon />}
-              title="Handout dan catatan bergambar (sketch note)"
-            >
-              Untuk membantu memahami materi yang saya sampaikan, saya sediakan
-              catatan visual yang menyenangkan yang saya tulis dan gambar
-              sendiri.
-            </BenefitItem>
-            <BenefitItem icon={<FileSignatureIcon />} title="Printable planner">
-              Setelah memahami materi, kita akan mengeksplorasi planner untuk
-              membantumu menavigasi pendidikan dan kehidupan mereka sehari-hari.
-              Planner yang bisa dikostumisasi sesuai dengan kebutuhan kalian dan
-              anak.
-            </BenefitItem>
-            <BenefitItem icon={<FileVideoIcon />} title="Video rekaman">
-              Kelas akan saya rekam dan saya bagikan kepada kalian agar bisa
-              diakses seumur hidup
-            </BenefitItem>
-            <BenefitItem
-              icon={<WhatsAppIcon />}
-              title="Grup WhatsApp sementara"
-            >
-              Saya akan buatkan grup WhatsApp sementara selama 1 bulan, untuk
-              sarana berdiskusi jika ada hal-hal yang masih ingin ditanyakan.
-            </BenefitItem>
-          </BenefitTopContainer>
-          <BenefitBottomContainer
-            title="Interaksi dua arah"
-            description="Saya akan ajak teman-teman untuk menyelami materi dengan:"
-            image={
-              <BenefitContainerImage
-                src="/images/interaction-preview.jpeg"
-                alt="Materi interaksi di kelas"
-                height={959}
-                width={1280}
-              />
-            }
-          >
-            <BenefitItem
-              icon={<ChalkboardTeacherIcon />}
-              title="Langsung dan intensif"
-            >
-              Interaksi langsung di dalam kelas melalui Zoom. Ukuran kelas yang
-              kecil memungkinkan proses diskusi yang mendalam.
-            </BenefitItem>
-            <BenefitItem
-              icon={<CommentsAltIcon />}
-              title="Demonstrasi dan diskusi"
-            >
-              Saya akan mendemonstrasikan pengisian lembar perencanaan yang
-              telah disediakan disertai dengan diskusi dan tanya jawab.
-            </BenefitItem>
-          </BenefitBottomContainer>
         </BenefitSection>
         <Content title="Kisi-kisi materi">
           <Content.Item>Sekilas filosofi Charlotte Mason</Content.Item>

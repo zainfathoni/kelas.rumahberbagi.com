@@ -28,6 +28,8 @@ type BenefitItemProps = {
 type BenefitSectionProps = {
   title: string
   children: React.ReactNode
+  top: React.ReactNode
+  bottom: React.ReactNode
 }
 
 export const BenefitDescription: React.FC<BenefitDescriptionProps> = ({
@@ -181,20 +183,9 @@ export const BenefitItem: React.FC<BenefitItemProps> = ({
 export const BenefitSection: React.FC<BenefitSectionProps> = ({
   children,
   title,
+  top,
+  bottom,
 }) => {
-  let top: React.ReactNode
-  let bottom: React.ReactNode
-  const descriptions: Array<React.ReactNode> = []
-  React.Children.forEach(children, (child: React.ReactNode) => {
-    if (child instanceof BenefitDescription) {
-      descriptions.push(child)
-    } else if (child instanceof BenefitTopContainer) {
-      top = child
-    } else if (child instanceof BenefitBottomContainer) {
-      bottom = child
-    }
-  })
-
   return (
     <div className="py-16 bg-gray-50 overflow-hidden lg:py-24" id="benefit">
       <div className="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
@@ -236,7 +227,7 @@ export const BenefitSection: React.FC<BenefitSectionProps> = ({
           <h2 className="text-3xl max-w-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             {title}
           </h2>
-          {descriptions}
+          {children}
         </div>
 
         {top}
