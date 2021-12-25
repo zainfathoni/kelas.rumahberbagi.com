@@ -34,6 +34,18 @@ labels: enhancement
 
 <!-- (Optional) If available, outline the possible steps to take (e.g. lines of code to change, architectural details, etc.) to implement the feature. -->
 
+<!-- Add code snippets if necessary
+<details>
+<summary>Code snippet</summary>
+
+```jsx
+
+```
+
+</details>
+
+-->
+
 ## Tasks
 
 <!-- (Optional) List any available tasks for this issue with checkbox lists. -->
