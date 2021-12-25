@@ -11,6 +11,7 @@ import {
 import type { LinksFunction } from 'remix'
 
 import styles from './tailwind.css'
+import fonts from './fonts.css'
 import { Footer } from './components/footer'
 import { Header } from '~/components/header'
 
@@ -18,6 +19,7 @@ import { Header } from '~/components/header'
 export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: fonts },
     { rel: 'icon', href: '/rumah-berbagi.jpeg' },
   ]
 }
