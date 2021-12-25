@@ -58,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "5.8.0",
     "@typescript-eslint/parser": "5.8.0",
     "concurrently": "6.4.0",
+    "esbuild": "0.14.8",
     "esbuild-register": "3.2.0",
     "eslint": "8.5.0",
     "eslint-config-prettier": "8.3.0",
