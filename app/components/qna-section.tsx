@@ -28,18 +28,18 @@ const Answer = ({ children }: AnswerProps): JSX.Element => (
   <dd className="mt-2 text-base text-gray-500">{children}</dd>
 )
 
-type FaqProps = {
+type QnAProps = {
   id?: string
   title: string
   description: React.ReactNode
   children: React.ReactNode
 }
-export const Faq = ({
+export const QnA = ({
   id = 'faq',
   title,
   description,
   children,
-}: FaqProps): JSX.Element => {
+}: QnAProps): JSX.Element => {
   return (
     <div className="bg-white" id={id}>
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -55,7 +55,7 @@ export const Faq = ({
   )
 }
 
-Faq.Description = Description
-Faq.Content = Content
-Faq.Question = Question
-Faq.Answer = Answer
+QnA.Description = Description
+QnA.Content = Content
+QnA.Question = Question
+QnA.Answer = Answer

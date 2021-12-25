@@ -16,7 +16,7 @@ import { ChalkboardTeacherIcon } from '~/components/icons/chalkboard-teacher'
 import { CommentsAltIcon } from '~/components/icons/comments-alt'
 import { Content } from '~/components/sections/content'
 import { Pricing } from '~/components/sections/pricing'
-import { Faq } from '~/components/faq-section'
+import { QnA } from '~/components/qna-section'
 import {
   CtaButton,
   CtaSection,
@@ -169,10 +169,10 @@ export default function HomePage() {
             <Pricing.Item>Video rekaman kelas</Pricing.Item>
           </Pricing.Included>
         </Pricing>
-        <Faq
+        <QnA
           title="FAQ (Tanya Jawab)"
           description={
-            <Faq.Description>
+            <QnA.Description>
               Tidak menemukan jawaban yang Anda cari? Hubungi saya{' '}
               <a
                 href="https://www.instagram.com/vika.riandini/"
@@ -183,103 +183,103 @@ export default function HomePage() {
                 melalui Instagram
               </a>
               .
-            </Faq.Description>
+            </QnA.Description>
           }
         >
-          <Faq.Content>
+          <QnA.Content>
             <div>
-              <Faq.Question>Kelas ini untuk siapa?</Faq.Question>
-              <Faq.Answer>
+              <QnA.Question>Kelas ini untuk siapa?</QnA.Question>
+              <QnA.Answer>
                 Kelas ini untuk para orang tua, khususnya untuk anak di bawah
                 usia sekolah, tetapi tidak menutup kemungkinan orang tua dengan
                 anak di usia sekolah masih membutuhkannya karena bisa jadi ada
                 aspek yang terlewat dari fondasi yang harus dipersiapkan di usia
                 prasekolah.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Berapa lama kelas ini akan berlangsung?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Setidaknya akan ada dua pertemuan yang terdiri dari pembahasan
                 materi dan praktik pembuatan rencana pendidikan untuk anak
                 prasekolah. Tidak menutup kemungkinan jumlah pertemuan akan
                 ditambah sesuai dengan kebutuhan.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Berapa biaya kelas ini? Kapan saya harus membayarnya?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Biaya kelas ini masih belum ditentukan, nantinya akan dapat
                 dibayarkan setelah Anda mendapatkan konfirmasi dari kami bahwa
                 Anda mendapatkan slot untuk bergabung di kelas ini.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Mengapa jumlah peserta hanya dibatasi sebanyak 30 orang?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Supaya proses belajar bisa lebih fokus dan aktivitas tanya jawab
                 bisa dilakukan secara lebih intensif.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Saya gagal mendapatkan slot di kelas ini. Lantas bagaimana saya
                 bisa mengikuti kelas ini?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Pertama-tama, pastikan dulu bahwa Anda telah terdaftar ke dalam
                 daftar antrian calon peserta. Apabila kelas untuk angkatan
                 berikutnya telah kami buka, kami akan kirimkan email kepada Anda
                 berdasarkan urutan antrian Anda.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
-          </Faq.Content>
-        </Faq>
+          </QnA.Content>
+        </QnA>
         <CtaSection>
           <CtaTitle>Tahun Prasekolahku</CtaTitle>
           <CtaDescription>Anda berminat?</CtaDescription>
           <CtaButton>Daftar sekarang</CtaButton>
         </CtaSection>
-        <Faq
+        <QnA
           title="Kebijakan Privasi"
           id="privacy-policy"
           description={
-            <Faq.Description>
+            <QnA.Description>
               Kebijakan privasi dan keanggotaan kelas
-            </Faq.Description>
+            </QnA.Description>
           }
         >
-          <Faq.Content>
+          <QnA.Content>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Mengapa data diri saya diperlukan saat pendaftaran?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Kami membutuhkan data diri Anda untuk memastikan bahwa Anda bisa
                 kami hubungi untuk proses selanjutnya. Termasuk di antaranya
                 pembayaran biaya kelas dan pemberian akses terhadap kelas yang
                 kami sediakan.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>Data apa saja yang erlu saya berikan?</Faq.Question>
-              <Faq.Answer>
+              <QnA.Question>Data apa saja yang erlu saya berikan?</QnA.Question>
+              <QnA.Answer>
                 Untuk keperluan yang telah kami jelaskan di atas, kami
                 membutuhkan data diri Anda seperti nama, alamat email, nomor
                 WhatsApp, dan akun Instagram Anda.
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
             <div>
-              <Faq.Question>
+              <QnA.Question>
                 Apakah saya bisa mengubah data diri saya?
-              </Faq.Question>
-              <Faq.Answer>
+              </QnA.Question>
+              <QnA.Answer>
                 Tidak, kami tidak menyediakan fitur untuk mengubah data diri
                 Anda untuk saat ini. Akan tetapi, seiring dengan perkembangan
                 teknologi situs kami, kami akan menambahkan fitur untuk mengubah
@@ -295,10 +295,10 @@ export default function HomePage() {
                   @vika.riandini
                 </a>
                 .
-              </Faq.Answer>
+              </QnA.Answer>
             </div>
-          </Faq.Content>
-        </Faq>
+          </QnA.Content>
+        </QnA>
       </main>
     </div>
   )
