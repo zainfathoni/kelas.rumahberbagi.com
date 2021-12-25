@@ -25,10 +25,11 @@ labels: enhancement
 
 <!-- Scenario title -->
 
-- **Given**
-  <!-- the initial context at the beginning of the scenario, in one or more clauses -->
+- **Given** <!-- the initial context at the beginning of the scenario -->
+- **and** <!-- if more than one clause -->
 - **when** <!-- the event that triggers the scenario -->
-- **then** <!-- the expected outcome, in one or more clauses -->
+- **then** <!-- the expected outcome -->
+- **and** <!-- if more than one clause -->
 
 ## Implementation Model
 
