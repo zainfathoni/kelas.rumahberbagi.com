@@ -1,7 +1,9 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -20,6 +22,7 @@ Online course platform for Rumah Berbagi.
 - [Kelas Rumah Berbagi](#kelas-rumah-berbagi)
   - [Documentation](#documentation)
   - [Getting started](#getting-started)
+    - [System Requirements](#system-requirements)
     - [Development](#development)
     - [Testing](#testing)
   - [Tools & References](#tools--references)
@@ -40,6 +43,11 @@ Online course platform for Rumah Berbagi.
 - [Hackathon Announcement](https://rbagi.id/gh/22)
 
 ## Getting started
+
+### System Requirements
+
+- [Node.js](https://nodejs.org/) >= 16.0.0
+- [git](https://git-scm.com/) >= 2.7.0
 
 ### Development
 
