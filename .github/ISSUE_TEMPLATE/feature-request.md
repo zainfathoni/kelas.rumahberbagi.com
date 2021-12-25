@@ -21,18 +21,33 @@ labels: enhancement
 
 <!-- A description of each specific scenario of the narrative with the following structure: -->
 
+<!-- Add screenshots, if available -->
+
 ### Scenario 1
 
 <!-- Scenario title -->
 
-- **Given**
-  <!-- the initial context at the beginning of the scenario, in one or more clauses -->
+- **Given** <!-- the initial context at the beginning of the scenario -->
+- **and** <!-- if more than one clause -->
 - **when** <!-- the event that triggers the scenario -->
-- **then** <!-- the expected outcome, in one or more clauses -->
+- **then** <!-- the expected outcome -->
+- **and** <!-- if more than one clause -->
 
 ## Implementation Model
 
 <!-- (Optional) If available, outline the possible steps to take (e.g. lines of code to change, architectural details, etc.) to implement the feature. -->
+
+<!-- Add code snippets if necessary
+<details>
+<summary>Code snippet</summary>
+
+```jsx
+
+```
+
+</details>
+
+-->
 
 ## Tasks
 
