@@ -1,5 +1,19 @@
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { Link } from 'remix'
+import type { Subscription } from '@prisma/client'
+import type { LoaderFunction } from 'remix'
+import { Link, useLoaderData } from 'remix'
+import { getSubscriptionActiveByUserId } from '~/models/subscription'
+import { auth } from '~/services/auth.server'
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const { id } = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
+
+  // Get the subscription data from user where status is active
+  const subscription = await getSubscriptionActiveByUserId(id)
+  return { subscription }
+}
 
 const includedFeatures = [
   'Handout berupa catatan bergambar',
@@ -9,6 +23,8 @@ const includedFeatures = [
 ]
 
 export default function Dashboard() {
+  const { subscription } = useLoaderData<{ subscription: Subscription }>()
+
   return (
     <div className="bg-gray-100">
       <div className="pt-12 sm:pt-16 lg:pt-20">
@@ -87,12 +103,18 @@ export default function Dashboard() {
                 </p>
                 <div className="mt-6">
                   <div className="rounded-md shadow">
-                    <Link
-                      to="/dashboard/purchase"
-                      className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                    >
-                      Daftarkan diri
-                    </Link>
+                    {!subscription ? (
+                      <Link
+                        to="/dashboard/purchase"
+                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                      >
+                        Daftarkan diri
+                      </Link>
+                    ) : (
+                      <button className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md bg-gray-50 cursor-not-allowed">
+                        Sudah terdaftar
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
