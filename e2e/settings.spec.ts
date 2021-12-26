@@ -77,15 +77,33 @@ test('Validate name when updating data', async ({
   ).not.toBeVisible()
 })
 
-test('Update profile', async ({ page }) => {
+test('Update profile', async ({ page, queries: { getByRole } }) => {
   await page.goto('/dashboard/settings')
 
-  await page.fill('[name="name"]', 'Lorem Ipsum')
-  await page.fill('[name="phoneNumber"]', '+6289123456')
-  await page.fill('[name="telegram"]', '@lorem_tl')
-  await page.fill('[name="instagram"]', '@lorem_ig')
+  // Get element by role
+  const name = await getByRole('textbox', {
+    name: /nama lengkap/i,
+  })
+  const phoneNumber = await getByRole('textbox', {
+    name: /nomor whatsapp/i,
+  })
+  const telegram = await getByRole('textbox', {
+    name: /username telegram/i,
+  })
+  const instagram = await getByRole('textbox', {
+    name: /username instagram/i,
+  })
+  const saveButton = await getByRole('button', {
+    name: /simpan/i,
+  })
 
-  await page.click('text=Simpan')
+  // Fill all input
+  await name.fill('Lorem Ipsum')
+  await phoneNumber.fill('+6289123456')
+  await telegram.fill('@lorem_tl')
+  await instagram.fill('@lorem_ig')
+
+  await saveButton.click()
 
   // Reload page to make sure getting the latest user data
   await page.reload()
