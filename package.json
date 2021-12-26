@@ -84,7 +84,7 @@
   "sideEffects": false,
   "main": "dist/worker.js",
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   }
 }
