@@ -1,7 +1,7 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -213,6 +213,7 @@ Thanks goes to these wonderful people
     <td align="center"><a href="https://zainf.dev"><img src="https://avatars.githubusercontent.com/u/6315466?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zain Fathoni</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Code">💻</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Documentation">📖</a> <a href="#design-zainfathoni" title="Design">🎨</a> <a href="#maintenance-zainfathoni" title="Maintenance">🚧</a> <a href="#tool-zainfathoni" title="Tools">🔧</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=zainfathoni" title="Tests">⚠️</a> <a href="#projectManagement-zainfathoni" title="Project Management">📆</a> <a href="#ideas-zainfathoni" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://retry19.com"><img src="https://avatars.githubusercontent.com/u/39640211?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Reza Rachmanuddin</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/issues?q=author%3Aretry19" title="Bug reports">🐛</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=retry19" title="Code">💻</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=retry19" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/febrifahmi"><img src="https://avatars.githubusercontent.com/u/12995919?v=4?s=100" width="100px;" alt=""/><br /><sub><b>febrifahmi</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=febrifahmi" title="Code">💻</a></td>
+    <td align="center"><a href="https://guntoroyk.com/"><img src="https://avatars.githubusercontent.com/u/24248495?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guntoro Yudhy Kusuma</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=guntoroyk" title="Code">💻</a></td>
   </tr>
 </table>
 
