@@ -3,6 +3,7 @@
 - [Berkontribusi ke Kelas Rumah Berbagi](#berkontribusi-ke-kelas-rumah-berbagi)
   - [Cara berkontribusi](#cara-berkontribusi)
     - [Gambaran umum proyek](#gambaran-umum-proyek)
+    - [Daftar _epics_](#daftar-epics)
     - [Menemukan atau membuat _issues_](#menemukan-atau-membuat-issues)
       - [_Open Issues_](#open-issues)
       - [_Closed Issues_](#closed-issues)
@@ -35,6 +36,11 @@ pengerjaan website ini.
 
 Untuk melihat visualisasi gambaran umum status proyek, silakan kunjungi
 [rbagi.id/github-project](https://rbagi.id/github-project).
+
+### Daftar _epics_
+
+Untuk melihat daftar utas utama yang menaungi berbagai _issues_ yang bisa
+dikerjakan di sini, silakan kunjungi [rbagi.id/epic](https://rbagi.id/epic).
 
 ### Menemukan atau membuat _issues_
 

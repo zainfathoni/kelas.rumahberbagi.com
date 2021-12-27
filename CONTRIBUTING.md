@@ -3,6 +3,7 @@
 - [Contributing to Kelas Rumah Berbagi](#contributing-to-kelas-rumah-berbagi)
   - [How to contribute](#how-to-contribute)
     - [Project overview](#project-overview)
+    - [Epics list](#epics-list)
     - [Finding or creating issues](#finding-or-creating-issues)
       - [Open Issues](#open-issues)
       - [Closed Issues](#closed-issues)
@@ -32,8 +33,13 @@ any progress in the website development.
 
 ### Project overview
 
-To visualize the overview state of the project, you can visit
+To visualize the overview state of the project, please visit
 [rbagi.id/github-project](https://rbagi.id/github-project).
+
+### Epics list
+
+To visualize the list of epics covering all issues in this project, please visit
+[rbagi.id/epic](https://rbagi.id/epic).
 
 ### Finding or creating issues
 
