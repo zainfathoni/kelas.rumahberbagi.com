@@ -17,7 +17,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   return true
 }
 
-const steps = [
+interface Step {
+  name: string
+  description: string
+  href: string
+  status: 'current' | 'upcoming' | 'complete'
+}
+
+const steps: Step[] = [
   {
     name: 'Pembayaran',
     description: 'Tranfer biaya ke rekening yang ditentukan',
@@ -28,7 +35,7 @@ const steps = [
     name: 'Konfirmasi Pembayaran',
     description: 'Hubungi admin melalui whatsapp',
     href: '#',
-    status: 'upcomming',
+    status: 'upcoming',
   },
   {
     name: 'Selesai',
