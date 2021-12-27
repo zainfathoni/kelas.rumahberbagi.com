@@ -111,7 +111,7 @@ export default function Dashboard() {
                         Daftarkan diri
                       </Link>
                     ) : (
-                      <button className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md bg-gray-50 cursor-not-allowed">
+                      <button className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md text-gray-400 bg-gray-200 cursor-not-allowed">
                         Sudah terdaftar
                       </button>
                     )}
