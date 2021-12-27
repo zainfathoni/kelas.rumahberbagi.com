@@ -31,5 +31,5 @@ test('Redirect to /dashboard/purchase after click CTA button', async ({
   await page.click('text=Daftarkan diri')
 
   await expect(page).toHaveURL('http://localhost:3000/dashboard/purchase')
-  await expect(page.locator('text=Purchase').first()).toBeVisible()
+  await expect(page.locator('text=Pembayaran').first()).toBeVisible()
 })
