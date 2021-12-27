@@ -21,11 +21,7 @@ labels: enhancement
 
 <!-- A description of each specific scenario of the narrative with the following structure: -->
 
-<!-- Add screenshots, if available -->
-
-### Scenario 1
-
-<!-- Scenario title -->
+### Scenario 1: <!-- Scenario title -->
 
 - **Given** <!-- the initial context at the beginning of the scenario -->
 - **and** <!-- if more than one clause -->
@@ -37,17 +33,27 @@ labels: enhancement
 
 <!-- (Optional) If available, outline the possible steps to take (e.g. lines of code to change, architectural details, etc.) to implement the feature. -->
 
-<!-- Add code snippets if necessary
+### Image previews
+
 <details>
-<summary>Code snippet</summary>
+<summary>Component name</summary>
+
+#### Desktop view
+
+#### Mobile view
+
+</details>
+
+### Code snippets
+
+<details>
+<summary>Component name</summary>
 
 ```jsx
 
 ```
 
 </details>
-
--->
 
 ## Tasks
 
