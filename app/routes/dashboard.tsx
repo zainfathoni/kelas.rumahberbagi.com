@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   BellIcon,
+  UserIcon,
   BriefcaseIcon,
   ChatIcon,
   CogIcon,
@@ -37,6 +38,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
+  {
+    name: 'Profile',
+    href: '/dashboard/profile',
+    icon: UserIcon,
+    current: false,
+  },
   { name: 'Jobs', href: '#', icon: BriefcaseIcon, current: false },
   { name: 'Applications', href: '#', icon: DocumentSearchIcon, current: false },
   { name: 'Messages', href: '#', icon: ChatIcon, current: false },
