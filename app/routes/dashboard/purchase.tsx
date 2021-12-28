@@ -58,7 +58,7 @@ function classNames(...classes: string[]) {
 export default function Purchase() {
   return (
     <div className="py-4 px-4 sm:px-6 md:px-0">
-      <div className="pb-4 md:pb-0 md:w-64 md:flex-col md:fixed">
+      <div className="pb-4 sm:pt-7 md:pb-0 md:w-64 md:flex-col md:fixed">
         <nav aria-label="Progress">
           <ol className="overflow-hidden">
             {steps.map((step, stepIdx) => (
