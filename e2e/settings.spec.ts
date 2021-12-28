@@ -12,8 +12,8 @@ test('Validate phone number when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  // Go to http://localhost:3000/dashboard/settings
-  await page.goto('/dashboard/settings')
+  // Go to http://localhost:3000/dashboard/profile/edit
+  await page.goto('/dashboard/profile/edit')
   // Query phoneNumber
   const phoneNumber = await getByRole('textbox', {
     name: /nomor whatsapp/i,
@@ -54,7 +54,7 @@ test('Validate name when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile/edit')
 
   const name = await getByRole('textbox', {
     name: /nama lengkap/i,
@@ -78,7 +78,7 @@ test('Validate name when updating data', async ({
 })
 
 test('Update profile', async ({ page, queries: { getByRole } }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile/edit')
 
   // Get element by role
   const name = await getByRole('textbox', {

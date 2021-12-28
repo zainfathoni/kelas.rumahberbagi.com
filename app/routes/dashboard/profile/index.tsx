@@ -7,12 +7,29 @@ import { getUser } from '~/models/user'
 import { auth } from '~/services/auth.server'
 import { logout } from '~/services/session.server'
 
+type ProfileProps = {
+  name: string
+  imageUrl: string
+  coverImageUrl: string
+  about: string
+  fields: {
+    Phone: string
+    Email: string
+    Title: string
+    Team: string
+    Location: string
+    Sits: string
+    Salary: string
+    Birthday: string
+  }
+}
+
 const tabs = [
   { name: 'Profile', href: '#', current: true },
   { name: 'Calendar', href: '#', current: false },
   { name: 'Recognition', href: '#', current: false },
 ]
-const profile = {
+const profile: ProfileProps = {
   name: 'Ricardo Cooper',
   imageUrl:
     'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
@@ -196,7 +213,7 @@ export default function ProfileRoute() {
                         {field}
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900">
-                        {profile.fields[field]}
+                        {profile.fields[field as never]}
                       </dd>
                     </div>
                   ))}
