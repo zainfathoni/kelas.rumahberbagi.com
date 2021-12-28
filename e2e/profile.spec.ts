@@ -45,7 +45,7 @@ test('Profile page has rendered in dashboard page after click Profile in side me
 
   await page.click('text=Profile')
 
-  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile')
+  await expect(page).toHaveURL('/dashboard/profile')
   await expect(page.locator('text=Profile').first()).toBeVisible()
 
   // test mobile
@@ -66,7 +66,7 @@ test('Profile page has rendered in dashboard page after click Profile in side me
   await profile.click()
 
   // Expect text=Profile page to be visible and has Ubah button
-  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile')
+  await expect(page).toHaveURL('/dashboard/profile')
   await expect(page.locator('text=Profile').first()).toBeVisible()
 })
 
@@ -82,7 +82,7 @@ test('Redirect to /dashboard/profile/edit after click Ubah button', async ({
 
   await page.click('text=Ubah')
 
-  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
+  await expect(page).toHaveURL('/dashboard/profile/edit')
   await expect(page.locator('text=Data Diri').first()).toBeVisible()
 
   // test mobile
