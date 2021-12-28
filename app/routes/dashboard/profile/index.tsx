@@ -1,5 +1,11 @@
 import { Fragment } from 'react'
 import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
+import { json, useLoaderData } from 'remix'
+import type { LoaderFunction } from 'remix'
+import { User } from '@prisma/client'
+import { getUser } from '~/models/user'
+import { auth } from '~/services/auth.server'
+import { logout } from '~/services/session.server'
 
 const tabs = [
   { name: 'Profile', href: '#', current: true },
@@ -59,11 +65,27 @@ const team = [
   },
 ]
 
+export const loader: LoaderFunction = async ({ request }) => {
+  // If the user is here, it's already authenticated, if not redirect them to
+  // the login page.
+  const { id } = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
+
+  // Get the user data from the database.
+  const user = await getUser(id)
+  if (!user) {
+    return logout(request)
+  }
+  return json({ user })
+}
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ProfileRoute() {
+  const { user } = useLoaderData<{ user: User }>()
   return (
     <>
       {/*
@@ -99,7 +121,7 @@ export default function ProfileRoute() {
                     <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                       <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                         <h1 className="text-2xl font-bold text-gray-900 truncate">
-                          {profile.name}
+                          {user.name}
                         </h1>
                       </div>
                       <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -134,7 +156,7 @@ export default function ProfileRoute() {
                   </div>
                   <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
                     <h1 className="text-2xl font-bold text-gray-900 truncate">
-                      {profile.name}
+                      {user.name}
                     </h1>
                   </div>
                 </div>
