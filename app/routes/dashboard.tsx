@@ -8,7 +8,7 @@ import {
   MenuIcon,
 } from '@heroicons/react/outline'
 import type { LoaderFunction } from 'remix'
-import { Form, json, Outlet } from 'remix'
+import { useMatches, Form, json, Outlet } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -30,12 +30,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
+  { name: 'Home', href: '/dashboard/', icon: HomeIcon },
   {
     name: 'Purchase',
     href: '/dashboard/purchase',
     icon: CashIcon,
-    current: false,
   },
 ]
 
@@ -45,6 +44,8 @@ function classNames(...classes: string[]) {
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const matches = useMatches()
+  const currentPathname = matches[2]?.pathname
 
   return (
     <>
@@ -115,7 +116,7 @@ export default function Dashboard() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
+                          item.href === currentPathname
                             ? 'bg-gray-100 text-gray-900'
                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
@@ -123,7 +124,7 @@ export default function Dashboard() {
                       >
                         <item.icon
                           className={classNames(
-                            item.current
+                            item.href === currentPathname
                               ? 'text-gray-500'
                               : 'text-gray-400 group-hover:text-gray-500',
                             'mr-4 flex-shrink-0 h-6 w-6'
@@ -193,7 +194,7 @@ export default function Dashboard() {
                     key={item.name}
                     href={item.href}
                     className={classNames(
-                      item.current
+                      item.href === currentPathname
                         ? 'bg-gray-100 text-gray-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -201,7 +202,7 @@ export default function Dashboard() {
                   >
                     <item.icon
                       className={classNames(
-                        item.current
+                        item.href === currentPathname
                           ? 'text-gray-500'
                           : 'text-gray-400 group-hover:text-gray-500',
                         'mr-3 flex-shrink-0 h-6 w-6'
