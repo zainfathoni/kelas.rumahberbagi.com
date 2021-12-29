@@ -6,6 +6,7 @@ import {
   LogoutIcon,
   XIcon,
   MenuIcon,
+  UserIcon,
 } from '@heroicons/react/outline'
 import type { LoaderFunction } from 'remix'
 import { useMatches, Form, json, Outlet, Link } from 'remix'
@@ -31,6 +32,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const navigation = [
   { name: 'Home', href: '/dashboard/', icon: HomeIcon },
+  { name: 'Profile', href: '/dashboard/profile', icon: UserIcon },
   {
     name: 'Purchase',
     href: '/dashboard/purchase',
