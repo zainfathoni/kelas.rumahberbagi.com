@@ -2,108 +2,118 @@ import { expect } from '@playwright/test'
 import { test } from './base-test'
 
 test.use({
+  // TODO: import session value in auth.json from environment variables
+  // to match the SESSION_SECRET and MAGIC_LINK_SECRET in .env file
   storageState: 'e2e/auth.json',
 })
 
-test('Dashboard page has Profile nav link in side menu', async ({
+test('Validate phone number when updating data', async ({
   page,
-  isMobile,
+  noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard')
+  // Go to http://localhost:3000/dashboard/profile/edit
 
-  await expect(page.locator('text=Profile').first()).toBeVisible()
-
-  const profileButton = page.locator('a:has-text("Profile")').first()
-  await expect(profileButton).toBeVisible()
-  await expect(profileButton).toHaveAttribute('href', '/dashboard/profile')
-
-  // test mobile
-  await page.goto('/dashboard')
-
-  if (isMobile) {
-    const openSidebar = await getByRole('button', {
-      name: /open sidebar/i,
-    })
-    await openSidebar.click()
+  await page.goto('/dashboard/profile/edit')
+  // Query phoneNumber
+  const phoneNumber = await getByRole('textbox', {
+    name: /nomor whatsapp/i,
+  })
+  // Fill phoneNumber
+  await phoneNumber.fill('6512345678')
+  // Press Tab
+  await phoneNumber.press('Tab')
+  // Expect visibility only when JavaScript is enabled
+  if (!noscript) {
+    await expect(
+      page
+        .locator(
+          'text=Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
+        )
+        .first()
+    ).toBeVisible()
   }
-
-  const profLink = await expect(
-    page.locator('text=Profile').first()
-  ).toBeVisible()
-  await expect(profLink).toHaveAttribute('href', '/dashboard/profile/edit')
+  // Fill phoneNumber
+  await phoneNumber.fill('+6512345678')
+  // Click text=Save
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard' }*/),
+    page.click('text=Simpan'),
+  ])
+  // Expect invisibility
+  await expect(
+    page
+      .locator(
+        'text=Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
+      )
+      .first()
+  ).not.toBeVisible()
 })
 
-test('Profile page has rendered in dashboard page after click Profile in side menu', async ({
+test('Validate name when updating data', async ({
   page,
-  isMobile,
+  noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard')
+  await page.goto('/dashboard/profile/edit')
 
-  await expect(page.locator('text=Profile').first()).toBeVisible()
-
-  await page.click('text=Profile')
-
-  await expect(page).toHaveURL('/dashboard/profile')
-  await expect(page.locator('text=Profile').first()).toBeVisible()
-
-  // test mobile
-  await page.goto('/dashboard')
-
-  if (isMobile) {
-    const openSidebar = await getByRole('button', {
-      name: /open sidebar/i,
-    })
-    await openSidebar.click()
-  }
-
-  const profile = await getByRole('button', {
-    name: /profile/i,
+  const name = await getByRole('textbox', {
+    name: /nama lengkap/i,
   })
 
-  // Click text=Profile
-  await profile.click()
+  await name.fill('')
+  await name.press('Tab')
 
-  // Expect text=Profile page to be visible and has Ubah button
-  await expect(page).toHaveURL('/dashboard/profile')
-  await expect(page.locator('text=Profile').first()).toBeVisible()
+  if (!noscript) {
+    await expect(
+      page.locator('text=Nama Lengkap wajib diisi').first()
+    ).toBeVisible()
+  }
+
+  await name.fill('Lorem I')
+  await page.click('text=Simpan')
+
+  await expect(
+    page.locator('text=Nama Lengkap wajib diisi').first()
+  ).not.toBeVisible()
 })
 
-test('Redirect to /dashboard/profile/edit after click Ubah button', async ({
-  page,
-  isMobile,
-  queries: { getByRole },
-}) => {
-  await page.goto('/dashboard/profile')
+test('Update profile', async ({ page, queries: { getByRole } }) => {
+  await page.goto('/dashboard/profile/edit')
 
-  await expect(page.locator('text=Profile').first()).toBeVisible()
-  await expect(page.locator('text=Ubah').first()).toBeVisible()
-
-  await page.click('text=Ubah')
-
-  await expect(page).toHaveURL('/dashboard/profile/edit')
-  await expect(page.locator('text=Data Diri').first()).toBeVisible()
-
-  // test mobile
-  await page.goto('/dashboard')
-
-  if (isMobile) {
-    const openSidebar = await getByRole('button', {
-      name: /open sidebar/i,
-    })
-    await openSidebar.click()
-  }
-
-  const profile = await getByRole('button', {
-    name: /profile/i,
+  // Get element by role
+  const name = await getByRole('textbox', {
+    name: /nama lengkap/i,
   })
+  const phoneNumber = await getByRole('textbox', {
+    name: /nomor whatsapp/i,
+  })
+  const telegram = await getByRole('textbox', {
+    name: /username telegram/i,
+  })
+  const instagram = await getByRole('textbox', {
+    name: /username instagram/i,
+  })
+  // Fill all input
+  await name.fill('Lorem Ipsum')
+  await phoneNumber.fill('+6289123456')
+  await telegram.fill('@lorem_tl')
+  await instagram.fill('@lorem_ig')
 
-  // Click text=Profile
-  await profile.click()
+  // Submit form and wait for the redirect to the /profile page
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile' }*/),
+    page.click('text=Simpan'),
+  ])
 
-  // Expect text=Profile page to be visible and has Ubah button
-  const ubahLink = page.locator('text=Ubah').first()
-  await expect(ubahLink).toBeVisible()
-  await expect(ubahLink).toHaveAttribute('href', '/dashboard/profile/edit')
+  // Go back to the /profile/edit page
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile/edit' }*/),
+    page.click('text=Ubah'),
+  ])
+
+  await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
+  await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
+  await expect(page.locator('[value="@lorem_tl"]').first()).toBeVisible()
+  await expect(page.locator('[value="@lorem_ig"]').first()).toBeVisible()
 })

@@ -84,7 +84,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await db.user.update({ where: { id: user.id }, data: fields })
 
-  return redirect('/dashboard/settings')
+  return redirect('/dashboard/profile')
 }
 
 const tabs = [
@@ -165,7 +165,7 @@ export default function Settings() {
                 </div>
               </div>
               <div className="mt-5 md:mt-0 md:col-span-2">
-                <Form action="/dashboard/settings" method="post">
+                <Form action="/dashboard/profile/edit" method="post">
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">

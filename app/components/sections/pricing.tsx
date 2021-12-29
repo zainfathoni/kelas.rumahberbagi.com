@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'remix'
 
 type DescriptionProps = {
   children: React.ReactNode
@@ -112,12 +113,12 @@ export const Pricing = ({
                 </p>
                 <div className="mt-6">
                   <div className="rounded-md shadow">
-                    <a
-                      href="#daftar"
+                    <Link
+                      to="/login"
                       className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
                     >
                       Daftarkan Diri
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
