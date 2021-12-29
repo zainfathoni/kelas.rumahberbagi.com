@@ -2,8 +2,9 @@
 
 - [Contributing to Kelas Rumah Berbagi](#contributing-to-kelas-rumah-berbagi)
   - [How to contribute](#how-to-contribute)
-    - [Project overview](#project-overview)
-    - [Epics list](#epics-list)
+    - [Understanding GitHub Projects](#understanding-github-projects)
+      - [Issues board](#issues-board)
+      - [Epics list](#epics-list)
     - [Finding or creating issues](#finding-or-creating-issues)
       - [Open Issues](#open-issues)
       - [Closed Issues](#closed-issues)
@@ -31,14 +32,39 @@
 In this project, we are heavily utilising GitHub features to document and signal
 any progress in the website development.
 
-### Project overview
+### Understanding GitHub Projects
 
-To visualize the overview state of the project, please visit
-[rbagi.id/github-project](https://rbagi.id/github-project).
+GitHub recently launched a new
+[Project planning feature](https://github.com/features/issues) in beta. You can
+read
+[GitHub's official document](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects)
+about this new feature.
 
-### Epics list
+We are trying to utilize this new feature for managing our issues better. This
+is the way we are using it in this project.
 
-To visualize the list of epics covering all issues in this project, please visit
+#### Issues board
+
+To find the state of all issues, please visit
+[rbagi.id/board](https://rbagi.id/board). These are what each column in the
+board means:
+
+<!-- markdownlint-disable line-length -->
+
+| Status          | Description                                                                                                                                                                                                                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ready           | It is ready for development                                                                                                                                                                                                                                                                  |
+| In Progress     | Somebody has started working on it, indicated by a [draft PR](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request#converting-a-pull-request-to-a-draft) linked                  |
+| In Review       | The maintainer is reviewing the PR, indicated by a [PR ready for review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request#marking-a-pull-request-as-ready-for-review) linked |
+| Pending Release | The maintainer has approved the PR, waiting for the CI to pass                                                                                                                                                                                                                               |
+| Done            | The PR has been merged to the `main` branch and it is considered done                                                                                                                                                                                                                        |
+
+<!-- markdownlint-restore -->
+
+#### Epics list
+
+To visualize the list of epics covering all issues in this project and
+understand the overall state of this project, please visit
 [rbagi.id/epic](https://rbagi.id/epic).
 
 ### Finding or creating issues
