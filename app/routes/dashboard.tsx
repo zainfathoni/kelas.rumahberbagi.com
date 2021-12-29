@@ -8,7 +8,7 @@ import {
   MenuIcon,
 } from '@heroicons/react/outline'
 import type { LoaderFunction } from 'remix'
-import { useMatches, Form, json, Outlet } from 'remix'
+import { useMatches, Form, json, Outlet, Link } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -112,9 +112,9 @@ export default function Dashboard() {
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.href === currentPathname
                             ? 'bg-gray-100 text-gray-900'
@@ -132,7 +132,7 @@ export default function Dashboard() {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>
@@ -151,8 +151,8 @@ export default function Dashboard() {
                   </Form>
                 </div>
                 <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                  <a
-                    href="/dashboard/profile"
+                  <Link
+                    to="/dashboard/profile"
                     className="flex-shrink-0 group block"
                   >
                     <div className="flex items-center">
@@ -172,7 +172,7 @@ export default function Dashboard() {
                         </p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </Transition.Child>
@@ -190,9 +190,9 @@ export default function Dashboard() {
               <LogoWithText />
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.href === currentPathname
                         ? 'bg-gray-100 text-gray-900'
@@ -210,7 +210,7 @@ export default function Dashboard() {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
@@ -229,8 +229,8 @@ export default function Dashboard() {
               </Form>
             </div>
             <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-              <a
-                href="/dashboard/profile"
+              <Link
+                to="/dashboard/profile"
                 className="flex-shrink-0 w-full group block"
               >
                 <div className="flex items-center">
@@ -250,7 +250,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
