@@ -13,7 +13,7 @@ test('Validate phone number when updating data', async ({
   queries: { getByRole },
 }) => {
   // Go to http://localhost:3000/dashboard/profile
-  await page.goto('/dashboard/profile')
+  await page.goto('/dashboard/profile/edit')
   // Query phoneNumber
   const phoneNumber = await getByRole('textbox', {
     name: /nomor whatsapp/i,
@@ -54,7 +54,7 @@ test('Validate name when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard/profile')
+  await page.goto('/dashboard/profile/edit')
 
   const name = await getByRole('textbox', {
     name: /nama lengkap/i,
@@ -78,7 +78,7 @@ test('Validate name when updating data', async ({
 })
 
 test('Update profile', async ({ page, queries: { getByRole } }) => {
-  await page.goto('/dashboard/profile')
+  await page.goto('/dashboard/profile/edit')
 
   // Get element by role
   const name = await getByRole('textbox', {
@@ -108,7 +108,18 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
     saveButton.click(),
   ])
 
-  await page.reload()
+  // FIXME: We should not need to navigate to `/dashboard/profile` manually
+  // because it should be done automatically upon successful update
+  // but somehow the 'noscript' test is failing if we remove this line
+  await page.goto('/dashboard/profile')
+
+  const ubah = await getByRole('link', {
+    name: /ubah/i,
+  })
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile/edit' }*/),
+    ubah.click(),
+  ])
 
   await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
   await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
