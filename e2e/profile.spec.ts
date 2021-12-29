@@ -12,8 +12,8 @@ test('Validate phone number when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  // Go to http://localhost:3000/dashboard/settings
-  await page.goto('/dashboard/settings')
+  // Go to http://localhost:3000/dashboard/profile
+  await page.goto('/dashboard/profile')
   // Query phoneNumber
   const phoneNumber = await getByRole('textbox', {
     name: /nomor whatsapp/i,
@@ -54,7 +54,7 @@ test('Validate name when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile')
 
   const name = await getByRole('textbox', {
     name: /nama lengkap/i,
@@ -78,7 +78,7 @@ test('Validate name when updating data', async ({
 })
 
 test('Update profile', async ({ page, queries: { getByRole } }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile')
 
   // Get element by role
   const name = await getByRole('textbox', {
@@ -103,9 +103,11 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   await telegram.fill('@lorem_tl')
   await instagram.fill('@lorem_ig')
 
-  await saveButton.click()
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile' }*/),
+    saveButton.click(),
+  ])
 
-  // Reload page to make sure getting the latest user data
   await page.reload()
 
   await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
