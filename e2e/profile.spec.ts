@@ -93,32 +93,22 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   const instagram = await getByRole('textbox', {
     name: /username instagram/i,
   })
-  const saveButton = await getByRole('button', {
-    name: /simpan/i,
-  })
-
   // Fill all input
   await name.fill('Lorem Ipsum')
   await phoneNumber.fill('+6289123456')
   await telegram.fill('@lorem_tl')
   await instagram.fill('@lorem_ig')
 
+  // Submit form and wait for the redirect to the /profile page
   await Promise.all([
     page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile' }*/),
-    saveButton.click(),
+    page.click('text=Simpan'),
   ])
 
-  // FIXME: We should not need to navigate to `/dashboard/profile` manually
-  // because it should be done automatically upon successful update
-  // but somehow the 'noscript' test is failing if we remove this line
-  await page.goto('/dashboard/profile')
-
-  const ubah = await getByRole('link', {
-    name: /ubah/i,
-  })
+  // Go back to the /profile/edit page
   await Promise.all([
     page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile/edit' }*/),
-    ubah.click(),
+    page.click('text=Ubah'),
   ])
 
   await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
