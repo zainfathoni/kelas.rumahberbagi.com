@@ -6,10 +6,10 @@ import {
   LogoutIcon,
   XIcon,
   MenuIcon,
-  UserIcon,
 } from '@heroicons/react/outline'
+import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { useMatches, Form, json, Outlet, Link } from 'remix'
+import { User } from '@prisma/client'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -32,7 +32,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const navigation = [
   { name: 'Home', href: '/dashboard/', icon: HomeIcon },
-  { name: 'Profile', href: '/dashboard/profile', icon: UserIcon },
   {
     name: 'Purchase',
     href: '/dashboard/purchase',
@@ -48,6 +47,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
+  const { user } = useLoaderData<{ user: User }>()
 
   return (
     <>
@@ -167,7 +167,7 @@ export default function Dashboard() {
                       </div>
                       <div className="ml-3">
                         <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
-                          Tom Cook
+                          {user.name}
                         </p>
                         <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
                           View profile
@@ -245,7 +245,7 @@ export default function Dashboard() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                      Tom Cook
+                      {user.name}
                     </p>
                     <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
                       View profile
