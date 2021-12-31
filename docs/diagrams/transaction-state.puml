@@ -5,5 +5,7 @@ left to right direction
 
 [*] --> SUBMITTED
 SUBMITTED --> VERIFIED
+SUBMITTED --> REJECTED
 VERIFIED --> [*]
+REJECTED --> [*]
 @enduml
