@@ -1,34 +1,16 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
-  BellIcon,
-  BriefcaseIcon,
-  ChatIcon,
-  CogIcon,
-  DocumentSearchIcon,
   HomeIcon,
-  MenuAlt2Icon,
+  CashIcon,
   LogoutIcon,
-  UsersIcon,
   XIcon,
+  MenuIcon,
 } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
-
-import type { User } from '@prisma/client'
-import type { ActionFunction, LoaderFunction } from 'remix'
-import {
-  redirect,
-  useActionData,
-  useTransition,
-  Form,
-  json,
-  useLoaderData,
-} from 'remix'
+import type { LoaderFunction } from 'remix'
+import { useMatches, Form, json, Outlet, Link } from 'remix'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
-import { Button, Field } from '~/components/form-elements'
-import { validatePhoneNumber, validateRequired } from '~/utils/validators'
-import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 
@@ -47,71 +29,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ user })
 }
 
-type ActionData = {
-  formError?: string
-  fieldErrors?: {
-    name: string | undefined
-    phoneNumber: string | undefined
-    instagram: string | undefined
-    telegram: string | undefined
-  }
-  fields?: {
-    name: string
-    phoneNumber: string
-    instagram: string
-    telegram: string
-  }
-}
-
-export const action: ActionFunction = async ({ request }) => {
-  const user = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
-
-  const form = await request.formData()
-  const name = form.get('name')
-  const phoneNumber = form.get('phoneNumber')
-  const instagram = form.get('instagram')
-  const telegram = form.get('telegram')
-  // TODO: Use `zod` instead
-  if (
-    typeof name !== 'string' ||
-    typeof phoneNumber !== 'string' ||
-    typeof instagram !== 'string' ||
-    typeof telegram !== 'string'
-  ) {
-    return { formError: 'Form not submitted correctly.' }
-  }
-
-  const fieldErrors = {
-    name: validateRequired('Nama Lengkap', name),
-    phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
-  }
-  const fields = { name, phoneNumber, instagram, telegram }
-  if (Object.values(fieldErrors).some(Boolean)) {
-    return { fieldErrors, fields }
-  }
-
-  await db.user.update({ where: { id: user.id }, data: fields })
-
-  return redirect('/dashboard')
-}
-
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: false },
-  { name: 'Jobs', href: '#', icon: BriefcaseIcon, current: false },
-  { name: 'Applications', href: '#', icon: DocumentSearchIcon, current: false },
-  { name: 'Messages', href: '#', icon: ChatIcon, current: false },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Settings', href: '#', icon: CogIcon, current: true },
-]
-const tabs = [
-  { name: 'General', href: '#', current: true },
-  { name: 'Password', href: '#', current: false },
-  { name: 'Notifications', href: '#', current: false },
-  { name: 'Plan', href: '#', current: false },
-  { name: 'Billing', href: '#', current: false },
-  { name: 'Team Members', href: '#', current: false },
+  { name: 'Home', href: '/dashboard/', icon: HomeIcon },
+  {
+    name: 'Purchase',
+    href: '/dashboard/purchase',
+    icon: CashIcon,
+  },
 ]
 
 function classNames(...classes: string[]) {
@@ -120,18 +44,24 @@ function classNames(...classes: string[]) {
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  const { user } = useLoaderData<{ user: User }>()
-  const actionData = useActionData<ActionData>()
-  const { state } = useTransition()
+  const matches = useMatches()
+  const currentPathname = matches[2]?.pathname
 
   return (
     <>
+      {/*
+        This example requires updating your template:
+
+        ```
+        <html class="h-full">
+        <body class="h-full">
+        ```
+      */}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 z-40 flex md:hidden"
+            className="fixed inset-0 flex z-40 md:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -154,7 +84,7 @@ export default function Dashboard() {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative max-w-xs w-full bg-white pt-5 pb-4 flex-1 flex flex-col">
+              <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -164,69 +94,90 @@ export default function Dashboard() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 -mr-14 p-1">
+                  <div className="absolute top-0 right-0 -mr-12 pt-2">
                     <button
                       type="button"
-                      className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:bg-gray-600"
+                      className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                       onClick={() => setSidebarOpen(false)}
                     >
+                      <span className="sr-only">Close sidebar</span>
                       <XIcon
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
                       />
-                      <span className="sr-only">Close sidebar</span>
                     </button>
                   </div>
                 </Transition.Child>
-                <LogoWithText />
-                <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                  <nav className="h-full flex flex-col">
-                    <div className="space-y-1">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
+                <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+                  <LogoWithText />
+                  <nav className="mt-5 px-2 space-y-1">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          item.href === currentPathname
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                          'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                        )}
+                      >
+                        <item.icon
                           className={classNames(
-                            item.current
-                              ? 'bg-purple-50 border-purple-600 text-purple-600'
-                              : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group border-l-4 py-2 px-3 flex items-center text-base font-medium'
+                            item.href === currentPathname
+                              ? 'text-gray-500'
+                              : 'text-gray-400 group-hover:text-gray-500',
+                            'mr-4 flex-shrink-0 h-6 w-6'
                           )}
-                          aria-current={item.current ? 'page' : undefined}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? 'text-purple-500'
-                                : 'text-gray-400 group-hover:text-gray-500',
-                              'mr-4 flex-shrink-0 h-6 w-6'
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
-                    <div className="mt-auto pt-10 space-y-1">
-                      <Form action="/logout" method="post">
-                        <button
-                          type="submit"
-                          className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                        >
-                          <LogoutIcon
-                            className="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                            aria-hidden="true"
-                          />
-                          Keluar
-                        </button>
-                      </Form>
-                    </div>
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </Link>
+                    ))}
                   </nav>
+                </div>
+                <div className="flex-shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                  <Form action="/logout" method="post">
+                    <button
+                      type="submit"
+                      className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                    >
+                      <LogoutIcon
+                        className="text-gray-400 group-hover:text-gray-500 mr-4 flex-shrink-0 h-6 w-6"
+                        aria-hidden="true"
+                      />
+                      Keluar
+                    </button>
+                  </Form>
+                </div>
+                <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                  <Link
+                    to="/dashboard/profile"
+                    className="flex-shrink-0 group block"
+                  >
+                    <div className="flex items-center">
+                      <div>
+                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
+                          <span className="text-medium font-medium leading-none text-white">
+                            TC
+                          </span>
+                        </span>
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                          Tom Cook
+                        </p>
+                        <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
+                          View profile
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </Transition.Child>
-            <div className="flex-shrink-0 w-14" aria-hidden="true">
-              {/* Dummy element to force sidebar to shrink to fit close icon */}
+            <div className="flex-shrink-0 w-14">
+              {/* Force sidebar to shrink to fit close icon */}
             </div>
           </Dialog>
         </Transition.Root>
@@ -234,247 +185,103 @@ export default function Dashboard() {
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <nav className="bg-gray-50 border-r border-gray-200 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
-            <LogoWithText />
-            <div className="flex-grow mt-5">
-              <div className="space-y-1">
+          <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
+            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+              <LogoWithText />
+              <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
-                      item.current
-                        ? 'bg-purple-50 border-purple-600 text-purple-600'
-                        : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                      'group border-l-4 py-2 px-3 flex items-center text-sm font-medium'
+                      item.href === currentPathname
+                        ? 'bg-gray-100 text-gray-900'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
                   >
                     <item.icon
                       className={classNames(
-                        item.current
-                          ? 'text-purple-500'
+                        item.href === currentPathname
+                          ? 'text-gray-500'
                           : 'text-gray-400 group-hover:text-gray-500',
                         'mr-3 flex-shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
-              </div>
+              </nav>
             </div>
-            <div className="flex-shrink-0 block w-full">
+            <div className="group flex-shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
               <Form action="/logout" method="post">
                 <button
                   type="submit"
                   className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
                   <LogoutIcon
-                    className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
+                    className="text-gray-400 group-hover:text-gray-500 mr-4 flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   />
                   Keluar
                 </button>
               </Form>
             </div>
-          </nav>
-        </div>
-
-        {/* Content area */}
-        <div className="md:pl-64">
-          <div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
-            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
-              <button
-                type="button"
-                className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden"
-                onClick={() => setSidebarOpen(true)}
+            <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+              <Link
+                to="/dashboard/profile"
+                className="flex-shrink-0 w-full group block"
               >
-                <span className="sr-only">Open sidebar</span>
-                <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
-              <div className="flex-1 flex justify-between px-4 md:px-0">
-                <div className="flex-1 flex">
-                  <form className="w-full flex md:ml-0" action="#" method="GET">
-                    <label htmlFor="mobile-search-field" className="sr-only">
-                      Search
-                    </label>
-                    <label htmlFor="desktop-search-field" className="sr-only">
-                      Search
-                    </label>
-                    <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                        <SearchIcon
-                          className="flex-shrink-0 h-5 w-5"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <input
-                        name="mobile-search-field"
-                        id="mobile-search-field"
-                        className="h-full w-full border-transparent py-2 pl-8 pr-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:hidden"
-                        placeholder="Search"
-                        type="search"
-                      />
-                      <input
-                        name="desktop-search-field"
-                        id="desktop-search-field"
-                        className="hidden h-full w-full border-transparent py-2 pl-8 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:block"
-                        placeholder="Search jobs, applicants, and more"
-                        type="search"
-                      />
-                    </div>
-                  </form>
+                <div className="flex items-center">
+                  <div>
+                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
+                      <span className="text-medium font-medium leading-none text-white">
+                        TC
+                      </span>
+                    </span>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                      Tom Cook
+                    </p>
+                    <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+                      View profile
+                    </p>
+                  </div>
                 </div>
-                <div className="ml-4 flex items-center md:ml-6">
-                  <button
-                    type="button"
-                    className="bg-white rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                  >
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    <span className="sr-only">View notifications</span>
-                  </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="md:pl-64 flex flex-col flex-1">
+          <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
+            <button
+              type="button"
+              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <MenuIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <main className="flex-1">
+            <div className="py-6">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                <h1 className="text-2xl font-semibold text-gray-900">
+                  Breadcrumbs
+                </h1>
+              </div>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                {/*
+                <div className="py-4">
+                  <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
                 </div>
+                {/* /End replace */}
+                <Outlet />
               </div>
             </div>
-
-            <main className="flex-1">
-              <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-                <div className="pt-10 pb-16">
-                  <div className="px-4 sm:px-6 md:px-0">
-                    <h1 className="text-3xl font-extrabold text-gray-900">
-                      Settings
-                    </h1>
-                  </div>
-                  <div className="px-4 sm:px-6 md:px-0">
-                    <div className="py-6">
-                      {/* Tabs */}
-                      <div className="lg:hidden">
-                        <label htmlFor="selected-tab" className="sr-only">
-                          Select a tab
-                        </label>
-                        <select
-                          id="selected-tab"
-                          name="selected-tab"
-                          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
-                          defaultValue={tabs.find((tab) => tab.current)?.name}
-                        >
-                          {tabs.map((tab) => (
-                            <option key={tab.name}>{tab.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="hidden lg:block">
-                        <div className="border-b border-gray-200">
-                          <nav className="-mb-px flex space-x-8">
-                            {tabs.map((tab) => (
-                              <a
-                                key={tab.name}
-                                href={tab.href}
-                                className={classNames(
-                                  tab.current
-                                    ? 'border-purple-500 text-purple-600'
-                                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                                  'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
-                                )}
-                              >
-                                {tab.name}
-                              </a>
-                            ))}
-                          </nav>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description list with inline editing */}
-                    <div className="mt-10 sm:mt-0">
-                      <div className="md:grid md:grid-cols-3 md:gap-6">
-                        <div className="md:col-span-1">
-                          <div className="px-4 sm:px-0">
-                            <h3 className="text-lg font-medium leading-6 text-gray-900">
-                              Data Diri
-                            </h3>
-                            <p className="mt-1 text-sm text-gray-600">
-                              Untuk keperluan proses administrasi akun Anda.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="mt-5 md:mt-0 md:col-span-2">
-                          <Form action="/dashboard" method="post">
-                            <div className="shadow overflow-hidden sm:rounded-md">
-                              <div className="px-4 py-5 bg-white sm:p-6">
-                                <div className="grid grid-cols-6 gap-6">
-                                  <Field
-                                    className="col-span-6"
-                                    name="name"
-                                    label="Nama Lengkap"
-                                    placeholder="Cantumkan nama lengkap Anda"
-                                    defaultValue={user.name ?? ''}
-                                    autoComplete="name"
-                                    autoCapitalize="words"
-                                    required
-                                    aria-invalid={user.name ? 'false' : 'true'}
-                                  />
-                                  <Field
-                                    className="col-span-6 lg:col-span-3"
-                                    name="email"
-                                    label="Alamat Email"
-                                    placeholder="alamat.email@gmail.com"
-                                    defaultValue={user.email}
-                                    readOnly
-                                    autoComplete="tel"
-                                  />
-                                  <Field
-                                    className="col-span-6 lg:col-span-3"
-                                    name="phoneNumber"
-                                    label="Nomor WhatsApp"
-                                    placeholder="+6281234567890"
-                                    defaultValue={
-                                      actionData?.fields?.phoneNumber ??
-                                      user.phoneNumber ??
-                                      ''
-                                    }
-                                    error={actionData?.fieldErrors?.phoneNumber}
-                                    validator={validatePhoneNumber}
-                                    required
-                                    autoComplete="tel"
-                                  />
-                                  <Field
-                                    className="col-span-6 lg:col-span-3"
-                                    name="telegram"
-                                    label="Username Telegram"
-                                    placeholder="@username"
-                                    defaultValue={user.telegram ?? ''}
-                                    autoComplete="nickname"
-                                  />
-                                  <Field
-                                    className="col-span-6 lg:col-span-3"
-                                    name="instagram"
-                                    label="Username Instagram"
-                                    placeholder="@user.name"
-                                    defaultValue={user.instagram ?? ''}
-                                    autoComplete="nickname"
-                                  />
-                                </div>
-                              </div>
-                              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <Button
-                                  type="submit"
-                                  disabled={state === 'submitting'}
-                                  className="inline-flex"
-                                >
-                                  Simpan
-                                </Button>
-                              </div>
-                            </div>
-                          </Form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </main>
-          </div>
+          </main>
         </div>
       </div>
     </>

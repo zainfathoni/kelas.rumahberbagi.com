@@ -19,17 +19,19 @@ model User {
   role          String
   courses       Course[]
   subscriptions Subscription[]
+  Transaction   Transaction[]
 }
 
 model Subscription {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  courseId  String
-  status    String
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  userId      String
+  courseId    String
+  status      String
+  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Transaction Transaction[]
 }
 
 model Course {
@@ -44,4 +46,19 @@ model Course {
   category      String
   author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscriptions Subscription[]
+}
+
+model Transaction {
+  id                String       @id @default(uuid())
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  userId            String
+  subscriptionId    String
+  bankName          String
+  bankAccountNumber String
+  bankAccountName   String
+  amount            Int
+  status            String
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription      Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 }

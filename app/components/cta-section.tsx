@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'remix'
 
 type commonProps = {
   children: React.ReactNode
@@ -15,12 +16,12 @@ export const CtaDescription: React.FC<commonProps> = ({ children }) => (
 )
 
 export const CtaButton: React.FC<commonProps> = ({ children }) => (
-  <a
-    href="https://rbagi.id/daftar"
+  <Link
+    to="/login"
     className="mt-8 bg-white border border-transparent rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-indigo-600 hover:bg-indigo-50"
   >
     {children}
-  </a>
+  </Link>
 )
 
 export const CtaSection: React.FC<commonProps> = ({ children }) => (

@@ -28,7 +28,8 @@
       "profile": "http://retry19.com",
       "contributions": [
         "bug",
-        "code"
+        "code",
+        "test"
       ]
     },
     {
@@ -36,6 +37,15 @@
       "name": "febrifahmi",
       "avatar_url": "https://avatars.githubusercontent.com/u/12995919?v=4",
       "profile": "https://github.com/febrifahmi",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "guntoroyk",
+      "name": "Guntoro Yudhy Kusuma",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24248495?v=4",
+      "profile": "https://guntoroyk.com/",
       "contributions": [
         "code"
       ]
