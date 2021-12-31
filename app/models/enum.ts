@@ -4,6 +4,16 @@ export const ROLES = {
   MEMBER: 'MEMBER',
 }
 
+export const CONTENT_TYPES = {
+  VIDEO: 'VIDEO',
+}
+
+export const CONSUMPTION_STATUS = {
+  PRISTINE: 'PRISTINE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+}
+
 export const SUBSCRIPTION_STATUS = {
   INACTIVE: 'INACTIVE',
   ACTIVE: 'ACTIVE',
@@ -12,4 +22,8 @@ export const SUBSCRIPTION_STATUS = {
 export const TRANSACTION_STATUS = {
   SUBMITTED: 'SUBMITTED',
   VERIFIED: 'VERIFIED',
+}
+
+export const TRANSACTION_METHOD = {
+  BANK_TRANSFER: 'BANK_TRANSFER',
 }

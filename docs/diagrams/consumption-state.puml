@@ -1,0 +1,9 @@
+@startuml "Consumption State Diagram"
+title Consumption State Diagram
+hide empty description
+left to right direction
+
+[*] --> PRISTINE
+PRISTINE --> IN_PROGRESS
+COMPLETED --> [*]
+@enduml
