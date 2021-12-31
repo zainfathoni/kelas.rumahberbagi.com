@@ -81,6 +81,7 @@ entity "Transaction" as transaction {
   *bankAccountNumber: text
   *bankAccountName: text
   *amount: number
+  *datetime: datetime
   *method: text
   *status : text
 }
