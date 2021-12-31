@@ -25,12 +25,39 @@ entity "Course" as course {
   --
   *createdAt: DateTime <<generated>>
   *updatedAt: DateTime <<generated>>
-  *authorId : text <<FK>>
+  *authorId : uuid <<FK>>
+  *slug: text <<unique>>
   *name: text
   *description: text
   *price: number
   *image: text
   *category: text
+}
+
+entity "Content" as content {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *authorId : uuid <<FK>>
+  *courseId: uuid <<FK>>
+  *slug: text
+  *name: text
+  *description: text
+  *type: text
+  *content: text
+}
+
+entity "Consumption" as consumption {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *userId : uuid <<FK>>
+  *courseId: uuid <<FK>>
+  *contentId: uuid <<FK>>
+  *progress: number
+  *status: text
 }
 
 entity "Subscription" as subscription {
@@ -53,13 +80,17 @@ entity "Transaction" as transaction {
   *bankName: text
   *bankAccountNumber: text
   *bankAccountName: text
-  *mount : number
-  status : text
+  *amount: number
+  *method: text
+  *status : text
 }
 
 user ||..|{ course
 user }|.-o{ subscription
 course ||..o{ subscription
+course ||..o{ content
+content ||..o{ consumption
+course ||..o{ consumption
 transaction }o..||subscription
 user ||..o{ transaction
 @enduml

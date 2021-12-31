@@ -24,12 +24,12 @@ autoactivate off
 Member -> Author: Upload Receipt
 autoactivate on
 
-Author -> FE: View Member Detail
+Author -> FE: View Transaction Details
 FE -> BE: Loader
 BE -> DB: Query
 return Data
 return Data
-return Member Detail
+return Transaction Details
 
 Author -> Banks: Verify Payment
 
