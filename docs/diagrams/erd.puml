@@ -67,6 +67,7 @@ entity "Subscription" as subscription {
   *updatedAt: DateTime <<generated>>
   *userId : uuid <<FK>>
   *courseId: uuid <<FK>>
+  *authorId : uuid <<FK>> <<denormalized>>
   status : text
 }
 
