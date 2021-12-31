@@ -12,6 +12,10 @@
 
 ## State Diagrams
 
+### Consumption State Diagram
+
+![Transaction State Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/zainfathoni/kelas.rumahberbagi.com/main/docs/diagrams/consumption-state.puml)
+
 ### Transaction State Diagram
 
 ![Transaction State Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/zainfathoni/kelas.rumahberbagi.com/main/docs/diagrams/transaction-state.puml)
