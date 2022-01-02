@@ -25,12 +25,39 @@ entity "Course" as course {
   --
   *createdAt: DateTime <<generated>>
   *updatedAt: DateTime <<generated>>
-  *authorId : text <<FK>>
+  *authorId : uuid <<FK>>
+  *slug: text <<unique>>
   *name: text
   *description: text
   *price: number
   *image: text
   *category: text
+}
+
+entity "Content" as content {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *authorId : uuid <<FK>>
+  *courseId: uuid <<FK>>
+  *slug: text
+  *name: text
+  *description: text
+  *type: text
+  *content: text
+}
+
+entity "Consumption" as consumption {
+  *id : uuid <<generated>>
+  --
+  *createdAt: DateTime <<generated>>
+  *updatedAt: DateTime <<generated>>
+  *userId : uuid <<FK>>
+  *contentId: uuid <<FK>>
+  *courseId: uuid <<FK>> <<denormalized>>
+  *progress: number
+  *status: text
 }
 
 entity "Subscription" as subscription {
@@ -40,6 +67,7 @@ entity "Subscription" as subscription {
   *updatedAt: DateTime <<generated>>
   *userId : uuid <<FK>>
   *courseId: uuid <<FK>>
+  *authorId : uuid <<FK>> <<denormalized>>
   status : text
 }
 
@@ -49,17 +77,23 @@ entity "Transaction" as transaction {
   *createdAt: DateTime <<generated>>
   *updatedAt: DateTime <<generated>>
   *userId : uuid <<FK>>
-  *subscriptionId : uuid <<FK>>
+  *courseId : uuid <<FK>>
+  *authorId : uuid <<FK>> <<denormalized>>
   *bankName: text
   *bankAccountNumber: text
   *bankAccountName: text
-  *mount : number
-  status : text
+  *amount: number
+  *datetime: datetime
+  *method: text
+  *status : text
 }
 
-user ||..|{ course
-user }|.-o{ subscription
-course ||..o{ subscription
-transaction }o..||subscription
+user ||..o{ course
 user ||..o{ transaction
+user }|.-o{ subscription
+user ||..o{ consumption
+course ||..o{ transaction
+course ||..o{ subscription
+course ||..o{ content
+content ||..o{ consumption
 @enduml
