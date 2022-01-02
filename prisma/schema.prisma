@@ -39,6 +39,7 @@ model Course {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   authorId      String
+  slug          String         @unique
   name          String
   description   String
   price         Int
@@ -46,6 +47,8 @@ model Course {
   category      String
   author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscriptions Subscription[]
+  Transaction   Transaction[]
+  Content       Content[]
 }
 
 model Transaction {
@@ -53,12 +56,47 @@ model Transaction {
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
   userId            String
+  courseId          String
+  authorId          String
   subscriptionId    String
   bankName          String
   bankAccountNumber String
   bankAccountName   String
   amount            Int
+  dateTime          DateTime
+  method            String
   status            String
   user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course            Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  author            User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscription      Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+model Content {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+  courseId    String
+  slug        String
+  name        String
+  description String
+  type        String
+  content     String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Consumption {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  contentId String
+  courseId  String
+  progress  String
+  status    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
