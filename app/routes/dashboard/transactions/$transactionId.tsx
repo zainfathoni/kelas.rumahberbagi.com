@@ -1,33 +1,99 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-redundant-roles */
-import { Fragment } from 'react'
-import { ROLES } from '~/models/enum'
 import { isEmpty } from '~/utils/assertions'
 
 const user = {
   name: 'Whitney Francis',
-  email: 'whitney@example.com',
   phoneNumber: '6285711453538',
-  telegram: 'whitneyf',
-  instagram: 'whitney.f',
-  role: ROLES.MEMBER,
+}
+
+const transaction = {
+  bankName: 'BRI',
+  bankAccountNumber: '0183-1821-3888-02',
+  bankAccountName: 'Whitney Francis',
+  amount: 1000000,
+  createdAt: new Date(),
 }
 
 export default function TransactionDetails() {
   return (
     <>
       <div className="min-h-full">
-        <main className="py-10">
-          {/* Page header */}
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-            <div className="flex items-center space-x-5">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  {user.name}
-                </h1>
-              </div>
+        <main>
+          <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+            <div className="space-y-6 lg:col-start-1 lg:col-span-2">
+              <section aria-labelledby="user-information-title">
+                <div className="bg-white shadow sm:rounded-lg">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h1
+                      id="user-information-title"
+                      className="text-lg leading-6 font-medium text-gray-900"
+                    >
+                      Transaction Details
+                    </h1>
+                  </div>
+                  <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Nama
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {isEmpty(user.name) ? user.name : '-'}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Nomor WhatsApp
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {isEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Nama Bank
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {isEmpty(transaction.bankName)
+                            ? transaction.bankName
+                            : '-'}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Nomor Rekening
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {isEmpty(transaction.bankAccountNumber)
+                            ? transaction.bankAccountNumber
+                            : '-'}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Nominal
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {transaction.amount ?? '-'}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Tanggal dan Waktu Pembayaran
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {transaction.createdAt
+                            ? transaction.createdAt.toLocaleString('id')
+                            : '-'}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </section>
             </div>
-            <div className="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+          </div>
+          <div className="max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
+            <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
               <a
                 href={`https://wa.me/${user.phoneNumber}`}
                 target="_blank"
@@ -42,67 +108,6 @@ export default function TransactionDetails() {
               >
                 Verifikasi Pembelian
               </button>
-            </div>
-          </div>
-
-          <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-            <div className="space-y-6 lg:col-start-1 lg:col-span-2">
-              <section aria-labelledby="user-information-title">
-                <div className="bg-white shadow sm:rounded-lg">
-                  <div className="px-4 py-5 sm:px-6">
-                    <h2
-                      id="user-information-title"
-                      className="text-lg leading-6 font-medium text-gray-900"
-                    >
-                      User Information
-                    </h2>
-                  </div>
-                  <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                    <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Email address
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.email) ? user.email : '-'}
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Phone Number
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Telegram
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.telegram) ? user.telegram : '-'}
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Instagram
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.instagram) ? user.instagram : '-'}
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Role
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {user.role ?? '-'}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-                </div>
-              </section>
             </div>
           </div>
         </main>
