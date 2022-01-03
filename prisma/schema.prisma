@@ -8,18 +8,22 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  email         String         @unique(map: "User.email_unique")
-  name          String?
-  phoneNumber   String?
-  telegram      String?
-  instagram     String?
-  role          String
-  courses       Course[]
-  subscriptions Subscription[]
-  Transaction   Transaction[]
+  id                String         @id @default(uuid())
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  email             String         @unique(map: "User.email_unique")
+  name              String?
+  phoneNumber       String?
+  telegram          String?
+  instagram         String?
+  role              String
+  courses           Course[]
+  subscriptions     Subscription[]
+  TransactionUser   Transaction[]  @relation("TransactionUser")
+  TransactionAuthor Transaction[]  @relation("TransactionAuthor")
+  Content           Content[]
+  Consumption       Consumption[]
+  Transaction       Transaction[]
 }
 
 model Subscription {
@@ -49,6 +53,7 @@ model Course {
   subscriptions Subscription[]
   Transaction   Transaction[]
   Content       Content[]
+  Consumption   Consumption[]
 }
 
 model Transaction {
@@ -66,16 +71,17 @@ model Transaction {
   dateTime          DateTime
   method            String
   status            String
-  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User         @relation("TransactionUser", fields: [userId], references: [id], onDelete: Cascade)
   course            Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  author            User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author            User         @relation("TransactionAuthor", fields: [authorId], references: [id], onDelete: Cascade)
   subscription      Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  User              User         @relation(fields: [userId], references: [id])
 }
 
 model Content {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   authorId    String
   courseId    String
   slug        String
@@ -83,8 +89,9 @@ model Content {
   description String
   type        String
   content     String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  Consumption Consumption[]
 }
 
 model Consumption {
@@ -94,7 +101,7 @@ model Consumption {
   userId    String
   contentId String
   courseId  String
-  progress  String
+  progress  Int
   status    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
