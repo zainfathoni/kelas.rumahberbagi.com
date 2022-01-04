@@ -1,5 +1,6 @@
 import { redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { Transaction, User } from '@prisma/client'
 import { isEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
 
@@ -20,7 +21,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export default function TransactionDetails() {
-  const transactionDetails = useLoaderData()
+  const transactionDetails: Transaction & { user: User } = useLoaderData()
   return (
     <>
       <div className="min-h-full">
@@ -106,7 +107,7 @@ export default function TransactionDetails() {
           <div className="max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
             <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
               <a
-                href={`https://wa.me/${transactionDetails.phoneNumber}`}
+                href={`https://wa.me/${transactionDetails.user.phoneNumber}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
