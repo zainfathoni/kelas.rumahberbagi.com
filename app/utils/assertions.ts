@@ -1,4 +1,4 @@
-export function isEmpty(str: string): boolean {
+export function isEmpty(str: unknown): boolean {
   if (!str) {
     return false
   }
