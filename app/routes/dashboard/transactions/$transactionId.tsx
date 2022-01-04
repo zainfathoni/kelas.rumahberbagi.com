@@ -1,3 +1,5 @@
+import { useLoaderData } from 'remix'
+import type { LoaderFunction } from 'remix'
 import { isEmpty } from '~/utils/assertions'
 
 const user = {
@@ -13,7 +15,13 @@ const transaction = {
   createdAt: new Date(),
 }
 
+export const loader: LoaderFunction = ({ params }) => {
+  const { transactionId } = params
+  return { ...user, ...transaction }
+}
+
 export default function TransactionDetails() {
+  const transactionDetails = useLoaderData()
   return (
     <>
       <div className="min-h-full">
@@ -37,7 +45,9 @@ export default function TransactionDetails() {
                           Nama
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.name) ? user.name : '-'}
+                          {isEmpty(transactionDetails.name)
+                            ? transactionDetails.name
+                            : '-'}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
@@ -45,7 +55,9 @@ export default function TransactionDetails() {
                           Nomor WhatsApp
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
+                          {isEmpty(transactionDetails.phoneNumber)
+                            ? transactionDetails.phoneNumber
+                            : '-'}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
@@ -53,8 +65,8 @@ export default function TransactionDetails() {
                           Nama Bank
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(transaction.bankName)
-                            ? transaction.bankName
+                          {isEmpty(transactionDetails.bankName)
+                            ? transactionDetails.bankName
                             : '-'}
                         </dd>
                       </div>
@@ -63,8 +75,8 @@ export default function TransactionDetails() {
                           Nomor Rekening
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(transaction.bankAccountNumber)
-                            ? transaction.bankAccountNumber
+                          {isEmpty(transactionDetails.bankAccountNumber)
+                            ? transactionDetails.bankAccountNumber
                             : '-'}
                         </dd>
                       </div>
@@ -73,7 +85,7 @@ export default function TransactionDetails() {
                           Nominal
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {transaction.amount ?? '-'}
+                          {transactionDetails.amount ?? '-'}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
@@ -81,8 +93,8 @@ export default function TransactionDetails() {
                           Tanggal dan Waktu Pembayaran
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {transaction.createdAt
-                            ? transaction.createdAt.toLocaleString('id')
+                          {transactionDetails.createdAt
+                            ? transactionDetails.createdAt.toLocaleString('id')
                             : '-'}
                         </dd>
                       </div>
@@ -95,7 +107,7 @@ export default function TransactionDetails() {
           <div className="max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
             <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
               <a
-                href={`https://wa.me/${user.phoneNumber}`}
+                href={`https://wa.me/${transactionDetails.phoneNumber}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
