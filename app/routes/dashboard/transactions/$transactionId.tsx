@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   const transaction = await getTransactionDetails(transactionId)
-
+  console.log(transaction?.createdAt)
   if (!transaction) {
     return redirect('/dashboard/transactions')
   }
@@ -121,7 +121,9 @@ export default function TransactionDetails() {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
                           {transactionDetails.createdAt
-                            ? transactionDetails.createdAt.toLocaleString('id')
+                            ? new Date(
+                                transactionDetails.createdAt
+                              ).toLocaleString('id')
                             : '-'}
                         </dd>
                       </div>
