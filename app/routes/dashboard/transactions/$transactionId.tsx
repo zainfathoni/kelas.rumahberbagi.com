@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   const transaction = await getTransactionDetails(transactionId)
-  console.log(transaction?.createdAt)
+
   if (!transaction) {
     return redirect('/dashboard/transactions')
   }
@@ -52,7 +52,7 @@ export default function TransactionDetails() {
       <div className="min-h-full">
         <main>
           <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-            <div className="space-y-6 lg:col-start-1 lg:col-span-2">
+            <div className="relative space-y-6 lg:col-start-1 lg:col-span-2">
               <section aria-labelledby="user-information-title">
                 <div className="bg-white shadow sm:rounded-lg">
                   <div className="px-4 py-5 sm:px-6">
@@ -131,17 +131,17 @@ export default function TransactionDetails() {
                   </div>
                 </div>
               </section>
-            </div>
-          </div>
-          <div className="max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
-            <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-              {kontakWhatsappButton}
-              <button
-                type="button"
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-              >
-                Verifikasi Pembelian
-              </button>
+              <div className="absolute right-0 max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
+                <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+                  {kontakWhatsappButton}
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                  >
+                    Verifikasi Pembelian
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </main>
