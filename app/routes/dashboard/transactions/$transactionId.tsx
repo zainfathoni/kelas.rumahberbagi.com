@@ -3,6 +3,7 @@ import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { isEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
+import { printRupiah } from '~/utils/locales'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { transactionId } = params
@@ -85,7 +86,9 @@ export default function TransactionDetails() {
                           Nominal
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {transactionDetails.amount ?? '-'}
+                          {isEmpty(transactionDetails.amount)
+                            ? printRupiah(transactionDetails.amount)
+                            : '-'}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
