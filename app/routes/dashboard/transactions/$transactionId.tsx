@@ -1,23 +1,22 @@
-import { useLoaderData } from 'remix'
+import { redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { isEmpty } from '~/utils/assertions'
+import { getTransactionDetails } from '~/models/transaction'
 
-const user = {
-  name: 'Whitney Francis',
-  phoneNumber: '6285711453538',
-}
-
-const transaction = {
-  bankName: 'BRI',
-  bankAccountNumber: '0183-1821-3888-02',
-  bankAccountName: 'Whitney Francis',
-  amount: 1000000,
-  createdAt: new Date(),
-}
-
-export const loader: LoaderFunction = ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const { transactionId } = params
-  return { ...user, ...transaction }
+
+  if (!transactionId) {
+    return redirect('/dashboard/transactions')
+  }
+
+  const transaction = await getTransactionDetails(transactionId)
+
+  if (!transaction) {
+    return redirect('/dashboard/transactions')
+  }
+
+  return transaction
 }
 
 export default function TransactionDetails() {
@@ -45,8 +44,8 @@ export default function TransactionDetails() {
                           Nama
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(transactionDetails.name)
-                            ? transactionDetails.name
+                          {isEmpty(transactionDetails.user.name)
+                            ? transactionDetails.user.name
                             : '-'}
                         </dd>
                       </div>
@@ -55,8 +54,8 @@ export default function TransactionDetails() {
                           Nomor WhatsApp
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          {isEmpty(transactionDetails.phoneNumber)
-                            ? transactionDetails.phoneNumber
+                          {isEmpty(transactionDetails.user.phoneNumber)
+                            ? transactionDetails.user.phoneNumber
                             : '-'}
                         </dd>
                       </div>
