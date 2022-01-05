@@ -123,6 +123,7 @@ export default function Dashboard() {
                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                         )}
+                        onClick={() => setSidebarOpen(false)}
                       >
                         <item.icon
                           className={classNames(
@@ -156,6 +157,7 @@ export default function Dashboard() {
                   <Link
                     to="/dashboard/profile"
                     className="flex-shrink-0 group block"
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <div className="flex items-center">
                       <div>
@@ -201,6 +203,7 @@ export default function Dashboard() {
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <item.icon
                       className={classNames(
@@ -234,6 +237,7 @@ export default function Dashboard() {
               <Link
                 to="/dashboard/profile"
                 className="flex-shrink-0 w-full group block"
+                onClick={() => setSidebarOpen(false)}
               >
                 <div className="flex items-center">
                   <div>
