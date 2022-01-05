@@ -49,6 +49,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "NurfitraPujo",
+      "name": "Nurfitra Pujo Santiko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26681203?v=4",
+      "profile": "http://nurfitrapujo.vercel.app",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
