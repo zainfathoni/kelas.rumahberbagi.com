@@ -3,7 +3,7 @@ import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { isEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
-import { printRupiah } from '~/utils/locales'
+import { printLocaleDateTimeString, printRupiah } from '~/utils/locales'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { transactionId } = params
@@ -154,9 +154,9 @@ export default function TransactionDetails() {
                           className="mt-1 text-sm text-gray-900"
                         >
                           {transactionDetails.createdAt
-                            ? new Date(
+                            ? printLocaleDateTimeString(
                                 transactionDetails.createdAt
-                              ).toLocaleString('id')
+                              )
                             : '-'}
                         </dd>
                       </div>
