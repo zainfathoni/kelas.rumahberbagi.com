@@ -42,6 +42,18 @@ async function main() {
     },
   })
 
+  // update or insert user with member role
+  const member1 = await prisma.user.upsert({
+    where: { email: 'pk1@zainf.dev' },
+    update: {},
+    create: {
+      phoneNumber: '628999210188',
+      email: 'pk1@zainf.dev',
+      name: 'Pejuang Kode 1',
+      role: ROLES.MEMBER,
+    },
+  })
+
   // create courses
   const courses = await Promise.all(
     getCourse().map((course) =>
@@ -72,6 +84,14 @@ async function main() {
     },
   })
 
+  const subscription3 = await prisma.subscription.create({
+    data: {
+      userId: member1.id,
+      courseId: courses[0].id,
+      status: SUBSCRIPTION_STATUS.ACTIVE,
+    },
+  })
+
   // create transaction with status SUBMITTED
   await prisma.transaction.create({
     data: {
@@ -94,6 +114,18 @@ async function main() {
       bankAccountName: 'Pejuang Kode',
       bankAccountNumber: '123456789',
       amount: 50000,
+      status: TRANSACTION_STATUS.VERIFIED,
+    },
+  })
+
+  await prisma.transaction.create({
+    data: {
+      userId: member1.id,
+      subscriptionId: subscription3.id,
+      bankName: 'Bank Mandiri',
+      bankAccountName: 'Pejuang Kode',
+      bankAccountNumber: '123456789',
+      amount: 25000,
       status: TRANSACTION_STATUS.VERIFIED,
     },
   })
