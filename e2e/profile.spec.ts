@@ -106,12 +106,16 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
     page.click('text=Simpan'),
   ])
 
-  // Go back to the /profile/edit page
-  await Promise.all([
-    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile/edit' }*/),
-    page.click('text=Ubah'),
-  ])
+  // Expect to see the new data on the View profile page
+  await expect(page.locator('text=+6289123456').first()).toBeVisible()
+  await expect(page.locator('text=@lorem_tl').first()).toBeVisible()
+  await expect(page.locator('text=@lorem_ig').first()).toBeVisible()
 
+  // Go back to the /profile/edit page
+  await page.click('text=Ubah')
+  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
+
+  // Expect to see the new data prefilled
   await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
   await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
   await expect(page.locator('[value="@lorem_tl"]').first()).toBeVisible()
