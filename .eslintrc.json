@@ -61,6 +61,10 @@
       "rules": {
         "playwright/missing-playwright-await": "off"
       }
+    },
+    {
+      "files": ["*.yaml", "*.yml"],
+      "parser": "yaml-eslint-parser"
     }
   ]
 }
