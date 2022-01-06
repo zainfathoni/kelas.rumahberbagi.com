@@ -12,8 +12,9 @@ test('Validate phone number when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  // Go to http://localhost:3000/dashboard/settings
-  await page.goto('/dashboard/settings')
+  // Go to http://localhost:3000/dashboard/profile/edit
+
+  await page.goto('/dashboard/profile/edit')
   // Query phoneNumber
   const phoneNumber = await getByRole('textbox', {
     name: /nomor whatsapp/i,
@@ -54,7 +55,7 @@ test('Validate name when updating data', async ({
   noscript,
   queries: { getByRole },
 }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile/edit')
 
   const name = await getByRole('textbox', {
     name: /nama lengkap/i,
@@ -78,7 +79,7 @@ test('Validate name when updating data', async ({
 })
 
 test('Update profile', async ({ page, queries: { getByRole } }) => {
-  await page.goto('/dashboard/settings')
+  await page.goto('/dashboard/profile/edit')
 
   // Get element by role
   const name = await getByRole('textbox', {
@@ -93,21 +94,28 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   const instagram = await getByRole('textbox', {
     name: /username instagram/i,
   })
-  const saveButton = await getByRole('button', {
-    name: /simpan/i,
-  })
-
   // Fill all input
   await name.fill('Lorem Ipsum')
   await phoneNumber.fill('+6289123456')
   await telegram.fill('@lorem_tl')
   await instagram.fill('@lorem_ig')
 
-  await saveButton.click()
+  // Submit form and wait for the redirect to the /profile page
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile' }*/),
+    page.click('text=Simpan'),
+  ])
 
-  // Reload page to make sure getting the latest user data
-  await page.reload()
+  // Expect to see the new data on the View profile page
+  await expect(page.locator('text=+6289123456').first()).toBeVisible()
+  await expect(page.locator('text=@lorem_tl').first()).toBeVisible()
+  await expect(page.locator('text=@lorem_ig').first()).toBeVisible()
 
+  // Go back to the /profile/edit page
+  await page.click('text=Ubah')
+  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
+
+  // Expect to see the new data prefilled
   await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
   await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
   await expect(page.locator('[value="@lorem_tl"]').first()).toBeVisible()

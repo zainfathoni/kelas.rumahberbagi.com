@@ -1,0 +1,27 @@
+@startsalt "Route Navigation"
+{
+{T
++ Route               | Minimum Roles | Name
++ /                   | Public        | Home
+++ /login             | Public        | Login
+++ /magic             | Public        | Magic
+++ /dashboard         | Member        | Dashboard
++++ /profile          | Member        | Profile
+++++ /edit            | Member        | Edit Profile
++++ /purchase         | Member        | Payment Instructions
+++++ /confirm         | Member        | Payment Confirmation
+++++ /$transactionId  | Member        | Verification Status
++++ /transactions     | Author        | Transactions List
+++++ /$transactionId  | Author        | Transaction Details
++++ /users            | Author        | Users List
+++++ /$userId         | Author        | User Details
++++++ /edit           | Admin         | Edit User
++++ /courses          | Member        | Courses List
+++++ /$courseSlug     | Member        | Course Details
++++++ /contents       | Member        | Contents List
+++++++ /$contentSlug  | Member        | Content Details
+++++++ /new           | Author        | Create Content
+}
+}
+@endsalt
+

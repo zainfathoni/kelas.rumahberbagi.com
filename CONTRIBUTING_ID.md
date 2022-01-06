@@ -2,7 +2,9 @@
 
 - [Berkontribusi ke Kelas Rumah Berbagi](#berkontribusi-ke-kelas-rumah-berbagi)
   - [Cara berkontribusi](#cara-berkontribusi)
-    - [Gambaran umum proyek](#gambaran-umum-proyek)
+    - [Memahami _GitHub Projects_](#memahami-github-projects)
+      - [Papan _issues_](#papan-issues)
+      - [Daftar _epics_](#daftar-epics)
     - [Menemukan atau membuat _issues_](#menemukan-atau-membuat-issues)
       - [_Open Issues_](#open-issues)
       - [_Closed Issues_](#closed-issues)
@@ -31,10 +33,38 @@ Dalam proyek ini, kita memaksimalkan penggunaan fitur-fitur GitHub untuk
 mendokumentasikan dan memberikan sinyal terhadap kemajuan apapun dalam
 pengerjaan website ini.
 
-### Gambaran umum proyek
+### Memahami _GitHub Projects_
 
-Untuk melihat visualisasi gambaran umum status proyek, silakan kunjungi
-[rbagi.id/github-project](https://rbagi.id/github-project).
+GitHub baru saja meluncurkan
+[fitur perencanaan proyek](https://github.com/features/issues) dalam versi beta.
+Anda dapat membaca
+[dokumentasi resmi GitHub](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects)
+terkait fitur baru ini.
+
+Kita mencoba untuk memanfaatkan fitur baru ini dalam mengelola tugas secara
+lebih baik. Berikut ini cara kita menggunakannya dalam proyek ini.
+
+#### Papan _issues_
+
+Untuk menemukan status bagi setiap _issues_, silakan kunjungi
+[rbagi.id/board](https://rbagi.id/board). Berikut ini makna dari setiap kolom di
+papan tersebut:
+
+<!-- markdownlint-disable line-length -->
+
+| Kolom           | Deskripsi                                                                                                                                                                                                                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ready           | Tugas siap untuk dikerjakan                                                                                                                                                                                                                                                                                     |
+| In Progress     | Seseorang telah mulai mengerjakannya, terindikasi dengan adanya [_draft PR_](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request#converting-a-pull-request-to-a-draft) yang terhubung              |
+| In Review       | Pengelola sedang meninjau _PR_ yang terhubung, terindikasi dengan adanya [_PR_ yang siap ditinjau](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request#marking-a-pull-request-as-ready-for-review) |
+| Pending Release | Pengelola telah menyetujui _PR_ yang terhubung, sedang menunggu lolosnya proses _CI_                                                                                                                                                                                                                            |
+| Done            | _PR_ telah disatukan ke cabang `main` dan tugas itu telah dianggap selesai                                                                                                                                                                                                                                      |
+
+#### Daftar _epics_
+
+Untuk melihat daftar utas utama yang menaungi berbagai _issues_ yang bisa
+dikerjakan di sini dan memahami status keseluruhan proyek ini, silakan kunjungi
+[rbagi.id/epic](https://rbagi.id/epic).
 
 ### Menemukan atau membuat _issues_
 
