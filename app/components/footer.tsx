@@ -1,4 +1,10 @@
-export function Footer({ instagramUrl }: { instagramUrl: string }) {
+import React from 'react' // FIXME: find a way to make the test pass without this
+
+export type FooterProps = {
+  instagramUrl: string
+}
+
+export function Footer({ instagramUrl }: FooterProps) {
   return (
     <footer className="bg-white">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
@@ -9,7 +15,9 @@ export function Footer({ instagramUrl }: { instagramUrl: string }) {
             rel="noreferrer noopener"
             className="text-gray-400 hover:text-gray-500"
           >
-            <span className="sr-only">Instagram</span>
+            <span className="sr-only" role="img" aria-label="Instagram Link">
+              Instagram
+            </span>
             <svg
               fill="currentColor"
               viewBox="0 0 24 24"
