@@ -7,8 +7,9 @@ import {
   XIcon,
   MenuIcon,
 } from '@heroicons/react/outline'
+import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { useMatches, Form, json, Outlet, Link } from 'remix'
+import { User } from '@prisma/client'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -46,6 +47,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
+  const { user } = useLoaderData<{ user: User }>()
 
   return (
     <>
@@ -121,6 +123,7 @@ export default function Dashboard() {
                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                         )}
+                        onClick={() => setSidebarOpen(false)}
                       >
                         <item.icon
                           className={classNames(
@@ -154,6 +157,7 @@ export default function Dashboard() {
                   <Link
                     to="/dashboard/profile"
                     className="flex-shrink-0 group block"
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <div className="flex items-center">
                       <div>
@@ -165,7 +169,7 @@ export default function Dashboard() {
                       </div>
                       <div className="ml-3">
                         <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
-                          Tom Cook
+                          {user.name}
                         </p>
                         <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
                           View profile
@@ -199,6 +203,7 @@ export default function Dashboard() {
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <item.icon
                       className={classNames(
@@ -232,6 +237,7 @@ export default function Dashboard() {
               <Link
                 to="/dashboard/profile"
                 className="flex-shrink-0 w-full group block"
+                onClick={() => setSidebarOpen(false)}
               >
                 <div className="flex items-center">
                   <div>
@@ -243,7 +249,7 @@ export default function Dashboard() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                      Tom Cook
+                      {user.name}
                     </p>
                     <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
                       View profile

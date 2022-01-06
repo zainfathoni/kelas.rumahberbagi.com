@@ -13,8 +13,6 @@
 ++++ /$transactionId  | Member        | Verification Status
 +++ /transactions     | Author        | Transactions List
 ++++ /$transactionId  | Author        | Transaction Details
-+++ /subscriptions    | Author        | Subscriptions List
-++++ /$subscriptionId | Author        | Subscription Details
 +++ /users            | Author        | Users List
 ++++ /$userId         | Author        | User Details
 +++++ /edit           | Admin         | Edit User

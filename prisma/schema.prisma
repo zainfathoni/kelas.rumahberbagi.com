@@ -18,20 +18,23 @@ model User {
   instagram     String?
   role          String
   courses       Course[]
-  subscriptions Subscription[]
-  Transaction   Transaction[]
+  subscriptions Subscription[] @relation("UserSubscriptions")
+  subscribers   Subscription[] @relation("UserSubscribers")
+  transactions  Transaction[]  @relation("UserTransactions")
+  sales         Transaction[]  @relation("UserSales")
 }
 
 model Subscription {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  userId      String
-  courseId    String
-  status      String
-  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Transaction Transaction[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  authorId  String
+  courseId  String
+  status    String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserSubscriptions", fields: [userId], references: [id], onDelete: Cascade)
+  author    User     @relation("UserSubscribers", fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Course {
@@ -46,19 +49,22 @@ model Course {
   category      String
   author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscriptions Subscription[]
+  transactions  Transaction[]
 }
 
 model Transaction {
-  id                String       @id @default(uuid())
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
+  id                String   @id @default(uuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   userId            String
-  subscriptionId    String
+  courseId          String
+  authorId          String
   bankName          String
   bankAccountNumber String
   bankAccountName   String
   amount            Int
   status            String
-  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subscription      Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  user              User     @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
+  author            User     @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
+  course            Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }

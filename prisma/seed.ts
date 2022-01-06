@@ -1,9 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import {
-  ROLES,
-  SUBSCRIPTION_STATUS,
-  TRANSACTION_STATUS,
-} from '../app/models/enum'
+import { ROLES, TRANSACTION_STATUS } from '../app/models/enum'
 
 const prisma = new PrismaClient()
 
@@ -42,9 +38,21 @@ async function main() {
     },
   })
 
+  // update or insert user with member role
+  const member1 = await prisma.user.upsert({
+    where: { email: 'pk1@zainf.dev' },
+    update: {},
+    create: {
+      phoneNumber: '628999210188',
+      email: 'pk1@zainf.dev',
+      name: 'Pejuang Kode 1',
+      role: ROLES.MEMBER,
+    },
+  })
+
   // create courses
   const courses = await Promise.all(
-    getCourse().map((course) =>
+    getCourses().map((course) =>
       prisma.course.create({
         data: {
           authorId: author.id,
@@ -54,29 +62,12 @@ async function main() {
     )
   )
 
-  // create subscription
-  const subscription1 = await prisma.subscription.create({
-    data: {
-      userId: member.id,
-      courseId: courses[0].id,
-      status: SUBSCRIPTION_STATUS.ACTIVE,
-    },
-  })
-
-  // create subscription
-  const subscription2 = await prisma.subscription.create({
-    data: {
-      userId: member.id,
-      courseId: courses[1].id,
-      status: SUBSCRIPTION_STATUS.ACTIVE,
-    },
-  })
-
   // create transaction with status SUBMITTED
   await prisma.transaction.create({
     data: {
       userId: member.id,
-      subscriptionId: subscription1.id,
+      courseId: courses[0].id,
+      authorId: courses[0].authorId,
       bankName: 'Bank Mandiri',
       bankAccountName: 'Pejuang Kode',
       bankAccountNumber: '123456789',
@@ -89,11 +80,25 @@ async function main() {
   await prisma.transaction.create({
     data: {
       userId: member.id,
-      subscriptionId: subscription2.id,
+      courseId: courses[1].id,
+      authorId: courses[1].authorId,
       bankName: 'Bank Mandiri',
       bankAccountName: 'Pejuang Kode',
       bankAccountNumber: '123456789',
       amount: 50000,
+      status: TRANSACTION_STATUS.VERIFIED,
+    },
+  })
+
+  await prisma.transaction.create({
+    data: {
+      userId: member1.id,
+      courseId: courses[2].id,
+      authorId: courses[2].authorId,
+      bankName: 'Bank Mandiri',
+      bankAccountName: 'Pejuang Kode',
+      bankAccountNumber: '123456789',
+      amount: 25000,
       status: TRANSACTION_STATUS.VERIFIED,
     },
   })
@@ -108,7 +113,7 @@ main()
     await prisma.$disconnect()
   })
 
-function getCourse() {
+function getCourses() {
   return [
     {
       name: 'Menumbuhkan Minat Baca Anak',
