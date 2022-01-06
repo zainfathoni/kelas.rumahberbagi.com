@@ -1,4 +1,3 @@
-import React from 'react' // FIXME: find a way to make the test pass without this
 import { render, screen } from '@testing-library/react'
 import { build, fake } from '@jackfranklin/test-data-bot'
 import type { FooterProps } from '~/components/footer'

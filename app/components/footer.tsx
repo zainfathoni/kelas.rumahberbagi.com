@@ -1,5 +1,3 @@
-import React from 'react' // FIXME: find a way to make the test pass without this
-
 export type FooterProps = {
   instagramUrl: string
 }
