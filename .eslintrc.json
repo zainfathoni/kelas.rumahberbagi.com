@@ -54,5 +54,13 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.ts?(x)"],
+      "rules": {
+        "playwright/missing-playwright-await": "off"
+      }
+    }
+  ]
 }
