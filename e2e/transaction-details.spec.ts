@@ -5,9 +5,10 @@ import { TRANSACTION_STATUS } from '../app/models/enum'
 import { test } from './base-test'
 
 const validTransactionData: Transaction & { user: Partial<User> } = {
-  id: 'baaf91d1-cd03-498c-8b5d-fd46c123b686',
-  subscriptionId: 'a41ee28d-ca47-4a70-ab45-cf5d0b66734c',
-  userId: '2c15a165-68b2-4b07-8a2e-38aa6345f308',
+  id: 'cf4663e0-a249-46bd-8963-905c1f38ad44',
+  userId: 'a002a776-6127-4235-b7c3-222c51b907f2',
+  courseId: 'ad7319f4-d28f-4a91-9665-f8989f150555',
+  authorId: 'cc3b77b6-04a5-4230-acdf-3fce40191ad4',
   bankName: 'Bank Mandiri',
   bankAccountName: 'Pejuang Kode',
   bankAccountNumber: '123456789',
@@ -22,7 +23,7 @@ const validTransactionData: Transaction & { user: Partial<User> } = {
 }
 
 const validTransactionData1 = {
-  id: '817cc1bb-f821-4fb4-b643-46c098919ce3',
+  id: '2220993c-4610-464e-a69d-1fe30dd6159f',
   user: {
     phoneNumber: '628999210188',
   },
