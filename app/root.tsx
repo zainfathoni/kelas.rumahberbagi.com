@@ -128,7 +128,9 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div className="remix-app">
       {authenticated ? null : <Header />}
       <main>{children}</main>
-      {authenticated ? null : <Footer />}
+      {authenticated ? null : (
+        <Footer instagramUrl="https://instagram.com/vika.riandini" />
+      )}
     </div>
   )
 }
