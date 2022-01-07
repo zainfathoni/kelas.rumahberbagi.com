@@ -4,7 +4,7 @@ import { test } from './base-test'
 test.use({
   // TODO: import session value in auth.json from environment variables
   // to match the SESSION_SECRET and MAGIC_LINK_SECRET in .env file
-  storageState: 'e2e/auth.json',
+  storageState: 'e2e/fixtures/auth.local.json',
 })
 
 test('Validate phone number when updating data', async ({

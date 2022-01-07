@@ -30,7 +30,7 @@ const validTransactionData1 = {
 }
 
 test.use({
-  storageState: 'e2e/auth.json',
+  storageState: 'e2e/fixtures/auth.local.json',
 })
 
 test('redirected to TransactionList page when transaction data with id of $transactionId is not exist', async ({

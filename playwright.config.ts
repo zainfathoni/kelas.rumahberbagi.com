@@ -4,6 +4,7 @@ import { Fixtures } from './e2e/base-test'
 const config: PlaywrightTestConfig<Fixtures> = {
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  globalSetup: require.resolve('./playwright-global-setup'),
   use: {
     trace: 'on-first-retry',
     baseURL: 'http://localhost:3000',
