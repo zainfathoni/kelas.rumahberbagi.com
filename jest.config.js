@@ -1,14 +1,16 @@
 module.exports = {
   ...require('./test/jest-common'),
   collectCoverageFrom: [
-    './app/(components|routes|services|utils)/**/*.(ts|tsx|js|jsx)',
+    './app/(components|models|routes|services|utils)/**/*.(ts|tsx|js|jsx)',
+    '!./app/(components|models|routes|services|utils)/**/__tests__/**/*.test.(ts|tsx|js|jsx)',
+    '!./app/(components|models|routes|services|utils)/**/__mocks__/**/*.(ts|tsx|js|jsx)',
   ],
   coverageThreshold: {
     global: {
-      statements: 0.35,
-      branches: 0,
-      functions: 1.03,
-      lines: 0.35,
+      statements: 5.36,
+      branches: 5.91,
+      functions: 2.94,
+      lines: 5.42,
     },
   },
   transform: {
