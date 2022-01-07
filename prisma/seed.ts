@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { ROLES, TRANSACTION_STATUS } from '../app/models/enum'
+import { userBuilder } from '../app/models/__mocks__/user'
 
 const prisma = new PrismaClient()
 
@@ -16,39 +17,16 @@ async function main() {
     },
   })
 
-  // update or insert user with author role
-  const author = await prisma.user.upsert({
-    where: { email: 'vika@rbagi.id' },
-    update: {},
-    create: {
-      email: 'vika@rbagi.id',
-      name: 'Vika',
-      role: ROLES.AUTHOR,
-    },
+  // create user with author role
+  const author = await prisma.user.create({
+    data: userBuilder({ traits: ['author'] }),
   })
 
-  // update or insert user with member role
-  const member = await prisma.user.upsert({
-    where: { email: 'pk@zainf.dev' },
-    update: {},
-    create: {
-      email: 'pk@zainf.dev',
-      name: 'Pejuang Kode',
-      role: ROLES.MEMBER,
-    },
-  })
+  // create user with member role
+  const member = await prisma.user.create({ data: userBuilder() })
 
-  // update or insert user with member role
-  const member1 = await prisma.user.upsert({
-    where: { email: 'pk1@zainf.dev' },
-    update: {},
-    create: {
-      phoneNumber: '628999210188',
-      email: 'pk1@zainf.dev',
-      name: 'Pejuang Kode 1',
-      role: ROLES.MEMBER,
-    },
-  })
+  // create another user with member role
+  const anotherMember = await prisma.user.create({ data: userBuilder() })
 
   // create courses
   const courses = await Promise.all(
@@ -92,7 +70,7 @@ async function main() {
 
   await prisma.transaction.create({
     data: {
-      userId: member1.id,
+      userId: anotherMember.id,
       courseId: courses[2].id,
       authorId: courses[2].authorId,
       bankName: 'Bank Mandiri',
