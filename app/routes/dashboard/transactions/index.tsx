@@ -1,3 +1,3 @@
 export default function TransactionList() {
-  return <h1>TBD</h1>
+  return <h1>Work In Progress</h1>
 }
