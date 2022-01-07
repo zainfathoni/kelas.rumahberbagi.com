@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { KCDSendEmailFunction } from 'remix-auth'
@@ -21,6 +23,14 @@ export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
   ) {
     // TODO: Mock the HTTP transport layer properly by using MSW
     console.log(options.magicLink)
+    const magicFixturePath = path.join(
+      __dirname,
+      `../e2e/fixtures/magic.local.json`
+    )
+    await fs.promises.writeFile(
+      magicFixturePath,
+      JSON.stringify({ magicLink: options.magicLink }, null, 2)
+    )
   } else {
     await emailProvider.sendEmail({
       to: options.emailAddress,
