@@ -47,9 +47,7 @@ export default function Example() {
   const { transactionId, authorPhoneNumber } = useLoaderData<LoaderData>()
   const [open, setOpen] = useState(true)
 
-  const formattedPhoneNumber = authorPhoneNumber.replace('08', '628')
-
-  const whatsappLink = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}&text=%5BKelas%20Tahun%20Prasekolahku%5D%0A%0AKlik%20di%20sini%20untuk%20verifikasi%20pembayaran%0Ahttps%3A%2F%2Frbagi.id%2Fverify%2F${transactionId}%0A%0ABerikut%20terlampir%20foto%2Ffile%20bukti%20pembayaran%20saya%3A`
+  const whatsappLink = `https://api.whatsapp.com/send?phone=${authorPhoneNumber}&text=%5BKelas%20Tahun%20Prasekolahku%5D%0A%0AKlik%20di%20sini%20untuk%20verifikasi%20pembayaran%0Ahttps%3A%2F%2Frbagi.id%2Fverify%2F${transactionId}%0A%0ABerikut%20terlampir%20foto%2Ffile%20bukti%20pembayaran%20saya%3A`
 
   return (
     <Transition.Root show={open} as={Fragment}>
