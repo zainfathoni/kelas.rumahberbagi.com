@@ -29,6 +29,9 @@ export async function sendEmail({ to, from, subject, html }: MailgunMessage) {
     html,
   })
 
+  if (process.env.NODE_ENV === 'test') {
+    return Promise.resolve(body)
+  }
   const response = await fetch(
     `https://api.mailgun.net/v3/${mailgunDomain}/messages`,
     {
