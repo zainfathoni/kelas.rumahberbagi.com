@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import { test } from './base-test'
 
 test.use({
-  storageState: 'e2e/auth.json',
+  storageState: 'e2e/fixtures/auth.local.json',
 })
 
 test('Logout', async ({ page, isMobile, queries: { getByRole } }) => {
