@@ -13,6 +13,7 @@ export const transactionBuilder = build<
     bankAccountName: fake((f) => f.name.findName()),
     bankAccountNumber: fake((f) => f.phone.phoneNumber()),
     amount: fake((f) => f.datatype.number({ min: 10000, max: 100000 })),
+    datetime: fake((f) => f.date.recent()),
     status: perBuild(() => TRANSACTION_STATUS.SUBMITTED),
   },
   traits: {
