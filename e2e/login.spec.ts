@@ -1,6 +1,5 @@
-import fs from 'fs'
-import path from 'path'
 import { expect } from '@playwright/test'
+import { readFixture } from '../app/utils/fixtures'
 import { test } from './base-test'
 
 test('Login', async ({ page, queries: { getByRole } }) => {
@@ -30,11 +29,7 @@ test('Login', async ({ page, queries: { getByRole } }) => {
     page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
   ).toBeVisible()
 
-  const magicFixturePath = path.join(
-    __dirname,
-    `../e2e/fixtures/magic.local.json`
-  )
-  const data = await fs.promises.readFile(magicFixturePath, 'utf8')
+  const data = await readFixture('magic')
   const { magicLink } = JSON.parse(data)
 
   // Go to the magic link

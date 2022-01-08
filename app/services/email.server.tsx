@@ -1,9 +1,8 @@
-import fs from 'fs'
-import path from 'path'
 import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { KCDSendEmailFunction } from 'remix-auth'
 import * as emailProvider from '~/services/email-provider.server'
+import { writeFixture } from '~/utils/fixtures'
 
 export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
@@ -23,14 +22,7 @@ export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
   ) {
     // TODO: Mock the HTTP transport layer properly by using MSW
     console.log(options.magicLink)
-    const magicFixturePath = path.join(
-      __dirname,
-      `../e2e/fixtures/magic.local.json`
-    )
-    await fs.promises.writeFile(
-      magicFixturePath,
-      JSON.stringify({ magicLink: options.magicLink }, null, 2)
-    )
+    await writeFixture('magic', { magicLink: options.magicLink })
   } else {
     await emailProvider.sendEmail({
       to: options.emailAddress,
