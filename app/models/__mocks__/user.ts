@@ -7,7 +7,7 @@ export const userBuilder = build<Omit<User, 'id' | 'createdAt' | 'updatedAt'>>({
     email: fake((f) => f.internet.email()),
     name: fake((f) => f.name.findName()),
     role: perBuild(() => ROLES.MEMBER),
-    phoneNumber: null,
+    phoneNumber: perBuild(() => '+6512345678'),
     telegram: null,
     instagram: null,
   },

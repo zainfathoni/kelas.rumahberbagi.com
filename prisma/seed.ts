@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { TRANSACTION_STATUS } from '../app/models/enum'
 import { courseBuilder } from '../app/models/__mocks__/course'
+import { transactionBuilder } from '../app/models/__mocks__/transaction'
 import { userBuilder } from '../app/models/__mocks__/user'
 import { writeFixture } from '../app/utils/fixtures'
 
@@ -23,61 +23,69 @@ async function main() {
   const member = await prisma.user.create({ data: userBuilder() })
   await writeFixture(`../../e2e/fixtures/users/member.local.json`, member)
 
-  // create another user with member role
-  const anotherMember = await prisma.user.create({ data: userBuilder() })
-
-  // create courses
-  const courses = await Promise.all(
-    [courseBuilder(), courseBuilder(), courseBuilder()].map((course) =>
-      prisma.course.create({
-        data: {
-          authorId: author.id,
-          ...course,
-        },
-      })
-    )
+  // create another user with member role for editing purpose and store it as a local fixture
+  const memberEdit = await prisma.user.create({
+    data: userBuilder({ overrides: { phoneNumber: '+6512345678' } }),
+  })
+  await writeFixture(
+    `../../e2e/fixtures/users/member-edit.local.json`,
+    memberEdit
   )
 
-  // create transaction with status SUBMITTED
-  await prisma.transaction.create({
+  // create another user with member role without phone number
+  const memberWithoutPhoneNumber = await prisma.user.create({
+    data: userBuilder({ overrides: { phoneNumber: null } }),
+  })
+
+  // create course
+  const course = await prisma.course.create({
     data: {
-      userId: member.id,
-      courseId: courses[0].id,
-      authorId: courses[0].authorId,
-      bankName: 'Bank Mandiri',
-      bankAccountName: 'Pejuang Kode',
-      bankAccountNumber: '123456789',
-      amount: 25000,
-      status: TRANSACTION_STATUS.SUBMITTED,
+      authorId: author.id,
+      ...courseBuilder(),
     },
   })
 
-  // create transaction with status VERIFIED
-  await prisma.transaction.create({
+  // create transaction with SUBMITTED status and store it as a local fixture
+  const submitted = await prisma.transaction.create({
     data: {
       userId: member.id,
-      courseId: courses[1].id,
-      authorId: courses[1].authorId,
-      bankName: 'Bank Mandiri',
-      bankAccountName: 'Pejuang Kode',
-      bankAccountNumber: '123456789',
-      amount: 50000,
-      status: TRANSACTION_STATUS.VERIFIED,
+      courseId: course.id,
+      authorId: course.authorId,
+      ...transactionBuilder(),
     },
   })
+  await writeFixture(
+    `../../e2e/fixtures/transactions/submitted.local.json`,
+    submitted
+  )
 
-  await prisma.transaction.create({
+  // create transaction with VERIFIED status and store it as a local fixture
+  const verified = await prisma.transaction.create({
     data: {
-      userId: anotherMember.id,
-      courseId: courses[2].id,
-      authorId: courses[2].authorId,
-      bankName: 'Bank Mandiri',
-      bankAccountName: 'Pejuang Kode',
-      bankAccountNumber: '123456789',
-      amount: 25000,
-      status: TRANSACTION_STATUS.VERIFIED,
+      userId: member.id,
+      courseId: course.id,
+      authorId: course.authorId,
+      ...transactionBuilder({ traits: ['verified'] }),
     },
   })
+  await writeFixture(
+    `../../e2e/fixtures/transactions/verified.local.json`,
+    verified
+  )
+
+  // create transaction with REJECTED status and store it as a local fixture
+  const rejected = await prisma.transaction.create({
+    data: {
+      userId: memberWithoutPhoneNumber.id,
+      courseId: course.id,
+      authorId: course.authorId,
+      ...transactionBuilder({ traits: ['rejected'] }),
+    },
+  })
+  await writeFixture(
+    `../../e2e/fixtures/transactions/rejected.local.json`,
+    rejected
+  )
 }
 
 main()

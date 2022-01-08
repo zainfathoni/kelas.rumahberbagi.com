@@ -3,45 +3,57 @@ import { readFixture } from './app/utils/fixtures'
 
 async function globalSetup() {
   const browser = await chromium.launch()
+
+  // stable member
   const page = await browser.newPage()
-
-  // Go to http://localhost:3000/
   await page.goto('http://localhost:3000/')
-
-  // Click text=Masuk
   await page.click('text=Masuk')
-
-  const { email } = JSON.parse(
-    await readFixture(`../../e2e/fixtures/users/member.local.json`)
+  await page.fill(
+    'input[name="email"]',
+    JSON.parse(await readFixture(`../../e2e/fixtures/users/member.local.json`))
+      ?.email
   )
-
-  // Fill email
-  await page.fill('input[name="email"]', email)
-
-  // Click text=Kirim link ke alamat email
   await Promise.all([
     page.waitForNavigation(/*{ url: 'http://localhost:3000/login' }*/),
     page.click('text=Kirim link ke alamat email'),
   ])
-
-  // Click text=✨ Link telah dikirim ke alamat email Anda ✨
   await expect(
     page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
   ).toBeVisible()
-
-  const { magicLink } = JSON.parse(
-    await readFixture(`../../e2e/fixtures/magic.local.json`)
+  await page.goto(
+    JSON.parse(await readFixture(`../../e2e/fixtures/magic.local.json`))
+      ?.magicLink
   )
-
-  // Go to the magic link
-  await page.goto(magicLink)
-
-  // If the magic link matches the current token stored in the session storage,
-  // the user will be redirected to the dashboard automatically.
   await expect(page).toHaveURL('http://localhost:3000/dashboard')
-
-  // Save authentication session cookie
   await page.context().storageState({ path: 'e2e/fixtures/auth.local.json' })
+
+  // editable member
+  const editablePage = await browser.newPage()
+  await editablePage.goto('http://localhost:3000/')
+  await editablePage.click('text=Masuk')
+  await editablePage.fill(
+    'input[name="email"]',
+    JSON.parse(
+      await readFixture(`../../e2e/fixtures/users/member-edit.local.json`)
+    )?.email
+  )
+  await Promise.all([
+    editablePage.waitForNavigation(/*{ url: 'http://localhost:3000/login' }*/),
+    editablePage.click('text=Kirim link ke alamat email'),
+  ])
+  await expect(
+    editablePage
+      .locator('text=✨ Link telah dikirim ke alamat email Anda ✨')
+      .first()
+  ).toBeVisible()
+  await editablePage.goto(
+    JSON.parse(await readFixture(`../../e2e/fixtures/magic.local.json`))
+      ?.magicLink
+  )
+  await expect(editablePage).toHaveURL('http://localhost:3000/dashboard')
+  await editablePage
+    .context()
+    .storageState({ path: 'e2e/fixtures/auth-edit.local.json' })
 
   await browser.close()
 }
