@@ -22,3 +22,4 @@ coverage
 # Prisma
 /prisma/dev.db
 /prisma/test.db
+/prisma/*.db-journal
