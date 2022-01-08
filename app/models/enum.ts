@@ -4,6 +4,10 @@ export const ROLES = {
   MEMBER: 'MEMBER',
 }
 
+export const CATEGORIES = {
+  PARENTING: 'PARENTING',
+}
+
 export const CONTENT_TYPES = {
   VIDEO: 'VIDEO',
 }
