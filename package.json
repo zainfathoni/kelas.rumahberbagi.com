@@ -17,6 +17,7 @@
     "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "prepare": "husky install",
     "start": "remix-serve build",
+    "prestart:e2e": "prisma migrate reset --force",
     "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db npm start",
     "test": "is-ci-cli test:coverage test:watch",
     "test:coverage": "jest --coverage",

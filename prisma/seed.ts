@@ -1,29 +1,26 @@
 import { PrismaClient } from '@prisma/client'
-import { ROLES, TRANSACTION_STATUS } from '../app/models/enum'
+import { TRANSACTION_STATUS } from '../app/models/enum'
 import { userBuilder } from '../app/models/__mocks__/user'
+import { writeFixture } from '../app/utils/fixtures'
 
 const prisma = new PrismaClient()
 
 async function main() {
-  // update or insert user with admin role
-  await prisma.user.upsert({
-    where: { email: 'me@zain.dev' },
-    update: {},
-    create: {
-      email: 'me@zainf.dev',
-      name: 'Zain',
-      phoneNumber: '+6512345678',
-      role: ROLES.ADMIN,
-    },
+  // create user with admin role and store it as a local fixture
+  const admin = await prisma.user.create({
+    data: userBuilder({ traits: ['admin'] }),
   })
+  await writeFixture(`../../e2e/fixtures/users/admin.local.json`, admin)
 
-  // create user with author role
+  // create user with author role and store it as a local fixture
   const author = await prisma.user.create({
     data: userBuilder({ traits: ['author'] }),
   })
+  await writeFixture(`../../e2e/fixtures/users/author.local.json`, author)
 
-  // create user with member role
+  // create user with member role and store it as a local fixture
   const member = await prisma.user.create({ data: userBuilder() })
+  await writeFixture(`../../e2e/fixtures/users/member.local.json`, member)
 
   // create another user with member role
   const anotherMember = await prisma.user.create({ data: userBuilder() })

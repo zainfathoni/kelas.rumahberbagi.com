@@ -11,8 +11,12 @@ async function globalSetup() {
   // Click text=Masuk
   await page.click('text=Masuk')
 
-  // Query email
-  await page.fill('input[name="email"]', 'me@zainf.dev')
+  const { email } = JSON.parse(
+    await readFixture(`../../e2e/fixtures/users/member.local.json`)
+  )
+
+  // Fill email
+  await page.fill('input[name="email"]', email)
 
   // Click text=Kirim link ke alamat email
   await Promise.all([
@@ -25,8 +29,9 @@ async function globalSetup() {
     page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
   ).toBeVisible()
 
-  const data = await readFixture('magic')
-  const { magicLink } = JSON.parse(data)
+  const { magicLink } = JSON.parse(
+    await readFixture(`../../e2e/fixtures/magic.local.json`)
+  )
 
   // Go to the magic link
   await page.goto(magicLink)

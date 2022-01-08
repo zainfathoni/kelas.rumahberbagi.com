@@ -10,13 +10,17 @@ test('Login', async ({ page, queries: { getByRole } }) => {
   await page.click('text=Masuk')
   await expect(page).toHaveURL('http://localhost:3000/login')
 
+  const { email } = JSON.parse(
+    await readFixture(`../../e2e/fixtures/users/member.local.json`)
+  )
+
   // Query email
-  const email = await getByRole('textbox', {
+  const emailField = await getByRole('textbox', {
     name: /alamat email/i,
   })
 
   // Fill email
-  await email.fill('me@zainf.dev')
+  await emailField.fill(email)
 
   // Click text=Kirim link ke alamat email
   await Promise.all([
@@ -29,8 +33,9 @@ test('Login', async ({ page, queries: { getByRole } }) => {
     page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
   ).toBeVisible()
 
-  const data = await readFixture('magic')
-  const { magicLink } = JSON.parse(data)
+  const { magicLink } = JSON.parse(
+    await readFixture(`../../e2e/fixtures/magic.local.json`)
+  )
 
   // Go to the magic link
   await page.goto(magicLink)

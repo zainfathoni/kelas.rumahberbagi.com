@@ -21,8 +21,10 @@ export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
     process.env.NODE_ENV === 'development'
   ) {
     // TODO: Mock the HTTP transport layer properly by using MSW
-    console.log(options.magicLink)
-    await writeFixture('magic', { magicLink: options.magicLink })
+    console.warn(`\n${options.magicLink}\n`)
+    await writeFixture(`../e2e/fixtures/magic.local.json`, {
+      magicLink: options.magicLink,
+    })
   } else {
     await emailProvider.sendEmail({
       to: options.emailAddress,
