@@ -7,7 +7,8 @@ import { db } from '~/utils/db.server'
 
 interface TransactionFields {
   userId: string
-  subscriptionId: string
+  courseId: string
+  authorId: string
   bankName: string
   bankAccountNumber: string
   bankAccountName: string
@@ -67,7 +68,8 @@ export const action: ActionFunction = async ({ request }) => {
 
   const fields: TransactionFields = {
     userId: user.id,
-    subscriptionId: '123', //should create assign subcription first?
+    courseId: '123',
+    authorId: '123',
     bankName,
     bankAccountName,
     bankAccountNumber,
@@ -79,6 +81,14 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const transaction = await db.transaction.create({ data: fields })
+
+  if (!transaction) {
+    throw new Response('Error while creating new transaction', {
+      status: 500,
+    })
+  }
+
+  return redirect(`/dashboard/transactions/${transaction.id}`)
 }
 
 export default function Confirm() {
