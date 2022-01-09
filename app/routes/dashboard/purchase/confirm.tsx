@@ -18,20 +18,6 @@ interface TransactionFields {
   status: string
 }
 
-type ActionData = {
-  formError?: string
-  fieldErrors?: {
-    name: string | undefined
-    phoneNumber: string | undefined
-    bankName: string | undefined
-    bankAccountNumber: string | undefined
-    bankAccountName: string | undefined
-    amount: number | undefined
-    paymentTime: string | undefined
-  }
-  fields: TransactionFields
-}
-
 export const action: ActionFunction = async ({ request }) => {
   const user = await auth.isAuthenticated(request, {
     failureRedirect: '/login',
@@ -101,7 +87,7 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(`/dashboard/purchase/confirm/${transaction.id}`)
 }
 
-export default function Confirm() {
+export default function PurchaseConfirm() {
   return (
     <>
       <Outlet />
