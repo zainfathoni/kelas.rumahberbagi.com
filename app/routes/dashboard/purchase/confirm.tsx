@@ -14,6 +14,7 @@ interface TransactionFields {
   bankAccountNumber: string
   bankAccountName: string
   amount: number
+  datetime: Date
   status: string
 }
 
@@ -32,14 +33,11 @@ type ActionData = {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log('action called')
   const user = await auth.isAuthenticated(request, {
     failureRedirect: '/login',
   })
 
-  console.log('user: ', user)
   const course = await getFirstCourse()
-  console.log('course: ', course)
 
   if (!course) {
     throw new Response('Course not found', {
@@ -53,17 +51,19 @@ export const action: ActionFunction = async ({ request }) => {
   const bankName = form.get('bankName')
   const bankAccountNumber = form.get('bankAccountNumber')
   const bankAccountName = form.get('bankAccountName')
-  const amount = form.get('amount')
-  const paymentTime = form.get('paymentTime')
-  const parsedAmount: number = amount ? parseInt(amount, 10) : 0
-  console.log('parsedAmount types: ', typeof parsedAmount)
+  const amount: string = form.get('amount') as string
+  const paymentTime: string = form.get('paymentTime') as string
+
+  const parsedAmount: number = parseInt(amount, 10) as number
+  const formattedPaymentTime: Date = new Date(paymentTime)
+
   if (
     typeof name !== 'string' ||
     typeof phoneNumber !== 'string' ||
     typeof bankName !== 'string' ||
     typeof bankAccountNumber !== 'string' ||
     typeof bankAccountName !== 'string' ||
-    typeof amount !== 'number' ||
+    typeof amount !== 'string' ||
     typeof paymentTime !== 'string'
   ) {
     return { formError: 'Form not submitted correctly.' }
@@ -86,16 +86,15 @@ export const action: ActionFunction = async ({ request }) => {
     bankName,
     bankAccountName,
     bankAccountNumber,
-    amount,
+    amount: parsedAmount,
+    datetime: formattedPaymentTime,
     status: 'SUBMITTED',
   }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
   }
-  console.log('fields: ', fields)
 
   const transaction = await db.transaction.create({ data: fields })
-  console.log('transaction: ', transaction)
 
   if (!transaction) {
     throw new Response('Error while creating new transaction', {
