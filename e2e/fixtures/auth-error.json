@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "sameSite": "Lax",
+      "name": "_session",
+      "value": "eyJ1c2VyIjp7ImlkIjoiZWU1MDQ5OTMtNTY4MS00YzI5LTg0MjctZmU5ZDFjMzg1OWRjIiwiY3JlYXRlZEF0IjoiMjAyMi0wMS0wOFQxNTo0NTowOS4yMzZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMS0wOFQxNTo0NTowOS4yMzZaIiwiZW1haWwiOiJLYXJvbGFubl9Fcm5zZXIzMUBob3RtYWlsLmNvbSIsIm5hbWUiOiJBYmVsIFByaWNlIiwicGhvbmVOdW1iZXIiOiIrNjUxMjM0NTY3OCIsInRlbGVncmFtIjpudWxsLCJpbnN0YWdyYW0iOm51bGwsInJvbGUiOiJNRU1CRVIifX0%3D.jPtsUR0ClN22cxDSeGeiJZworQBVs2R9GTXCYVZxgvA",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false
+    }
+  ],
+  "origins": []
+}
