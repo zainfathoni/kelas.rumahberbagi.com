@@ -40,9 +40,7 @@ export const action: ActionFunction = async ({ request }) => {
   const course = await getFirstCourse()
 
   if (!course) {
-    throw new Response('Course not found', {
-      status: 404,
-    })
+    return redirect('/dashboard')
   }
 
   const form = await request.formData()
@@ -97,9 +95,7 @@ export const action: ActionFunction = async ({ request }) => {
   const transaction = await db.transaction.create({ data: fields })
 
   if (!transaction) {
-    throw new Response('Error while creating new transaction', {
-      status: 500,
-    })
+    return redirect('/dashboard')
   }
 
   return redirect(`/dashboard/purchase/confirm/${transaction.id}`)
