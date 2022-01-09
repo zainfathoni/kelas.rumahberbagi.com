@@ -1,6 +1,5 @@
 import { Form, Outlet, redirect } from 'remix'
-import type { ActionFunction, LoaderFunction } from 'remix'
-import type { Subscription, User } from '@prisma/client'
+import type { ActionFunction } from 'remix'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { auth } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
