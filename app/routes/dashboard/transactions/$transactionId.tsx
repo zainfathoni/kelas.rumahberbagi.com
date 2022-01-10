@@ -1,7 +1,7 @@
 import { redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
-import { isEmpty } from '~/utils/assertions'
+import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/locales'
 
@@ -75,7 +75,7 @@ export default function TransactionDetails() {
                           id="user-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.user.name)
+                          {isNotEmpty(transactionDetails.user.name)
                             ? transactionDetails.user.name
                             : '-'}
                         </dd>
@@ -88,7 +88,7 @@ export default function TransactionDetails() {
                           id="user-phone-number"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.user.phoneNumber)
+                          {isNotEmpty(transactionDetails.user.phoneNumber)
                             ? transactionDetails.user.phoneNumber
                             : '-'}
                         </dd>
@@ -101,7 +101,7 @@ export default function TransactionDetails() {
                           id="bank-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankName)
+                          {isNotEmpty(transactionDetails.bankName)
                             ? transactionDetails.bankName
                             : '-'}
                         </dd>
@@ -114,7 +114,7 @@ export default function TransactionDetails() {
                           id="bank-account-number"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankAccountNumber)
+                          {isNotEmpty(transactionDetails.bankAccountNumber)
                             ? transactionDetails.bankAccountNumber
                             : '-'}
                         </dd>
@@ -127,7 +127,7 @@ export default function TransactionDetails() {
                           id="bank-account-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankAccountName)
+                          {isNotEmpty(transactionDetails.bankAccountName)
                             ? transactionDetails.bankAccountName
                             : '-'}
                         </dd>
@@ -140,7 +140,7 @@ export default function TransactionDetails() {
                           id="transaction-amount"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.amount)
+                          {isNotEmpty(transactionDetails.amount)
                             ? printRupiah(transactionDetails.amount)
                             : '-'}
                         </dd>
