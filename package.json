@@ -23,7 +23,6 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-    "prestart": "npm run build",
     "postinstall": "remix setup node",
     "test:e2e": "playwright test",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
