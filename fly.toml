@@ -1,16 +1,22 @@
-# fly.toml file generated for still-shadow-6997 on 2022-02-12T13:15:38+08:00
+# fly.toml file generated for restless-haze-4107 on 2022-02-12T19:41:53+08:00
 
-app = "still-shadow-6997"
+app = "restless-haze-4107"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [env]
+  DATABASE_URL = "file:/data/sqlite.db"
+  PORT = "8080"
 
 [experimental]
-  allowed_public_ports = []
-  auto_rollback = true
+  cmd = "start_with_migrations.sh"
+  entrypoint = "sh"
+
+[[mounts]]
+  destination = "/data"
+  source = "data"
 
 [[services]]
   http_checks = []
