@@ -39,6 +39,7 @@
     "@reach/auto-id": "0.16.0",
     "@remix-run/react": "1.1.1",
     "@remix-run/serve": "1.1.1",
+    "@tailwindcss/forms": "0.3.4",
     "@types/validator": "13.7.0",
     "burner-email-providers": "1.0.67",
     "clsx": "1.1.1",
@@ -48,6 +49,7 @@
     "react-dom": "17.0.2",
     "remix": "1.1.1",
     "remix-auth": "2.5.0-0",
+    "tailwindcss": "2.2.19",
     "validator": "13.7.0"
   },
   "devDependencies": {
@@ -64,7 +66,6 @@
     "@playwright-testing-library/test": "4.0.1",
     "@playwright/test": "1.17.1",
     "@remix-run/dev": "1.1.1",
-    "@tailwindcss/forms": "0.3.4",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
@@ -95,7 +96,6 @@
     "prettier": "2.5.1",
     "prisma": "3.6.0",
     "start-server-and-test": "1.14.0",
-    "tailwindcss": "2.2.19",
     "typescript": "4.1.2"
   },
   "engines": {
