@@ -1,8 +1,9 @@
-import { CheckIcon } from '@heroicons/react/solid'
 import type { LoaderFunction } from 'remix'
-import { redirect, Link, Outlet, useMatches } from 'remix'
+import { redirect, Outlet, useMatches } from 'remix'
+import { Step } from '~/components/step'
 import { getSubscriptionActiveByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
+import { classNames } from '~/utils/class-names'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { id } = await auth.isAuthenticated(request, {
@@ -17,14 +18,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return true
 }
 
-interface Step {
-  name: string
-  description: string
-  href: string
-  pathname: string
-}
-
-const steps: Step[] = [
+const steps = [
   {
     name: 'Pembayaran',
     description: 'Tranfer biaya ke rekening yang ditentukan',
@@ -51,10 +45,6 @@ const steps: Step[] = [
   },
 ]
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Purchase() {
   const { pathname } = useMatches()?.at(-1) ?? {}
   const currentStepIdx = steps.findIndex((step) => step.pathname === pathname)
@@ -72,98 +62,17 @@ export default function Purchase() {
                   'relative'
                 )}
               >
-                {stepIdx < currentStepIdx ? (
-                  <>
-                    {stepIdx !== steps.length - 1 ? (
-                      <div
-                        className="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-indigo-600"
-                        aria-hidden="true"
-                      />
-                    ) : null}
-                    <Link
-                      to={step.href}
-                      className="relative flex items-start group"
-                    >
-                      <span className="h-9 flex items-center">
-                        <span className="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
-                          <CheckIcon
-                            className="w-5 h-5 text-white"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      </span>
-                      <span className="ml-4 min-w-0 flex flex-col">
-                        <span className="text-xs font-semibold tracking-wide uppercase">
-                          {step.name}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          {step.description}
-                        </span>
-                      </span>
-                    </Link>
-                  </>
-                ) : stepIdx === currentStepIdx ? (
-                  <>
-                    {stepIdx !== steps.length - 1 ? (
-                      <div
-                        className="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300"
-                        aria-hidden="true"
-                      />
-                    ) : null}
-                    <Link
-                      to={step.href}
-                      className="relative flex items-start group"
-                      aria-current="step"
-                    >
-                      <span
-                        className="h-9 flex items-center"
-                        aria-hidden="true"
-                      >
-                        <span className="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-indigo-600 rounded-full">
-                          <span className="h-2.5 w-2.5 bg-indigo-600 rounded-full" />
-                        </span>
-                      </span>
-                      <span className="ml-4 min-w-0 flex flex-col">
-                        <span className="text-xs font-semibold tracking-wide uppercase text-indigo-600">
-                          {step.name}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          {step.description}
-                        </span>
-                      </span>
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    {stepIdx !== steps.length - 1 ? (
-                      <div
-                        className="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300"
-                        aria-hidden="true"
-                      />
-                    ) : null}
-                    <Link
-                      to={step.href}
-                      className="relative flex items-start group"
-                    >
-                      <span
-                        className="h-9 flex items-center"
-                        aria-hidden="true"
-                      >
-                        <span className="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
-                          <span className="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300" />
-                        </span>
-                      </span>
-                      <span className="ml-4 min-w-0 flex flex-col">
-                        <span className="text-xs font-semibold tracking-wide uppercase text-gray-500">
-                          {step.name}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          {step.description}
-                        </span>
-                      </span>
-                    </Link>
-                  </>
-                )}
+                <Step
+                  step={step}
+                  status={
+                    stepIdx < currentStepIdx
+                      ? 'completed'
+                      : stepIdx === currentStepIdx
+                      ? 'current'
+                      : 'upcoming'
+                  }
+                  isLastStep={stepIdx !== steps.length - 1}
+                />
               </li>
             ))}
           </ol>
