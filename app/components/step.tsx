@@ -5,7 +5,6 @@ import { classNames } from '~/utils/class-names'
 interface Step {
   name: string
   description: string
-  href: string
   pathname: string
 }
 export type StepProps = {

@@ -4,6 +4,7 @@ import { Step } from '~/components/step'
 import { getSubscriptionActiveByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
+import { STEPS } from '~/utils/constants'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { id } = await auth.isAuthenticated(request, {
@@ -18,47 +19,20 @@ export const loader: LoaderFunction = async ({ request }) => {
   return true
 }
 
-const steps = [
-  {
-    name: 'Pembayaran',
-    description: 'Tranfer biaya ke rekening yang ditentukan',
-    href: '#',
-    pathname: '/dashboard/purchase/',
-  },
-  {
-    name: 'Konfirmasi Pembayaran',
-    description: 'Hubungi admin melalui WhatsApp',
-    href: '#',
-    pathname: '/dashboard/purchase/confirm',
-  },
-  {
-    name: 'Menunggu Verifikasi',
-    description: 'Nantikan informasi verifikasi pembayaran di email Anda',
-    href: '#',
-    pathname: '/dashboard/purchase/pending-verification',
-  },
-  {
-    name: 'Selesai',
-    description: 'Periksa status pembayaran',
-    href: '#',
-    pathname: '/dashboard/purchase/completed',
-  },
-]
-
 export default function Purchase() {
   const { pathname } = useMatches()?.at(-1) ?? {}
-  const currentStepIdx = steps.findIndex((step) => step.pathname === pathname)
+  const currentStepIdx = STEPS.findIndex((step) => step.pathname === pathname)
 
   return (
     <div className="py-4 px-4 sm:px-6 md:px-0">
       <div className="pb-4 sm:pt-7 md:pb-0 md:w-64 md:flex-col md:fixed">
         <nav aria-label="Progress">
           <ol className="overflow-hidden">
-            {steps.map((step, stepIdx) => (
+            {STEPS.map((step, stepIdx) => (
               <li
                 key={step.name}
                 className={classNames(
-                  stepIdx !== steps.length - 1 ? 'pb-10' : '',
+                  stepIdx !== STEPS.length - 1 ? 'pb-10' : '',
                   'relative'
                 )}
               >
@@ -71,7 +45,7 @@ export default function Purchase() {
                       ? 'current'
                       : 'upcoming'
                   }
-                  isLastStep={stepIdx !== steps.length - 1}
+                  isLastStep={stepIdx !== STEPS.length - 1}
                 />
               </li>
             ))}
