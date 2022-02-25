@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/solid'
 import type { LoaderFunction } from 'remix'
-import { redirect, Link, Outlet } from 'remix'
+import { redirect, Link, Outlet, useMatches } from 'remix'
 import { getSubscriptionActiveByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
 
@@ -21,7 +21,7 @@ interface Step {
   name: string
   description: string
   href: string
-  status: 'current' | 'upcoming' | 'complete'
+  pathname: string
 }
 
 const steps: Step[] = [
@@ -29,25 +29,25 @@ const steps: Step[] = [
     name: 'Pembayaran',
     description: 'Tranfer biaya ke rekening yang ditentukan',
     href: '#',
-    status: 'complete',
+    pathname: '/dashboard/purchase/',
   },
   {
     name: 'Konfirmasi Pembayaran',
     description: 'Hubungi admin melalui WhatsApp',
     href: '#',
-    status: 'current',
+    pathname: '/dashboard/purchase/confirm',
   },
   {
     name: 'Menunggu Verifikasi',
     description: 'Nantikan informasi verifikasi pembayaran di email Anda',
     href: '#',
-    status: 'upcoming',
+    pathname: '/dashboard/purchase/pending-verification',
   },
   {
     name: 'Selesai',
     description: 'Periksa status pembayaran',
     href: '#',
-    status: 'upcoming',
+    pathname: '/dashboard/purchase/completed',
   },
 ]
 
@@ -56,6 +56,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function Purchase() {
+  const { pathname } = useMatches()?.at(-1) ?? {}
+  const currentStepIdx = steps.findIndex((step) => step.pathname === pathname)
+
   return (
     <div className="py-4 px-4 sm:px-6 md:px-0">
       <div className="pb-4 sm:pt-7 md:pb-0 md:w-64 md:flex-col md:fixed">
@@ -69,7 +72,7 @@ export default function Purchase() {
                   'relative'
                 )}
               >
-                {step.status === 'complete' ? (
+                {stepIdx < currentStepIdx ? (
                   <>
                     {stepIdx !== steps.length - 1 ? (
                       <div
@@ -99,7 +102,7 @@ export default function Purchase() {
                       </span>
                     </Link>
                   </>
-                ) : step.status === 'current' ? (
+                ) : stepIdx === currentStepIdx ? (
                   <>
                     {stepIdx !== steps.length - 1 ? (
                       <div
