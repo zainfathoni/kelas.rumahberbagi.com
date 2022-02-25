@@ -177,7 +177,7 @@ export default function ProfileIndex() {
                     Telegram
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {user.telegram}
+                    {user.telegram ?? '-'}
                   </dd>
                 </div>
                 <div className="sm:col-span-1">
@@ -185,7 +185,7 @@ export default function ProfileIndex() {
                     Instagram
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {user.instagram}
+                    {user.instagram ?? '-'}
                   </dd>
                 </div>
                 <div className="sm:col-span-1">
