@@ -130,7 +130,7 @@ export default function Dashboard() {
                             item.href === currentPathname
                               ? 'text-gray-500'
                               : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-4 flex-shrink-0 h-6 w-6'
+                            'mr-4 shrink-0 h-6 w-6'
                           )}
                           aria-hidden="true"
                         />
@@ -139,24 +139,24 @@ export default function Dashboard() {
                     ))}
                   </nav>
                 </div>
-                <div className="flex-shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <div className="shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                   <Form action="/logout" method="post">
                     <button
                       type="submit"
                       className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                     >
                       <LogoutIcon
-                        className="text-gray-400 group-hover:text-gray-500 mr-4 flex-shrink-0 h-6 w-6"
+                        className="text-gray-400 group-hover:text-gray-500 mr-4 shrink-0 h-6 w-6"
                         aria-hidden="true"
                       />
                       Keluar
                     </button>
                   </Form>
                 </div>
-                <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                <div className="shrink-0 flex border-t border-gray-200 p-4">
                   <Link
                     to="/dashboard/profile"
-                    className="flex-shrink-0 group block"
+                    className="shrink-0 group block"
                     onClick={() => setSidebarOpen(false)}
                   >
                     <div className="flex items-center">
@@ -180,7 +180,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </Transition.Child>
-            <div className="flex-shrink-0 w-14">
+            <div className="shrink-0 w-14">
               {/* Force sidebar to shrink to fit close icon */}
             </div>
           </Dialog>
@@ -210,7 +210,7 @@ export default function Dashboard() {
                         item.href === currentPathname
                           ? 'text-gray-500'
                           : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 flex-shrink-0 h-6 w-6'
+                        'mr-3 shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"
                     />
@@ -219,24 +219,24 @@ export default function Dashboard() {
                 ))}
               </nav>
             </div>
-            <div className="group flex-shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+            <div className="group shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
               <Form action="/logout" method="post">
                 <button
                   type="submit"
                   className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
                   <LogoutIcon
-                    className="text-gray-400 group-hover:text-gray-500 mr-4 flex-shrink-0 h-6 w-6"
+                    className="text-gray-400 group-hover:text-gray-500 mr-4 shrink-0 h-6 w-6"
                     aria-hidden="true"
                   />
                   Keluar
                 </button>
               </Form>
             </div>
-            <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+            <div className="shrink-0 flex border-t border-gray-200 p-4">
               <Link
                 to="/dashboard/profile"
-                className="flex-shrink-0 w-full group block"
+                className="shrink-0 w-full group block"
                 onClick={() => setSidebarOpen(false)}
               >
                 <div className="flex items-center">
