@@ -6,7 +6,6 @@ node_modules
 /public/build
 /.mf
 /app/tailwind.css
-/prisma/dev.db
 .env
 .env.staging
 .DS_Store
@@ -16,3 +15,11 @@ node_modules
 
 # Jest
 coverage
+
+# Playwright
+*.local.*
+
+# Prisma
+/prisma/dev.db
+/prisma/test.db
+/prisma/*.db-journal
