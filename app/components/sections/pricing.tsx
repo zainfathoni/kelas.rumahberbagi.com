@@ -15,7 +15,7 @@ type ItemProps = {
 
 const Item = ({ children }: ItemProps): JSX.Element => (
   <li className="flex items-start lg:col-span-1">
-    <div className="flex-shrink-0">
+    <div className="shrink-0">
       <svg
         className="h-5 w-5 text-green-400"
         xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ type IncludedProps = {
 const Included = ({ title, children }: IncludedProps): JSX.Element => (
   <div className="mt-8">
     <div className="flex items-center">
-      <h4 className="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600">
+      <h4 className="shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600">
         {title}
       </h4>
       <div className="flex-1 border-t-2 border-gray-200"></div>
@@ -90,7 +90,7 @@ export const Pricing = ({
                 </p>
                 {children}
               </div>
-              <div className="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
+              <div className="py-8 px-6 text-center bg-gray-50 lg:shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
                 <p className="text-lg leading-6 font-medium text-gray-900">
                   Sekali bayar
                 </p>

@@ -213,7 +213,7 @@ export default function ProfileIndex() {
                     key={person.handle}
                     className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500"
                   >
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
                         src={person.imageUrl}
