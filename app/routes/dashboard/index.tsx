@@ -87,7 +87,7 @@ export default function Dashboard() {
                   <span className="ml-3 text-xl font-medium text-gray-500">
                     Rp
                   </span>
-                  <span>XX0.000</span>
+                  <span>200.000</span>
                   <span className="ml-3 text-xl font-medium text-gray-500">
                     ,-
                   </span>
