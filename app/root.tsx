@@ -46,10 +46,10 @@ export function ErrorBoundary({ error }: { error: Error }) {
       <Layout>
         <Header />
         <div className="min-h-full pt-16 pb-12 flex flex-col bg-white">
-          <main className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+          <main className="grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-md bg-red-50 p-4 my-4">
               <div className="flex">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <XCircleIcon
                     className="h-5 w-5 text-red-400"
                     aria-hidden="true"

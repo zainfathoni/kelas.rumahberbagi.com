@@ -1,6 +1,6 @@
 export function LogoWithText() {
   return (
-    <div className="flex-shrink-0 px-4 flex items-center">
+    <div className="shrink-0 px-4 flex items-center">
       <img
         className="h-8 w-auto -translate-x-1"
         src="/rumah-berbagi.svg"
