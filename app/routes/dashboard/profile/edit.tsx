@@ -33,8 +33,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 interface UserFields {
   name: string
   phoneNumber: string
-  instagram: string
-  telegram: string
+  instagram: string | null
+  telegram: string | null
 }
 
 type ActionData = {
@@ -75,8 +75,8 @@ export const action: ActionFunction = async ({ request }) => {
   const fields: UserFields = {
     name,
     phoneNumber,
-    instagram: String(instagram),
-    telegram: String(telegram),
+    instagram: instagram ? String(instagram) : null,
+    telegram: telegram ? String(telegram) : null,
   }
   if (Object.values(fieldErrors).some(Boolean)) {
     return { fieldErrors, fields }
