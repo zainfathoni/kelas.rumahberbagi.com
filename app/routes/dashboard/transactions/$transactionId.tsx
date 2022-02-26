@@ -4,8 +4,10 @@ import { Transaction, User } from '@prisma/client'
 import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
+import { stripLeadingPlus } from '~/utils/misc'
 
 export const loader: LoaderFunction = async ({ params }) => {
+  // TODO: block if the current user is not an admin or the author of the course
   const { transactionId } = params
 
   if (!transactionId) {
@@ -39,9 +41,11 @@ export default function TransactionDetails() {
     kontakWhatsappButton = (
       <a
         id="contact-whatsapp"
-        href={`https://wa.me/${transactionDetails.user.phoneNumber}`}
+        href={`https://wa.me/${stripLeadingPlus(
+          transactionDetails.user.phoneNumber
+        )}`}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
       >
         Kontak Whatsapp
