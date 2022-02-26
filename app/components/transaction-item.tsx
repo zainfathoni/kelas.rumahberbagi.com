@@ -1,7 +1,7 @@
 import {
   CheckCircleIcon,
   ChevronRightIcon,
-  MailIcon,
+  LibraryIcon,
 } from '@heroicons/react/solid'
 import { Link } from 'remix'
 import { isNotEmpty } from '~/utils/assertions'
@@ -9,18 +9,18 @@ import { printLocaleDateTimeString } from '~/utils/format'
 
 export type TransactionItemProps = {
   transactionId: string
-  name: string
-  email: string
-  dateTime: Date
+  bankAccountName: string
   bankName: string
+  dateTime: Date | null
+  bankAccountNumber: string
 }
 
 export function TransactionItem({
   transactionId,
-  name,
-  email,
-  dateTime,
+  bankAccountName,
   bankName,
+  dateTime,
+  bankAccountNumber,
 }: TransactionItemProps) {
   return (
     <li>
@@ -31,17 +31,17 @@ export function TransactionItem({
               <div>
                 <p
                   className="text-sm font-medium text-purple-600 truncate"
-                  aria-label="Nama Lengkap"
+                  aria-label="Nama Rekening"
                 >
-                  {isNotEmpty(name) ? name : '-'}
+                  {isNotEmpty(bankAccountName) ? bankAccountName : '-'}
                 </p>
                 <p className="mt-2 flex items-center text-sm text-gray-500">
-                  <MailIcon
+                  <LibraryIcon
                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  <span className="truncate" aria-label="Alamat Email">
-                    {isNotEmpty(email) ? email : '-'}
+                  <span className="truncate" aria-label="Nama Bank">
+                    {isNotEmpty(bankName) ? bankName : '-'}
                   </span>
                 </p>
               </div>
@@ -54,20 +54,18 @@ export function TransactionItem({
                     {!dateTime ? (
                       '-'
                     ) : (
-                      <time dateTime={dateTime.toISOString()}>
-                        {printLocaleDateTimeString(dateTime)}
-                      </time>
+                      <time>{printLocaleDateTimeString(dateTime)}</time>
                     )}
                   </p>
                   <p
                     className="mt-2 flex items-center text-sm text-gray-500"
-                    aria-label="Nama Bank"
+                    aria-label="Nomor Rekening"
                   >
                     <CheckCircleIcon
                       className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
                       aria-hidden="true"
                     />
-                    {isNotEmpty(bankName) ? bankName : '-'}
+                    {isNotEmpty(bankAccountNumber) ? bankAccountNumber : '-'}
                   </p>
                 </div>
               </div>

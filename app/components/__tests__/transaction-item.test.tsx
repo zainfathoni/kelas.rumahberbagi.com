@@ -7,9 +7,9 @@ import { printLocaleDateTimeString } from '~/utils/format'
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
     transactionId: fake((f) => f.datatype.uuid()),
-    name: fake((f) => f.name.findName()),
-    bankName: 'BRI',
-    email: fake((f) => f.internet.email()),
+    bankAccountName: fake((f) => f.finance.accountName()),
+    bankAccountNumber: fake((f) => f.finance.account()),
+    bankName: fake((f) => f.company.companyName()),
     dateTime: fake((f) => f.date.past()),
   },
 })
@@ -19,15 +19,17 @@ describe('TransactionItem', () => {
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByLabelText(/nama lengkap/i)).toHaveTextContent(props.name)
+    expect(screen.getByLabelText(/nama rekening/i)).toHaveTextContent(
+      props.bankAccountName
+    )
   })
   it('should display customer email correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByLabelText(/alamat email/i)).toHaveTextContent(
-      props.email
+    expect(screen.getByLabelText(/nama bank/i)).toHaveTextContent(
+      props.bankName
     )
   })
   it('should display transaction datetime correctly', () => {
@@ -36,7 +38,7 @@ describe('TransactionItem', () => {
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByLabelText(/waktu transaksi/i)).toHaveTextContent(
-      printLocaleDateTimeString(props.dateTime)
+      printLocaleDateTimeString(props.dateTime ?? '')
     )
   })
   it('should display transaction bank name correctly', () => {
@@ -44,8 +46,8 @@ describe('TransactionItem', () => {
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByLabelText(/nama bank/i)).toHaveTextContent(
-      props.bankName
+    expect(screen.getByLabelText(/nomor rekening/i)).toHaveTextContent(
+      props.bankAccountNumber
     )
   })
   it('should render transaction details link correctly', () => {
