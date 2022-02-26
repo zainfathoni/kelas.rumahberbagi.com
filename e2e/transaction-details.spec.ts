@@ -28,7 +28,7 @@ test('redirected to TransactionList page when transaction data with id of $trans
 }) => {
   await page.goto('/dashboard/transactions/1')
 
-  expect(page.url()).toBe('http://localhost:3000/dashboard/transactions')
+  expect(page.url()).toBe('http://localhost:3000/dashboard/home')
 })
 
 test('render transaction data if transaction data exists', async ({ page }) => {

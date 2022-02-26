@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
-    redirect('/dashboard/home')
+    return redirect('/dashboard/home')
   }
 
   const transactions = await getAllTransactions()

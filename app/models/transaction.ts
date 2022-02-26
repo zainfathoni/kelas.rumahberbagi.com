@@ -1,4 +1,5 @@
 import { getFirstCourse } from './course'
+import { TransactionStatus, TRANSACTION_STATUS } from './enum'
 import { db } from '~/utils/db.server'
 
 export async function getFirstTransaction(userId: string) {
@@ -35,6 +36,16 @@ export async function getAllTransactions() {
 export async function getTransactionDetails(id: string) {
   return await db.transaction.findUnique({
     where: { id },
-    include: { user: true },
+    include: { user: true, course: true },
+  })
+}
+
+export async function updateTransactionStatus(
+  id: string,
+  status: TransactionStatus
+) {
+  return await db.transaction.update({
+    where: { id },
+    data: { status },
   })
 }
