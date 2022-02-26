@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function Purchase() {
-  const { pathname } = useMatches()?.at(3) ?? {}
+  const { pathname } = useMatches()?.[3] ?? {}
   const currentStepIdx = STEPS.findIndex((step) => step.pathname === pathname)
 
   return (
