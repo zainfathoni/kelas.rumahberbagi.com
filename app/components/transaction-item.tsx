@@ -31,7 +31,7 @@ export function TransactionItem({
               <div>
                 <p
                   className="text-sm font-medium text-purple-600 truncate"
-                  data-testid="customer-name"
+                  aria-label="Nama Lengkap"
                 >
                   {isNotEmpty(name) ? name : '-'}
                 </p>
@@ -40,7 +40,7 @@ export function TransactionItem({
                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  <span className="truncate" data-testid="customer-email">
+                  <span className="truncate" aria-label="Alamat Email">
                     {isNotEmpty(email) ? email : '-'}
                   </span>
                 </p>
@@ -49,7 +49,7 @@ export function TransactionItem({
                 <div>
                   <p
                     className="text-sm text-gray-900"
-                    data-testid="transaction-datetime"
+                    aria-label="Waktu Transaksi"
                   >
                     {isNotEmpty(dateTime) ? (
                       '-'
@@ -61,7 +61,7 @@ export function TransactionItem({
                   </p>
                   <p
                     className="mt-2 flex items-center text-sm text-gray-500"
-                    data-testid="transaction-bankname"
+                    aria-label="Nama Bank"
                   >
                     <CheckCircleIcon
                       className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"

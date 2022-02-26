@@ -18,28 +18,32 @@ describe('TransactionItem', () => {
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByTestId('customer-name')).toBeVisible()
+    expect(screen.getByLabelText(/nama lengkap/i)).toHaveTextContent(props.name)
   })
   it('should display customer email correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByTestId('customer-email')).toBeVisible()
+    expect(screen.getByLabelText(/alamat email/i)).toHaveTextContent(
+      props.email
+    )
   })
   it('should display transaction datetime correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByTestId('transaction-datetime')).toBeVisible()
+    expect(screen.getByLabelText(/waktu transaksi/i)).toBeVisible()
   })
   it('should display transaction bank name correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByTestId('transaction-bankname')).toBeVisible()
+    expect(screen.getByLabelText(/nama bank/i)).toHaveTextContent(
+      props.bankName
+    )
   })
   it('should render transaction details link correctly', () => {
     const props = transactionItemBuilder()
