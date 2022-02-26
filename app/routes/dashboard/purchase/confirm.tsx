@@ -1,9 +1,13 @@
-import { Form, redirect } from 'remix'
-import type { ActionFunction } from 'remix'
-import { validatePhoneNumber, validateRequired } from '~/utils/validators'
+import { Form, json, Link, redirect, useLoaderData } from 'remix'
+import type { ActionFunction, LoaderFunction } from 'remix'
+import { Transaction, User } from '@prisma/client'
+import { validateRequired } from '~/utils/validators'
 import { auth } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
+import { getFirstTransaction } from '~/models/transaction'
+import { getUser } from '~/models/user'
+import { formatDateTime } from '~/utils/format'
 
 interface TransactionFields {
   userId: string
@@ -15,6 +19,22 @@ interface TransactionFields {
   amount: number
   datetime: Date
   status: string
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const { id } = await auth.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
+
+  // TODO: we can use the user instance from the auth service only when we always commit new changes in /profile/edit
+  // until then, we need to fetch the user from the database
+  const user = await getUser(id)
+
+  const transaction = await getFirstTransaction(id)
+
+  if (transaction) {
+    return json({ user, transaction })
+  }
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -29,8 +49,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const form = await request.formData()
-  const name = form.get('name')
-  const phoneNumber = form.get('phoneNumber')
+  const id = form.get('id')
   const bankName = form.get('bankName')
   const bankAccountNumber = form.get('bankAccountNumber')
   const bankAccountName = form.get('bankAccountName')
@@ -41,8 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formattedPaymentTime: Date = new Date(paymentTime)
 
   if (
-    typeof name !== 'string' ||
-    typeof phoneNumber !== 'string' ||
+    typeof id !== 'string' ||
     typeof bankName !== 'string' ||
     typeof bankAccountNumber !== 'string' ||
     typeof bankAccountName !== 'string' ||
@@ -53,8 +71,6 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const fieldErrors = {
-    name: validateRequired('Nama Lengkap', name),
-    phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
     bankName: validateRequired('Nomor WhatsApp', bankName),
     bankAccountNumber: validateRequired('Nama Bank', bankAccountNumber),
     bankAccountName: validateRequired('Nomor Rekening', bankAccountName),
@@ -77,7 +93,18 @@ export const action: ActionFunction = async ({ request }) => {
     return { fieldErrors, fields }
   }
 
-  const transaction = await db.transaction.create({ data: fields })
+  let transaction: Transaction | undefined
+
+  if (id) {
+    transaction = await db.transaction.update({
+      where: {
+        id,
+      },
+      data: fields,
+    })
+  } else {
+    transaction = await db.transaction.create({ data: fields })
+  }
 
   if (!transaction) {
     return redirect('/dashboard')
@@ -87,43 +114,78 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function PurchaseConfirm() {
+  const { user, transaction } = useLoaderData<{
+    user: User
+    transaction: Transaction
+  }>()
+
   return (
     <>
       <Form action="/dashboard/purchase/confirm" method="post">
+        <input type="hidden" name="id" value={transaction.id} />
+        <div>
+          Nama Lengkap Anda: <span>{user.name}</span>
+        </div>
+        <div>
+          Nomor WhatsApp Anda: <span>{user.phoneNumber}</span>
+        </div>
+        <div>
+          Nama Lengkap atau Nomor WhatsApp Anda salah?{' '}
+          <Link to="/dashboard/profile/edit">Ubah di sini</Link>
+        </div>
         <div>
           <label>
-            Nama Lengkap Anda: <input type="text" name="name" />
+            Nama Bank:{' '}
+            <input
+              type="text"
+              name="bankName"
+              defaultValue={transaction.bankName}
+            />
           </label>
         </div>
         <div>
           <label>
-            Nomor WhatsApp Anda: <input type="text" name="phoneNumber" />
+            Nomor Rekening:{' '}
+            <input
+              type="text"
+              name="bankAccountNumber"
+              defaultValue={transaction.bankAccountNumber}
+            />
           </label>
         </div>
         <div>
           <label>
-            Nama Bank: <input type="text" name="bankName" />
+            Nama Pemilik Rekening:{' '}
+            <input
+              type="text"
+              name="bankAccountName"
+              defaultValue={transaction.bankAccountName}
+            />
           </label>
         </div>
         <div>
           <label>
-            Nomor Rekening: <input type="text" name="bankAccountNumber" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Nama Pemilik Rekening: <input type="text" name="bankAccountName" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Nominal: <input type="text" name="amount" />
+            Nominal:{' '}
+            <input
+              type="text"
+              name="amount"
+              defaultValue={transaction.amount}
+            />
           </label>
         </div>
         <div>
           <label>
             Tanggal dan Waktu Pembayaran:
-            <input type="datetime-local" id="meeting-time" name="paymentTime" />
+            <input
+              type="datetime-local"
+              id="meeting-time"
+              name="paymentTime"
+              defaultValue={
+                transaction.datetime
+                  ? formatDateTime(new Date(transaction.datetime))
+                  : undefined
+              }
+            />
           </label>
         </div>
         <div>
