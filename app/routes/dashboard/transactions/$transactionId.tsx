@@ -1,11 +1,13 @@
 import { redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
-import { isEmpty } from '~/utils/assertions'
+import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
-import { printLocaleDateTimeString, printRupiah } from '~/utils/locales'
+import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
+import { stripLeadingPlus } from '~/utils/misc'
 
 export const loader: LoaderFunction = async ({ params }) => {
+  // TODO: block if the current user is not an admin or the author of the course
   const { transactionId } = params
 
   if (!transactionId) {
@@ -39,9 +41,11 @@ export default function TransactionDetails() {
     kontakWhatsappButton = (
       <a
         id="contact-whatsapp"
-        href={`https://wa.me/${transactionDetails.user.phoneNumber}`}
+        href={`https://wa.me/${stripLeadingPlus(
+          transactionDetails.user.phoneNumber
+        )}`}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
       >
         Kontak Whatsapp
@@ -75,7 +79,7 @@ export default function TransactionDetails() {
                           id="user-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.user.name)
+                          {isNotEmpty(transactionDetails.user.name)
                             ? transactionDetails.user.name
                             : '-'}
                         </dd>
@@ -88,7 +92,7 @@ export default function TransactionDetails() {
                           id="user-phone-number"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.user.phoneNumber)
+                          {isNotEmpty(transactionDetails.user.phoneNumber)
                             ? transactionDetails.user.phoneNumber
                             : '-'}
                         </dd>
@@ -101,7 +105,7 @@ export default function TransactionDetails() {
                           id="bank-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankName)
+                          {isNotEmpty(transactionDetails.bankName)
                             ? transactionDetails.bankName
                             : '-'}
                         </dd>
@@ -114,7 +118,7 @@ export default function TransactionDetails() {
                           id="bank-account-number"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankAccountNumber)
+                          {isNotEmpty(transactionDetails.bankAccountNumber)
                             ? transactionDetails.bankAccountNumber
                             : '-'}
                         </dd>
@@ -127,7 +131,7 @@ export default function TransactionDetails() {
                           id="bank-account-name"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.bankAccountName)
+                          {isNotEmpty(transactionDetails.bankAccountName)
                             ? transactionDetails.bankAccountName
                             : '-'}
                         </dd>
@@ -140,7 +144,7 @@ export default function TransactionDetails() {
                           id="transaction-amount"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {isEmpty(transactionDetails.amount)
+                          {isNotEmpty(transactionDetails.amount)
                             ? printRupiah(transactionDetails.amount)
                             : '-'}
                         </dd>
@@ -153,11 +157,19 @@ export default function TransactionDetails() {
                           id="transaction-datetime"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {transactionDetails.createdAt
-                            ? printLocaleDateTimeString(
-                                transactionDetails.createdAt
-                              )
-                            : '-'}
+                          {transactionDetails.datetime ? (
+                            <time
+                              dateTime={new Date(
+                                transactionDetails.datetime
+                              ).toISOString()}
+                            >
+                              {printLocaleDateTimeString(
+                                new Date(transactionDetails.datetime)
+                              )}
+                            </time>
+                          ) : (
+                            '-'
+                          )}
                         </dd>
                       </div>
                     </dl>

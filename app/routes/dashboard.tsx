@@ -6,6 +6,7 @@ import {
   LogoutIcon,
   XIcon,
   MenuIcon,
+  ServerIcon,
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
@@ -14,6 +15,7 @@ import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
+import { requireAuthor } from '~/utils/permissions'
 
 export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
@@ -36,6 +38,12 @@ const navigation = [
     name: 'Purchase',
     href: '/dashboard/purchase',
     icon: CashIcon,
+  },
+  {
+    name: 'Transactions',
+    href: '/dashboard/transactions',
+    icon: ServerIcon,
+    permission: requireAuthor,
   },
 ]
 
@@ -113,30 +121,35 @@ export default function Dashboard() {
                 <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className={classNames(
-                          item.href === currentPathname
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                          'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                        )}
-                        onClick={() => setSidebarOpen(false)}
-                      >
-                        <item.icon
+                    {navigation.map((item) => {
+                      if (item.permission && !item.permission(user)) {
+                        return null
+                      }
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.href}
                           className={classNames(
                             item.href === currentPathname
-                              ? 'text-gray-500'
-                              : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-4 shrink-0 h-6 w-6'
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                           )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </Link>
-                    ))}
+                          onClick={() => setSidebarOpen(false)}
+                        >
+                          <item.icon
+                            className={classNames(
+                              item.href === currentPathname
+                                ? 'text-gray-500'
+                                : 'text-gray-400 group-hover:text-gray-500',
+                              'mr-4 shrink-0 h-6 w-6'
+                            )}
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </Link>
+                      )
+                    })}
                   </nav>
                 </div>
                 <div className="shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
@@ -193,30 +206,35 @@ export default function Dashboard() {
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               <LogoWithText />
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={classNames(
-                      item.href === currentPathname
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                    )}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <item.icon
+                {navigation.map((item) => {
+                  if (item.permission && !item.permission(user)) {
+                    return null
+                  }
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
                       className={classNames(
                         item.href === currentPathname
-                          ? 'text-gray-500'
-                          : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 shrink-0 h-6 w-6'
+                          ? 'bg-gray-100 text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                       )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </Link>
-                ))}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.href === currentPathname
+                            ? 'text-gray-500'
+                            : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 shrink-0 h-6 w-6'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </Link>
+                  )
+                })}
               </nav>
             </div>
             <div className="group shrink-0 flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">

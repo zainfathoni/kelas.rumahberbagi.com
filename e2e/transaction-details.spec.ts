@@ -1,7 +1,8 @@
 import { expect } from '@playwright/test'
 import { Transaction, User } from '@prisma/client'
-import { printRupiah } from '../app/utils/locales'
+import { printRupiah } from '../app/utils/format'
 import { readFixture } from '../app/utils/fixtures'
+import { stripLeadingPlus } from '../app/utils/misc'
 import { test } from './base-test'
 
 test.use({
@@ -119,6 +120,6 @@ test('Kontak Whatsapp link should be refering to the valid WhatsApp API if user 
   await expect(contactWhatsAppButton).toBeVisible()
   await expect(contactWhatsAppButton).toHaveAttribute(
     'href',
-    `https://wa.me/${member.phoneNumber}`
+    `https://wa.me/${stripLeadingPlus(member?.phoneNumber)}`
   )
 })
