@@ -30,11 +30,17 @@ export const loader: LoaderFunction = async ({ request }) => {
   // until then, we need to fetch the user from the database
   const user = await getUser(id)
 
+  if (!user) {
+    redirect('/logout')
+  }
+
   const transaction = await getFirstTransaction(id)
 
-  if (transaction) {
-    return json({ user, transaction })
+  if (!transaction) {
+    return json({ user })
   }
+
+  return json({ user, transaction })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -116,13 +122,13 @@ export const action: ActionFunction = async ({ request }) => {
 export default function PurchaseConfirm() {
   const { user, transaction } = useLoaderData<{
     user: User
-    transaction: Transaction
+    transaction?: Transaction
   }>()
 
   return (
     <>
       <Form action="/dashboard/purchase/confirm" method="post">
-        <input type="hidden" name="id" value={transaction.id} />
+        <input type="hidden" name="id" value={transaction?.id} />
         <div>
           Nama Lengkap Anda: <span>{user.name}</span>
         </div>
@@ -139,7 +145,7 @@ export default function PurchaseConfirm() {
             <input
               type="text"
               name="bankName"
-              defaultValue={transaction.bankName}
+              defaultValue={transaction?.bankName}
             />
           </label>
         </div>
@@ -149,7 +155,7 @@ export default function PurchaseConfirm() {
             <input
               type="text"
               name="bankAccountNumber"
-              defaultValue={transaction.bankAccountNumber}
+              defaultValue={transaction?.bankAccountNumber}
             />
           </label>
         </div>
@@ -159,7 +165,7 @@ export default function PurchaseConfirm() {
             <input
               type="text"
               name="bankAccountName"
-              defaultValue={transaction.bankAccountName}
+              defaultValue={transaction?.bankAccountName}
             />
           </label>
         </div>
@@ -169,7 +175,7 @@ export default function PurchaseConfirm() {
             <input
               type="text"
               name="amount"
-              defaultValue={transaction.amount}
+              defaultValue={transaction?.amount}
             />
           </label>
         </div>
@@ -181,7 +187,7 @@ export default function PurchaseConfirm() {
               id="meeting-time"
               name="paymentTime"
               defaultValue={
-                transaction.datetime
+                transaction?.datetime
                   ? formatDateTime(new Date(transaction.datetime))
                   : undefined
               }
