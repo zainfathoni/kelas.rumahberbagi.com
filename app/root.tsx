@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -10,6 +11,7 @@ import {
 } from 'remix'
 import type { LinksFunction } from 'remix'
 
+import { XCircleIcon } from '@heroicons/react/solid'
 import styles from './tailwind.css'
 import fonts from './fonts.css'
 import { Footer } from './components/footer'
@@ -42,15 +44,48 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document title="Error!">
       <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
+        <Header />
+        <div className="min-h-full pt-16 pb-12 flex flex-col bg-white">
+          <main className="grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="rounded-md bg-red-50 p-4 my-4">
+              <div className="flex">
+                <div className="shrink-0">
+                  <XCircleIcon
+                    className="h-5 w-5 text-red-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-red-800">
+                    {error.message}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="py-16">
+              <div className="text-center">
+                <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
+                  Error 500
+                </p>
+                <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
+                  Terjadi kesalahan
+                </h1>
+                <p className="mt-2 text-base text-gray-500">
+                  Silakan coba masuk kembali.
+                </p>
+                <div className="mt-6">
+                  <Link
+                    to="/logout"
+                    className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Kembali ke beranda<span aria-hidden="true"> &rarr;</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
+        <Footer instagramUrl="https://instagram.com/vika.riandini" />
       </Layout>
     </Document>
   )

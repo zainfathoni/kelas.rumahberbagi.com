@@ -53,9 +53,9 @@ model Course {
 }
 
 model Transaction {
-  id                String   @id @default(uuid())
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
   userId            String
   courseId          String
   authorId          String
@@ -63,8 +63,9 @@ model Transaction {
   bankAccountNumber String
   bankAccountName   String
   amount            Int
+  datetime          DateTime?
   status            String
-  user              User     @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
-  author            User     @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
-  course            Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user              User      @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
+  author            User      @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
+  course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }

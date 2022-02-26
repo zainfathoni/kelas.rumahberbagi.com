@@ -1,6 +1,6 @@
 import { build, fake } from '@jackfranklin/test-data-bot'
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router-dom'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {

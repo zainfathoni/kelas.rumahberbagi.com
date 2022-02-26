@@ -56,7 +56,7 @@ export default function Dashboard() {
                 </p>
                 <div className="mt-8">
                   <div className="flex items-center">
-                    <h4 className="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600">
+                    <h4 className="shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600">
                       Biaya termasuk
                     </h4>
                     <div className="flex-1 border-t-2 border-gray-200" />
@@ -67,7 +67,7 @@ export default function Dashboard() {
                         key={feature}
                         className="flex items-start lg:col-span-1"
                       >
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                           <CheckCircleIcon
                             className="h-5 w-5 text-green-400"
                             aria-hidden="true"
@@ -79,7 +79,7 @@ export default function Dashboard() {
                   </ul>
                 </div>
               </div>
-              <div className="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
+              <div className="py-8 px-6 text-center bg-gray-50 lg:shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
                 <p className="text-lg leading-6 font-medium text-gray-900">
                   Sekali bayar
                 </p>
@@ -87,7 +87,7 @@ export default function Dashboard() {
                   <span className="ml-3 text-xl font-medium text-gray-500">
                     Rp
                   </span>
-                  <span>XX0.000</span>
+                  <span>200.000</span>
                   <span className="ml-3 text-xl font-medium text-gray-500">
                     ,-
                   </span>
