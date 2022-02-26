@@ -33,28 +33,26 @@ export default function TransactionDetails() {
   const transactionDetails: Transaction & { user: User } = useLoaderData()
 
   let kontakWhatsappButton: JSX.Element
+  const buttonClassNames =
+    'disabled:opacity-80 disabled:bg-gray-100 disabled:text-gray-500 text-center inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+  const buttonText = 'Kontak WhatsApp'
   if (!transactionDetails.user.phoneNumber) {
     kontakWhatsappButton = (
-      <button
-        id="contact-whatsapp"
-        disabled
-        className="disabled:opacity-80 disabled:bg-gray-100 disabled:text-gray-500 inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-      >
-        Kontak Whatsapp
+      <button disabled className={buttonClassNames}>
+        {buttonText}
       </button>
     )
   } else {
     kontakWhatsappButton = (
       <a
-        id="contact-whatsapp"
         href={`https://wa.me/${stripLeadingPlus(
           transactionDetails.user.phoneNumber
         )}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+        className={buttonClassNames}
       >
-        Kontak Whatsapp
+        {buttonText}
       </a>
     )
   }
@@ -65,11 +63,11 @@ export default function TransactionDetails() {
         <main>
           <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
             <div className="relative space-y-6 lg:col-start-1 lg:col-span-2">
-              <section aria-labelledby="user-information-title">
+              <section aria-labelledby="transaction-title">
                 <div className="bg-white shadow sm:rounded-lg">
                   <div className="px-4 py-5 sm:px-6">
                     <h1
-                      id="user-information-title"
+                      id="transaction-title"
                       className="text-lg leading-6 font-medium text-gray-900"
                     >
                       Transaction Details
@@ -217,20 +215,26 @@ export default function TransactionDetails() {
                       </div>
                     </dl>
                   </div>
+                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                    <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+                      <button
+                        type="button"
+                        className="mr-auto w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
+                      >
+                        Tolak Pembelian
+                      </button>
+                      {kontakWhatsappButton}
+                      <button
+                        id="verify-transaction"
+                        type="button"
+                        className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                      >
+                        Verifikasi Pembelian
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </section>
-              <div className="absolute right-0 max-w-3xl mx-auto md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl">
-                <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                  {kontakWhatsappButton}
-                  <button
-                    id="verify-transaction"
-                    type="button"
-                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                  >
-                    Verifikasi Pembelian
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </main>
