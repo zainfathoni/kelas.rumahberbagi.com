@@ -1,6 +1,7 @@
-import { Form, json, Link, redirect, useLoaderData } from 'remix'
-import type { ActionFunction, LoaderFunction } from 'remix'
+import { Form, json, Link, redirect, useCatch, useLoaderData } from 'remix'
+import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
 import { Transaction, User } from '@prisma/client'
+import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
 import { auth } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
@@ -113,7 +114,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   if (!transaction) {
-    return redirect('/dashboard')
+    throw json({ fields }, { status: 500 })
   }
 
   return redirect(`/dashboard/purchase/verify/${transaction.id}`)
@@ -203,6 +204,45 @@ export default function PurchaseConfirm() {
           </button>
         </div>
       </Form>
+    </>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch<ThrownResponse>()
+
+  return (
+    <>
+      <div className="rounded-md bg-red-50 p-4 my-4">
+        <div className="flex">
+          <div className="shrink-0">
+            <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+          </div>
+          <div className="ml-3">
+            <h3 className="text-sm font-medium text-red-800">
+              {caught.statusText}
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div className="py-16">
+        <div className="text-center">
+          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
+            Error {caught.status}
+          </p>
+          <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
+            Terjadi kesalahan
+          </h1>
+          <div className="mt-6">
+            <Link
+              to="/dashboard/purchase/confirm"
+              className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Silakan coba lagi<span aria-hidden="true"> &rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
