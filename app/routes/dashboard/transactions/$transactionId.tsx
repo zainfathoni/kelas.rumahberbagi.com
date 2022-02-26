@@ -157,11 +157,19 @@ export default function TransactionDetails() {
                           id="transaction-datetime"
                           className="mt-1 text-sm text-gray-900"
                         >
-                          {transactionDetails.createdAt
-                            ? printLocaleDateTimeString(
-                                transactionDetails.createdAt
-                              )
-                            : '-'}
+                          {transactionDetails.datetime ? (
+                            <time
+                              dateTime={new Date(
+                                transactionDetails.datetime
+                              ).toISOString()}
+                            >
+                              {printLocaleDateTimeString(
+                                new Date(transactionDetails.datetime)
+                              )}
+                            </time>
+                          ) : (
+                            '-'
+                          )}
                         </dd>
                       </div>
                     </dl>

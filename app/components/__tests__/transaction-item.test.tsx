@@ -2,6 +2,7 @@ import { build, fake } from '@jackfranklin/test-data-bot'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
+import { printLocaleDateTimeString } from '~/utils/format'
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
@@ -34,7 +35,9 @@ describe('TransactionItem', () => {
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
-    expect(screen.getByLabelText(/waktu transaksi/i)).toBeVisible()
+    expect(screen.getByLabelText(/waktu transaksi/i)).toHaveTextContent(
+      printLocaleDateTimeString(props.dateTime)
+    )
   })
   it('should display transaction bank name correctly', () => {
     const props = transactionItemBuilder()

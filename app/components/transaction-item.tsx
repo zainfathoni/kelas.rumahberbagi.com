@@ -51,7 +51,7 @@ export function TransactionItem({
                     className="text-sm text-gray-900"
                     aria-label="Waktu Transaksi"
                   >
-                    {isNotEmpty(dateTime) ? (
+                    {!dateTime ? (
                       '-'
                     ) : (
                       <time dateTime={dateTime.toISOString()}>
