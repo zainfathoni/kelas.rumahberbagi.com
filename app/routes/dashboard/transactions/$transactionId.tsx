@@ -1,4 +1,4 @@
-import { redirect, useLoaderData } from 'remix'
+import { redirect, useLoaderData, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import {
@@ -6,6 +6,8 @@ import {
   ShieldCheckIcon,
   XCircleIcon,
 } from '@heroicons/react/solid'
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
 import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
@@ -56,6 +58,8 @@ export default function TransactionDetails() {
       </a>
     )
   }
+
+  const [openVerifyDialog, setOpenVerifyDialog] = useState(false)
 
   return (
     <>
@@ -227,6 +231,7 @@ export default function TransactionDetails() {
                       <button
                         id="verify-transaction"
                         type="button"
+                        onClick={() => setOpenVerifyDialog(true)}
                         className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
                       >
                         Verifikasi Pembelian
@@ -239,6 +244,102 @@ export default function TransactionDetails() {
           </div>
         </main>
       </div>
+      <Transition.Root show={openVerifyDialog} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed z-10 inset-0 overflow-y-auto"
+          onClose={setOpenVerifyDialog}
+        >
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full sm:p-6">
+                <div className="bg-white shadow sm:rounded-lg">
+                  <div className="px-4 py-5 sm:p-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Payment method
+                    </h3>
+                    <div className="mt-5">
+                      <div className="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
+                        <h4 className="sr-only">Visa</h4>
+                        <div className="sm:flex sm:items-start">
+                          <svg
+                            className="h-8 w-auto sm:flex-shrink-0 sm:h-6"
+                            viewBox="0 0 36 24"
+                            aria-hidden="true"
+                          >
+                            <rect
+                              width={36}
+                              height={24}
+                              fill="#224DBA"
+                              rx={4}
+                            />
+                            <path
+                              fill="#fff"
+                              d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z"
+                            />
+                          </svg>
+                          <div className="mt-3 sm:mt-0 sm:ml-4">
+                            <div className="text-sm font-medium text-gray-900">
+                              Ending with 4242
+                            </div>
+                            <div className="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
+                              <div>Expires 12/20</div>
+                              <span
+                                className="hidden sm:mx-2 sm:inline"
+                                aria-hidden="true"
+                              >
+                                &middot;
+                              </span>
+                              <div className="mt-1 sm:mt-0">
+                                Last updated on 22 Aug 2017
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
     </>
   )
 }
