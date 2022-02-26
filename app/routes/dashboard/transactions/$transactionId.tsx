@@ -3,7 +3,7 @@ import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
-import { printLocaleDateTimeString, printRupiah } from '~/utils/locales'
+import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { transactionId } = params

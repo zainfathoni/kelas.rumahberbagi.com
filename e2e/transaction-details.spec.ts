@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 import { Transaction, User } from '@prisma/client'
-import { printRupiah } from '../app/utils/locales'
+import { printRupiah } from '../app/utils/format'
 import { readFixture } from '../app/utils/fixtures'
 import { test } from './base-test'
 
