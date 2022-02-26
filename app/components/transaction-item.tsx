@@ -1,9 +1,12 @@
 import {
-  CheckCircleIcon,
   ChevronRightIcon,
+  ExclamationIcon,
   LibraryIcon,
+  ShieldCheckIcon,
+  XCircleIcon,
 } from '@heroicons/react/solid'
 import { Link } from 'remix'
+import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
 import { printLocaleDateTimeString } from '~/utils/format'
 
@@ -13,6 +16,7 @@ export type TransactionItemProps = {
   bankName: string
   dateTime: Date | null
   bankAccountNumber: string
+  status: TransactionStatus
 }
 
 export function TransactionItem({
@@ -21,6 +25,7 @@ export function TransactionItem({
   bankName,
   dateTime,
   bankAccountNumber,
+  status,
 }: TransactionItemProps) {
   return (
     <li>
@@ -61,10 +66,22 @@ export function TransactionItem({
                     className="mt-2 flex items-center text-sm text-gray-500"
                     aria-label="Nomor Rekening"
                   >
-                    <CheckCircleIcon
-                      className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                      aria-hidden="true"
-                    />
+                    {status === TRANSACTION_STATUS.VERIFIED ? (
+                      <ShieldCheckIcon
+                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
+                        aria-hidden="true"
+                      />
+                    ) : status === TRANSACTION_STATUS.REJECTED ? (
+                      <XCircleIcon
+                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <ExclamationIcon
+                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-orange-400"
+                        aria-hidden="true"
+                      />
+                    )}
                     {isNotEmpty(bankAccountNumber) ? bankAccountNumber : '-'}
                   </p>
                 </div>

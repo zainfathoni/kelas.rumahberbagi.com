@@ -1,8 +1,9 @@
-import { build, fake } from '@jackfranklin/test-data-bot'
+import { build, fake, oneOf } from '@jackfranklin/test-data-bot'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
 import { printLocaleDateTimeString } from '~/utils/format'
+import { TRANSACTION_STATUS } from '~/models/enum'
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
@@ -11,11 +12,16 @@ const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
     bankAccountNumber: fake((f) => f.finance.account()),
     bankName: fake((f) => f.company.companyName()),
     dateTime: fake((f) => f.date.past()),
+    status: oneOf(TRANSACTION_STATUS),
   },
 })
 describe('TransactionItem', () => {
-  it('should display customer name correctly', () => {
-    const props = transactionItemBuilder()
+  it('should display bankAccountName correctly', () => {
+    const props = transactionItemBuilder({
+      overrides: {
+        status: TRANSACTION_STATUS.VERIFIED,
+      },
+    })
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
@@ -23,8 +29,12 @@ describe('TransactionItem', () => {
       props.bankAccountName
     )
   })
-  it('should display customer email correctly', () => {
-    const props = transactionItemBuilder()
+  it('should display bankName correctly', () => {
+    const props = transactionItemBuilder({
+      overrides: {
+        status: TRANSACTION_STATUS.REJECTED,
+      },
+    })
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
@@ -32,8 +42,12 @@ describe('TransactionItem', () => {
       props.bankName
     )
   })
-  it('should display transaction datetime correctly', () => {
-    const props = transactionItemBuilder()
+  it('should display datetime correctly', () => {
+    const props = transactionItemBuilder({
+      overrides: {
+        status: TRANSACTION_STATUS.SUBMITTED,
+      },
+    })
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
@@ -41,7 +55,7 @@ describe('TransactionItem', () => {
       printLocaleDateTimeString(props.dateTime ?? '')
     )
   })
-  it('should display transaction bank name correctly', () => {
+  it('should display bankAccountNumber correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
@@ -50,7 +64,7 @@ describe('TransactionItem', () => {
       props.bankAccountNumber
     )
   })
-  it('should render transaction details link correctly', () => {
+  it('should link to transaction details page correctly', () => {
     const props = transactionItemBuilder()
 
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })

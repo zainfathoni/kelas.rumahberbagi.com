@@ -1,10 +1,16 @@
 import { redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
+import {
+  ExclamationIcon,
+  ShieldCheckIcon,
+  XCircleIcon,
+} from '@heroicons/react/solid'
 import { isNotEmpty } from '~/utils/assertions'
 import { getTransactionDetails } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { stripLeadingPlus } from '~/utils/misc'
+import { TRANSACTION_STATUS } from '~/models/enum'
 
 export const loader: LoaderFunction = async ({ params }) => {
   // TODO: block if the current user is not an admin or the author of the course
@@ -169,6 +175,43 @@ export default function TransactionDetails() {
                             </time>
                           ) : (
                             '-'
+                          )}
+                        </dd>
+                      </div>
+                      <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Status
+                        </dt>
+                        <dd
+                          id="transaction-datetime"
+                          className="mt-1 text-sm text-gray-900"
+                        >
+                          {transactionDetails.status ===
+                          TRANSACTION_STATUS.VERIFIED ? (
+                            <span className="inline-flex">
+                              <ShieldCheckIcon
+                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
+                                aria-hidden="true"
+                              />
+                              Terverifikasi
+                            </span>
+                          ) : transactionDetails.status ===
+                            TRANSACTION_STATUS.REJECTED ? (
+                            <span className="inline-flex">
+                              <XCircleIcon
+                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
+                                aria-hidden="true"
+                              />
+                              Ditolak
+                            </span>
+                          ) : (
+                            <span className="inline-flex">
+                              <ExclamationIcon
+                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-orange-400"
+                                aria-hidden="true"
+                              />
+                              Menunggu Verifikasi
+                            </span>
                           )}
                         </dd>
                       </div>

@@ -6,6 +6,7 @@ import { getAllTransactions } from '~/models/transaction'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { TransactionItem } from '~/components/transaction-item'
+import type { TransactionStatus } from '~/models/enum'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
@@ -36,6 +37,7 @@ export default function TransactionsList() {
             bankName={transaction.bankName}
             dateTime={transaction.datetime}
             bankAccountNumber={transaction.bankAccountNumber}
+            status={transaction.status as TransactionStatus}
           />
         ))}
       </ul>
