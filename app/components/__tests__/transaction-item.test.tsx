@@ -16,55 +16,35 @@ describe('TransactionItem', () => {
   it('should display customer name correctly', () => {
     const props = transactionItemBuilder()
 
-    render(
-      <MemoryRouter>
-        <TransactionItem {...props} />
-      </MemoryRouter>
-    )
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByTestId('customer-name')).toBeVisible()
   })
   it('should display customer email correctly', () => {
     const props = transactionItemBuilder()
 
-    render(
-      <MemoryRouter>
-        <TransactionItem {...props} />
-      </MemoryRouter>
-    )
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByTestId('customer-email')).toBeVisible()
   })
   it('should display transaction datetime correctly', () => {
     const props = transactionItemBuilder()
 
-    render(
-      <MemoryRouter>
-        <TransactionItem {...props} />
-      </MemoryRouter>
-    )
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByTestId('transaction-datetime')).toBeVisible()
   })
   it('should display transaction bank name correctly', () => {
     const props = transactionItemBuilder()
 
-    render(
-      <MemoryRouter>
-        <TransactionItem {...props} />
-      </MemoryRouter>
-    )
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByTestId('transaction-bankname')).toBeVisible()
   })
   it('should render transaction details link correctly', () => {
     const props = transactionItemBuilder()
 
-    render(
-      <MemoryRouter>
-        <TransactionItem {...props} />
-      </MemoryRouter>
-    )
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByRole('link')).toBeVisible()
     expect(screen.getByRole('link')).toHaveAttribute(
