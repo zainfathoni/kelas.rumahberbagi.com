@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { transactionId } = params
 
   if (!transactionId) {
-    return redirect('/dashboard/transactions')
+    return redirect('/dashboard/purchase/confirm')
   }
 
   const transaction = await getTransactionDetails(transactionId)

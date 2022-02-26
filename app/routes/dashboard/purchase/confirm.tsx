@@ -1,4 +1,4 @@
-import { Form, Outlet, redirect } from 'remix'
+import { Form, redirect } from 'remix'
 import type { ActionFunction } from 'remix'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { auth } from '~/services/auth.server'
@@ -83,13 +83,12 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect('/dashboard')
   }
 
-  return redirect(`/dashboard/purchase/confirm/${transaction.id}`)
+  return redirect(`/dashboard/purchase/verify/${transaction.id}`)
 }
 
 export default function PurchaseConfirm() {
   return (
     <>
-      <Outlet />
       <Form action="/dashboard/purchase/confirm" method="post">
         <div>
           <label>

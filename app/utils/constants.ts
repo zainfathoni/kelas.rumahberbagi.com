@@ -12,7 +12,7 @@ export const STEPS = [
   {
     name: 'Menunggu Verifikasi',
     description: 'Nantikan informasi verifikasi pembayaran di email Anda',
-    pathname: '/dashboard/purchase/pending-verification',
+    pathname: '/dashboard/purchase/verify',
   },
   {
     name: 'Selesai',
