@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/solid'
 import { Link } from 'remix'
 import { isNotEmpty } from '~/utils/assertions'
-import { printLocaleDateTimeString } from '~/utils/locales'
+import { printLocaleDateTimeString } from '~/utils/format'
 
 export type TransactionItemProps = {
   transactionId: string
