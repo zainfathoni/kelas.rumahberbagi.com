@@ -126,6 +126,7 @@ export default function PurchaseConfirm() {
     transaction?: Transaction
   }>()
 
+  // TODO: style form
   return (
     <>
       <Form action="/dashboard/purchase/confirm" method="post">
