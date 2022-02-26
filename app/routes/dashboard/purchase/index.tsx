@@ -1,4 +1,7 @@
-export default function Payment() {
+import { Link } from 'remix'
+import { STEPS } from '~/utils/constants'
+
+export default function Purchase() {
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
@@ -40,10 +43,18 @@ export default function Payment() {
             <dd className="mt-1 text-sm text-gray-900">
               Setelah melakukan transfer, simpan bukti transfer dalam bentuk
               file gambar atau PDF, lalu klik tombol{' '}
-              <strong>Konfirmasi Pembayaran</strong> di bawah ini.
+              <strong>Saya sudah transfer</strong> di bawah ini.
             </dd>
           </div>
         </dl>
+      </div>
+      <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+        <Link
+          to={STEPS[1].pathname}
+          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Saya sudah transfer
+        </Link>
       </div>
     </div>
   )

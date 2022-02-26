@@ -18,3 +18,7 @@ function getRequiredEnvVarFromObj(
 export function getRequiredServerEnvVar(key: string, devValue?: string) {
   return getRequiredEnvVarFromObj(process.env, key, devValue)
 }
+
+export function stripLeadingPlus(str: string) {
+  return str.replace(/^\+/, '')
+}
