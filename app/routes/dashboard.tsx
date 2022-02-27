@@ -34,14 +34,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 const navigation = [
-  { name: 'Home', href: '/dashboard/', icon: HomeIcon },
+  { name: 'Beranda', href: '/dashboard/', icon: HomeIcon },
   {
-    name: 'Purchase',
+    name: 'Pembelian',
     href: '/dashboard/purchase',
     icon: CashIcon,
   },
   {
-    name: 'Transactions',
+    name: 'Transaksi',
     href: '/dashboard/transactions',
     icon: ServerIcon,
     permission: requireAuthor,
