@@ -5,11 +5,17 @@ import {
   TransactionWithUser,
   updateTransactionStatus,
 } from '~/models/transaction'
-import { TransactionStatus } from '~/models/enum'
+import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { TransactionDetails } from '~/components/transaction-details'
+import {
+  PrimaryButtonLink,
+  SecondaryButtonLink,
+  TertiaryButtonLink,
+} from '~/components/button-link'
+import { stripLeadingPlus } from '~/utils/misc'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await requireUpdatedUser(request)
@@ -79,7 +85,32 @@ export default function TransactionDetailsPage() {
   return (
     <>
       <div className="min-h-full">
-        <TransactionDetails transaction={transaction} />
+        <TransactionDetails transaction={transaction} user={transaction.user}>
+          {/* TODO: Disable rejecting a verified transaction */}
+          <TertiaryButtonLink
+            to="reject"
+            replace
+            disabled={transaction.status === TRANSACTION_STATUS.REJECTED}
+          >
+            Tolak Pembelian
+          </TertiaryButtonLink>
+          <SecondaryButtonLink
+            to={`https://wa.me/${stripLeadingPlus(
+              transaction.user.phoneNumber
+            )}`}
+            external
+            disabled={!transaction.user.phoneNumber}
+          >
+            Kontak WhatsApp
+          </SecondaryButtonLink>
+          <PrimaryButtonLink
+            to="verify"
+            replace
+            disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
+          >
+            Verifikasi Pembelian
+          </PrimaryButtonLink>
+        </TransactionDetails>
       </div>
       <Outlet />
     </>

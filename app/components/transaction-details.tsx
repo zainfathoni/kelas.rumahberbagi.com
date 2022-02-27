@@ -3,21 +3,20 @@ import {
   ShieldCheckIcon,
   XCircleIcon,
 } from '@heroicons/react/solid'
-import {
-  PrimaryButtonLink,
-  SecondaryButtonLink,
-  TertiaryButtonLink,
-} from './button-link'
+import { Transaction, User } from '@prisma/client'
+import { ReactNode } from 'react'
 import { TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
-import { stripLeadingPlus } from '~/utils/misc'
-import { TransactionWithUser } from '~/models/transaction'
 
 export function TransactionDetails({
   transaction,
+  user,
+  children,
 }: {
-  transaction: TransactionWithUser
+  transaction: Transaction
+  user: User
+  children: ReactNode
 }) {
   return (
     <main>
@@ -38,9 +37,7 @@ export function TransactionDetails({
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Nama</dt>
                     <dd id="user-name" className="mt-1 text-sm text-gray-900">
-                      {isNotEmpty(transaction.user.name)
-                        ? transaction.user.name
-                        : '-'}
+                      {isNotEmpty(user.name) ? user.name : '-'}
                     </dd>
                   </div>
                   <div className="sm:col-span-1">
@@ -51,9 +48,7 @@ export function TransactionDetails({
                       id="user-phone-number"
                       className="mt-1 text-sm text-gray-900"
                     >
-                      {isNotEmpty(transaction.user.phoneNumber)
-                        ? transaction.user.phoneNumber
-                        : '-'}
+                      {isNotEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
                     </dd>
                   </div>
                   <div className="sm:col-span-1">
@@ -167,34 +162,7 @@ export function TransactionDetails({
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                  {/* TODO: Disable rejecting a verified transaction */}
-                  <TertiaryButtonLink
-                    to="reject"
-                    replace
-                    disabled={
-                      transaction.status === TRANSACTION_STATUS.REJECTED
-                    }
-                  >
-                    Tolak Pembelian
-                  </TertiaryButtonLink>
-                  <SecondaryButtonLink
-                    to={`https://wa.me/${stripLeadingPlus(
-                      transaction.user.phoneNumber
-                    )}`}
-                    external
-                    disabled={!transaction.user.phoneNumber}
-                  >
-                    Kontak WhatsApp
-                  </SecondaryButtonLink>
-                  <PrimaryButtonLink
-                    to="verify"
-                    replace
-                    disabled={
-                      transaction.status === TRANSACTION_STATUS.VERIFIED
-                    }
-                  >
-                    Verifikasi Pembelian
-                  </PrimaryButtonLink>
+                  {children}
                 </div>
               </div>
             </div>

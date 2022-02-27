@@ -73,7 +73,7 @@ export function PrimaryButtonLink(props: ButtonLinkProps) {
   )
 }
 export function SecondaryButtonLink(props: ButtonLinkProps) {
-  return <ButtonLink className="border-transparent text-gray-700" {...props} />
+  return <ButtonLink className="text-gray-700" {...props} />
 }
 export function TertiaryButtonLink(props: ButtonLinkProps) {
   return (
