@@ -1,6 +1,9 @@
 import { json, redirect, useLoaderData, Outlet, Link, useMatches } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
+import { ArrowNarrowLeftIcon } from '@heroicons/react/solid'
+import { ArrowNarrowRightIcon } from '@heroicons/react/outline'
+import { ReactNode } from 'react'
 import { getFirstCourse } from '~/models/course'
 import {
   AllTransactionsCount,
@@ -9,6 +12,8 @@ import {
 import { requireUpdatedUser } from '~/services/auth.server'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
+import { getPagesCount } from '~/utils/pagination'
+import { PageLink } from '~/components/page-link'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
@@ -55,6 +60,7 @@ export default function TransactionsList() {
 
   const [searchParams] = useSearchParams()
   const status = searchParams.get('status')
+  const page = searchParams.get('page')
 
   const isCurrentTab = ({ params }: { params: string }) =>
     status ? params === status : params === ''
@@ -62,6 +68,38 @@ export default function TransactionsList() {
   const matches = useMatches()
   const isDetails = Boolean(matches[3].params.transactionId)
   if (isDetails) return <Outlet />
+
+  let currentCount = total
+  switch (status) {
+    case 'submitted':
+      currentCount = submitted
+      break
+    case 'verified':
+      currentCount = verified
+      break
+    case 'rejected':
+      currentCount = rejected
+      break
+  }
+
+  const isCurrentPage = (i: number) => (page ? parseInt(page) === i : i === 1)
+  const pagesCount = getPagesCount(currentCount)
+
+  const pages: ReactNode[] = []
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(
+      <PageLink
+        to={`?${
+          status
+            ? new URLSearchParams({ status, page: i.toString() }).toString()
+            : new URLSearchParams({ page: i.toString() }).toString()
+        }`}
+        isCurrentPage={isCurrentPage(i)}
+      >
+        {i}
+      </PageLink>
+    )
+  }
 
   return (
     <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 mt-4">
@@ -116,6 +154,52 @@ export default function TransactionsList() {
           </div>
         </div>
         <Outlet />
+        <nav
+          className="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0"
+          aria-label="Pagination"
+        >
+          <div className="-mt-px w-0 flex-1 flex">
+            <PageLink
+              to={`?${status ? `status=${status}&` : ''}${
+                page ? `page=${parseInt(page) - 1}` : 1
+              }`}
+              isCurrentPage={isCurrentPage(1)}
+              disableOnCurrentPage
+            >
+              <ArrowNarrowLeftIcon
+                className={classNames(
+                  'mr-3 h-5 w-5',
+                  isCurrentPage(1)
+                    ? 'text-gray-300'
+                    : 'text-gray-400 hover:text-gray-700'
+                )}
+                aria-hidden="true"
+              />
+              Prev
+            </PageLink>
+          </div>
+          <div className="hidden md:-mt-px md:flex">{pages}</div>
+          <div className="-mt-px w-0 flex-1 flex justify-end">
+            <PageLink
+              to={`?${status ? `status=${status}&` : ''}${
+                page ? `page=${parseInt(page) + 1}` : 1
+              }`}
+              isCurrentPage={isCurrentPage(pagesCount)}
+              disableOnCurrentPage
+            >
+              Next
+              <ArrowNarrowRightIcon
+                className={classNames(
+                  'ml-3 h-5 w-5',
+                  isCurrentPage(1)
+                    ? 'text-gray-300'
+                    : 'text-gray-400 hover:text-gray-700'
+                )}
+                aria-hidden="true"
+              />
+            </PageLink>
+          </div>
+        </nav>
       </div>
     </main>
   )

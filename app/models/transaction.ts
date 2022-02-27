@@ -1,6 +1,7 @@
 import { getFirstCourse } from './course'
 import { TransactionStatus, TRANSACTION_STATUS } from './enum'
 import { db } from '~/utils/db.server'
+import { getSkip, PAGE_SIZE } from '~/utils/pagination'
 
 export async function getFirstTransaction(userId: string) {
   // TODO: refactor this code once the assumption that there is only one transaction for each user and course is no longer valid
@@ -58,7 +59,13 @@ export async function countAllTransactions(): Promise<AllTransactionsCount> {
   }
 }
 
-export async function getAllTransactions(status?: TransactionStatus) {
+export async function getAllTransactions({
+  status,
+  page,
+}: {
+  status?: TransactionStatus
+  page?: number
+}) {
   // TODO: refactor this code once the assumption that there is only one transaction for each user and course is no longer valid
   const course = await getFirstCourse()
 
@@ -72,7 +79,12 @@ export async function getAllTransactions(status?: TransactionStatus) {
     ? { status, courseId: course.id }
     : { courseId: course.id }
 
-  return await db.transaction.findMany({ where, orderBy: { datetime: 'desc' } })
+  return await db.transaction.findMany({
+    where,
+    orderBy: { datetime: 'desc' },
+    skip: getSkip(page),
+    take: PAGE_SIZE,
+  })
 }
 
 export async function getTransactionDetails(id: string) {

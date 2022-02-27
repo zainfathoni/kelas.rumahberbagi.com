@@ -18,10 +18,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const url = new URL(request.url)
   const status = url.searchParams.get('status')
+  const page = url.searchParams.get('page')
 
-  const transactions = await getAllTransactions(
-    status ? (status.toUpperCase() as TransactionStatus) : undefined
-  )
+  const transactions = await getAllTransactions({
+    status: status ? (status.toUpperCase() as TransactionStatus) : undefined,
+    page: page ? parseInt(page) : undefined,
+  })
 
   return json({ transactions })
 }
