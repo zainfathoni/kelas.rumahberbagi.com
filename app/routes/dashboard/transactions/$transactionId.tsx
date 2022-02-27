@@ -246,6 +246,7 @@ export default function TransactionDetails() {
                   </div>
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+                      {/* TODO: Disable rejecting a verified transaction */}
                       {transactionDetails.status !==
                       TRANSACTION_STATUS.REJECTED ? (
                         <Link
