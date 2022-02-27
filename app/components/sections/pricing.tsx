@@ -56,11 +56,15 @@ type PricingProps = {
   title: string
   description: React.ReactNode
   children: React.ReactNode
+  signupLink?: string
+  isSubscribed?: boolean
 }
 export const Pricing = ({
   title,
   description,
   children,
+  signupLink = '/login',
+  isSubscribed = false,
 }: PricingProps): JSX.Element => {
   return (
     <div className="bg-gray-100" id="biaya">
@@ -113,12 +117,18 @@ export const Pricing = ({
                 </p>
                 <div className="mt-6">
                   <div className="rounded-md shadow">
-                    <Link
-                      to="/login"
-                      className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                    >
-                      Daftarkan Diri
-                    </Link>
+                    {isSubscribed ? (
+                      <button className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md text-gray-400 bg-gray-200 cursor-not-allowed">
+                        Sudah terdaftar
+                      </button>
+                    ) : (
+                      <Link
+                        to={signupLink}
+                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                      >
+                        Daftarkan Diri
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
