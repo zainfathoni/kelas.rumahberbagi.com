@@ -16,7 +16,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect('/dashboard/home')
   }
 
-  const transactions = await getAllTransactions()
+  const url = new URL(request.url)
+  const status = url.searchParams.get('status')
+
+  const transactions = await getAllTransactions(
+    status ? (status.toUpperCase() as TransactionStatus) : undefined
+  )
 
   return json({ transactions })
 }

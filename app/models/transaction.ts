@@ -58,7 +58,7 @@ export async function countAllTransactions(): Promise<AllTransactionsCount> {
   }
 }
 
-export async function getAllTransactions() {
+export async function getAllTransactions(status?: TransactionStatus) {
   // TODO: refactor this code once the assumption that there is only one transaction for each user and course is no longer valid
   const course = await getFirstCourse()
 
@@ -66,11 +66,13 @@ export async function getAllTransactions() {
     return []
   }
 
-  return await db.transaction.findMany({
-    where: {
-      courseId: course.id,
-    },
-  })
+  console.log(status)
+
+  const where = status
+    ? { status, courseId: course.id }
+    : { courseId: course.id }
+
+  return await db.transaction.findMany({ where })
 }
 
 export async function getTransactionDetails(id: string) {

@@ -90,7 +90,7 @@ export default function TransactionDetails() {
     <>
       <div className="min-h-full">
         <main>
-          <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+          <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2">
             <div className="relative space-y-6 lg:col-start-1 lg:col-span-2">
               <section aria-labelledby="transaction-title">
                 <div className="bg-white shadow sm:rounded-lg">
@@ -250,6 +250,7 @@ export default function TransactionDetails() {
                       TRANSACTION_STATUS.REJECTED ? (
                         <Link
                           to="reject"
+                          replace
                           className="mr-auto w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
                         >
                           Tolak Pembelian
@@ -277,6 +278,7 @@ export default function TransactionDetails() {
                       TRANSACTION_STATUS.VERIFIED ? (
                         <Link
                           to="verify"
+                          replace
                           className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
                         >
                           Verifikasi Pembelian

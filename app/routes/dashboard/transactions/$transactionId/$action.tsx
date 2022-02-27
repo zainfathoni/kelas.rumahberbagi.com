@@ -171,7 +171,7 @@ export default function VerifyTransaction() {
                         </div>
                       </div>
                       <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
-                        <Form method="post">
+                        <Form replace method="post">
                           <input
                             type="hidden"
                             name="status"
