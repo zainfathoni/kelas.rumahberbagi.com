@@ -6,7 +6,7 @@ import { stripLeadingPlus } from '../app/utils/misc'
 import { test } from './base-test'
 
 test.use({
-  storageState: 'e2e/fixtures/auth.local.json',
+  storageState: 'e2e/fixtures/auth/author.local.json',
 })
 
 let member: User, submitted: Transaction, rejected: Transaction
@@ -28,7 +28,7 @@ test('redirected to TransactionList page when transaction data with id of $trans
 }) => {
   await page.goto('/dashboard/transactions/1')
 
-  expect(page.url()).toBe('http://localhost:3000/dashboard')
+  expect(page.url()).toBe('http://localhost:3000/dashboard/transactions')
 })
 
 test('render transaction data if transaction data exists', async ({ page }) => {
