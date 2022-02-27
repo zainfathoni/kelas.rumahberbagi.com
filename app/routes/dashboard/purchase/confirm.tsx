@@ -3,11 +3,10 @@ import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
-import { auth } from '~/services/auth.server'
+import { auth, requireUpdatedUser } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
-import { getUser } from '~/models/user'
 import { formatDateTime } from '~/utils/format'
 
 interface TransactionFields {
@@ -23,19 +22,9 @@ interface TransactionFields {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const user = await requireUpdatedUser(request)
 
-  // TODO: we can use the user instance from the auth service only when we always commit new changes in /profile/edit
-  // until then, we need to fetch the user from the database
-  const user = await getUser(id)
-
-  if (!user) {
-    redirect('/logout')
-  }
-
-  const transaction = await getFirstTransaction(id)
+  const transaction = await getFirstTransaction(user.id)
 
   if (!transaction) {
     return json({ user })

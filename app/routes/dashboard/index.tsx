@@ -2,7 +2,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import type { Subscription } from '@prisma/client'
 import type { LoaderFunction } from 'remix'
 import { Link, useLoaderData } from 'remix'
-import { getSubscriptionActiveByUserId } from '~/models/subscription'
+import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   })
 
   // Get the subscription data from user where status is active
-  const subscription = await getSubscriptionActiveByUserId(id)
+  const subscription = await getFirstActiveSubcriptionByUserId(id)
   return { subscription }
 }
 

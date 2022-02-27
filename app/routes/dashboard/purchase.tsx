@@ -1,21 +1,20 @@
 import type { LoaderFunction } from 'remix'
 import { redirect, Outlet, useMatches } from 'remix'
 import { Step } from '~/components/step'
-import { getSubscriptionActiveByUserId } from '~/models/subscription'
-import { auth } from '~/services/auth.server'
+import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
+import { requireUpdatedUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
 import { STEPS } from '~/utils/constants'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const user = await requireUpdatedUser(request)
 
   // Get the subscription data from user where status is active
-  const subscription = await getSubscriptionActiveByUserId(id)
+  const subscription = await getFirstActiveSubcriptionByUserId(user.id)
   if (subscription) {
     return redirect('/dashboard')
   }
+
   return true
 }
 
