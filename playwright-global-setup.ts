@@ -27,6 +27,36 @@ async function globalSetup() {
   await expect(page).toHaveURL('http://localhost:3000/dashboard')
   await page.context().storageState({ path: 'e2e/fixtures/auth.local.json' })
 
+  // member without transaction
+  const noTransactionPage = await browser.newPage()
+  await noTransactionPage.goto('http://localhost:3000/')
+  await noTransactionPage.click('text=Masuk')
+  await noTransactionPage.fill(
+    'input[name="email"]',
+    JSON.parse(
+      await readFixture(
+        `../../e2e/fixtures/users/member-no-transaction.local.json`
+      )
+    )?.email
+  )
+  await Promise.all([
+    noTransactionPage.waitForNavigation(/*{ url: 'http://localhost:3000/login' }*/),
+    noTransactionPage.click('text=Kirim link ke alamat email'),
+  ])
+  await expect(
+    noTransactionPage
+      .locator('text=✨ Link telah dikirim ke alamat email Anda ✨')
+      .first()
+  ).toBeVisible()
+  await noTransactionPage.goto(
+    JSON.parse(await readFixture(`../../e2e/fixtures/magic.local.json`))
+      ?.magicLink
+  )
+  await expect(noTransactionPage).toHaveURL('http://localhost:3000/dashboard')
+  await noTransactionPage
+    .context()
+    .storageState({ path: 'e2e/fixtures/auth-no-transaction.local.json' })
+
   // editable member
   const editablePage = await browser.newPage()
   await editablePage.goto('http://localhost:3000/')

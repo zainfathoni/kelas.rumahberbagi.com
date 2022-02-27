@@ -37,6 +37,15 @@ async function main() {
     data: userBuilder({ overrides: { phoneNumber: null } }),
   })
 
+  // create user with member role and never create a transaction for it
+  const memberWithoutTransaction = await prisma.user.create({
+    data: userBuilder(),
+  })
+  await writeFixture(
+    `../../e2e/fixtures/users/member-no-transaction.local.json`,
+    memberWithoutTransaction
+  )
+
   // create course
   const course = await prisma.course.create({
     data: {
