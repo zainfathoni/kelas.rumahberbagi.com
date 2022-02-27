@@ -1,4 +1,4 @@
-import { redirect, useLoaderData, Form, useMatches } from 'remix'
+import { redirect, useLoaderData, Form, useMatches, json } from 'remix'
 import type { LoaderFunction, ActionFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { CashIcon } from '@heroicons/react/solid'
@@ -15,6 +15,10 @@ import { requireUpdatedUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
+import {
+  activateSubscription,
+  deactivateSubscription,
+} from '~/models/subscription'
 
 export const loader: LoaderFunction = async ({ params }) => {
   // TODO: block if the current user is not an admin or the author of the course
@@ -54,18 +58,31 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   const transaction = await getTransactionById(transactionId)
-
-  let updatedTransaction
-  if (transaction) {
-    updatedTransaction = await updateTransactionStatus(
-      transaction.id,
-      status as TransactionStatus
-    )
+  if (!transaction) {
+    return redirect('/dashboard/purchase')
   }
 
-  if (updatedTransaction) {
-    return redirect(`/dashboard/transactions/${transactionId}`)
+  const updatedTransaction = await updateTransactionStatus(
+    transaction.id,
+    status as TransactionStatus
+  )
+  if (!updatedTransaction) {
+    throw json({ transaction, status }, { status: 500 })
   }
+
+  if (updatedTransaction.status === TRANSACTION_STATUS.VERIFIED) {
+    const subscription = await activateSubscription(updatedTransaction.userId)
+    if (!subscription) {
+      throw json({ updatedTransaction, status }, { status: 500 })
+    }
+  } else if (updatedTransaction.status === TRANSACTION_STATUS.REJECTED) {
+    const subscription = await deactivateSubscription(updatedTransaction.userId)
+    if (!subscription) {
+      throw json({ updatedTransaction, status }, { status: 500 })
+    }
+  }
+
+  return redirect(`/dashboard/transactions/${transactionId}`)
 }
 
 export default function VerifyTransaction() {

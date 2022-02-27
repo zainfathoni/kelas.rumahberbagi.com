@@ -1,6 +1,7 @@
 import type { LoaderFunction } from 'remix'
 import { useLoaderData } from 'remix'
 import { Pricing } from '~/components/sections/pricing'
+import { SUBSCRIPTION_STATUS } from '~/models/enum'
 import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
 
@@ -11,7 +12,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   // Get the subscription data from user where status is active
   const subscription = await getFirstActiveSubcriptionByUserId(id)
-  return { isSigneUp: Boolean(subscription) }
+  return { isSubscribed: subscription?.status === SUBSCRIPTION_STATUS.ACTIVE }
 }
 
 export default function Dashboard() {
