@@ -26,7 +26,7 @@ type InputProps = (
   | JSX.IntrinsicElements['input']
 ) & {
   status?: InputStatus
-  type?: 'textarea'
+  type?: 'textarea' | 'datetime-local' | 'date' | 'time' | 'number'
   className?: string
 }
 
@@ -52,7 +52,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...(props as JSX.IntrinsicElements['input'])}
           className={className}
           ref={ref}
-          type="text"
+          type={props.type ?? 'text'}
         />
         {props.status === 'error' ? (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">

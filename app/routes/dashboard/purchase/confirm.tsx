@@ -1,4 +1,12 @@
-import { Form, json, Link, redirect, useCatch, useLoaderData } from 'remix'
+import {
+  Form,
+  json,
+  Link,
+  redirect,
+  useCatch,
+  useLoaderData,
+  useTransition,
+} from 'remix'
 import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { XCircleIcon } from '@heroicons/react/solid'
@@ -8,6 +16,8 @@ import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
 import { formatDateTime } from '~/utils/format'
+import { Button, Field } from '~/components/form-elements'
+import { TRANSACTION_STATUS } from '~/models/enum'
 
 interface TransactionFields {
   userId: string
@@ -114,87 +124,118 @@ export default function PurchaseConfirm() {
     user: User
     transaction?: Transaction
   }>()
+  const { state } = useTransition()
 
-  // TODO: style form
   return (
-    <>
-      <Form action="/dashboard/purchase/confirm" method="post">
-        <input type="hidden" name="id" value={transaction?.id} />
-        <div>
-          Nama Lengkap Anda: <span>{user.name}</span>
-        </div>
-        <div>
-          Nomor WhatsApp Anda: <span>{user.phoneNumber}</span>
-        </div>
-        <div>
-          Nama Lengkap atau Nomor WhatsApp Anda salah?{' '}
-          <Link to="/dashboard/profile/edit">Ubah di sini</Link>
-        </div>
-        <div>
-          <label>
-            Nama Bank:{' '}
-            <input
-              type="text"
-              name="bankName"
-              defaultValue={transaction?.bankName}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Nomor Rekening:{' '}
-            <input
-              type="text"
-              name="bankAccountNumber"
-              defaultValue={transaction?.bankAccountNumber}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Nama Pemilik Rekening:{' '}
-            <input
-              type="text"
-              name="bankAccountName"
-              defaultValue={transaction?.bankAccountName}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Nominal:{' '}
-            <input
-              type="text"
-              name="amount"
-              defaultValue={transaction?.amount}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Tanggal dan Waktu Pembayaran:
-            <input
-              type="datetime-local"
-              id="meeting-time"
-              name="paymentTime"
-              defaultValue={
-                transaction?.datetime
-                  ? formatDateTime(new Date(transaction.datetime))
-                  : undefined
+    <div className="mt-5 md:mt-0 md:col-span-2">
+      <Form method="post">
+        <div className="shadow overflow-hidden sm:rounded-md">
+          <div className="px-4 py-5 bg-white sm:p-6">
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Nama Lengkap Anda
+                </dt>
+                <dd id="user-name" className="mt-1 text-sm text-gray-900">
+                  {user.name}
+                </dd>
+              </div>
+              <div className="col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Nomor WhatsApp Anda
+                </dt>
+                <dd
+                  id="user-phone-number"
+                  className="mt-1 text-sm text-gray-900"
+                >
+                  {user.phoneNumber}
+                </dd>
+              </div>
+              <div className="col-span-6">
+                <p className="text-sm text-gray-500">
+                  Nama Lengkap atau Nomor WhatsApp Anda salah?
+                </p>
+                <Link
+                  to="/dashboard/profile/edit"
+                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
+                >
+                  Ubah di sini
+                </Link>
+              </div>
+              <input type="hidden" name="id" value={transaction?.id} />
+              <Field
+                className="col-span-6 lg:col-span-3"
+                name="bankName"
+                label="Nama Bank"
+                placeholder="Bank Jago"
+                defaultValue={transaction?.bankName ?? ''}
+                autoComplete="organization"
+                autoCapitalize="words"
+                required
+                aria-invalid={transaction?.bankName ? 'false' : 'true'}
+              />
+              <Field
+                className="col-span-6 lg:col-span-3"
+                name="bankAccountNumber"
+                label="Nomor Rekening"
+                placeholder="123-456-789"
+                defaultValue={transaction?.bankAccountNumber ?? ''}
+                required
+                aria-invalid={transaction?.bankAccountNumber ? 'false' : 'true'}
+              />
+              <Field
+                className="col-span-6 lg:col-span-3"
+                name="bankAccountName"
+                label="Nama Pemilik Rekening"
+                placeholder="Cantumkan nama pemilik rekening"
+                defaultValue={transaction?.bankAccountName ?? ''}
+                autoComplete="name"
+                autoCapitalize="words"
+                required
+                aria-invalid={transaction?.bankAccountName ? 'false' : 'true'}
+              />
+              <Field
+                className="col-span-6 lg:col-span-3"
+                name="amount"
+                label="Nominal"
+                placeholder="200000"
+                defaultValue={
+                  transaction?.amount ? String(transaction?.amount) : ''
+                }
+                autoComplete="transaction-amount"
+                required
+                aria-invalid={transaction?.amount ? 'false' : 'true'}
+              />
+              <Field
+                type="datetime-local"
+                className="col-span-6"
+                name="paymentTime"
+                label="Tanggal dan Waktu Pembayaran"
+                defaultValue={
+                  transaction?.datetime
+                    ? formatDateTime(new Date(transaction.datetime))
+                    : undefined
+                }
+                required
+                aria-invalid={transaction?.datetime ? 'false' : 'true'}
+              />
+            </div>
+          </div>
+          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <Button
+              type="submit"
+              disabled={
+                state === 'submitting' ||
+                transaction?.status === TRANSACTION_STATUS.VERIFIED
               }
-            />
-          </label>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Konfirmasi Pembayaran
-          </button>
+              className="inline-flex"
+            >
+              Konfirmasi Pembayaran
+            </Button>
+          </div>
         </div>
       </Form>
-    </>
+    </div>
   )
 }
 
