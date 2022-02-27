@@ -11,6 +11,7 @@ import {
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { User } from '@prisma/client'
+import { UserCircleIcon } from '@heroicons/react/solid'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -33,14 +34,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 const navigation = [
-  { name: 'Home', href: '/dashboard/', icon: HomeIcon },
+  { name: 'Beranda', href: '/dashboard/', icon: HomeIcon },
   {
-    name: 'Purchase',
+    name: 'Pembelian',
     href: '/dashboard/purchase',
     icon: CashIcon,
   },
   {
-    name: 'Transactions',
+    name: 'Transaksi',
     href: '/dashboard/transactions',
     icon: ServerIcon,
     permission: requireAuthor,
@@ -71,7 +72,7 @@ export default function Dashboard() {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-40 md:hidden"
+            className="fixed inset-0 flex z-40 lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -174,11 +175,10 @@ export default function Dashboard() {
                   >
                     <div className="flex items-center">
                       <div>
-                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
-                          <span className="text-medium font-medium leading-none text-white">
-                            TC
-                          </span>
-                        </span>
+                        <UserCircleIcon
+                          className="h-10 w-10 text-gray-500"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="ml-3">
                         <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
@@ -200,7 +200,7 @@ export default function Dashboard() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
@@ -259,11 +259,10 @@ export default function Dashboard() {
               >
                 <div className="flex items-center">
                   <div>
-                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
-                      <span className="text-medium font-medium leading-none text-white">
-                        TC
-                      </span>
-                    </span>
+                    <UserCircleIcon
+                      className="h-10 w-10 text-gray-500"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
@@ -278,8 +277,8 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="md:pl-64 flex flex-col flex-1">
-          <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
+        <div className="lg:pl-64 flex flex-col flex-1">
+          <div className="sticky top-0 z-10 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"

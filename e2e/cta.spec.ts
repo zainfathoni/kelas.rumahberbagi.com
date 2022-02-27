@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import { test } from './base-test'
 
 test.use({
-  storageState: 'e2e/fixtures/auth.local.json',
+  storageState: 'e2e/fixtures/auth/member-no-transaction.local.json',
 })
 
 test('Call to action has rendered in dashboard page', async ({ page }) => {

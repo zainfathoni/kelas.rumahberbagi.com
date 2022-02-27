@@ -29,6 +29,8 @@ export const TRANSACTION_STATUS = {
   REJECTED: 'REJECTED',
 }
 
+export type TransactionStatus = 'SUBMITTED' | 'VERIFIED' | 'REJECTED'
+
 export const TRANSACTION_METHOD = {
   BANK_TRANSFER: 'BANK_TRANSFER',
 }

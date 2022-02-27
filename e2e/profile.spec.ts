@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import { test } from './base-test'
 
 test.use({
-  storageState: 'e2e/fixtures/auth-edit.local.json',
+  storageState: 'e2e/fixtures/auth/member-edit.local.json',
 })
 
 test('Validate phone number when updating data', async ({

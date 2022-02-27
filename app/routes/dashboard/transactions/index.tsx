@@ -6,16 +6,24 @@ import { getAllTransactions } from '~/models/transaction'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { TransactionItem } from '~/components/transaction-item'
+import type { TransactionStatus } from '~/models/enum'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
-    redirect('/dashboard/home')
+    return redirect('/dashboard')
   }
 
-  const transactions = await getAllTransactions()
+  const url = new URL(request.url)
+  const status = url.searchParams.get('status')
+  const page = url.searchParams.get('page')
+
+  const transactions = await getAllTransactions({
+    status: status ? (status.toUpperCase() as TransactionStatus) : undefined,
+    page: page ? parseInt(page) : undefined,
+  })
 
   return json({ transactions })
 }
@@ -26,19 +34,18 @@ export default function TransactionsList() {
   }>()
 
   return (
-    <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
-        {transactions.map((transaction) => (
-          <TransactionItem
-            key={transaction.id}
-            transactionId={transaction.id}
-            bankAccountName={transaction.bankAccountName}
-            bankName={transaction.bankName}
-            dateTime={transaction.datetime}
-            bankAccountNumber={transaction.bankAccountNumber}
-          />
-        ))}
-      </ul>
-    </main>
+    <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
+      {transactions.map((transaction) => (
+        <TransactionItem
+          key={transaction.id}
+          transactionId={transaction.id}
+          bankAccountName={transaction.bankAccountName}
+          bankName={transaction.bankName}
+          dateTime={transaction.datetime}
+          bankAccountNumber={transaction.bankAccountNumber}
+          status={transaction.status as TransactionStatus}
+        />
+      ))}
+    </ul>
   )
 }

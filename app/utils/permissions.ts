@@ -10,5 +10,8 @@ export const requireAuthor = (user: User) => {
 }
 
 export const requireCourseAuthor = (user: User, course: Course) => {
-  return requireAuthor(user) && course.authorId === user.id
+  return (
+    requireAdmin(user) ||
+    (user.role === ROLES.AUTHOR && course.authorId === user.id)
+  )
 }

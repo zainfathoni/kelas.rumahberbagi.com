@@ -7,13 +7,27 @@ import { writeFixture } from '~/utils/fixtures'
 export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
   const body = renderToString(
-    <p>
+    <main>
       Halo {options.user?.name || 'pengguna baru'},<br />
       <br />
       <a href={options.magicLink}>
         Klik di sini untuk masuk ke kelas.rumahberbagi.com
       </a>
-    </p>
+      <br />
+      <p>
+        Apabila bermasalah,{' '}
+        <strong>
+          <em>copy</em>
+        </strong>{' '}
+        pranala di bawah ini ini dan{' '}
+        <strong>
+          <em>paste</em>
+        </strong>{' '}
+        ke <em>address bar</em> di <em>browser</em> tempat Anda melakukan login.
+      </p>
+      <br />
+      <code>{options.magicLink}</code>
+    </main>
   )
 
   if (

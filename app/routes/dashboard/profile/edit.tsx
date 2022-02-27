@@ -87,14 +87,7 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect('/dashboard/profile')
 }
 
-const tabs = [
-  { name: 'General', href: '#', current: true },
-  { name: 'Password', href: '#', current: false },
-  { name: 'Notifications', href: '#', current: false },
-  { name: 'Plan', href: '#', current: false },
-  { name: 'Billing', href: '#', current: false },
-  { name: 'Team Members', href: '#', current: false },
-]
+const tabs = [{ name: 'Profil', href: '#', current: true }]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -109,7 +102,7 @@ export default function Settings() {
     <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
       <div className="pt-10 pb-16">
         <div className="px-4 sm:px-6 md:px-0">
-          <h1 className="text-3xl font-extrabold text-gray-900">Settings</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">Pengaturan</h1>
         </div>
         <div className="px-4 sm:px-6 md:px-0">
           <div className="py-6">

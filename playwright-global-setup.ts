@@ -1,16 +1,13 @@
-import { chromium, expect } from '@playwright/test'
+import { Browser, chromium, expect } from '@playwright/test'
 import { readFixture } from './app/utils/fixtures'
 
-async function globalSetup() {
-  const browser = await chromium.launch()
-
-  // stable member
+async function loginAs(browser: Browser, user: string) {
   const page = await browser.newPage()
   await page.goto('http://localhost:3000/')
   await page.click('text=Masuk')
   await page.fill(
     'input[name="email"]',
-    JSON.parse(await readFixture(`../../e2e/fixtures/users/member.local.json`))
+    JSON.parse(await readFixture(`../../e2e/fixtures/users/${user}.local.json`))
       ?.email
   )
   await Promise.all([
@@ -25,35 +22,25 @@ async function globalSetup() {
       ?.magicLink
   )
   await expect(page).toHaveURL('http://localhost:3000/dashboard')
-  await page.context().storageState({ path: 'e2e/fixtures/auth.local.json' })
+  await page
+    .context()
+    .storageState({ path: `e2e/fixtures/auth/${user}.local.json` })
+}
+
+async function globalSetup() {
+  const browser = await chromium.launch()
+
+  // stable member
+  await loginAs(browser, 'member')
+
+  // member without transaction
+  await loginAs(browser, 'member-no-transaction')
 
   // editable member
-  const editablePage = await browser.newPage()
-  await editablePage.goto('http://localhost:3000/')
-  await editablePage.click('text=Masuk')
-  await editablePage.fill(
-    'input[name="email"]',
-    JSON.parse(
-      await readFixture(`../../e2e/fixtures/users/member-edit.local.json`)
-    )?.email
-  )
-  await Promise.all([
-    editablePage.waitForNavigation(/*{ url: 'http://localhost:3000/login' }*/),
-    editablePage.click('text=Kirim link ke alamat email'),
-  ])
-  await expect(
-    editablePage
-      .locator('text=✨ Link telah dikirim ke alamat email Anda ✨')
-      .first()
-  ).toBeVisible()
-  await editablePage.goto(
-    JSON.parse(await readFixture(`../../e2e/fixtures/magic.local.json`))
-      ?.magicLink
-  )
-  await expect(editablePage).toHaveURL('http://localhost:3000/dashboard')
-  await editablePage
-    .context()
-    .storageState({ path: 'e2e/fixtures/auth-edit.local.json' })
+  await loginAs(browser, 'member-edit')
+
+  // course author
+  await loginAs(browser, 'author')
 
   await browser.close()
 }

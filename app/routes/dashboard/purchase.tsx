@@ -1,21 +1,13 @@
 import type { LoaderFunction } from 'remix'
-import { redirect, Outlet, useMatches } from 'remix'
+import { Outlet, useMatches } from 'remix'
 import { Step } from '~/components/step'
-import { getSubscriptionActiveByUserId } from '~/models/subscription'
-import { auth } from '~/services/auth.server'
+import { requireUpdatedUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
 import { STEPS } from '~/utils/constants'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  await requireUpdatedUser(request)
 
-  // Get the subscription data from user where status is active
-  const subscription = await getSubscriptionActiveByUserId(id)
-  if (subscription) {
-    return redirect('/dashboard')
-  }
   return true
 }
 
@@ -42,7 +34,9 @@ export default function Purchase() {
                     stepIdx < currentStepIdx
                       ? 'completed'
                       : stepIdx === currentStepIdx
-                      ? 'current'
+                      ? stepIdx === STEPS.length - 1
+                        ? 'completed'
+                        : 'current'
                       : 'upcoming'
                   }
                   isLastStep={stepIdx !== STEPS.length - 1}
