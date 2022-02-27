@@ -3,7 +3,7 @@
     {
       "sameSite": "Lax",
       "name": "_session",
-      "value": "eyJ1c2VyIjp7ImlkIjoiZWU1MDQ5OTMtNTY4MS00YzI5LTg0MjctZmU5ZDFjMzg1OWRjIiwiY3JlYXRlZEF0IjoiMjAyMi0wMS0wOFQxNTo0NTowOS4yMzZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMS0wOFQxNTo0NTowOS4yMzZaIiwiZW1haWwiOiJLYXJvbGFubl9Fcm5zZXIzMUBob3RtYWlsLmNvbSIsIm5hbWUiOiJBYmVsIFByaWNlIiwicGhvbmVOdW1iZXIiOiIrNjUxMjM0NTY3OCIsInRlbGVncmFtIjpudWxsLCJpbnN0YWdyYW0iOm51bGwsInJvbGUiOiJNRU1CRVIifX0%3D.jPtsUR0ClN22cxDSeGeiJZworQBVs2R9GTXCYVZxgvA",
+      "value": "eyJ1c2VyIjp7ImlkIjoiZWI3ZTM2YjYtOTM1OS00ZmJjLWExOTMtMTdlN2Y3NzNjMmU4IiwiY3JlYXRlZEF0IjoiMjAyMi0wMi0yN1QxNzozMToxNC44NDFaIiwidXBkYXRlZEF0IjoiMjAyMi0wMi0yN1QxNzozMToxNC44NDFaIiwiZW1haWwiOiJTaWRuZXlfR3JpbWVzQGhvdG1haWwuY29tIiwibmFtZSI6IlJheW1vbmQgS3VobG1hbiIsInBob25lTnVtYmVyIjoiKzY1MTIzNDU2NzgiLCJ0ZWxlZ3JhbSI6bnVsbCwiaW5zdGFncmFtIjpudWxsLCJyb2xlIjoiTUVNQkVSIn19.YRbcSkF%2FTeznpPd%2BA7HiqoNzI%2FzZTC6COUFR99lQs9s",
       "domain": "localhost",
       "path": "/",
       "expires": -1,
