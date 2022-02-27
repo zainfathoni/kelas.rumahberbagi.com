@@ -120,7 +120,10 @@ export default function Example() {
                   <a
                     href={getWhatsAppLinkForConfirmation(
                       authorPhoneNumber,
-                      transactionId
+                      transactionId,
+                      typeof window === 'undefined'
+                        ? undefined
+                        : window.location.origin
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
