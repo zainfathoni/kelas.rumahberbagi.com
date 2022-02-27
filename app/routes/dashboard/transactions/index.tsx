@@ -27,20 +27,18 @@ export default function TransactionsList() {
   }>()
 
   return (
-    <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
-        {transactions.map((transaction) => (
-          <TransactionItem
-            key={transaction.id}
-            transactionId={transaction.id}
-            bankAccountName={transaction.bankAccountName}
-            bankName={transaction.bankName}
-            dateTime={transaction.datetime}
-            bankAccountNumber={transaction.bankAccountNumber}
-            status={transaction.status as TransactionStatus}
-          />
-        ))}
-      </ul>
-    </main>
+    <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
+      {transactions.map((transaction) => (
+        <TransactionItem
+          key={transaction.id}
+          transactionId={transaction.id}
+          bankAccountName={transaction.bankAccountName}
+          bankName={transaction.bankName}
+          dateTime={transaction.datetime}
+          bankAccountNumber={transaction.bankAccountNumber}
+          status={transaction.status as TransactionStatus}
+        />
+      ))}
+    </ul>
   )
 }

@@ -18,6 +18,46 @@ export async function getFirstTransaction(userId: string) {
   })
 }
 
+export interface AllTransactionsCount {
+  total: number
+  submitted: number
+  verified: number
+  rejected: number
+}
+
+export async function countAllTransactions(): Promise<AllTransactionsCount> {
+  // TODO: refactor this code once the assumption that there is only one transaction for each user and course is no longer valid
+  const course = await getFirstCourse()
+
+  if (!course) {
+    return {
+      total: 0,
+      submitted: 0,
+      verified: 0,
+      rejected: 0,
+    }
+  }
+
+  const [submitted, verified, rejected] = await Promise.all([
+    db.transaction.count({
+      where: { courseId: course.id, status: TRANSACTION_STATUS.SUBMITTED },
+    }),
+    db.transaction.count({
+      where: { courseId: course.id, status: TRANSACTION_STATUS.VERIFIED },
+    }),
+    db.transaction.count({
+      where: { courseId: course.id, status: TRANSACTION_STATUS.REJECTED },
+    }),
+  ])
+
+  return {
+    total: submitted + verified + rejected,
+    submitted,
+    verified,
+    rejected,
+  }
+}
+
 export async function getAllTransactions() {
   // TODO: refactor this code once the assumption that there is only one transaction for each user and course is no longer valid
   const course = await getFirstCourse()
