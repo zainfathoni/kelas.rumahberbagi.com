@@ -11,6 +11,7 @@ import {
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { User } from '@prisma/client'
+import { UserCircleIcon } from '@heroicons/react/solid'
 import { auth } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
@@ -174,11 +175,10 @@ export default function Dashboard() {
                   >
                     <div className="flex items-center">
                       <div>
-                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
-                          <span className="text-medium font-medium leading-none text-white">
-                            TC
-                          </span>
-                        </span>
+                        <UserCircleIcon
+                          className="h-10 w-10 text-gray-500"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="ml-3">
                         <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
@@ -259,11 +259,10 @@ export default function Dashboard() {
               >
                 <div className="flex items-center">
                   <div>
-                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
-                      <span className="text-medium font-medium leading-none text-white">
-                        TC
-                      </span>
-                    </span>
+                    <UserCircleIcon
+                      className="h-10 w-10 text-gray-500"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
