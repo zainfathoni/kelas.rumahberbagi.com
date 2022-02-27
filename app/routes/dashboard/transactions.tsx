@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
-    return redirect('/dashboard/home')
+    return redirect('/dashboard')
   }
 
   const count = await countAllTransactions()

@@ -1,3 +1,4 @@
+import { Transaction } from '@prisma/client'
 import { getFirstCourse } from './course'
 import { TransactionStatus, TRANSACTION_STATUS } from './enum'
 import { db } from '~/utils/db.server'
@@ -73,8 +74,6 @@ export async function getAllTransactions({
     return []
   }
 
-  console.log(status)
-
   const where = status
     ? { status, courseId: course.id }
     : { courseId: course.id }
@@ -87,10 +86,11 @@ export async function getAllTransactions({
   })
 }
 
-export async function getTransactionDetails(id: string) {
+export async function getTransactionById(
+  id: string
+): Promise<Transaction | null> {
   return await db.transaction.findUnique({
     where: { id },
-    include: { user: true, course: true },
   })
 }
 

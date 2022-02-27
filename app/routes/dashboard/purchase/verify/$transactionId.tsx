@@ -4,9 +4,9 @@ import { useLoaderData, redirect } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/outline'
-import { getTransactionDetails } from '~/models/transaction'
 import { getUser } from '~/models/user'
 import { stripLeadingPlus } from '~/utils/misc'
+import { getTransactionById } from '~/models/transaction'
 
 type LoaderData = {
   transactionId: string
@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect('/dashboard/purchase/confirm')
   }
 
-  const transaction = await getTransactionDetails(transactionId)
+  const transaction = await getTransactionById(transactionId)
 
   if (!transaction) {
     throw new Response('Transaction not found', {

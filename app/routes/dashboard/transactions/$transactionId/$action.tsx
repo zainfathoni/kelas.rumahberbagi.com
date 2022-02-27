@@ -6,7 +6,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  getTransactionDetails,
+  getTransactionById,
   updateTransactionStatus,
 } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect('/dashboard/transactions')
   }
 
-  const transaction = await getTransactionDetails(transactionId)
+  const transaction = await getTransactionById(transactionId)
 
   if (!transaction) {
     return redirect('/dashboard/transactions')
@@ -49,12 +49,11 @@ export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData()
   const status = formData.get('status')
 
-  console.log(formData)
   if (typeof status !== 'string') {
     return { formError: 'Form not submitted correctly.' }
   }
 
-  const transaction = await getTransactionDetails(transactionId)
+  const transaction = await getTransactionById(transactionId)
 
   let updatedTransaction
   if (transaction) {

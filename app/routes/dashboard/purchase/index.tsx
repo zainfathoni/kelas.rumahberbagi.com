@@ -8,7 +8,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 
   const transaction = await getFirstTransaction(user.id)
-  console.log(transaction)
   if (transaction) {
     return redirect('/dashboard/purchase/verify')
   }
