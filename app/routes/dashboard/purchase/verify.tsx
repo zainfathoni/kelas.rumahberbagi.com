@@ -4,7 +4,10 @@ import { Transaction, User } from '@prisma/client'
 import { getFirstTransaction } from '~/models/transaction'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { TransactionDetails } from '~/components/transaction-details'
-import { PrimaryButtonLink } from '~/components/button-link'
+import {
+  PrimaryButtonLink,
+  SecondaryButtonLink,
+} from '~/components/button-link'
 import { TRANSACTION_STATUS } from '~/models/enum'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -25,6 +28,12 @@ export default function Verify() {
     <>
       {/* TODO: Render action buttons conditionally */}
       <TransactionDetails transaction={transaction} user={user}>
+        <SecondaryButtonLink
+          to="/dashboard/purchase/confirm"
+          disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
+        >
+          Ubah Detail Transaksi
+        </SecondaryButtonLink>
         <PrimaryButtonLink
           to={transaction.id}
           replace

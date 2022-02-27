@@ -132,7 +132,7 @@ export default function PurchaseConfirm() {
         <div className="shadow overflow-hidden sm:rounded-md">
           <div className="px-4 py-5 bg-white sm:p-6">
             <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-3">
+              <div className="col-span-6 lg:col-span-3">
                 <dt className="text-sm font-medium text-gray-500">
                   Nama Lengkap Anda
                 </dt>
@@ -140,7 +140,7 @@ export default function PurchaseConfirm() {
                   {user.name}
                 </dd>
               </div>
-              <div className="col-span-3">
+              <div className="col-span-6 lg:col-span-3">
                 <dt className="text-sm font-medium text-gray-500">
                   Nomor WhatsApp Anda
                 </dt>
@@ -208,7 +208,7 @@ export default function PurchaseConfirm() {
               />
               <Field
                 type="datetime-local"
-                className="col-span-6"
+                className="col-span-6 lg:col-span-4"
                 name="paymentTime"
                 label="Tanggal dan Waktu Pembayaran"
                 defaultValue={
