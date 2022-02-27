@@ -4,30 +4,15 @@ import {
   XCircleIcon,
 } from '@heroicons/react/solid'
 import { Transaction, User } from '@prisma/client'
-import { ReactNode } from 'react'
-import { Link } from 'remix'
+import {
+  PrimaryButtonLink,
+  SecondaryButtonLink,
+  TertiaryButtonLink,
+} from './button-link'
 import { TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
-import { classNames } from '~/utils/class-names'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { stripLeadingPlus } from '~/utils/misc'
-
-const buttonClassNames =
-  'disabled:opacity-80 disabled:bg-gray-100 disabled:text-gray-500 disabled:hover:cursor-not-allowed text-center inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-
-function DisabledButton({
-  children,
-  className,
-}: {
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <button disabled className={classNames(buttonClassNames, className ?? '')}>
-      {children}
-    </button>
-  )
-}
 
 export function TransactionDetails({
   transaction,
@@ -181,44 +166,31 @@ export function TransactionDetails({
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <div className="mt-2 flex flex-col-reverse justify-stretch space-y-2 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
                   {/* TODO: Disable rejecting a verified transaction */}
-                  {transaction.status !== TRANSACTION_STATUS.REJECTED ? (
-                    <Link
-                      to="reject"
-                      replace
-                      className="mr-auto w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
-                    >
-                      Tolak Pembelian
-                    </Link>
-                  ) : (
-                    <DisabledButton className="mr-auto">
-                      Tolak Pembelian
-                    </DisabledButton>
-                  )}
-                  {user.phoneNumber ? (
-                    <a
-                      href={`https://wa.me/${stripLeadingPlus(
-                        user.phoneNumber
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={buttonClassNames}
-                    >
-                      Kontak WhatsApp
-                    </a>
-                  ) : (
-                    <DisabledButton>Kontak WhatsApp</DisabledButton>
-                  )}
-                  {transaction.status !== TRANSACTION_STATUS.VERIFIED ? (
-                    <Link
-                      to="verify"
-                      replace
-                      className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                    >
-                      Verifikasi Pembelian
-                    </Link>
-                  ) : (
-                    <DisabledButton>Verifikasi Pembelian</DisabledButton>
-                  )}
+                  <TertiaryButtonLink
+                    to="reject"
+                    replace
+                    disabled={
+                      transaction.status === TRANSACTION_STATUS.REJECTED
+                    }
+                  >
+                    Tolak Pembelian
+                  </TertiaryButtonLink>
+                  <SecondaryButtonLink
+                    to={`https://wa.me/${stripLeadingPlus(user.phoneNumber)}`}
+                    external
+                    disabled={!user.phoneNumber}
+                  >
+                    Kontak WhatsApp
+                  </SecondaryButtonLink>
+                  <PrimaryButtonLink
+                    to="verify"
+                    replace
+                    disabled={
+                      transaction.status === TRANSACTION_STATUS.VERIFIED
+                    }
+                  >
+                    Verifikasi Pembelian
+                  </PrimaryButtonLink>
                 </div>
               </div>
             </div>
