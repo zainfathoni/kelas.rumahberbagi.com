@@ -89,6 +89,7 @@ export default function TransactionsList() {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(
       <PageLink
+        key={i}
         to={`?${
           status
             ? new URLSearchParams({ status, page: i.toString() }).toString()

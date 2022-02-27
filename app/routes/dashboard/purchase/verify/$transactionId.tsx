@@ -1,7 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useLoaderData, redirect } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { useNavigate } from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { getUser } from '~/models/user'
@@ -46,17 +47,19 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function Example() {
   const { transactionId, authorPhoneNumber } = useLoaderData<LoaderData>()
-  const [open, setOpen] = useState(true)
+  const navigate = useNavigate()
   const normalizedAuthorPhoneNumber = stripLeadingPlus(authorPhoneNumber)
 
   const whatsappLink = `https://api.whatsapp.com/send?phone=${normalizedAuthorPhoneNumber}&text=%5BKelas%20Tahun%20Prasekolahku%5D%0A%0AKlik%20di%20sini%20untuk%20verifikasi%20pembayaran%0Ahttps%3A%2F%2Frbagi.id%2Fverify%2F${transactionId}%0A%0ABerikut%20terlampir%20foto%2Ffile%20bukti%20pembayaran%20saya%3A`
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={setOpen}
+        onClose={() =>
+          navigate('/dashboard/purchase/verify', { replace: true })
+        }
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
