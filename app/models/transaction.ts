@@ -72,7 +72,7 @@ export async function getAllTransactions(status?: TransactionStatus) {
     ? { status, courseId: course.id }
     : { courseId: course.id }
 
-  return await db.transaction.findMany({ where })
+  return await db.transaction.findMany({ where, orderBy: { datetime: 'desc' } })
 }
 
 export async function getTransactionDetails(id: string) {
