@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { getUser } from '~/models/user'
-import { stripLeadingPlus } from '~/utils/misc'
 import { getTransactionById } from '~/models/transaction'
+import { getWhatsAppLinkForConfirmation } from '~/utils/whatsapp'
 
 type LoaderData = {
   transactionId: string
@@ -48,9 +48,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function Example() {
   const { transactionId, authorPhoneNumber } = useLoaderData<LoaderData>()
   const navigate = useNavigate()
-  const normalizedAuthorPhoneNumber = stripLeadingPlus(authorPhoneNumber)
-
-  const whatsappLink = `https://api.whatsapp.com/send?phone=${normalizedAuthorPhoneNumber}&text=%5BKelas%20Tahun%20Prasekolahku%5D%0A%0AKlik%20di%20sini%20untuk%20verifikasi%20pembayaran%0Ahttps%3A%2F%2Frbagi.id%2Fverify%2F${transactionId}%0A%0ABerikut%20terlampir%20foto%2Ffile%20bukti%20pembayaran%20saya%3A`
 
   return (
     <Transition.Root show as={Fragment}>
@@ -121,7 +118,10 @@ export default function Example() {
                   className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                 >
                   <a
-                    href={whatsappLink}
+                    href={getWhatsAppLinkForConfirmation(
+                      authorPhoneNumber,
+                      transactionId
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

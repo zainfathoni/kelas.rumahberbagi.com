@@ -41,7 +41,9 @@ export default function Purchase() {
                     stepIdx < currentStepIdx
                       ? 'completed'
                       : stepIdx === currentStepIdx
-                      ? 'current'
+                      ? stepIdx === STEPS.length - 1
+                        ? 'completed'
+                        : 'current'
                       : 'upcoming'
                   }
                   isLastStep={stepIdx !== STEPS.length - 1}

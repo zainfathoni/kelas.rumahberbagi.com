@@ -46,7 +46,7 @@ export function ButtonLink({
       rel="noopener noreferrer"
       className={classNames(buttonClassNames, className ?? '')}
     >
-      Kontak WhatsApp
+      {children}
     </a>
   ) : (
     <Link

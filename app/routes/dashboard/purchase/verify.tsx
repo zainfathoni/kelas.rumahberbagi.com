@@ -18,6 +18,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect('/dashboard/purchase')
   }
 
+  if (transaction.status === TRANSACTION_STATUS.VERIFIED) {
+    return redirect('/dashboard/purchase/completed')
+  }
+
   return { transaction, user }
 }
 

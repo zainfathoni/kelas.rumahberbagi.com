@@ -15,7 +15,7 @@ import {
   SecondaryButtonLink,
   TertiaryButtonLink,
 } from '~/components/button-link'
-import { stripLeadingPlus } from '~/utils/misc'
+import { getWhatsAppLink } from '~/utils/whatsapp'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await requireUpdatedUser(request)
@@ -95,9 +95,7 @@ export default function TransactionDetailsPage() {
             Tolak Transaksi
           </TertiaryButtonLink>
           <SecondaryButtonLink
-            to={`https://wa.me/${stripLeadingPlus(
-              transaction.user.phoneNumber
-            )}`}
+            to={getWhatsAppLink(transaction.user.phoneNumber)}
             external
             disabled={!transaction.user.phoneNumber}
           >
