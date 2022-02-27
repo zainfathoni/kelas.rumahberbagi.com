@@ -92,7 +92,7 @@ export default function TransactionDetailsPage() {
             replace
             disabled={transaction.status === TRANSACTION_STATUS.REJECTED}
           >
-            Tolak Pembelian
+            Tolak Transaksi
           </TertiaryButtonLink>
           <SecondaryButtonLink
             to={`https://wa.me/${stripLeadingPlus(
@@ -108,7 +108,7 @@ export default function TransactionDetailsPage() {
             replace
             disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
           >
-            Verifikasi Pembelian
+            Verifikasi Transaksi
           </PrimaryButtonLink>
         </TransactionDetails>
       </div>
