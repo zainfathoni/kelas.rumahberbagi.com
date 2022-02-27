@@ -3,7 +3,6 @@ import {
   ShieldCheckIcon,
   XCircleIcon,
 } from '@heroicons/react/solid'
-import { Transaction, User } from '@prisma/client'
 import {
   PrimaryButtonLink,
   SecondaryButtonLink,
@@ -13,13 +12,12 @@ import { TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { stripLeadingPlus } from '~/utils/misc'
+import { TransactionWithUser } from '~/models/transaction'
 
 export function TransactionDetails({
   transaction,
-  user,
 }: {
-  transaction: Transaction
-  user: User
+  transaction: TransactionWithUser
 }) {
   return (
     <main>
@@ -40,7 +38,9 @@ export function TransactionDetails({
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Nama</dt>
                     <dd id="user-name" className="mt-1 text-sm text-gray-900">
-                      {isNotEmpty(user.name) ? user.name : '-'}
+                      {isNotEmpty(transaction.user.name)
+                        ? transaction.user.name
+                        : '-'}
                     </dd>
                   </div>
                   <div className="sm:col-span-1">
@@ -51,7 +51,9 @@ export function TransactionDetails({
                       id="user-phone-number"
                       className="mt-1 text-sm text-gray-900"
                     >
-                      {isNotEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
+                      {isNotEmpty(transaction.user.phoneNumber)
+                        ? transaction.user.phoneNumber
+                        : '-'}
                     </dd>
                   </div>
                   <div className="sm:col-span-1">
@@ -176,9 +178,11 @@ export function TransactionDetails({
                     Tolak Pembelian
                   </TertiaryButtonLink>
                   <SecondaryButtonLink
-                    to={`https://wa.me/${stripLeadingPlus(user.phoneNumber)}`}
+                    to={`https://wa.me/${stripLeadingPlus(
+                      transaction.user.phoneNumber
+                    )}`}
                     external
-                    disabled={!user.phoneNumber}
+                    disabled={!transaction.user.phoneNumber}
                   >
                     Kontak WhatsApp
                   </SecondaryButtonLink>

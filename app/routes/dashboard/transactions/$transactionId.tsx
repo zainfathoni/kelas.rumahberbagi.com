@@ -1,8 +1,8 @@
 import { redirect, useLoaderData, Outlet, json } from 'remix'
 import type { LoaderFunction, ActionFunction } from 'remix'
-import { Transaction, User } from '@prisma/client'
 import {
   getTransactionById,
+  TransactionWithUser,
   updateTransactionStatus,
 } from '~/models/transaction'
 import { TransactionStatus } from '~/models/enum'
@@ -74,13 +74,12 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export default function TransactionDetailsPage() {
-  const { transaction, user } =
-    useLoaderData<{ transaction: Transaction; user: User }>()
+  const { transaction } = useLoaderData<{ transaction: TransactionWithUser }>()
 
   return (
     <>
       <div className="min-h-full">
-        <TransactionDetails transaction={transaction} user={user} />
+        <TransactionDetails transaction={transaction} />
       </div>
       <Outlet />
     </>
