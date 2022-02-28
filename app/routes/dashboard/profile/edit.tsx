@@ -15,6 +15,8 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 
+export const handle = { name: 'Ubah Profil' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
   // the login page.
