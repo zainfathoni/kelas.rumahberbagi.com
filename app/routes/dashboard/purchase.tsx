@@ -5,6 +5,8 @@ import { requireUpdatedUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
 import { STEPS } from '~/utils/constants'
 
+export const handle = { name: 'Pembelian' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   await requireUpdatedUser(request)
 

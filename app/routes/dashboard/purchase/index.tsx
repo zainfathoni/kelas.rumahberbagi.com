@@ -4,6 +4,8 @@ import { getFirstTransaction } from '~/models/transaction'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { STEPS } from '~/utils/constants'
 
+export const handle = { name: 'Instruksi Pembayaran' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 

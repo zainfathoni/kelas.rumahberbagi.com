@@ -17,6 +17,8 @@ import {
 } from '~/components/button-link'
 import { getWhatsAppLink } from '~/utils/whatsapp'
 
+export const handle = { name: 'Detail Transaksi' }
+
 export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await requireUpdatedUser(request)
   const course = await getFirstCourse()

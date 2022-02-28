@@ -10,6 +10,8 @@ import {
 } from '~/components/button-link'
 import { TRANSACTION_STATUS } from '~/models/enum'
 
+export const handle = { name: 'Menunggu Verifikasi' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 

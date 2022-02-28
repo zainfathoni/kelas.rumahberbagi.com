@@ -73,7 +73,7 @@ describe('Step', () => {
             <span
               class="text-xs font-semibold tracking-wide uppercase"
             >
-              Pembayaran
+              Instruksi Pembayaran
             </span>
             <span
               class="text-sm text-gray-500"
@@ -127,7 +127,7 @@ describe('Step', () => {
             <span
               class="text-xs font-semibold tracking-wide uppercase"
             >
-              Pembayaran
+              Instruksi Pembayaran
             </span>
             <span
               class="text-sm text-gray-500"
