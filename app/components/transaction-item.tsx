@@ -8,6 +8,7 @@ import {
 import { Link } from 'remix'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
+import { classNames } from '~/utils/class-names'
 import { printLocaleDateTimeString } from '~/utils/format'
 
 export type TransactionItemProps = {
@@ -17,6 +18,47 @@ export type TransactionItemProps = {
   dateTime: Date | null
   bankAccountNumber: string
   status: TransactionStatus
+}
+
+function TransactionIcon({
+  status,
+  className,
+}: {
+  status: TransactionStatus
+  className?: string
+}) {
+  switch (status as TransactionStatus) {
+    case TRANSACTION_STATUS.VERIFIED:
+      return (
+        <ShieldCheckIcon
+          className={classNames(
+            'flex-shrink-0 mr-1.5 h-5 w-5 text-green-400',
+            className ?? ''
+          )}
+          aria-hidden="true"
+        />
+      )
+    case TRANSACTION_STATUS.REJECTED:
+      return (
+        <XCircleIcon
+          className={classNames(
+            'flex-shrink-0 mr-1.5 h-5 w-5 text-red-400',
+            className ?? ''
+          )}
+          aria-hidden="true"
+        />
+      )
+    default:
+      return (
+        <ExclamationIcon
+          className={classNames(
+            'flex-shrink-0 mr-1.5 h-5 w-5 text-orange-400',
+            className ?? ''
+          )}
+          aria-hidden="true"
+        />
+      )
+  }
 }
 
 export function TransactionItem({
@@ -32,7 +74,7 @@ export function TransactionItem({
       <Link to={transactionId}>
         <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
           <div className="min-w-0 flex-1 flex items-center">
-            <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+            <div className="min-w-0 flex-1 px-4 sm:grid sm:grid-cols-2 sm:gap-4">
               <div>
                 <p
                   className="text-sm font-medium text-purple-600 truncate"
@@ -42,15 +84,16 @@ export function TransactionItem({
                 </p>
                 <p className="mt-2 flex items-center text-sm text-gray-500">
                   <LibraryIcon
-                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                    className="hidden sm:inline-block flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
+                  <TransactionIcon status={status} className="sm:hidden" />
                   <span className="truncate" aria-label="Nama Bank">
                     {isNotEmpty(bankName) ? bankName : '-'}
                   </span>
                 </p>
               </div>
-              <div className="hidden md:block">
+              <div className="hidden sm:block">
                 <div>
                   <p
                     className="text-sm text-gray-900"
@@ -66,22 +109,7 @@ export function TransactionItem({
                     className="mt-2 flex items-center text-sm text-gray-500"
                     aria-label="Nomor Rekening"
                   >
-                    {status === TRANSACTION_STATUS.VERIFIED ? (
-                      <ShieldCheckIcon
-                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                        aria-hidden="true"
-                      />
-                    ) : status === TRANSACTION_STATUS.REJECTED ? (
-                      <XCircleIcon
-                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <ExclamationIcon
-                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-orange-400"
-                        aria-hidden="true"
-                      />
-                    )}
+                    <TransactionIcon status={status} />
                     {isNotEmpty(bankAccountNumber) ? bankAccountNumber : '-'}
                   </p>
                 </div>
