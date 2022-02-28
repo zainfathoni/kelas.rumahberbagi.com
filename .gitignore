@@ -23,3 +23,9 @@ coverage
 /prisma/dev.db
 /prisma/test.db
 /prisma/*.db-journal
+
+# Vercel
+.vercel
+.output
+
+/api/index.js
