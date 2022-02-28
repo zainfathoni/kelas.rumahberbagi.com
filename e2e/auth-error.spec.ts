@@ -5,7 +5,7 @@ test.use({
   storageState: 'e2e/fixtures/auth/nobody.json',
 })
 
-test('Auth Error', async ({ page }) => {
+test.skip('Auth Error', async ({ page }) => {
   // Go to http://localhost:3000/dashboard
   await page.goto('/dashboard')
 
