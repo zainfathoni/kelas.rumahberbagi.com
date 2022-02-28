@@ -74,7 +74,7 @@ export function TransactionItem({
       <Link to={transactionId}>
         <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
           <div className="min-w-0 flex-1 flex items-center">
-            <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+            <div className="min-w-0 flex-1 px-4 sm:grid sm:grid-cols-2 sm:gap-4">
               <div>
                 <p
                   className="text-sm font-medium text-purple-600 truncate"
@@ -93,7 +93,7 @@ export function TransactionItem({
                   </span>
                 </p>
               </div>
-              <div className="hidden md:block">
+              <div className="hidden sm:block">
                 <div>
                   <p
                     className="text-sm text-gray-900"
