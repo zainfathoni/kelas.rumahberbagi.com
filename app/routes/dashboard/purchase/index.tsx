@@ -4,6 +4,8 @@ import { getFirstTransaction } from '~/models/transaction'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { STEPS } from '~/utils/constants'
 
+export const handle = { name: 'Instruksi Pembayaran' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 
@@ -44,11 +46,11 @@ export default function Purchase() {
             <dt className="text-sm font-medium text-gray-500">
               Nomor Rekening
             </dt>
-            <dd className="mt-1 text-sm text-gray-900">5041 7623 2889</dd>
+            <dd className="mt-1 text-sm text-gray-900">5055 9052 1800</dd>
           </div>
           <div className="sm:col-span-1">
             <dt className="text-sm font-medium text-gray-500">Nama Penerima</dt>
-            <dd className="mt-1 text-sm text-gray-900">Zain Fathoni</dd>
+            <dd className="mt-1 text-sm text-gray-900">Indah Wulandini</dd>
           </div>
           <div className="sm:col-span-2">
             <dt className="text-sm font-medium text-gray-500">

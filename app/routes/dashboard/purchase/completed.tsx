@@ -9,6 +9,8 @@ import { TRANSACTION_STATUS } from '~/models/enum'
 import { getWhatsAppLink } from '~/utils/whatsapp'
 import { getUser } from '~/models/user'
 
+export const handle = { name: 'Selesai' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 

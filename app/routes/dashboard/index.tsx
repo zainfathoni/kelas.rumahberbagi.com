@@ -5,6 +5,8 @@ import { SUBSCRIPTION_STATUS } from '~/models/enum'
 import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
 import { auth } from '~/services/auth.server'
 
+export const handle = { name: 'Beranda' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const { id } = await auth.isAuthenticated(request, {
     failureRedirect: '/login',

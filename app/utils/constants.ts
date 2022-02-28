@@ -1,22 +1,22 @@
 export const STEPS = [
   {
-    name: 'Pembayaran',
+    name: 'Instruksi Pembayaran',
     description: 'Tranfer biaya ke rekening yang ditentukan',
     pathname: '/dashboard/purchase/',
   },
   {
     name: 'Konfirmasi Pembayaran',
-    description: 'Hubungi admin melalui WhatsApp',
+    description: 'Masukkan detail pembayaran',
     pathname: '/dashboard/purchase/confirm',
   },
   {
     name: 'Menunggu Verifikasi',
-    description: 'Nantikan informasi verifikasi pembayaran di email Anda',
+    description: 'Hubungi admin melalui WhatsApp',
     pathname: '/dashboard/purchase/verify',
   },
   {
     name: 'Selesai',
-    description: 'Periksa status pembayaran',
+    description: 'Anda telah terdaftar sebagai peserta kelas',
     pathname: '/dashboard/purchase/completed',
   },
 ]

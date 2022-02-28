@@ -7,6 +7,7 @@ import {
   XIcon,
   MenuIcon,
   ServerIcon,
+  AcademicCapIcon,
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
@@ -17,6 +18,7 @@ import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 import { requireAuthor } from '~/utils/permissions'
+import { BreadcrumbItem, Breadcrumbs } from '~/components/breadcrumbs'
 
 export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
@@ -46,6 +48,7 @@ const navigation = [
     icon: ServerIcon,
     permission: requireAuthor,
   },
+  { name: 'Tentang Kelas', href: '/', icon: AcademicCapIcon },
 ]
 
 function classNames(...classes: string[]) {
@@ -291,9 +294,18 @@ export default function Dashboard() {
           <main className="flex-1">
             <div className="py-6">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Breadcrumbs
-                </h1>
+                <Breadcrumbs>
+                  {matches.map(({ pathname, handle }, index) =>
+                    handle?.name ? (
+                      <BreadcrumbItem
+                        key={handle.name}
+                        name={handle.name}
+                        to={pathname}
+                        current={index === matches.length - 1}
+                      />
+                    ) : null
+                  )}
+                </Breadcrumbs>
               </div>
               <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 {/*

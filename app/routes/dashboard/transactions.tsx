@@ -15,6 +15,8 @@ import { classNames } from '~/utils/class-names'
 import { getPagesCount } from '~/utils/pagination'
 import { PageLink } from '~/components/page-link'
 
+export const handle = { name: 'Transaksi' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
   const course = await getFirstCourse()

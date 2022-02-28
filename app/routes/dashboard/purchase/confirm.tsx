@@ -31,6 +31,8 @@ interface TransactionFields {
   status: string
 }
 
+export const handle = { name: 'Konfirmasi Pembayaran' }
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)
 
