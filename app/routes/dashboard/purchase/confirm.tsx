@@ -155,7 +155,7 @@ export default function PurchaseConfirm() {
               </div>
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
-                  Nama Lengkap atau Nomor WhatsApp Anda salah?
+                  Nama Lengkap atau Nomor WhatsApp Anda salah atau masih kosong?
                 </p>
                 <Link
                   to="/dashboard/profile/edit"
