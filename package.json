@@ -18,7 +18,7 @@
     "prepare": "husky install",
     "start": "remix-serve build",
     "prestart:e2e": "cp prisma/schema.sqlite.prisma prisma/schema.prisma && DATABASE_URL=file:./test.db prisma migrate reset --force && npm run build",
-    "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db npm start",
+    "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db npm run dev",
     "test": "is-ci-cli test:coverage test:watch",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
