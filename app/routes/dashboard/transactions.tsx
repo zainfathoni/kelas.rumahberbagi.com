@@ -3,7 +3,7 @@ import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid'
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline'
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import { getFirstCourse } from '~/models/course'
 import {
   AllTransactionsCount,
@@ -60,7 +60,7 @@ export default function TransactionsList() {
     },
   ]
 
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const status = searchParams.get('status')
   const page = searchParams.get('page')
 
@@ -104,6 +104,8 @@ export default function TransactionsList() {
     )
   }
 
+  const selectRef = useRef<HTMLSelectElement>(null)
+
   return (
     <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 mt-4">
       <div className="px-4 sm:px-0">
@@ -118,9 +120,16 @@ export default function TransactionsList() {
             name="tabs"
             className="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
             defaultValue={tabs.find(isCurrentTab)?.name}
+            ref={selectRef}
+            onChange={({ target: { value } }) => {
+              selectRef.current?.setAttribute('selected', value)
+              setSearchParams(value ? `?status=${value}` : '')
+            }}
           >
             {tabs.map((tab) => (
-              <option key={tab.name}>{tab.name}</option>
+              <option key={tab.name} value={tab.params}>
+                {tab.name}
+              </option>
             ))}
           </select>
         </div>
@@ -145,7 +154,7 @@ export default function TransactionsList() {
                         isCurrentTab(tab)
                           ? 'bg-purple-100 text-purple-600'
                           : 'bg-gray-100 text-gray-900',
-                        'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block'
+                        'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium sm:inline-block'
                       )}
                     >
                       {tab.count}
