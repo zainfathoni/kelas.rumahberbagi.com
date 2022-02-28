@@ -106,7 +106,6 @@
     "node": ">=14"
   },
   "sideEffects": false,
-  "main": "dist/worker.js",
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "jest --findRelatedTests",
     "*.{js,jsx,ts,tsx,yml,yaml}": "eslint --cache --fix",
