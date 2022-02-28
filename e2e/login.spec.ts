@@ -28,9 +28,9 @@ test('Login', async ({ page, queries: { getByRole } }) => {
     page.click('text=Kirim link ke alamat email'),
   ])
 
-  // Click text=✨ Link telah dikirim ke alamat email Anda ✨
+  // Click text=Link telah dikirim ke alamat email Anda
   await expect(
-    page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
+    page.locator('text=Link telah dikirim ke alamat email Anda').first()
   ).toBeVisible()
 
   const { magicLink } = JSON.parse(
