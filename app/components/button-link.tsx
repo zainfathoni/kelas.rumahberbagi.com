@@ -26,6 +26,7 @@ type ButtonLinkProps = {
   external?: boolean
   disabled?: boolean
   className?: string
+  disabledClassName?: string
 }
 
 export function ButtonLink({
@@ -35,10 +36,11 @@ export function ButtonLink({
   external,
   disabled,
   className,
+  disabledClassName,
   ...props
 }: ButtonLinkProps) {
   return disabled ? (
-    <DisabledButton>{children}</DisabledButton>
+    <DisabledButton className={disabledClassName}>{children}</DisabledButton>
   ) : external ? (
     <a
       href={to}
@@ -79,6 +81,7 @@ export function TertiaryButtonLink(props: ButtonLinkProps) {
   return (
     <ButtonLink
       className="border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500 mr-auto"
+      disabledClassName="mr-auto"
       {...props}
     />
   )

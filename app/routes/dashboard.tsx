@@ -7,6 +7,7 @@ import {
   XIcon,
   MenuIcon,
   ServerIcon,
+  AcademicCapIcon,
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
@@ -46,6 +47,7 @@ const navigation = [
     icon: ServerIcon,
     permission: requireAuthor,
   },
+  { name: 'Tentang Kelas', href: '/', icon: AcademicCapIcon },
 ]
 
 function classNames(...classes: string[]) {
