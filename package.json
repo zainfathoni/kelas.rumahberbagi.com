@@ -7,7 +7,7 @@
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
   "scripts": {
-    "build": "npm run build:css && npm run build:remix",
+    "build": "cross-env NODE_ENV=production npm run build:css && remix build",
     "build:css": "tailwindcss --minify -o ./app/tailwind.css",
     "build:remix": "cross-env NODE_ENV=production remix build --sourcemap",
     "dev": "cross-env NODE_ENV=development concurrently -k \"npm run dev:css\" \"remix dev\"",
