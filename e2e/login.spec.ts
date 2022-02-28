@@ -2,6 +2,10 @@ import { expect } from '@playwright/test'
 import { readFixture } from '../app/utils/fixtures'
 import { test } from './base-test'
 
+test.use({
+  storageState: 'e2e/fixtures/auth/public.json',
+})
+
 test('Login', async ({ page, queries: { getByRole } }) => {
   // Go to http://localhost:3000/
   await page.goto('/')
@@ -28,9 +32,9 @@ test('Login', async ({ page, queries: { getByRole } }) => {
     page.click('text=Kirim link ke alamat email'),
   ])
 
-  // Click text=✨ Link telah dikirim ke alamat email Anda ✨
+  // Click text=Link telah dikirim ke alamat email Anda
   await expect(
-    page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
+    page.locator('text=Link telah dikirim ke alamat email Anda').first()
   ).toBeVisible()
 
   const { magicLink } = JSON.parse(

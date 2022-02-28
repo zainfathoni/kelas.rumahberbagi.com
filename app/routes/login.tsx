@@ -1,5 +1,6 @@
 import type { ActionFunction, LoaderFunction } from 'remix'
 import { useTransition, Form, json, useLoaderData } from 'remix'
+import Alert from '~/components/alerts'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
 import { getUserSession } from '~/services/session.server'
@@ -80,13 +81,7 @@ export default function Login() {
               {magicLinkSent ? (
                 <Form action="/logout" method="post">
                   <input type="hidden" name="redirectTo" value="/login" />
-                  <div className="flex items-center justify-center py-2">
-                    <div className="text-sm">
-                      <span className="font-medium">
-                        ✨ Link telah dikirim ke alamat email Anda ✨
-                      </span>
-                    </div>
-                  </div>
+                  <Alert>Link telah dikirim ke alamat email Anda</Alert>
                   <div className="flex items-center justify-between py-2 text-sm">
                     <div>
                       <span className="font-medium">Belum menerima email?</span>

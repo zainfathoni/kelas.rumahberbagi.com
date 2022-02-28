@@ -15,7 +15,7 @@ async function loginAs(browser: Browser, user: string) {
     page.click('text=Kirim link ke alamat email'),
   ])
   await expect(
-    page.locator('text=✨ Link telah dikirim ke alamat email Anda ✨').first()
+    page.locator('text=Link telah dikirim ke alamat email Anda').first()
   ).toBeVisible()
   await page.goto(
     JSON.parse(await readFixture(`../../e2e/fixtures/magic.local.json`))
