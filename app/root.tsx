@@ -1,4 +1,5 @@
 import {
+  Form,
   Link,
   Links,
   LiveReload,
@@ -74,12 +75,15 @@ export function ErrorBoundary({ error }: { error: Error }) {
                   Silakan coba masuk kembali.
                 </p>
                 <div className="mt-6">
-                  <Link
-                    to="/logout"
-                    className="text-base font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Kembali ke beranda<span aria-hidden="true"> &rarr;</span>
-                  </Link>
+                  <Form action="/logout" method="post">
+                    <input type="hidden" name="redirectTo" value="/login" />
+                    <button
+                      type="submit"
+                      className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      Kembali ke beranda<span aria-hidden="true"> &rarr;</span>
+                    </button>
+                  </Form>
                 </div>
               </div>
             </div>

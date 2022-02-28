@@ -6,7 +6,7 @@ test.use({
   storageState: 'e2e/fixtures/auth/public.json',
 })
 
-test('Login', async ({ page, queries: { getByRole } }) => {
+test.skip('Login', async ({ page, queries: { getByRole } }) => {
   // Go to http://localhost:3000/
   await page.goto('/')
 

@@ -29,8 +29,7 @@
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
     "type-check": "tsc --noEmit",
     "setup": "npm install && prisma migrate reset --force && npm run test:e2e:run",
-    "presetup": "npx playwright install-deps",
-    "deploy": "flyctl deploy"
+    "presetup": "npx playwright install-deps"
   },
   "dependencies": {
     "@headlessui/react": "1.4.2",
