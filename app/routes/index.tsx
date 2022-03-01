@@ -144,39 +144,54 @@ export default function HomePage() {
         </BenefitSection>
         <Timeline />
         <Content title="Kisi-kisi materi">
-          <Content.Item>Sekilas filosofi Charlotte Mason</Content.Item>
-          <Content.Item>Tugas utama orang tua</Content.Item>
+          <Content.Item>Pendahuluan</Content.Item>
           <Content.Item>
-            Prioritas pendidikan anak prasekolah (0-6 tahun)
+            Sekilas Tentang Charlotte Mason dan kesesuaiannya untuk keluarga
+            muslim
           </Content.Item>
-          <Content.Item>Kebutuhan fisik</Content.Item>
-          <Content.Item>Kunci kebiasaan baik</Content.Item>
-          <Content.Item>Bermain bebas dan mengasah 5 indera</Content.Item>
-          <Content.Item>Outdoor life</Content.Item>
-          <Content.Item>Membangun ikatan dengan alam</Content.Item>
-          <Content.Item>Buku dan cerita</Content.Item>
-          <Content.Item>Bahasa</Content.Item>
-          <Content.Item>Kehidupan spiritual </Content.Item>
-          <Content.Item>Seni</Content.Item>
-          <Content.Item>Tahap pramembaca</Content.Item>
-          <Content.Item>Berhitung</Content.Item>
-          <Content.Item>Menulis</Content.Item>
-          <Content.Item>Pengisian planner</Content.Item>
+          <Content.Item>
+            Prinsip Dasar 1: Memahami Anak sebagai Individu
+          </Content.Item>
+          <Content.Item>
+            Prinsip Dasar 2: Memahami 3 instrumen pendidikan
+          </Content.Item>
+          <Content.Item>
+            Prinsip Dasar 3: Memahami 6 tahun pertama sebagai Masa Tumbuh yang
+            Tenang
+          </Content.Item>
+          <Content.Item>
+            Prioritas Pendidikan Prasekolah: Aspek Fisik dan Rohani
+            (Mental-Spiritual)
+          </Content.Item>
+          <Content.Item>Mengasah Kebiasaan Baik pada Anak</Content.Item>
+          <Content.Item>Pentingnya Bermain Bebas</Content.Item>
+          <Content.Item>Kebutuhan Outdoor life</Content.Item>
+          <Content.Item>Membangun ikatan anak dengan alam</Content.Item>
+          <Content.Item>
+            Memilih dan menyajikan buku dan kisah yang terbaik
+          </Content.Item>
+          <Content.Item>Mengasah Bahasa</Content.Item>
+          <Content.Item>Membangun Kehidupan Spiritual</Content.Item>
+          <Content.Item>Mengasah seni</Content.Item>
+          <Content.Item>Tahap Pra Membaca, Berhitung, dan Menulis</Content.Item>
+          <Content.Item>Mengisi Planner Tahun Prasekolahku</Content.Item>
         </Content>
         <Pricing
-          title="Biaya kelas"
+          title="Pembayaran kelas"
           description={
             <Pricing.Description>
-              Biaya baru dibayarkan setelah Anda terkonfirmasi sebagai peserta
+              Pembayaran harus dilakukan sebelum Anda dapat mengakses fasilitas
               kelas
             </Pricing.Description>
           }
         >
           <Pricing.Included title="Biaya termasuk">
-            <Pricing.Item>Handout berupa catatan bergambar</Pricing.Item>
-            <Pricing.Item>Printable planner</Pricing.Item>
-            <Pricing.Item>Akses kelas online melalui Zoom</Pricing.Item>
-            <Pricing.Item>Video rekaman kelas</Pricing.Item>
+            <Pricing.Item>
+              Handout catatan bergambar dan printable planner
+            </Pricing.Item>
+            <Pricing.Item>Akses materi pre-recorded video</Pricing.Item>
+            <Pricing.Item>Akses grup Telegram</Pricing.Item>
+            <Pricing.Item>Akses diskusi langsung via Zoom</Pricing.Item>
           </Pricing.Included>
         </Pricing>
         <QnA
@@ -201,21 +216,10 @@ export default function HomePage() {
               <QnA.Question>Kelas ini untuk siapa?</QnA.Question>
               <QnA.Answer>
                 Kelas ini untuk para orang tua, khususnya untuk anak di bawah
-                usia sekolah, tetapi tidak menutup kemungkinan orang tua dengan
-                anak di usia sekolah masih membutuhkannya karena bisa jadi ada
-                aspek yang terlewat dari fondasi yang harus dipersiapkan di usia
-                prasekolah.
-              </QnA.Answer>
-            </div>
-            <div>
-              <QnA.Question>
-                Berapa lama kelas ini akan berlangsung?
-              </QnA.Question>
-              <QnA.Answer>
-                Setidaknya akan ada dua pertemuan yang terdiri dari pembahasan
-                materi dan praktik pembuatan rencana pendidikan untuk anak
-                prasekolah. Tidak menutup kemungkinan jumlah pertemuan akan
-                ditambah sesuai dengan kebutuhan.
+                usia sekolah (0-6 tahun), tetapi tidak menutup kemungkinan orang
+                tua dengan anak di usia sekolah masih membutuhkannya karena bisa
+                jadi ada aspek yang terlewat dari fondasi yang harus
+                dipersiapkan di usia prasekolah.
               </QnA.Answer>
             </div>
             <div>
@@ -223,30 +227,49 @@ export default function HomePage() {
                 Berapa biaya kelas ini? Kapan saya harus membayarnya?
               </QnA.Question>
               <QnA.Answer>
-                Biaya kelas ini masih belum ditentukan, nantinya akan dapat
-                dibayarkan setelah Anda mendapatkan konfirmasi dari kami bahwa
-                Anda mendapatkan slot untuk bergabung di kelas ini.
+                Biaya kelas adalah Rp 200.000,- dan dapat dibayarkan sesuai
+                dengan alur pendaftaran di website ini.
               </QnA.Answer>
             </div>
             <div>
               <QnA.Question>
-                Mengapa jumlah peserta hanya dibatasi sebanyak 30 orang?
+                Berapa jumlah peserta yang akan mengikuti kelas ini?
               </QnA.Question>
               <QnA.Answer>
-                Supaya proses belajar bisa lebih fokus dan aktivitas tanya jawab
-                bisa dilakukan secara lebih intensif.
+                Semua peserta waiting list yang sudah mendaftar akan kami
+                proses. Hanya calon peserta yang melunasi pembayaran yang akan
+                berhak menjadi peserta Kelas Tahun Prasekolahku.
               </QnA.Answer>
             </div>
             <div>
               <QnA.Question>
-                Saya gagal mendapatkan slot di kelas ini. Lantas bagaimana saya
-                bisa mengikuti kelas ini?
+                Apakah materi bisa diakses setelah kelas selesai?
               </QnA.Question>
               <QnA.Answer>
-                Pertama-tama, pastikan dulu bahwa Anda telah terdaftar ke dalam
-                daftar antrian calon peserta. Apabila kelas untuk angkatan
-                berikutnya telah kami buka, kami akan kirimkan email kepada Anda
-                berdasarkan urutan antrian Anda.
+                Ya. Materi akan tetap dapat Anda akses melalui website yang
+                sudah kami sediakan.
+              </QnA.Answer>
+            </div>
+            <div>
+              <QnA.Question>
+                Apakah peserta akan mendapatkan rekaman diskusi zoom?
+              </QnA.Question>
+              <QnA.Answer>
+                Ya. Diskusi zoom akan kami rekam dan peserta bisa mengakses
+                rekaman tersebut di website.
+              </QnA.Answer>
+            </div>
+            <div>
+              <QnA.Question>
+                Mengapa proses pendaftaran dan materi kelas menggunakan website?
+              </QnA.Question>
+              <QnA.Answer>
+                Belajar dari pengalaman kelas-kelas sebelumnya, kami ingin
+                meningkatkan pengalaman dan kualitas materi yang kami sampaikan.
+                Kami ingin peserta bisa mendapatkan manfaat sebanyak mungkin
+                dari materi yang sudah kami persiapkan. Selain itu, ke depannya,
+                website ini akan terus dikembangkan dan akan menjadi portal
+                aneka kelas Rumah Berbagi selanjutnya.
               </QnA.Answer>
             </div>
           </QnA.Content>
@@ -290,21 +313,9 @@ export default function HomePage() {
                 Apakah saya bisa mengubah data diri saya?
               </QnA.Question>
               <QnA.Answer>
-                Tidak, kami tidak menyediakan fitur untuk mengubah data diri
-                Anda untuk saat ini. Akan tetapi, seiring dengan perkembangan
-                teknologi situs kami, kami akan menambahkan fitur untuk mengubah
-                data diri Anda. Untuk sementara waktu, apabila Anda menghendaki
-                perubahan data, Anda bisa menghubungi kami melalui akun
-                Instagram{' '}
-                <a
-                  href="https://www.instagram.com/vika.riandini/"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @vika.riandini
-                </a>
-                .
+                Ya, Anda bisa mengubah data diri Anda di website ini melalui
+                menu <strong>Ubah Profil</strong> yang dapat Anda akses setelah
+                Anda masuk ke halaman <em>Dashboard</em>.
               </QnA.Answer>
             </div>
           </QnA.Content>
