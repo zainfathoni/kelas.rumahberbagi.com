@@ -1,15 +1,19 @@
 import { redirect, useLoaderData, Form, useMatches, json } from 'remix'
 import type { LoaderFunction, ActionFunction } from 'remix'
-import { Transaction, User } from '@prisma/client'
 import { CashIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   getTransactionById,
-  updateTransactionStatus,
+  TransactionWithUser,
+  updateTransactionDateTimeAndStatus,
 } from '~/models/transaction'
-import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
+import {
+  formatDateTime,
+  printLocaleDateTimeString,
+  printRupiah,
+} from '~/utils/format'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
@@ -19,6 +23,7 @@ import {
   activateSubscription,
   deactivateSubscription,
 } from '~/models/subscription'
+import { Field } from '~/components/form-elements'
 
 export const loader: LoaderFunction = async ({ params }) => {
   // TODO: block if the current user is not an admin or the author of the course
@@ -52,8 +57,11 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const formData = await request.formData()
   const status = formData.get('status')
+  const paymentTime: string = formData.get('paymentTime') as string
 
-  if (typeof status !== 'string') {
+  const formattedPaymentTime: Date = new Date(paymentTime)
+
+  if (typeof status !== 'string' || typeof paymentTime !== 'string') {
     return { formError: 'Form not submitted correctly.' }
   }
 
@@ -62,8 +70,11 @@ export const action: ActionFunction = async ({ request, params }) => {
     return redirect('/dashboard/purchase')
   }
 
-  const updatedTransaction = await updateTransactionStatus(
+  console.log(formattedPaymentTime)
+
+  const updatedTransaction = await updateTransactionDateTimeAndStatus(
     transaction.id,
+    formattedPaymentTime,
     status as TransactionStatus
   )
   if (!updatedTransaction) {
@@ -86,7 +97,8 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export default function VerifyTransaction() {
-  const transactionDetails: Transaction & { user: User } = useLoaderData()
+  const transactionDetails: TransactionWithUser = useLoaderData()
+  console.log(transactionDetails)
   const navigate = useNavigate()
   const matches = useMatches()
   const destinationStatus = (
@@ -141,55 +153,72 @@ export default function VerifyTransaction() {
                   <h3 className="text-lg leading-6 font-medium text-gray-900">
                     Pastikan data ini valid
                   </h3>
-                  <div className="mt-5">
-                    <div className="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
-                      <h4 className="sr-only">Visa</h4>
-                      <div className="sm:flex sm:items-start">
-                        <CashIcon
-                          className="h-8 w-auto sm:flex-shrink-0 sm:h-6"
-                          aria-hidden="true"
-                        />
-                        <div className="mt-3 sm:mt-0 sm:ml-4">
-                          <div className="text-sm font-medium text-gray-900 sm:flex sm:items-center">
-                            <div>{transactionDetails.bankAccountName}</div>
-                            <span
-                              className="hidden sm:mx-2 sm:inline"
-                              aria-hidden="true"
-                            >
-                              &middot;
-                            </span>
-                            <div className="mt-1 sm:mt-0">
-                              {printRupiah(transactionDetails.amount)}
+                  <Form replace method="post">
+                    <div className="mt-5">
+                      <div className="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
+                        <h4 className="sr-only">Bank Transfer</h4>
+                        <div className="sm:flex sm:items-start">
+                          <CashIcon
+                            className="h-8 w-auto sm:flex-shrink-0 sm:h-6"
+                            aria-hidden="true"
+                          />
+                          <div className="mt-3 sm:mt-0 sm:ml-4">
+                            <div className="text-sm font-medium text-gray-900 sm:flex sm:items-center">
+                              <div>{transactionDetails.bankAccountName}</div>
+                              <span
+                                className="hidden sm:mx-2 sm:inline"
+                                aria-hidden="true"
+                              >
+                                &middot;
+                              </span>
+                              <div className="mt-1 sm:mt-0">
+                                {printRupiah(transactionDetails.amount)}
+                              </div>
                             </div>
-                          </div>
-                          <div className="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
-                            <div>{transactionDetails.bankName}</div>
-                            <span
-                              className="hidden sm:mx-2 sm:inline"
-                              aria-hidden="true"
-                            >
-                              &middot;
-                            </span>
-                            <div className="mt-1 sm:mt-0">
-                              {transactionDetails.datetime ? (
-                                <time
-                                  dateTime={new Date(
-                                    transactionDetails.datetime
-                                  ).toISOString()}
-                                >
-                                  {printLocaleDateTimeString(
-                                    new Date(transactionDetails.datetime)
-                                  )}
-                                </time>
-                              ) : (
-                                '-'
-                              )}
+                            <div className="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
+                              <div>{transactionDetails.bankName}</div>
+                              <span
+                                className="hidden sm:mx-2 sm:inline"
+                                aria-hidden="true"
+                              >
+                                &middot;
+                              </span>
+                              <div className="mt-1 sm:mt-0">
+                                {transactionDetails.datetime ? (
+                                  <time
+                                    dateTime={new Date(
+                                      transactionDetails.datetime
+                                    ).toISOString()}
+                                  >
+                                    {printLocaleDateTimeString(
+                                      new Date(transactionDetails.datetime)
+                                    )}
+                                  </time>
+                                ) : (
+                                  '-'
+                                )}
+                              </div>
                             </div>
+                            <Field
+                              type="datetime-local"
+                              className="mt-2"
+                              name="paymentTime"
+                              label="Tanggal dan Waktu Pembayaran"
+                              defaultValue={
+                                transactionDetails?.datetime
+                                  ? formatDateTime(
+                                      new Date(transactionDetails.datetime)
+                                    )
+                                  : undefined
+                              }
+                              required
+                              aria-invalid={
+                                transactionDetails?.datetime ? 'false' : 'true'
+                              }
+                            />
                           </div>
                         </div>
-                      </div>
-                      <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
-                        <Form replace method="post">
+                        <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                           <input
                             type="hidden"
                             name="status"
@@ -209,10 +238,10 @@ export default function VerifyTransaction() {
                               ? 'Verifikasi'
                               : 'Tolak'}
                           </button>
-                        </Form>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Form>
                 </div>
               </div>
             </div>

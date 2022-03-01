@@ -304,7 +304,18 @@ export default function Dashboard() {
             </Breadcrumbs>
           </div>
           <main className="flex-1">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"></div>
+            <Breadcrumbs className="hidden lg:flex ml-8 py-4">
+              {matches.map(({ pathname, handle }, index) =>
+                handle?.name ? (
+                  <BreadcrumbItem
+                    key={handle.name}
+                    name={handle.name}
+                    to={pathname}
+                    current={index === matches.length - 1}
+                  />
+                ) : null
+              )}
+            </Breadcrumbs>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               {/*
                 <div className="py-4">
