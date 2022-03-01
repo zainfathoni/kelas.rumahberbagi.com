@@ -82,8 +82,8 @@ export default function HomePage() {
           }
           bottom={
             <BenefitBottomContainer
-              title="Timeline"
-              description="Saya akan ajak teman-teman untuk menyelami materi dengan:"
+              title="Interaksi dua arah"
+              description="Selain materi di atas yang bersifat satu arah, kami juga menyediakan sarana interaksi dua arah."
               image={
                 <BenefitContainerImage
                   src="/images/interaction-preview.jpeg"
