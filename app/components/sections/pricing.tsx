@@ -67,7 +67,7 @@ export const Pricing = ({
   isSubscribed = false,
 }: PricingProps): JSX.Element => {
   return (
-    <div className="bg-gray-100 mt-4" id="biaya">
+    <div className="bg-gray-100" id="biaya">
       <div className="pt-12 sm:pt-16 lg:pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">

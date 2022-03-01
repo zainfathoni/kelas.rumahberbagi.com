@@ -50,7 +50,7 @@ describe('Step', () => {
             class="h-9 flex items-center"
           >
             <span
-              class="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800"
+              class="relative w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800"
             >
               <svg
                 aria-hidden="true"
@@ -104,7 +104,7 @@ describe('Step', () => {
             class="h-9 flex items-center"
           >
             <span
-              class="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800"
+              class="relative w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800"
             >
               <svg
                 aria-hidden="true"
