@@ -99,12 +99,13 @@ export async function getTransactionById(
   })
 }
 
-export async function updateTransactionStatus(
+export async function updateTransactionDateTimeAndStatus(
   id: string,
+  datetime: Date,
   status: TransactionStatus
 ) {
   return await db.transaction.update({
     where: { id },
-    data: { status },
+    data: { datetime, status },
   })
 }
