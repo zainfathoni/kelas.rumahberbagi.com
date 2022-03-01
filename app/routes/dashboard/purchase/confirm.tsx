@@ -83,7 +83,6 @@ export const action: ActionFunction = async ({ request }) => {
     bankAccountNumber: validateRequired('Nama Bank', bankAccountNumber),
     bankAccountName: validateRequired('Nomor Rekening', bankAccountName),
     amount: validateRequired('Nominal', amount),
-    paymentTime: validateRequired('Tanggal dan Waktu Pembayaran', paymentTime),
   }
 
   const fields: TransactionFields = {
@@ -218,8 +217,6 @@ export default function PurchaseConfirm() {
                     ? formatDateTime(new Date(transaction.datetime))
                     : undefined
                 }
-                required
-                aria-invalid={transaction?.datetime ? 'false' : 'true'}
               />
             </div>
           </div>
