@@ -3,7 +3,7 @@ import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid'
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline'
-import { ReactNode, useRef } from 'react'
+import { ReactNode } from 'react'
 import { getFirstCourse } from '~/models/course'
 import {
   AllTransactionsCount,
@@ -104,8 +104,6 @@ export default function TransactionsList() {
     )
   }
 
-  const selectRef = useRef<HTMLSelectElement>(null)
-
   return (
     <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 mt-4">
       <div className="px-4 sm:px-0">
@@ -120,11 +118,7 @@ export default function TransactionsList() {
             name="tabs"
             className="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
             defaultValue={tabs.find(isCurrentTab)?.name}
-            ref={selectRef}
-            onChange={({ target: { value } }) => {
-              selectRef.current?.setAttribute('selected', value)
-              setSearchParams(value ? `?status=${value}` : '')
-            }}
+            onChange={(e) => setSearchParams({ status: e.target.value })}
           >
             {tabs.map((tab) => (
               <option key={tab.name} value={tab.params}>
