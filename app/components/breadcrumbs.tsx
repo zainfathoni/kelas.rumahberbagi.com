@@ -2,6 +2,7 @@
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
 import { ReactNode } from 'react'
 import { Link } from 'remix'
+import { classNames } from '~/utils/class-names'
 
 export function BreadcrumbItem({
   name,
@@ -31,9 +32,18 @@ export function BreadcrumbItem({
   )
 }
 
-export function Breadcrumbs({ children }: { children: ReactNode }) {
+export function Breadcrumbs({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) {
   return (
-    <nav className="inline-flex" aria-label="Breadcrumbs">
+    <nav
+      className={classNames('inline-flex', className ?? '')}
+      aria-label="Breadcrumbs"
+    >
       <ol className="flex items-center space-x-4">
         <li>
           <div>
