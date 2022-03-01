@@ -107,7 +107,7 @@ export default function TransactionsList() {
   return (
     <main className="bg-white shadow sm:rounded-lg max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 mt-4">
       <div className="px-4 sm:px-0">
-        <h2 className="text-lg font-medium text-gray-900">Transactions</h2>
+        <h2 className="text-lg font-medium text-gray-900">Transaksi</h2>
         <div className="sm:hidden">
           <label htmlFor="tabs" className="sr-only">
             Select a tab
