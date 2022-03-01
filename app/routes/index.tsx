@@ -301,7 +301,9 @@ export default function HomePage() {
               </QnA.Answer>
             </div>
             <div>
-              <QnA.Question>Data apa saja yang erlu saya berikan?</QnA.Question>
+              <QnA.Question>
+                Data apa saja yang perlu saya berikan?
+              </QnA.Question>
               <QnA.Answer>
                 Untuk keperluan yang telah kami jelaskan di atas, kami
                 membutuhkan data diri Anda seperti nama, alamat email, nomor
