@@ -84,6 +84,24 @@ function InputError({ children, id }: InputErrorProps) {
   )
 }
 
+function InputInstruction({
+  children,
+  id,
+}: {
+  children?: string | null
+  id: string
+}) {
+  if (!children) {
+    return null
+  }
+
+  return (
+    <p className="mt-2 text-sm text-gray-600" id={id}>
+      {children}
+    </p>
+  )
+}
+
 export const Field = React.forwardRef<
   HTMLInputElement,
   {
@@ -96,6 +114,7 @@ export const Field = React.forwardRef<
     error?: string
     validator?: Validator
     description?: React.ReactNode
+    instruction?: string
     id?: string
   } & InputProps
 >(function Field(
@@ -109,6 +128,7 @@ export const Field = React.forwardRef<
     required,
     readOnly,
     description,
+    instruction,
     id,
     ...props
   },
@@ -118,6 +138,7 @@ export const Field = React.forwardRef<
   const inputId = id ?? `${prefix}-${name}`
   const errorId = `${inputId}-error`
   const descriptionId = `${inputId}-description`
+  const instructionId = `${inputId}-instruction`
 
   const [value, setValue] = React.useState(defaultValue ?? '')
   const [touched, setTouched] = React.useState(false)
@@ -167,12 +188,20 @@ export const Field = React.forwardRef<
         onBlur={() => setTouched(true)}
         status={status}
         aria-describedby={
-          errorMessage ? errorId : description ? descriptionId : undefined
+          errorMessage
+            ? errorId
+            : description
+            ? descriptionId
+            : instruction
+            ? instructionId
+            : undefined
         }
         aria-invalid={errorMessage ? true : error ? true : undefined}
       />
       {status === 'error' ? (
         <InputError id={errorId}>{errorMessage}</InputError>
+      ) : instruction ? (
+        <InputInstruction id={instructionId}>{instruction}</InputInstruction>
       ) : null}
     </div>
   )

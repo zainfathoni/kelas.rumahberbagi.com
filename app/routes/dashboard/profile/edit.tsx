@@ -198,6 +198,7 @@ export default function Settings() {
                           validator={validatePhoneNumber}
                           required
                           autoComplete="tel"
+                          instruction="Untuk komunikasi terkait pembayaran"
                         />
                         <Field
                           className="col-span-6 lg:col-span-3"
@@ -206,6 +207,7 @@ export default function Settings() {
                           placeholder="@username"
                           defaultValue={user.telegram ?? ''}
                           autoComplete="nickname"
+                          instruction="Untuk mengundang Anda ke grup Telegram"
                         />
                         <Field
                           className="col-span-6 lg:col-span-3"
