@@ -11,8 +11,6 @@ import {
 import { FileInvoiceIcon } from '~/components/icons/file-invoice'
 import { FileSignatureIcon } from '~/components/icons/file-signature'
 import { FileVideoIcon } from '~/components/icons/file-video'
-import { WhatsAppIcon } from '~/components/icons/whatsapp'
-import { ChalkboardTeacherIcon } from '~/components/icons/chalkboard-teacher'
 import { CommentsAltIcon } from '~/components/icons/comments-alt'
 import { Content } from '~/components/sections/content'
 import { Pricing } from '~/components/sections/pricing'
@@ -23,6 +21,8 @@ import {
   CtaDescription,
   CtaTitle,
 } from '~/components/cta-section'
+import { TelegramIcon } from '~/components/icons/telegram'
+import { Timeline } from '~/components/sections/timeline'
 
 export const meta: MetaFunction = () => {
   return {
@@ -55,35 +55,34 @@ export default function HomePage() {
                 icon={<FileInvoiceIcon />}
                 title="Handout dan catatan bergambar (sketch note)"
               >
-                Untuk membantu memahami materi yang saya sampaikan, saya
-                sediakan catatan visual yang menyenangkan yang saya tulis dan
-                gambar sendiri.
+                Ini adalah sketchnote yang saya tulis dan gambar sendiri untuk
+                membantu memudahkan teman-teman memahami materi yang saya
+                sampaikan.
               </BenefitItem>
               <BenefitItem
                 icon={<FileSignatureIcon />}
                 title="Printable planner"
               >
                 Setelah memahami materi, kita akan mengeksplorasi planner untuk
-                membantumu menavigasi pendidikan dan kehidupan mereka
+                membantu menavigasi aplikasi materi dalam kehidupan mereka
                 sehari-hari. Planner yang bisa dikostumisasi sesuai dengan
                 kebutuhan kalian dan anak.
               </BenefitItem>
-              <BenefitItem icon={<FileVideoIcon />} title="Video rekaman">
-                Kelas akan saya rekam dan saya bagikan kepada kalian agar bisa
-                diakses seumur hidup
-              </BenefitItem>
               <BenefitItem
-                icon={<WhatsAppIcon />}
-                title="Grup WhatsApp sementara"
+                icon={<FileVideoIcon />}
+                title="Materi Video rekaman (pre-recorded video)"
               >
-                Saya akan buatkan grup WhatsApp sementara selama 1 bulan, untuk
-                sarana berdiskusi jika ada hal-hal yang masih ingin ditanyakan.
+                Materi yang akan saya sampaikan sudah saya rekam sebelumnya
+                dengan kualitas suara dan gambar yang lebih baik dari
+                kelas-kelas sebelumnya. Materi saya partisi berdasarkan topik
+                sehingga teman-teman mudah merujuk kembali sesuai dengan topik
+                yang kalian inginkan atau butuhkan saat itu.
               </BenefitItem>
             </BenefitTopContainer>
           }
           bottom={
             <BenefitBottomContainer
-              title="Interaksi dua arah"
+              title="Timeline"
               description="Saya akan ajak teman-teman untuk menyelami materi dengan:"
               image={
                 <BenefitContainerImage
@@ -94,19 +93,24 @@ export default function HomePage() {
                 />
               }
             >
-              <BenefitItem
-                icon={<ChalkboardTeacherIcon />}
-                title="Langsung dan intensif"
-              >
-                Interaksi langsung di dalam kelas melalui Zoom. Ukuran kelas
-                yang kecil memungkinkan proses diskusi yang mendalam.
+              <BenefitItem icon={<TelegramIcon />} title="Grup Telegram">
+                Kami akan sediakan grup telegram untuk update informasi dan
+                mengumpulkan pertanyaan-pertanyaan yang ingin diajukan. Oleh
+                karena itu, setelah peserta mendapatkan akses materi, silakan
+                materi tersebut dipelajari sesuai dengan kecepatan
+                masing-masing. Teman-teman bisa melahap habis materi sekali
+                waktu, atau dicicil untuk dipelajari dalam waktu beberapa hari.
+                Jika ada pertanyaan, ajukanlah pertanyaan tersebut di grup
+                telegram. Pertanyaan-pertanyaan tersebut akan dikumpulkan oleh
+                Tim Tahun Prasekolahku.
               </BenefitItem>
-              <BenefitItem
-                icon={<CommentsAltIcon />}
-                title="Demonstrasi dan diskusi"
-              >
-                Saya akan mendemonstrasikan pengisian lembar perencanaan yang
-                telah disediakan disertai dengan diskusi dan tanya jawab.
+              <BenefitItem icon={<CommentsAltIcon />} title="Diskusi via Zoom">
+                Setelah pertanyaan terkumpul, kami akan mengadakan sesi Zoom
+                untuk berdiskusi interaktif akan pertanyaan-pertanyaan tersebut.
+                Sesi diskusi via Zoom akan diadakan secara berkala. Untuk
+                periode pertama tahun 2022, diskusi Zoom diadakan pada hari
+                Minggu, 20 Maret 2022. Untuk teman/teman yang ingin mengikuti
+                Zoom bulan Maret ini, maka timeline-nya sbb:
               </BenefitItem>
             </BenefitBottomContainer>
           }
@@ -129,14 +133,16 @@ export default function HomePage() {
             alam, baik itu di luar atau bahkan di dalam rumah sendiri.
           </BenefitDescription>
           <BenefitDescription>
-            Di kelas ini, saya akan menggunakan saran-saran Charlotte Mason
-            untuk pendidikan prasekolah yang praktis, mudah dilakukan, dan
-            menyenangkan. Saya akan tunjukkan bahwa anak usia ini tidak perlu
-            diajari aktivitas-aktivitas akademis yang membuat mereka dan para
-            ibu stress. Kita akan melangkah ke dunia pendidikan yang simpel,
-            klasik, dan menyenangkan tanpa mengorbankan kewarasan kita.
+            Di kelas ini, saya akan menggunakan prinsip-prinsip pendidikan ala
+            Charlotte Mason dan positive discipline untuk pendidikan prasekolah
+            yang praktis, mudah dilakukan, dan menyenangkan. Di sini kita akan
+            bersama-sama melihat bahwa anak usia ini tidak perlu diajari
+            aktivitas-aktivitas akademis yang membuat mereka dan para ibu
+            stress. Kita akan melangkah ke dunia pendidikan yang simpel dan
+            menyenangkan tanpa mengorbankan kewarasan kita. Insyaa Allah.
           </BenefitDescription>
         </BenefitSection>
+        <Timeline />
         <Content title="Kisi-kisi materi">
           <Content.Item>Sekilas filosofi Charlotte Mason</Content.Item>
           <Content.Item>Tugas utama orang tua</Content.Item>
