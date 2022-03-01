@@ -10,7 +10,7 @@ test('Call to action has rendered in dashboard page', async ({ page }) => {
 
   await expect(page.locator('text=Biaya kelas').first()).toBeVisible()
   await expect(
-    page.locator('text=Terbatas untuk 30 orang peserta').first()
+    page.locator('text=Sistem pendaftaran peserta melalui website ini').first()
   ).toBeVisible()
 
   const purchaseButton = page.locator('a:has-text("Daftarkan diri")').first()
@@ -25,7 +25,7 @@ test('Redirect to /dashboard/purchase after click CTA button', async ({
 
   await expect(page.locator('text=Biaya kelas').first()).toBeVisible()
   await expect(
-    page.locator('text=Terbatas untuk 30 orang peserta').first()
+    page.locator('text=Sistem pendaftaran peserta melalui website ini').first()
   ).toBeVisible()
 
   await page.click('text=Daftarkan diri')

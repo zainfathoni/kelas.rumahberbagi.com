@@ -85,12 +85,15 @@ export const Pricing = ({
             <div className="max-w-lg mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
               <div className="flex-1 bg-white px-6 py-8 lg:p-12">
                 <h3 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                  Terbatas untuk 30 orang peserta
+                  Sistem pendaftaran peserta melalui website ini
                 </h3>
                 <p className="mt-6 text-base text-gray-500">
-                  Apabila Anda berubah pikiran, kabari kami setidaknya tiga hari
-                  sebelum kelas dimulai supaya kami dapat mengembalikan dana
-                  Anda sekaligus membuka slot untuk calon peserta kelas lainnya.
+                  Calon peserta yang sudah melakukan pendaftaran waiting list
+                  akan dihubungi oleh Tim Rumah Berbagi untuk mengakses link
+                  pembayaran. Peserta perlu mengikuti langkah-langkah yang akan
+                  diberikan untuk pembayaran kelas. Setelah pembayaran
+                  terkonfirmasi, tim akan memberikan link untuk masuk ke grup
+                  telegram Tahun Prasekolahku.
                 </p>
                 {children}
               </div>
