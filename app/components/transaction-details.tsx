@@ -56,7 +56,7 @@ export function TransactionDetails({
                       Username Telegram
                     </dt>
                     <dd
-                      id="user-phone-number"
+                      id="user-telegram"
                       className="mt-1 text-sm text-gray-900"
                     >
                       {isNotEmpty(user.telegram) ? user.telegram : '-'}
@@ -67,7 +67,7 @@ export function TransactionDetails({
                       Username Instagram
                     </dt>
                     <dd
-                      id="user-phone-number"
+                      id="user-instagram"
                       className="mt-1 text-sm text-gray-900"
                     >
                       {isNotEmpty(user.instagram) ? user.instagram : '-'}
