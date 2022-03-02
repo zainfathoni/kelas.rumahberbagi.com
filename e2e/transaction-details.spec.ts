@@ -56,7 +56,7 @@ test('render transaction data if transaction data exists', async ({ page }) => {
   const nominal = await page.locator('id=transaction-amount').textContent()
   expect(nominal).toBe(printRupiah(submitted.amount))
 
-  const transactionTime = page.locator('id=transaction-datetime').first()
+  const transactionTime = page.locator('id=transaction-updatedAt').first()
   await expect(transactionTime).not.toBeEmpty()
 })
 

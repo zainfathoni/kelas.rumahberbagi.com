@@ -29,7 +29,7 @@ export function TransactionDetails({
                   id="transaction-title"
                   className="text-lg leading-6 font-medium text-gray-900"
                 >
-                  Detail Transaksi
+                  Detail Pengguna dan Transaksi
                 </h1>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -51,6 +51,32 @@ export function TransactionDetails({
                       {isNotEmpty(user.phoneNumber) ? user.phoneNumber : '-'}
                     </dd>
                   </div>
+                  <div className="sm:col-span-1">
+                    <dt className="text-sm font-medium text-gray-500">
+                      Username Telegram
+                    </dt>
+                    <dd
+                      id="user-telegram"
+                      className="mt-1 text-sm text-gray-900"
+                    >
+                      {isNotEmpty(user.telegram) ? user.telegram : '-'}
+                    </dd>
+                  </div>
+                  <div className="sm:col-span-1">
+                    <dt className="text-sm font-medium text-gray-500">
+                      Username Instagram
+                    </dt>
+                    <dd
+                      id="user-instagram"
+                      className="mt-1 text-sm text-gray-900"
+                    >
+                      {isNotEmpty(user.instagram) ? user.instagram : '-'}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">
                       Nama Bank
@@ -102,20 +128,20 @@ export function TransactionDetails({
                   </div>
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">
-                      Tanggal dan Waktu Pembayaran
+                      Tanggal Konfirmasi
                     </dt>
                     <dd
-                      id="transaction-datetime"
+                      id="transaction-updatedAt"
                       className="mt-1 text-sm text-gray-900"
                     >
-                      {transaction.datetime ? (
+                      {transaction.updatedAt ? (
                         <time
                           dateTime={new Date(
-                            transaction.datetime
+                            transaction.updatedAt
                           ).toISOString()}
                         >
                           {printLocaleDateTimeString(
-                            new Date(transaction.datetime)
+                            new Date(transaction.updatedAt)
                           )}
                         </time>
                       ) : (
@@ -128,7 +154,7 @@ export function TransactionDetails({
                       Status
                     </dt>
                     <dd
-                      id="transaction-datetime"
+                      id="transaction-status"
                       className="mt-1 text-sm text-gray-900"
                     >
                       {transaction.status === TRANSACTION_STATUS.VERIFIED ? (

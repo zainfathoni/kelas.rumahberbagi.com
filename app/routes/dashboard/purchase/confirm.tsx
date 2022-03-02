@@ -15,7 +15,6 @@ import { auth, requireUpdatedUser } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
-import { formatDateTime } from '~/utils/format'
 import { Button, Field } from '~/components/form-elements'
 import { TRANSACTION_STATUS } from '~/models/enum'
 
@@ -27,7 +26,6 @@ interface TransactionFields {
   bankAccountNumber: string
   bankAccountName: string
   amount: number
-  datetime: Date
   status: string
 }
 
@@ -62,18 +60,15 @@ export const action: ActionFunction = async ({ request }) => {
   const bankAccountNumber = form.get('bankAccountNumber')
   const bankAccountName = form.get('bankAccountName')
   const amount: string = form.get('amount') as string
-  const paymentTime: string = form.get('paymentTime') as string
 
   const parsedAmount: number = parseInt(amount, 10) as number
-  const formattedPaymentTime: Date = new Date(paymentTime)
 
   if (
     typeof id !== 'string' ||
     typeof bankName !== 'string' ||
     typeof bankAccountNumber !== 'string' ||
     typeof bankAccountName !== 'string' ||
-    typeof amount !== 'string' ||
-    typeof paymentTime !== 'string'
+    typeof amount !== 'string'
   ) {
     return { formError: 'Form not submitted correctly.' }
   }
@@ -93,7 +88,6 @@ export const action: ActionFunction = async ({ request }) => {
     bankAccountName,
     bankAccountNumber,
     amount: parsedAmount,
-    datetime: formattedPaymentTime,
     status: 'SUBMITTED',
   }
   if (Object.values(fieldErrors).some(Boolean)) {
@@ -149,12 +143,31 @@ export default function PurchaseConfirm() {
                   id="user-phone-number"
                   className="mt-1 text-sm text-gray-900"
                 >
-                  {user.phoneNumber}
+                  {user.phoneNumber || '-'}
+                </dd>
+              </div>
+              <div className="col-span-6 lg:col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Username Telegram
+                </dt>
+                <dd id="user-name" className="mt-1 text-sm text-gray-900">
+                  {user.telegram || '-'}
+                </dd>
+              </div>
+              <div className="col-span-6 lg:col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Username Instagram
+                </dt>
+                <dd
+                  id="user-phone-number"
+                  className="mt-1 text-sm text-gray-900"
+                >
+                  {user.instagram || '-'}
                 </dd>
               </div>
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
-                  Nama Lengkap atau Nomor WhatsApp Anda salah atau masih kosong?
+                  Biodata Anda di atas masih kosong atau terdapat kesalahan?
                 </p>
                 <Link
                   to="/dashboard/profile/edit"
@@ -206,17 +219,6 @@ export default function PurchaseConfirm() {
                 autoComplete="transaction-amount"
                 required
                 aria-invalid={transaction?.amount ? 'false' : 'true'}
-              />
-              <Field
-                type="datetime-local"
-                className="col-span-6 lg:col-span-4"
-                name="paymentTime"
-                label="Tanggal dan Waktu Pembayaran"
-                defaultValue={
-                  transaction?.datetime
-                    ? formatDateTime(new Date(transaction.datetime))
-                    : undefined
-                }
               />
             </div>
           </div>

@@ -41,7 +41,7 @@ export default function TransactionsList() {
           transactionId={transaction.id}
           bankAccountName={transaction.bankAccountName}
           bankName={transaction.bankName}
-          dateTime={transaction.datetime}
+          updatedAt={transaction.updatedAt}
           bankAccountNumber={transaction.bankAccountNumber}
           status={transaction.status as TransactionStatus}
         />
