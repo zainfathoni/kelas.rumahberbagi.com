@@ -143,12 +143,31 @@ export default function PurchaseConfirm() {
                   id="user-phone-number"
                   className="mt-1 text-sm text-gray-900"
                 >
-                  {user.phoneNumber}
+                  {user.phoneNumber || '-'}
+                </dd>
+              </div>
+              <div className="col-span-6 lg:col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Username Telegram
+                </dt>
+                <dd id="user-name" className="mt-1 text-sm text-gray-900">
+                  {user.telegram || '-'}
+                </dd>
+              </div>
+              <div className="col-span-6 lg:col-span-3">
+                <dt className="text-sm font-medium text-gray-500">
+                  Username Instagram
+                </dt>
+                <dd
+                  id="user-phone-number"
+                  className="mt-1 text-sm text-gray-900"
+                >
+                  {user.instagram || '-'}
                 </dd>
               </div>
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
-                  Nama Lengkap atau Nomor WhatsApp Anda salah atau masih kosong?
+                  Biodata Anda di atas masih kosong atau terdapat kesalahan?
                 </p>
                 <Link
                   to="/dashboard/profile/edit"
