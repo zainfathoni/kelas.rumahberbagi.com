@@ -7,13 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import {
   getTransactionById,
   TransactionWithUser,
-  updateTransactionDateTimeAndStatus,
+  updateTransactionStatus,
 } from '~/models/transaction'
-import {
-  formatDateTime,
-  printLocaleDateTimeString,
-  printRupiah,
-} from '~/utils/format'
+import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
@@ -23,7 +19,6 @@ import {
   activateSubscription,
   deactivateSubscription,
 } from '~/models/subscription'
-import { Field } from '~/components/form-elements'
 
 export const loader: LoaderFunction = async ({ params }) => {
   // TODO: block if the current user is not an admin or the author of the course
@@ -57,11 +52,8 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const formData = await request.formData()
   const status = formData.get('status')
-  const paymentTime: string = formData.get('paymentTime') as string
 
-  const formattedPaymentTime: Date = new Date(paymentTime)
-
-  if (typeof status !== 'string' || typeof paymentTime !== 'string') {
+  if (typeof status !== 'string') {
     return { formError: 'Form not submitted correctly.' }
   }
 
@@ -70,11 +62,8 @@ export const action: ActionFunction = async ({ request, params }) => {
     return redirect('/dashboard/purchase')
   }
 
-  console.log(formattedPaymentTime)
-
-  const updatedTransaction = await updateTransactionDateTimeAndStatus(
+  const updatedTransaction = await updateTransactionStatus(
     transaction.id,
-    formattedPaymentTime,
     status as TransactionStatus
   )
   if (!updatedTransaction) {
@@ -184,14 +173,14 @@ export default function VerifyTransaction() {
                                 &middot;
                               </span>
                               <div className="mt-1 sm:mt-0">
-                                {transactionDetails.datetime ? (
+                                {transactionDetails.updatedAt ? (
                                   <time
                                     dateTime={new Date(
-                                      transactionDetails.datetime
+                                      transactionDetails.updatedAt
                                     ).toISOString()}
                                   >
                                     {printLocaleDateTimeString(
-                                      new Date(transactionDetails.datetime)
+                                      new Date(transactionDetails.updatedAt)
                                     )}
                                   </time>
                                 ) : (
@@ -199,23 +188,6 @@ export default function VerifyTransaction() {
                                 )}
                               </div>
                             </div>
-                            <Field
-                              type="datetime-local"
-                              className="mt-2"
-                              name="paymentTime"
-                              label="Tanggal dan Waktu Pembayaran"
-                              defaultValue={
-                                transactionDetails?.datetime
-                                  ? formatDateTime(
-                                      new Date(transactionDetails.datetime)
-                                    )
-                                  : undefined
-                              }
-                              required
-                              aria-invalid={
-                                transactionDetails?.datetime ? 'false' : 'true'
-                              }
-                            />
                           </div>
                         </div>
                         <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">

@@ -102,20 +102,20 @@ export function TransactionDetails({
                   </div>
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">
-                      Tanggal dan Waktu Pembayaran
+                      Tanggal Konfirmasi
                     </dt>
                     <dd
-                      id="transaction-datetime"
+                      id="transaction-updatedAt"
                       className="mt-1 text-sm text-gray-900"
                     >
-                      {transaction.datetime ? (
+                      {transaction.updatedAt ? (
                         <time
                           dateTime={new Date(
-                            transaction.datetime
+                            transaction.updatedAt
                           ).toISOString()}
                         >
                           {printLocaleDateTimeString(
-                            new Date(transaction.datetime)
+                            new Date(transaction.updatedAt)
                           )}
                         </time>
                       ) : (
@@ -128,7 +128,7 @@ export function TransactionDetails({
                       Status
                     </dt>
                     <dd
-                      id="transaction-datetime"
+                      id="transaction-status"
                       className="mt-1 text-sm text-gray-900"
                     >
                       {transaction.status === TRANSACTION_STATUS.VERIFIED ? (

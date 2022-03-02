@@ -11,7 +11,7 @@ const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
     bankAccountName: fake((f) => f.finance.accountName()),
     bankAccountNumber: fake((f) => f.finance.account()),
     bankName: fake((f) => f.company.companyName()),
-    dateTime: fake((f) => f.date.past()),
+    updatedAt: fake((f) => f.date.past()),
     status: oneOf(TRANSACTION_STATUS),
   },
 })
@@ -52,7 +52,7 @@ describe('TransactionItem', () => {
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByLabelText(/waktu transaksi/i)).toHaveTextContent(
-      printLocaleDateTimeString(props.dateTime ?? '')
+      printLocaleDateTimeString(props.updatedAt ?? '')
     )
   })
   it('should display bankAccountNumber correctly', () => {

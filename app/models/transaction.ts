@@ -80,7 +80,7 @@ export async function getAllTransactions({
 
   return await db.transaction.findMany({
     where,
-    orderBy: { datetime: 'desc' },
+    orderBy: { updatedAt: 'desc' },
     skip: getSkip(page),
     take: PAGE_SIZE,
   })
@@ -99,13 +99,12 @@ export async function getTransactionById(
   })
 }
 
-export async function updateTransactionDateTimeAndStatus(
+export async function updateTransactionStatus(
   id: string,
-  datetime: Date,
   status: TransactionStatus
 ) {
   return await db.transaction.update({
     where: { id },
-    data: { datetime, status },
+    data: { status },
   })
 }

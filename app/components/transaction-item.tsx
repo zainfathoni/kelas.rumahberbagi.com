@@ -15,7 +15,7 @@ export type TransactionItemProps = {
   transactionId: string
   bankAccountName: string
   bankName: string
-  dateTime: Date | null
+  updatedAt: Date | null
   bankAccountNumber: string
   status: TransactionStatus
 }
@@ -65,7 +65,7 @@ export function TransactionItem({
   transactionId,
   bankAccountName,
   bankName,
-  dateTime,
+  updatedAt,
   bankAccountNumber,
   status,
 }: TransactionItemProps) {
@@ -99,10 +99,10 @@ export function TransactionItem({
                     className="text-sm text-gray-900"
                     aria-label="Waktu Transaksi"
                   >
-                    {!dateTime ? (
+                    {!updatedAt ? (
                       '-'
                     ) : (
-                      <time>{printLocaleDateTimeString(dateTime)}</time>
+                      <time>{printLocaleDateTimeString(updatedAt)}</time>
                     )}
                   </p>
                   <p
