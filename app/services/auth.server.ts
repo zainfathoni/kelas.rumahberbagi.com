@@ -46,7 +46,5 @@ export async function requireUser(
     failureRedirect: `/login?${searchParams}`,
   })
 
-  console.log(user)
-
   return user
 }

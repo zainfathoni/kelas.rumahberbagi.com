@@ -57,28 +57,23 @@ export const action: ActionFunction = async ({ request, params }) => {
     return { formError: 'Form not submitted correctly.' }
   }
 
-  const transaction = await getTransactionById(transactionId)
-  if (!transaction) {
-    return redirect('/dashboard/purchase')
-  }
-
-  const updatedTransaction = await updateTransactionStatus(
-    transaction.id,
+  const transaction = await updateTransactionStatus(
+    transactionId,
     status as TransactionStatus
   )
-  if (!updatedTransaction) {
+  if (!transaction) {
     throw json({ transaction, status }, { status: 500 })
   }
 
-  if (updatedTransaction.status === TRANSACTION_STATUS.VERIFIED) {
-    const subscription = await activateSubscription(updatedTransaction.userId)
+  if (transaction.status === TRANSACTION_STATUS.VERIFIED) {
+    const subscription = await activateSubscription(transaction.userId)
     if (!subscription) {
-      throw json({ updatedTransaction, status }, { status: 500 })
+      throw json({ updatedTransaction: transaction, status }, { status: 500 })
     }
-  } else if (updatedTransaction.status === TRANSACTION_STATUS.REJECTED) {
-    const subscription = await deactivateSubscription(updatedTransaction.userId)
+  } else if (transaction.status === TRANSACTION_STATUS.REJECTED) {
+    const subscription = await deactivateSubscription(transaction.userId)
     if (!subscription) {
-      throw json({ updatedTransaction, status }, { status: 500 })
+      throw json({ updatedTransaction: transaction, status }, { status: 500 })
     }
   }
 
@@ -87,7 +82,6 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function VerifyTransaction() {
   const transactionDetails: TransactionWithUser = useLoaderData()
-  console.log(transactionDetails)
   const navigate = useNavigate()
   const matches = useMatches()
   const destinationStatus = (
