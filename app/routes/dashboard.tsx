@@ -44,7 +44,7 @@ const navigation = [
   },
   {
     name: 'Transaksi',
-    href: '/dashboard/transactions',
+    href: '/dashboard/transactions?status=submitted',
     icon: ServerIcon,
     permission: requireAuthor,
   },

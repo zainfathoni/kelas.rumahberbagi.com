@@ -2,7 +2,7 @@ import { redirect, Outlet, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { getFirstTransaction } from '~/models/transaction'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { TransactionDetails } from '~/components/transaction-details'
 import {
   PrimaryButtonLink,
@@ -13,7 +13,7 @@ import { TRANSACTION_STATUS } from '~/models/enum'
 export const handle = { name: 'Menunggu Verifikasi' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
 
   const transaction = await getFirstTransaction(user.id)
   if (!transaction) {

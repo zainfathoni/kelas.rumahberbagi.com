@@ -1,14 +1,14 @@
 import type { LoaderFunction } from 'remix'
 import { Outlet, useMatches } from 'remix'
 import { Step } from '~/components/step'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
 import { STEPS } from '~/utils/constants'
 
 export const handle = { name: 'Pembelian' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await requireUpdatedUser(request)
+  await requireUser(request)
 
   return true
 }

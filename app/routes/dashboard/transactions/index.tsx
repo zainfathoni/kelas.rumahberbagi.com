@@ -3,13 +3,13 @@ import type { LoaderFunction } from 'remix'
 import { Transaction } from '@prisma/client'
 import { getFirstCourse } from '~/models/course'
 import { getAllTransactions } from '~/models/transaction'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { TransactionItem } from '~/components/transaction-item'
 import type { TransactionStatus } from '~/models/enum'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {

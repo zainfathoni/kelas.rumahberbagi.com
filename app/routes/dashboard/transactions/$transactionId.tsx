@@ -2,7 +2,7 @@ import { redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { getTransactionById, TransactionWithUser } from '~/models/transaction'
 import { TRANSACTION_STATUS } from '~/models/enum'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { TransactionDetails } from '~/components/transaction-details'
@@ -16,7 +16,7 @@ import { getWhatsAppLink } from '~/utils/whatsapp'
 export const handle = { name: 'Detail Transaksi' }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {

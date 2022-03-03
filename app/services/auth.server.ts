@@ -1,9 +1,8 @@
 import { Authenticator, KCDStrategy } from 'remix-auth'
 import { User } from '@prisma/client'
-import { redirect } from 'remix'
 import { sessionStorage } from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'
-import { createUserByEmail, getUser, getUserByEmail } from '~/models/user'
+import { createUserByEmail, getUserByEmail } from '~/models/user'
 import { verifyEmailAddress } from '~/services/verifier.server'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
@@ -37,26 +36,15 @@ auth.use(
   )
 )
 
-export async function requireUpdatedUser(
+export async function requireUser(
   request: Request,
   redirectTo: string = new URL(request.url).pathname
 ) {
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
+  const searchParams = new URLSearchParams([['redirectTo', redirectTo]])
+
+  const user = await auth.isAuthenticated(request, {
+    failureRedirect: `/login?${searchParams}`,
   })
-
-  if (!id) {
-    const searchParams = new URLSearchParams([['redirectTo', redirectTo]])
-    throw redirect(`/login?${searchParams}`)
-  }
-
-  // TODO: we can use the user instance from the auth service only when we always commit new changes in /profile/edit
-  // until then, we need to fetch the user from the database
-  const user = await getUser(id)
-
-  if (!user) {
-    throw redirect('/logout')
-  }
 
   return user
 }

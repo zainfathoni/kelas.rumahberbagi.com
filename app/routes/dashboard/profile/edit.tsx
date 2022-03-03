@@ -13,7 +13,7 @@ import { Button, Field } from '~/components/form-elements'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { db } from '~/utils/db.server'
 import { getUser } from '~/models/user'
-import { logout } from '~/services/session.server'
+import { commitSession, getSession, logout } from '~/services/session.server'
 
 export const handle = { name: 'Ubah Profil' }
 
@@ -51,7 +51,7 @@ type ActionData = {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const user = await auth.isAuthenticated(request, {
+  let user = await auth.isAuthenticated(request, {
     failureRedirect: '/login',
   })
 
@@ -84,9 +84,18 @@ export const action: ActionFunction = async ({ request }) => {
     return { fieldErrors, fields }
   }
 
-  await db.user.update({ where: { id: user.id }, data: fields })
+  user = await db.user.update({ where: { id: user.id }, data: fields })
 
-  return redirect('/dashboard/profile')
+  // manually get the session
+  const session = await getSession(request.headers.get('cookie'))
+  // and store the user data
+  session.set(auth.sessionKey, user)
+
+  const headers = new Headers({
+    'Set-Cookie': await commitSession(session),
+  })
+
+  return redirect('/dashboard/profile', { headers })
 }
 
 const tabs = [{ name: 'Profil', href: '#', current: true }]
