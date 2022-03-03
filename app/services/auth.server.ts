@@ -1,4 +1,5 @@
-import { Authenticator, KCDStrategy } from 'remix-auth'
+import { Authenticator } from 'remix-auth'
+import { EmailLinkStrategy } from 'remix-auth-email-link'
 import { User } from '@prisma/client'
 import { sessionStorage } from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'
@@ -16,7 +17,7 @@ export const auth = new Authenticator<User>(sessionStorage)
 // Here we need the sendEmail, the secret and the URL where the user is sent
 // after clicking on the magic link
 auth.use(
-  new KCDStrategy(
+  new EmailLinkStrategy(
     {
       verifyEmailAddress,
       sendEmail,
@@ -26,7 +27,7 @@ auth.use(
     },
     // In the verify callback you will only receive the email address and you
     // should return the user instance
-    async (email) => {
+    async ({ email }) => {
       let user = await getUserByEmail(email)
       if (user === null) {
         user = await createUserByEmail(email)
