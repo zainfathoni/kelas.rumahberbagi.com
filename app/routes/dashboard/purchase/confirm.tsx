@@ -11,7 +11,7 @@ import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
-import { auth, requireUpdatedUser } from '~/services/auth.server'
+import { auth, requireUser } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
@@ -32,7 +32,7 @@ interface TransactionFields {
 export const handle = { name: 'Konfirmasi Pembayaran' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
 
   const transaction = await getFirstTransaction(user.id)
 

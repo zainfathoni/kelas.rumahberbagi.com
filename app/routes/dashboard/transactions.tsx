@@ -9,7 +9,7 @@ import {
   AllTransactionsCount,
   countAllTransactions,
 } from '~/models/transaction'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
 import { getPagesCount } from '~/utils/pagination'
@@ -18,7 +18,7 @@ import { PageLink } from '~/components/page-link'
 export const handle = { name: 'Transaksi' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {

@@ -11,7 +11,7 @@ import {
 } from '~/models/transaction'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
-import { requireUpdatedUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
@@ -38,7 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
-  const user = await requireUpdatedUser(request)
+  const user = await requireUser(request)
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
