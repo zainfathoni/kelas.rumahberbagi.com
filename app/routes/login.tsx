@@ -8,7 +8,7 @@ import { getUserSession } from '~/services/session.server'
 export const loader: LoaderFunction = async ({ request }) => {
   await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
   const session = await getUserSession(request)
-  // This session key `auth:magiclink` is the default one used by the KCDStrategy
+  // This session key `auth:magiclink` is the default one used by the EmailLinkStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
   return json({
