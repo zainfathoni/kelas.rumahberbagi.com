@@ -1,10 +1,10 @@
 import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
-import type { KCDSendEmailFunction } from 'remix-auth'
+import type { SendEmailFunction } from 'remix-auth-email-link'
 import * as emailProvider from '~/services/email-provider.server'
 import { writeFixture } from '~/utils/fixtures'
 
-export const sendEmail: KCDSendEmailFunction<User> = async (options) => {
+export const sendEmail: SendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
   const body = renderToString(
     <main>

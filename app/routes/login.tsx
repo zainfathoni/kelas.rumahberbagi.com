@@ -8,7 +8,7 @@ import { getUserSession } from '~/services/session.server'
 export const loader: LoaderFunction = async ({ request }) => {
   await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
   const session = await getUserSession(request)
-  // This session key `kcd:magiclink` is the default one used by the KCDStrategy
+  // This session key `auth:magiclink` is the default one used by the EmailLinkStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
   return json({
@@ -21,7 +21,7 @@ export const action: ActionFunction = async ({ request }) => {
   // The success redirect is required in this action, this is where the user is
   // going to be redirected after the magic link is sent, note that here the
   // user is not yet authenticated, so you can't send it to a private page.
-  await auth.authenticate('kcd', request, {
+  await auth.authenticate('email-link', request, {
     successRedirect: '/login',
     // If this is not set, any error will be throw and the ErrorBoundary will be
     // rendered.
