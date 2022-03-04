@@ -1,10 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
-import { ReactNode } from 'react'
+import { RouteData } from '@remix-run/react/routeData'
+import { Params } from 'react-router-dom'
 import { Link } from 'remix'
 import { classNames } from '~/utils/class-names'
 
-export function BreadcrumbItem({
+function BreadcrumbItem({
   name,
   to,
   current,
@@ -32,11 +33,21 @@ export function BreadcrumbItem({
   )
 }
 
+export type Matches = {
+  id: string
+  pathname: string
+  params: Params<string>
+  data: RouteData
+  handle: { name: string }
+}[]
+
 export function Breadcrumbs({
-  children,
+  matches,
+  searchParams,
   className,
 }: {
-  children: ReactNode
+  matches: Matches
+  searchParams: URLSearchParams
   className?: string
 }) {
   return (
@@ -53,7 +64,16 @@ export function Breadcrumbs({
             </Link>
           </div>
         </li>
-        {children}
+        {matches.map(({ pathname, handle }, index) =>
+          handle?.name ? (
+            <BreadcrumbItem
+              key={handle.name}
+              name={handle.name}
+              to={`${pathname}?${searchParams.toString()}`}
+              current={index === matches.length - 1}
+            />
+          ) : null
+        )}
       </ol>
     </nav>
   )
