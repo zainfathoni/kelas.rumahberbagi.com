@@ -12,7 +12,7 @@ import { classNames } from '~/utils/class-names'
 import { printLocaleDateTimeString } from '~/utils/format'
 
 export type TransactionItemProps = {
-  transactionId: string
+  to: string
   bankAccountName: string
   bankName: string
   updatedAt: Date | null
@@ -62,7 +62,7 @@ function TransactionIcon({
 }
 
 export function TransactionItem({
-  transactionId,
+  to,
   bankAccountName,
   bankName,
   updatedAt,
@@ -71,7 +71,7 @@ export function TransactionItem({
 }: TransactionItemProps) {
   return (
     <li>
-      <Link to={transactionId}>
+      <Link to={to}>
         <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
           <div className="min-w-0 flex-1 flex items-center">
             <div className="min-w-0 flex-1 px-4 sm:grid sm:grid-cols-2 sm:gap-4">

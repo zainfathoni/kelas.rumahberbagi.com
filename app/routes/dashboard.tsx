@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { useSearchParams } from 'react-router-dom'
 import { User } from '@prisma/client'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { auth } from '~/services/auth.server'
@@ -59,6 +60,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
+  const [searchParams] = useSearchParams()
   const { user } = useLoaderData<{ user: User }>()
 
   return (
@@ -296,7 +298,7 @@ export default function Dashboard() {
                   <BreadcrumbItem
                     key={handle.name}
                     name={handle.name}
-                    to={pathname}
+                    to={`${pathname}?${searchParams.toString()}`}
                     current={index === matches.length - 1}
                   />
                 ) : null
