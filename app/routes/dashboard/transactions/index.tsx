@@ -1,5 +1,6 @@
 import { json, redirect, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { useSearchParams } from 'react-router-dom'
 import { Transaction } from '@prisma/client'
 import { getFirstCourse } from '~/models/course'
 import { getAllTransactions } from '~/models/transaction'
@@ -32,13 +33,15 @@ export default function TransactionsList() {
   const { transactions } = useLoaderData<{
     transactions: Transaction[]
   }>()
+  const [searchParams] = useSearchParams()
+  console.log(searchParams)
 
   return (
     <ul className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
       {transactions.map((transaction) => (
         <TransactionItem
           key={transaction.id}
-          transactionId={transaction.id}
+          to={`${transaction.id}?${searchParams.toString()}`}
           bankAccountName={transaction.bankAccountName}
           bankName={transaction.bankName}
           updatedAt={transaction.updatedAt}

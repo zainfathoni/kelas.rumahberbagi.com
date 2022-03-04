@@ -7,7 +7,12 @@ import { TRANSACTION_STATUS } from '~/models/enum'
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
-    transactionId: fake((f) => f.datatype.uuid()),
+    to: fake(
+      (f) =>
+        `${f.datatype.uuid()}?status=${oneOf(
+          TRANSACTION_STATUS
+        )}&page=${f.datatype.number()}`
+    ),
     bankAccountName: fake((f) => f.finance.accountName()),
     bankAccountNumber: fake((f) => f.finance.account()),
     bankName: fake((f) => f.company.companyName()),
@@ -70,9 +75,6 @@ describe('TransactionItem', () => {
     render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
 
     expect(screen.getByRole('link')).toBeVisible()
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      `/${props.transactionId}`
-    )
+    expect(screen.getByRole('link')).toHaveAttribute('href', `/${props.to}`)
   })
 })

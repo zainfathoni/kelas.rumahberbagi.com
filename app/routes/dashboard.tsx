@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { useSearchParams } from 'react-router-dom'
 import { User } from '@prisma/client'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { auth } from '~/services/auth.server'
@@ -18,7 +19,7 @@ import { LogoWithText } from '~/components/logo'
 import { getUser } from '~/models/user'
 import { logout } from '~/services/session.server'
 import { requireAuthor } from '~/utils/permissions'
-import { BreadcrumbItem, Breadcrumbs } from '~/components/breadcrumbs'
+import { Breadcrumbs } from '~/components/breadcrumbs'
 
 export const loader: LoaderFunction = async ({ request }) => {
   // If the user is here, it's already authenticated, if not redirect them to
@@ -59,6 +60,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
+  const [searchParams] = useSearchParams()
   const { user } = useLoaderData<{ user: User }>()
 
   return (
@@ -290,32 +292,14 @@ export default function Dashboard() {
               <span className="sr-only">Open sidebar</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <Breadcrumbs>
-              {matches.map(({ pathname, handle }, index) =>
-                handle?.name ? (
-                  <BreadcrumbItem
-                    key={handle.name}
-                    name={handle.name}
-                    to={pathname}
-                    current={index === matches.length - 1}
-                  />
-                ) : null
-              )}
-            </Breadcrumbs>
+            <Breadcrumbs matches={matches} searchParams={searchParams} />
           </div>
           <main className="flex-1">
-            <Breadcrumbs className="hidden lg:flex ml-8 py-4">
-              {matches.map(({ pathname, handle }, index) =>
-                handle?.name ? (
-                  <BreadcrumbItem
-                    key={handle.name}
-                    name={handle.name}
-                    to={pathname}
-                    current={index === matches.length - 1}
-                  />
-                ) : null
-              )}
-            </Breadcrumbs>
+            <Breadcrumbs
+              matches={matches}
+              searchParams={searchParams}
+              className="hidden lg:flex ml-8 py-4"
+            />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               {/*
                 <div className="py-4">
