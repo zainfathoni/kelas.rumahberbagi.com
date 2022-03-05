@@ -101,10 +101,11 @@ export async function getTransactionById(
 
 export async function updateTransactionStatus(
   id: string,
+  notes: string,
   status: TransactionStatus
 ) {
   return await db.transaction.update({
     where: { id },
-    data: { status },
+    data: { notes, status },
   })
 }

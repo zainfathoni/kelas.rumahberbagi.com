@@ -1,5 +1,6 @@
 import { redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { useSearchParams } from 'react-router-dom'
 import { getTransactionById, TransactionWithUser } from '~/models/transaction'
 import { TRANSACTION_STATUS } from '~/models/enum'
 import { requireUser } from '~/services/auth.server'
@@ -40,6 +41,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function TransactionDetailsPage() {
   const { transaction } = useLoaderData<{ transaction: TransactionWithUser }>()
+  const [searchParams] = useSearchParams()
 
   return (
     <>
@@ -47,7 +49,7 @@ export default function TransactionDetailsPage() {
         <TransactionDetails transaction={transaction} user={transaction.user}>
           {/* TODO: Disable rejecting a verified transaction */}
           <TertiaryButtonLink
-            to="reject"
+            to={`reject?${searchParams.toString()}`}
             replace
             disabled={transaction.status === TRANSACTION_STATUS.REJECTED}
           >
@@ -61,7 +63,7 @@ export default function TransactionDetailsPage() {
             Kontak WhatsApp
           </SecondaryButtonLink>
           <PrimaryButtonLink
-            to="verify"
+            to={`verify?${searchParams.toString()}`}
             replace
             disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
           >

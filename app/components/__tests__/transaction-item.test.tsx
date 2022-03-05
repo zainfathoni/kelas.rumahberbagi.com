@@ -18,6 +18,7 @@ const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
     bankName: fake((f) => f.company.companyName()),
     updatedAt: fake((f) => f.date.past()),
     status: oneOf(TRANSACTION_STATUS),
+    notes: fake((f) => f.lorem.sentence()),
   },
 })
 describe('TransactionItem', () => {
@@ -76,5 +77,14 @@ describe('TransactionItem', () => {
 
     expect(screen.getByRole('link')).toBeVisible()
     expect(screen.getByRole('link')).toHaveAttribute('href', `/${props.to}`)
+  })
+  it('should display notes correctly', () => {
+    const props = transactionItemBuilder()
+
+    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+
+    expect(screen.getByLabelText(/catatan/i)).toHaveTextContent(
+      props.notes ?? ''
+    )
   })
 })

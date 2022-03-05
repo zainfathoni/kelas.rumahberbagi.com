@@ -3,7 +3,7 @@ import type { LoaderFunction, ActionFunction } from 'remix'
 import { CashIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   getTransactionById,
   TransactionWithUser,
@@ -19,6 +19,7 @@ import {
   activateSubscription,
   deactivateSubscription,
 } from '~/models/subscription'
+import { Field } from '~/components/form-elements'
 
 export const loader: LoaderFunction = async ({ params }) => {
   // TODO: block if the current user is not an admin or the author of the course
@@ -51,18 +52,23 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   const formData = await request.formData()
+  const notes = formData.get('notes')
   const status = formData.get('status')
 
-  if (typeof status !== 'string') {
-    return { formError: 'Form not submitted correctly.' }
+  if (typeof status !== 'string' || typeof notes !== 'string') {
+    return {
+      formError: 'Form not submitted correctly.',
+      field: formData.entries(),
+    }
   }
 
   const transaction = await updateTransactionStatus(
     transactionId,
+    notes,
     status as TransactionStatus
   )
   if (!transaction) {
-    throw json({ transaction, status }, { status: 500 })
+    throw json({ transaction, notes, status }, { status: 500 })
   }
 
   if (transaction.status === TRANSACTION_STATUS.VERIFIED) {
@@ -84,6 +90,7 @@ export default function VerifyTransaction() {
   const transactionDetails: TransactionWithUser = useLoaderData()
   const navigate = useNavigate()
   const matches = useMatches()
+  const [searchParams] = useSearchParams()
   const destinationStatus = (
     matches?.[matches.length - 1]?.params?.action === 'verify'
       ? TRANSACTION_STATUS.VERIFIED
@@ -96,9 +103,14 @@ export default function VerifyTransaction() {
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
         onClose={() =>
-          navigate(`/dashboard/transactions/${transactionDetails.id}`, {
-            replace: true,
-          })
+          navigate(
+            `/dashboard/transactions/${
+              transactionDetails.id
+            }?${searchParams.toString()}`,
+            {
+              replace: true,
+            }
+          )
         }
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -205,6 +217,17 @@ export default function VerifyTransaction() {
                               : 'Tolak'}
                           </button>
                         </div>
+                      </div>
+                      <div className="rounded-md bg-gray-50 px-6 py-5 mt-5">
+                        <Field
+                          type="textarea"
+                          name="notes"
+                          label="Catatan"
+                          placeholder="Tuliskan catatan terkait verifikasi atau penolakan transaksi ini dengan maksimum 191 karakter."
+                          autoCapitalize="sentence"
+                          rows={3}
+                          defaultValue={transactionDetails.notes ?? ''}
+                        />
                       </div>
                     </div>
                   </Form>
