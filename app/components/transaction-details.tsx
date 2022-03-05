@@ -1,11 +1,7 @@
-import {
-  ExclamationIcon,
-  ShieldCheckIcon,
-  XCircleIcon,
-} from '@heroicons/react/solid'
 import { Transaction, User } from '@prisma/client'
 import { ReactNode } from 'react'
-import { TRANSACTION_STATUS } from '~/models/enum'
+import { TransactionIcon } from './transaction-item'
+import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 
@@ -157,33 +153,32 @@ export function TransactionDetails({
                       id="transaction-status"
                       className="mt-1 text-sm text-gray-900"
                     >
-                      {transaction.status === TRANSACTION_STATUS.VERIFIED ? (
-                        <span className="inline-flex">
-                          <ShieldCheckIcon
-                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                            aria-hidden="true"
-                          />
-                          Terverifikasi
-                        </span>
-                      ) : transaction.status === TRANSACTION_STATUS.REJECTED ? (
-                        <span className="inline-flex">
-                          <XCircleIcon
-                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
-                            aria-hidden="true"
-                          />
-                          Ditolak
-                        </span>
-                      ) : (
-                        <span className="inline-flex">
-                          <ExclamationIcon
-                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-orange-400"
-                            aria-hidden="true"
-                          />
-                          Menunggu Verifikasi
-                        </span>
-                      )}
+                      <span className="inline-flex">
+                        <TransactionIcon
+                          status={transaction.status as TransactionStatus}
+                          notes={transaction.notes}
+                        />
+                        {transaction.status === TRANSACTION_STATUS.VERIFIED
+                          ? 'Terverifikasi'
+                          : transaction.status === TRANSACTION_STATUS.REJECTED
+                          ? 'Ditolak'
+                          : 'Menunggu Verifikasi'}
+                      </span>
                     </dd>
                   </div>
+                  {transaction.notes ? (
+                    <div className="sm:col-span-2">
+                      <dt className="text-sm font-medium text-gray-500">
+                        Catatan
+                      </dt>
+                      <dd
+                        id="notes"
+                        className="whitespace-pre-line mt-1 text-sm text-gray-900"
+                      >
+                        {transaction.notes}
+                      </dd>
+                    </div>
+                  ) : null}
                 </dl>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">

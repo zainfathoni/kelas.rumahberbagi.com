@@ -12,6 +12,7 @@ export const transactionBuilder = build<
     | 'createdAt'
     | 'updatedAt'
     | 'datetime'
+    | 'notes'
   >
 >({
   fields: {

@@ -47,6 +47,7 @@ export default function TransactionsList() {
           updatedAt={transaction.updatedAt}
           bankAccountNumber={transaction.bankAccountNumber}
           status={transaction.status as TransactionStatus}
+          notes={transaction.notes}
         />
       ))}
     </ul>
