@@ -65,6 +65,7 @@ model Transaction {
   amount            Int
   datetime          DateTime?
   status            String
+  notes             String?
   user              User      @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
   author            User      @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
   course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
