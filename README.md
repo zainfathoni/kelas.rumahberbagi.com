@@ -154,7 +154,7 @@ Commands to know:
 
 - `pscale connect <DATABASE_NAME> <BRANCH_NAME> --port 3309` - create a secure
   connection to a database branch for a local client
-- `pscale database dump <DATABASE_NAME> <BRANCH_NAME> --output <DIR_NAME>` -
+- `pscale database dump <DATABASE_NAME> <BRANCH_NAME> --output prisma/dumps/xx` -
   backup and dump the specified database
 
 ### Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️
