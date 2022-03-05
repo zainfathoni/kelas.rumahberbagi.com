@@ -1,7 +1,9 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -29,6 +31,7 @@ Online course platform for Rumah Berbagi.
     - [References](#references)
   - [Frequently Used Commands](#frequently-used-commands)
     - [Prisma commands](#prisma-commands)
+    - [PlanetScale commands](#planetscale-commands)
     - [Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️](#fly-setup-️-warning-the-deployment-setup-is-untested-yet-️)
     - [Deployment](#deployment)
   - [Contributing](#contributing)
@@ -141,6 +144,18 @@ Commands to know:
   will reset the DB and run the seed script
 - `npx prisma migrate dev --name <descriptive-name>` - generate a migration file
   for any changes you make to the schema (this will be committed).
+
+### PlanetScale commands
+
+Learn more about Planetscale CLI in the docs:
+<https://docs.planetscale.com/reference/planetscale-cli>
+
+Commands to know:
+
+- `pscale connect <DATABASE_NAME> <BRANCH_NAME> --port 3309` - create a secure
+  connection to a database branch for a local client
+- `pscale database dump <DATABASE_NAME> <BRANCH_NAME> --output <DIR_NAME>` -
+  backup and dump the specified database
 
 ### Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️
 
