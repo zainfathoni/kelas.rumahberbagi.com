@@ -1,4 +1,4 @@
-import { Link, redirect, useLoaderData } from 'remix'
+import { Link, redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Chapters, getAllChapters, getFirstCourse } from '~/models/course'
 import { requireUser } from '~/services/auth.server'
@@ -26,7 +26,7 @@ export default function CourseRoot() {
   return (
     <div className="flex-1 relative z-0 flex overflow-hidden">
       <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
-        Test
+        <Outlet />
       </main>
       <aside className="hidden relative h-screen xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200 overflow-y-auto">
         <nav className="h-full overflow-y-auto" aria-label="Directory">

@@ -7,7 +7,7 @@ export const lessonBuilder = build<
   fields: {
     name: fake((f) => f.commerce.productName()),
     description: fake((f) => f.commerce.productDescription()),
-    video: fake((f) => f.image.imageUrl()),
+    video: 'G3ZS8x86588', // https://www.youtube.com/watch?v=G3ZS8x86588
     order: fake((f) => f.datatype.number()),
   },
 })

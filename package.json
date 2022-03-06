@@ -65,6 +65,7 @@
     "@playwright/test": "1.17.1",
     "@remix-run/dev": "1.2.2",
     "@remix-run/serve": "1.2.2",
+    "@tailwindcss/aspect-ratio": "0.4.0",
     "@tailwindcss/forms": "0.4.0",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
