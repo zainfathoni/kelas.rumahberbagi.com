@@ -8,24 +8,29 @@ import {
   MenuIcon,
   ServerIcon,
   AcademicCapIcon,
+  VideoCameraIcon,
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
-import { User } from '@prisma/client'
 import { UserCircleIcon } from '@heroicons/react/solid'
-import { requireUser } from '~/services/auth.server'
+import { Course } from '@prisma/client'
+import { requireUpdatedUser } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
-import { requireAuthor } from '~/utils/permissions'
+import { requireActiveSubscription, requireAuthor } from '~/utils/permissions'
 import { Breadcrumbs } from '~/components/breadcrumbs'
+import { SideNavigationItem } from '~/utils/types'
+import { UserWithSubscriptions } from '~/models/user'
+import { getFirstCourse } from '~/models/course'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUser(request)
+  const user = await requireUpdatedUser(request)
+  const course = await getFirstCourse()
 
-  return json({ user })
+  return json({ user, course })
 }
 
-const navigation = [
+const navigation: SideNavigationItem[] = [
   { name: 'Beranda', href: '/dashboard/', icon: HomeIcon },
   {
     name: 'Pembelian',
@@ -38,6 +43,12 @@ const navigation = [
     icon: ServerIcon,
     permission: requireAuthor,
   },
+  {
+    name: 'Kelas',
+    href: '/dashboard/course',
+    icon: VideoCameraIcon,
+    permission: requireActiveSubscription,
+  },
   { name: 'Tentang Kelas', href: '/', icon: AcademicCapIcon },
 ]
 
@@ -48,9 +59,10 @@ function classNames(...classes: string[]) {
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
-  const currentPathname = matches[2]?.pathname
+  const currentPathname = matches[2]?.pathname // FIXME: transactions?status=submitted
   const [searchParams] = useSearchParams()
-  const { user } = useLoaderData<{ user: User }>()
+  const { user, course } =
+    useLoaderData<{ user: UserWithSubscriptions; course: Course }>()
 
   return (
     <>
@@ -117,7 +129,7 @@ export default function Dashboard() {
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => {
-                      if (item.permission && !item.permission(user)) {
+                      if (item.permission && !item.permission(user, course)) {
                         return null
                       }
                       return (
@@ -201,7 +213,7 @@ export default function Dashboard() {
               <LogoWithText />
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
                 {navigation.map((item) => {
-                  if (item.permission && !item.permission(user)) {
+                  if (item.permission && !item.permission(user, course)) {
                     return null
                   }
                   return (
@@ -289,7 +301,7 @@ export default function Dashboard() {
               searchParams={searchParams}
               className="hidden lg:flex ml-8 py-4"
             />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-screen relative">
               {/*
                 <div className="py-4">
                   <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
