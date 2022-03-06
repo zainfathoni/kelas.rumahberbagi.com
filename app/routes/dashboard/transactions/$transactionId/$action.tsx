@@ -227,6 +227,7 @@ export default function VerifyTransaction() {
                           autoCapitalize="sentence"
                           rows={3}
                           defaultValue={transactionDetails.notes ?? ''}
+                          maxLength={191}
                         />
                       </div>
                     </div>
