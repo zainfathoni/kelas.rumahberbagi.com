@@ -11,7 +11,7 @@ import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
 import { Transaction, User } from '@prisma/client'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
-import { auth, requireUser } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
@@ -44,9 +44,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const user = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const user = await requireUser(request)
 
   const course = await getFirstCourse()
 

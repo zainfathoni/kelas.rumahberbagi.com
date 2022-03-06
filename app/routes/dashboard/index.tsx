@@ -3,14 +3,12 @@ import { useLoaderData } from 'remix'
 import { Pricing } from '~/components/sections/pricing'
 import { SUBSCRIPTION_STATUS } from '~/models/enum'
 import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
-import { auth } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 
 export const handle = { name: 'Beranda' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const { id } = await requireUser(request)
 
   // Get the subscription data from user where status is active
   const subscription = await getFirstActiveSubcriptionByUserId(id)

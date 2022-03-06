@@ -1,9 +1,14 @@
 import { Authenticator } from 'remix-auth'
 import { EmailLinkStrategy } from 'remix-auth-email-link'
 import { User } from '@prisma/client'
-import { sessionStorage } from '~/services/session.server'
+import {
+  commitSession,
+  getSession,
+  logout,
+  sessionStorage,
+} from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'
-import { createUserByEmail, getUserByEmail } from '~/models/user'
+import { createUserByEmail, getUser, getUserByEmail } from '~/models/user'
 import { verifyEmailAddress } from '~/services/verifier.server'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
@@ -48,4 +53,29 @@ export async function requireUser(
   })
 
   return user
+}
+
+export async function requireUpdatedUser(
+  request: Request,
+  redirectTo: string = new URL(request.url).pathname
+) {
+  const { id } = await requireUser(request, redirectTo)
+
+  const user = await getUser(id)
+  if (!user) {
+    return logout(request)
+  }
+
+  return user
+}
+
+export async function getHeadersWithUpdatedUser(request: Request, user: User) {
+  // manually get the session
+  const session = await getSession(request.headers.get('cookie'))
+  // and store the user data
+  session.set(auth.sessionKey, user)
+
+  return new Headers({
+    'Set-Cookie': await commitSession(session),
+  })
 }
