@@ -8,7 +8,12 @@ import {
   sessionStorage,
 } from '~/services/session.server'
 import { sendEmail } from '~/services/email.server'
-import { createUserByEmail, getUser, getUserByEmail } from '~/models/user'
+import {
+  createUserByEmail,
+  getUser,
+  getUserByEmail,
+  UserWithSubscriptions,
+} from '~/models/user'
 import { verifyEmailAddress } from '~/services/verifier.server'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
@@ -17,7 +22,7 @@ import { getRequiredServerEnvVar } from '~/utils/misc'
 // user.
 const secret = getRequiredServerEnvVar('MAGIC_LINK_SECRET')
 
-export const auth = new Authenticator<User>(sessionStorage)
+export const auth = new Authenticator<UserWithSubscriptions>(sessionStorage)
 
 // Here we need the sendEmail, the secret and the URL where the user is sent
 // after clicking on the magic link

@@ -19,7 +19,7 @@ export default function Purchase() {
   const currentStepIdx = STEPS.findIndex((step) => step.pathname === pathname)
 
   return (
-    <div className="py-4 px-4 sm:px-6 md:px-0">
+    <div className="mx-4 sm:mx-6 md:mx-8 py-4 px-4 sm:px-6 md:px-0">
       <div className="pb-4 sm:pt-7 md:pb-0 md:w-64 md:flex-col md:fixed">
         <nav aria-label="Progress">
           <ol className="overflow-hidden">

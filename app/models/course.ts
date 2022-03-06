@@ -1,3 +1,4 @@
+import { Chapter, Lesson } from '@prisma/client'
 import { db } from '~/utils/db.server'
 
 export async function getFirstCourse() {
@@ -7,4 +8,17 @@ export async function getFirstCourse() {
     throw new Error('No course found')
   }
   return course
+}
+
+export type Chapters = (Chapter & {
+  Lesson: Lesson[]
+})[]
+
+export async function getAllChapters(courseId: string): Promise<Chapters> {
+  const chapters = await db.course
+    .findUnique({
+      where: { id: courseId },
+    })
+    .Chapter({ include: { Lesson: true } })
+  return chapters
 }
