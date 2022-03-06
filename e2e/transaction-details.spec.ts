@@ -9,11 +9,11 @@ test.use({
   storageState: 'e2e/fixtures/auth/author.local.json',
 })
 
-let member: User, submitted: Transaction, rejected: Transaction
+let memberSubmit: User, submitted: Transaction, rejected: Transaction
 
 test.beforeAll(async () => {
-  member = JSON.parse(
-    await readFixture(`../../e2e/fixtures/users/member.local.json`)
+  memberSubmit = JSON.parse(
+    await readFixture(`../../e2e/fixtures/users/member-submit.local.json`)
   )
   submitted = JSON.parse(
     await readFixture(`../../e2e/fixtures/transactions/submitted.local.json`)
@@ -35,10 +35,10 @@ test('render transaction data if transaction data exists', async ({ page }) => {
   await page.goto(`/dashboard/transactions/${submitted.id}`)
 
   const username = await page.locator('id=user-name').textContent()
-  expect(username).toBe(member.name)
+  expect(username).toBe(memberSubmit.name)
 
   const phoneNumber = await page.locator('id=user-phone-number').textContent()
-  expect(phoneNumber).toBe(member.phoneNumber)
+  expect(phoneNumber).toBe(memberSubmit.phoneNumber)
 
   const bankName = await page.locator('id=bank-name').textContent()
   expect(bankName).toBe(submitted.bankName)
@@ -81,6 +81,6 @@ test('Kontak Whatsapp link should be refering to the valid WhatsApp API if user 
   await expect(contactWhatsAppButton).toBeVisible()
   await expect(contactWhatsAppButton).toHaveAttribute(
     'href',
-    `https://wa.me/${stripLeadingPlus(member?.phoneNumber)}`
+    `https://wa.me/${stripLeadingPlus(memberSubmit?.phoneNumber)}`
   )
 })

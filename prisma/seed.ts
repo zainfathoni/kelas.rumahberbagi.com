@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { courseBuilder } from '../app/models/__mocks__/course'
+import { subscriptionBuilder } from '../app/models/__mocks__/subscription'
 import { transactionBuilder } from '../app/models/__mocks__/transaction'
 import { userBuilder } from '../app/models/__mocks__/user'
 import { writeFixture } from '../app/utils/fixtures'
@@ -20,8 +21,19 @@ async function main() {
   await writeFixture(`../../e2e/fixtures/users/author.local.json`, author)
 
   // create user with member role and store it as a local fixture
-  const member = await prisma.user.create({ data: userBuilder() })
+  const member = await prisma.user.create({
+    data: userBuilder({ traits: ['member'] }),
+  })
   await writeFixture(`../../e2e/fixtures/users/member.local.json`, member)
+
+  // create another user with member role for transactions submission purpose and store it as a local fixture
+  const memberSubmit = await prisma.user.create({
+    data: userBuilder({ overrides: { phoneNumber: '+6512345678' } }),
+  })
+  await writeFixture(
+    `../../e2e/fixtures/users/member-submit.local.json`,
+    memberSubmit
+  )
 
   // create another user with member role for editing purpose and store it as a local fixture
   const memberEdit = await prisma.user.create({
@@ -57,7 +69,7 @@ async function main() {
   // create transaction with SUBMITTED status and store it as a local fixture
   const submitted = await prisma.transaction.create({
     data: {
-      userId: member.id,
+      userId: memberSubmit.id,
       courseId: course.id,
       authorId: course.authorId,
       ...transactionBuilder(),
@@ -80,6 +92,20 @@ async function main() {
   await writeFixture(
     `../../e2e/fixtures/transactions/verified.local.json`,
     verified
+  )
+
+  // create subscription with ACTIVE status and store it as a local fixture
+  const active = await prisma.subscription.create({
+    data: {
+      userId: member.id,
+      courseId: course.id,
+      authorId: course.authorId,
+      ...subscriptionBuilder({ traits: ['active'] }),
+    },
+  })
+  await writeFixture(
+    `../../e2e/fixtures/subscriptions/active.local.json`,
+    active
   )
 
   // create transaction with REJECTED status and store it as a local fixture

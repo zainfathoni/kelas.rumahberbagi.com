@@ -12,7 +12,23 @@ export const userBuilder = build<Omit<User, 'id' | 'createdAt' | 'updatedAt'>>({
     instagram: null,
   },
   traits: {
-    admin: { overrides: { role: perBuild(() => ROLES.ADMIN) } },
-    author: { overrides: { role: perBuild(() => ROLES.AUTHOR) } },
+    admin: {
+      overrides: {
+        role: perBuild(() => ROLES.ADMIN),
+        email: 'admin@rumahberbagi.com',
+      },
+    },
+    author: {
+      overrides: {
+        role: perBuild(() => ROLES.AUTHOR),
+        email: 'author@rumahberbagi.com',
+      },
+    },
+    member: {
+      overrides: {
+        role: perBuild(() => ROLES.MEMBER),
+        email: 'member@rumahberbagi.com',
+      },
+    },
   },
 })
