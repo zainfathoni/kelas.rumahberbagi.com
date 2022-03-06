@@ -50,7 +50,7 @@ model Course {
   author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscriptions Subscription[]
   transactions  Transaction[]
-  Chapter       Chapter[]
+  chapters      Chapter[]
 }
 
 model Transaction {
@@ -80,7 +80,7 @@ model Chapter {
   name      String
   order     Int
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  Lesson    Lesson[]
+  lessons   Lesson[]
 }
 
 model Lesson {

@@ -11,7 +11,7 @@ export async function getFirstCourse() {
 }
 
 export type Chapters = (Chapter & {
-  Lesson: Lesson[]
+  lessons: Lesson[]
 })[]
 
 export async function getAllChapters(courseId: string): Promise<Chapters> {
@@ -19,6 +19,6 @@ export async function getAllChapters(courseId: string): Promise<Chapters> {
     .findUnique({
       where: { id: courseId },
     })
-    .Chapter({ include: { Lesson: true } })
+    .chapters({ include: { lessons: true } })
   return chapters
 }

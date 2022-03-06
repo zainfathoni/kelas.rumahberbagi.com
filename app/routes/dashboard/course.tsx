@@ -26,13 +26,13 @@ export default function CourseRoot() {
   // FIXME: make the chapter sticky
   return (
     <nav className="h-full overflow-y-auto" aria-label="Directory">
-      {chapters.map(({ id, name, Lesson }) => (
+      {chapters.map(({ id, name, lessons }) => (
         <div key={id} className="relative">
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
             <h3>{name}</h3>
           </div>
           <ul className="relative z-0 divide-y divide-gray-200">
-            {Lesson.map((lesson) => (
+            {lessons.map((lesson) => (
               <li key={lesson.id} className="bg-white">
                 <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                   <div className="flex-shrink-0">
