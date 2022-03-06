@@ -2,24 +2,13 @@ import { json, Link, useLoaderData } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { PencilAltIcon, UserCircleIcon } from '@heroicons/react/solid'
 import { User } from '@prisma/client'
-import { auth } from '~/services/auth.server'
-import { getUser } from '~/models/user'
-import { logout } from '~/services/session.server'
+import { requireUpdatedUser } from '~/services/auth.server'
 
 const tabs = [{ name: 'Profil', href: '#', current: true }]
 
 export const loader: LoaderFunction = async ({ request }) => {
-  // If the user is here, it's already authenticated, if not redirect them to
-  // the login page.
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const user = await requireUpdatedUser(request)
 
-  // Get the user data from the database.
-  const user = await getUser(id)
-  if (!user) {
-    return logout(request)
-  }
   return json({ user })
 }
 

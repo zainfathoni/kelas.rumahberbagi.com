@@ -14,25 +14,14 @@ import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
 import { User } from '@prisma/client'
 import { UserCircleIcon } from '@heroicons/react/solid'
-import { auth } from '~/services/auth.server'
+import { requireUser } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
-import { getUser } from '~/models/user'
-import { logout } from '~/services/session.server'
 import { requireAuthor } from '~/utils/permissions'
 import { Breadcrumbs } from '~/components/breadcrumbs'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  // If the user is here, it's already authenticated, if not redirect them to
-  // the login page.
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const user = await requireUser(request)
 
-  // Get the user data from the database.
-  const user = await getUser(id)
-  if (!user) {
-    return logout(request)
-  }
   return json({ user })
 }
 

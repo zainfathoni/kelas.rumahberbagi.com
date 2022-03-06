@@ -8,35 +8,20 @@ import {
   json,
   useLoaderData,
 } from 'remix'
-import { auth } from '~/services/auth.server'
+import {
+  getHeadersWithUpdatedUser,
+  requireUpdatedUser,
+  requireUser,
+} from '~/services/auth.server'
 import { Button, Field } from '~/components/form-elements'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
-import { db } from '~/utils/db.server'
-import { getUser } from '~/models/user'
-import { commitSession, getSession, logout } from '~/services/session.server'
+import { updateUser, UserFields } from '~/models/user'
 
 export const handle = { name: 'Ubah Profil' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  // If the user is here, it's already authenticated, if not redirect them to
-  // the login page.
-  const { id } = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
-
-  // Get the user data from the database.
-  const user = await getUser(id)
-  if (!user) {
-    return logout(request)
-  }
+  const user = await requireUpdatedUser(request)
   return json({ user })
-}
-
-interface UserFields {
-  name: string
-  phoneNumber: string
-  instagram: string | null
-  telegram: string | null
 }
 
 type ActionData = {
@@ -51,9 +36,7 @@ type ActionData = {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  let user = await auth.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  let user = await requireUser(request)
 
   const form = await request.formData()
   const name = form.get('name')
@@ -84,16 +67,9 @@ export const action: ActionFunction = async ({ request }) => {
     return { fieldErrors, fields }
   }
 
-  user = await db.user.update({ where: { id: user.id }, data: fields })
+  user = await updateUser(user.id, fields)
 
-  // manually get the session
-  const session = await getSession(request.headers.get('cookie'))
-  // and store the user data
-  session.set(auth.sessionKey, user)
-
-  const headers = new Headers({
-    'Set-Cookie': await commitSession(session),
-  })
+  const headers = await getHeadersWithUpdatedUser(request, user)
 
   return redirect('/dashboard/profile', { headers })
 }
