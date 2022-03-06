@@ -284,7 +284,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="lg:pl-64 flex flex-col flex-1">
-          <div className="sticky top-0 z-10 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
+          <div className="sticky top-0 z-10 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-2 bg-white">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -293,15 +293,19 @@ export default function Dashboard() {
               <span className="sr-only">Open sidebar</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <Breadcrumbs matches={matches} searchParams={searchParams} />
-          </div>
-          <main className="flex-1">
             <Breadcrumbs
               matches={matches}
               searchParams={searchParams}
-              className="hidden lg:flex ml-8 py-4"
+              className="-translate-y-1"
             />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-screen relative">
+          </div>
+          <main className="flex-1 h-screen relative">
+            <Breadcrumbs
+              matches={matches}
+              searchParams={searchParams}
+              className="hidden lg:flex px-8 py-4 sticky top-0 z-10 bg-white"
+            />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative">
               {/*
                 <div className="py-4">
                   <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
