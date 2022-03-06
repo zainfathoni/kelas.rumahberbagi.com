@@ -299,17 +299,7 @@ export default function Dashboard() {
               className="-translate-y-1"
             />
           </div>
-          <main className="flex-1 h-screen relative">
-            <Breadcrumbs
-              matches={matches}
-              searchParams={searchParams}
-              className="hidden lg:flex px-8 py-4 sticky top-0 z-20 bg-white"
-            />
-            <div className="max-w-7xl mx-auto relative">
-              {/* FIXME: make the chapter sticky */}
-              <Outlet />
-            </div>
-          </main>
+          <Outlet />
         </div>
       </div>
     </>
