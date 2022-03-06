@@ -13,8 +13,9 @@ import {
   TertiaryButtonLink,
 } from '~/components/button-link'
 import { getWhatsAppLink } from '~/utils/whatsapp'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Detail Transaksi' }
+export const handle: Handle = { name: 'Detail Transaksi' }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await requireUser(request)

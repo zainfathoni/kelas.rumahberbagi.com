@@ -4,8 +4,9 @@ import { Step } from '~/components/step'
 import { requireUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'
 import { STEPS } from '~/utils/constants'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Pembelian' }
+export const handle: Handle = { name: 'Pembelian' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   await requireUser(request)

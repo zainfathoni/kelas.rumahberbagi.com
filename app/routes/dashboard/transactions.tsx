@@ -14,8 +14,9 @@ import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
 import { getPagesCount } from '~/utils/pagination'
 import { PageLink } from '~/components/page-link'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Transaksi' }
+export const handle: Handle = { name: 'Transaksi' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request)

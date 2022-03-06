@@ -4,8 +4,9 @@ import { Pricing } from '~/components/sections/pricing'
 import { SUBSCRIPTION_STATUS } from '~/models/enum'
 import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
 import { requireUser } from '~/services/auth.server'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Beranda' }
+export const handle: Handle = { name: 'Beranda' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { id } = await requireUser(request)

@@ -17,6 +17,7 @@ import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
 import { Button, Field } from '~/components/form-elements'
 import { TRANSACTION_STATUS } from '~/models/enum'
+import { Handle } from '~/utils/types'
 
 interface TransactionFields {
   userId: string
@@ -29,7 +30,7 @@ interface TransactionFields {
   status: string
 }
 
-export const handle = { name: 'Konfirmasi Pembayaran' }
+export const handle: Handle = { name: 'Konfirmasi Pembayaran' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request)
