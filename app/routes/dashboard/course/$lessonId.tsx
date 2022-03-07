@@ -65,7 +65,7 @@ export default function LessonPage() {
             <iframe
               title={lesson.name}
               className="sm:rounded-md"
-              src={`https://www.youtube.com/embed/${lesson.videoId}`}
+              src={`https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
