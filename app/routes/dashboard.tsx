@@ -129,7 +129,6 @@ export default function Dashboard() {
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => {
-                      console.log(item.href, currentPathname)
                       if (item.permission && !item.permission(user, course)) {
                         return null
                       }

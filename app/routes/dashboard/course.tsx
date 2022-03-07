@@ -30,7 +30,6 @@ export default function CourseRoot() {
   const { chapters } = useLoaderData<{ chapters: Chapters }>()
   const matches = useMatches()
   const lessonId = matches[matches.length - 1]?.params?.lessonId
-  console.log(matches, lessonId)
 
   const directory = (
     <Directory label="Direktori Video" currentId={lessonId}>

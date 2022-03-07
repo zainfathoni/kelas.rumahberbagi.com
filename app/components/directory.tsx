@@ -15,7 +15,6 @@ export function Directory({
   currentId?: string
   className?: string
 }) {
-  console.log(label, currentId)
   return (
     <DirectoryProvider currentId={currentId}>
       <nav
