@@ -59,7 +59,7 @@ function classNames(...classes: string[]) {
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const matches = useMatches()
-  const currentPathname = matches[2]?.pathname // FIXME: transactions?status=submitted
+  const currentPathname = matches[2]?.pathname
   const [searchParams] = useSearchParams()
   const { user, course } =
     useLoaderData<{ user: UserWithSubscriptions; course: Course }>()
@@ -129,6 +129,7 @@ export default function Dashboard() {
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => {
+                      console.log(item.href, currentPathname)
                       if (item.permission && !item.permission(user, course)) {
                         return null
                       }
@@ -137,7 +138,7 @@ export default function Dashboard() {
                           key={item.name}
                           to={item.href}
                           className={classNames(
-                            item.href === currentPathname
+                            item.href.split('?')[0] === currentPathname
                               ? 'bg-gray-100 text-gray-900'
                               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                             'group flex items-center px-2 py-2 text-base font-medium rounded-md'
@@ -146,7 +147,7 @@ export default function Dashboard() {
                         >
                           <item.icon
                             className={classNames(
-                              item.href === currentPathname
+                              item.href.split('?')[0] === currentPathname
                                 ? 'text-gray-500'
                                 : 'text-gray-400 group-hover:text-gray-500',
                               'mr-4 shrink-0 h-6 w-6'
@@ -221,7 +222,7 @@ export default function Dashboard() {
                       key={item.name}
                       to={item.href}
                       className={classNames(
-                        item.href === currentPathname
+                        item.href.split('?')[0] === currentPathname
                           ? 'bg-gray-100 text-gray-900'
                           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -230,7 +231,7 @@ export default function Dashboard() {
                     >
                       <item.icon
                         className={classNames(
-                          item.href === currentPathname
+                          item.href.split('?')[0] === currentPathname
                             ? 'text-gray-500'
                             : 'text-gray-400 group-hover:text-gray-500',
                           'mr-3 shrink-0 h-6 w-6'
