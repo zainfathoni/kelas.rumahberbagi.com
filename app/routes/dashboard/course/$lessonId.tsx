@@ -53,14 +53,14 @@ export default function LessonPage() {
         </Link>
       </nav>
       <article className="h-full">
-        <div className="bg-white m-8 py-5 border-b border-gray-200 rounded-lg">
+        <div className="bg-white m-0 py-5 border-b border-gray-200">
           <h3 className="px-6 sm:px-8 pb-5 text-lg leading-6 font-medium text-gray-900 border-b border-gray-200">
             {lesson.name}
           </h3>
-          <div className="mx-6 sm:mx-8 my-8 aspect-w-16 aspect-h-9">
+          <div className="mx-0 sm:mx-8 my-8 aspect-w-16 aspect-h-9">
             <iframe
               title={lesson.name}
-              className="rounded-md"
+              className="sm:rounded-md"
               src={`https://www.youtube.com/embed/${lesson.videoId}`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
