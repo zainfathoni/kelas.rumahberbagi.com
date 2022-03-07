@@ -1,0 +1,68 @@
+import { ReactNode } from 'react'
+import { Link } from 'remix'
+import { classNames } from '~/utils/class-names'
+
+export function Directory({
+  children,
+  label,
+  className = '',
+}: {
+  children: ReactNode
+  label: string
+  className?: string
+}) {
+  return (
+    <nav
+      className={classNames('h-full overflow-y-auto', className)}
+      aria-label={label}
+    >
+      {children}
+    </nav>
+  )
+}
+
+function Group({ children, name }: { children: ReactNode; name: string }) {
+  return (
+    <div className="relative">
+      <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+        <h3>{name}</h3>
+      </div>
+      <ul className="relative z-0 divide-y divide-gray-200">{children}</ul>
+    </div>
+  )
+}
+
+function Item({
+  to,
+  name,
+  description,
+}: {
+  to: string
+  name: string
+  description: string | null
+}) {
+  return (
+    <li className="bg-white">
+      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+        <div className="flex-shrink-0">
+          <span className="h-9 flex items-center" aria-hidden="true">
+            <span className="relative w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
+              <span className="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300" />
+            </span>
+          </span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <Link to={to} className="focus:outline-none">
+            {/* Extend touch target to entire panel */}
+            <span className="absolute inset-0" aria-hidden="true" />
+            <p className="text-sm font-medium text-gray-900">{name}</p>
+            <p className="text-sm text-gray-500 truncate">{description}</p>
+          </Link>
+        </div>
+      </div>
+    </li>
+  )
+}
+
+Directory.Group = Group
+Directory.Item = Item
