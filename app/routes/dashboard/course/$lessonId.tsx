@@ -34,7 +34,7 @@ export default function LessonPage() {
     <div className="m-8 aspect-w-16 aspect-h-9">
       <iframe
         title={lesson.name}
-        src={`https://www.youtube.com/embed/${lesson.video}`}
+        src={`https://www.youtube.com/embed/${lesson.videoId}`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

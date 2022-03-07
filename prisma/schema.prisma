@@ -92,7 +92,7 @@ model Lesson {
   chapterId   String
   name        String
   description String?
-  video       String
+  videoId     String
   order       Int
   chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }

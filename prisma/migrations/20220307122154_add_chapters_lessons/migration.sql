@@ -17,7 +17,7 @@ CREATE TABLE "Lesson" (
     "chapterId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "video" TEXT NOT NULL,
+    "videoId" TEXT NOT NULL,
     "order" INTEGER NOT NULL,
     CONSTRAINT "Lesson_chapterId_fkey" FOREIGN KEY ("chapterId") REFERENCES "Chapter" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
