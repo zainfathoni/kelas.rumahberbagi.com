@@ -1,23 +1,30 @@
+import { CheckIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { ReactNode } from 'react'
 import { Link } from 'remix'
+import { DirectoryProvider, useDirectory } from '~/contexts/directory'
 import { classNames } from '~/utils/class-names'
 
 export function Directory({
   children,
   label,
+  currentId,
   className = '',
 }: {
   children: ReactNode
   label: string
+  currentId?: string
   className?: string
 }) {
+  console.log(label, currentId)
   return (
-    <nav
-      className={classNames('h-full overflow-y-auto', className)}
-      aria-label={label}
-    >
-      {children}
-    </nav>
+    <DirectoryProvider currentId={currentId}>
+      <nav
+        className={classNames('h-full overflow-y-auto', className)}
+        aria-label={label}
+      >
+        {children}
+      </nav>
+    </DirectoryProvider>
   )
 }
 
@@ -41,14 +48,33 @@ function Item({
   name: string
   description: string | null
 }) {
+  const { currentId } = useDirectory()
+
   return (
-    <li className="bg-white">
-      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+    <li className="bg-white group">
+      <div
+        className={classNames(
+          currentId === to ? 'bg-gray-100' : '',
+          'relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500'
+        )}
+      >
         <div className="flex-shrink-0">
-          <span className="h-9 flex items-center" aria-hidden="true">
-            <span className="relative w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
-              <span className="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300" />
-            </span>
+          <span
+            className={classNames(
+              currentId === to
+                ? 'bg-indigo-600'
+                : 'bg-indigo-200 group-hover:bg-indigo-400',
+              'h-8 w-8 rounded-full flex items-center justify-center'
+            )}
+          >
+            {currentId === to ? (
+              <CheckIcon className="w-5 h-5 text-white" aria-hidden="true" />
+            ) : (
+              <VideoCameraIcon
+                className="h-5 w-5 text-white"
+                aria-hidden="true"
+              />
+            )}
           </span>
         </div>
         <div className="flex-1 min-w-0">
