@@ -124,7 +124,7 @@ export default function EditLesson() {
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full sm:p-6">
               <div className="px-4 py-5 sm:p-6">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Pastikan deskripsi sesuai dengan materi
+                  Ubah deskripsi materi
                 </h3>
                 <Form replace method="post">
                   <div className="mt-5">
@@ -133,7 +133,7 @@ export default function EditLesson() {
                         type="textarea"
                         name="description"
                         label="Deskripsi"
-                        placeholder="Tuliska deskripsi video"
+                        placeholder="Tuliskan deskripsi sesuai dengan materi"
                         autoCapitalize="sentence"
                         rows={10}
                         defaultValue={lesson.description ?? ''}
