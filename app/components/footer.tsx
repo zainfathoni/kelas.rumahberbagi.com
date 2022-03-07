@@ -32,7 +32,8 @@ export function Footer({ instagramUrl }: FooterProps) {
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
           <p className="text-center text-base text-gray-400">
-            &copy; 2021 Rumah Berbagi. All rights reserved.
+            &copy; 2021-{new Date().getFullYear()} Rumah Berbagi. All rights
+            reserved.
           </p>
         </div>
       </div>

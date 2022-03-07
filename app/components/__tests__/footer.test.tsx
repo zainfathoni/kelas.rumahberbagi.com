@@ -16,7 +16,7 @@ describe('Footer', () => {
     render(<Footer instagramUrl={instagramUrl} />)
 
     expect(
-      screen.getByText(/2021 Rumah Berbagi\. All rights reserved\./)
+      screen.getByText(/Rumah Berbagi\. All rights reserved\./)
     ).toBeVisible()
   })
 
