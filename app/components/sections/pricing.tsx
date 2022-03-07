@@ -121,9 +121,12 @@ export const Pricing = ({
                 <div className="mt-6">
                   <div className="rounded-md shadow">
                     {isSubscribed ? (
-                      <button className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md text-gray-400 bg-gray-200 cursor-not-allowed">
-                        Sudah terdaftar
-                      </button>
+                      <Link
+                        to="/dashboard/course"
+                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base w-full font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                      >
+                        Akses Kelas
+                      </Link>
                     ) : (
                       <Link
                         to={signupLink}

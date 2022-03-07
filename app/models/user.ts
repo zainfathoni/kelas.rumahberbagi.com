@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { Subscription, User } from '@prisma/client'
 import { db } from '~/utils/db.server'
 import { ROLES } from '~/models/enum'
 
@@ -6,6 +6,10 @@ export type UserFields = Pick<
   User,
   'name' | 'phoneNumber' | 'telegram' | 'instagram'
 >
+
+export type UserWithSubscriptions = User & {
+  subscriptions: Subscription[]
+}
 
 const include = { courses: true, subscriptions: true, transactions: true }
 

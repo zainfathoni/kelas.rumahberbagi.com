@@ -8,8 +8,9 @@ import { SecondaryButtonLink } from '~/components/button-link'
 import { TRANSACTION_STATUS } from '~/models/enum'
 import { getWhatsAppLink } from '~/utils/whatsapp'
 import { getUser } from '~/models/user'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Selesai' }
+export const handle: Handle = { name: 'Selesai' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request)

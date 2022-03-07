@@ -4,6 +4,7 @@ import { RouteData } from '@remix-run/react/routeData'
 import { Params } from 'react-router-dom'
 import { Link } from 'remix'
 import { classNames } from '~/utils/class-names'
+import { Handle } from '~/utils/types'
 
 function BreadcrumbItem({
   name,
@@ -38,7 +39,7 @@ export type Matches = {
   pathname: string
   params: Params<string>
   data: RouteData
-  handle: { name: string }
+  handle: Handle
 }[]
 
 export function Breadcrumbs({
@@ -64,15 +65,16 @@ export function Breadcrumbs({
             </Link>
           </div>
         </li>
-        {matches.map(({ pathname, handle }, index) =>
-          handle?.name ? (
-            <BreadcrumbItem
-              key={handle.name}
-              name={handle.name}
-              to={`${pathname}?${searchParams.toString()}`}
-              current={index === matches.length - 1}
-            />
-          ) : null
+        {matches.map(
+          ({ pathname, handle }: { pathname: string; handle: Handle }, index) =>
+            handle?.name ? (
+              <BreadcrumbItem
+                key={handle.name}
+                name={handle.name}
+                to={`${pathname}?${searchParams.toString()}`}
+                current={index === matches.length - 1}
+              />
+            ) : null
         )}
       </ol>
     </nav>

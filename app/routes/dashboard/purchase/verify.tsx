@@ -9,8 +9,9 @@ import {
   SecondaryButtonLink,
 } from '~/components/button-link'
 import { TRANSACTION_STATUS } from '~/models/enum'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Menunggu Verifikasi' }
+export const handle: Handle = { name: 'Menunggu Verifikasi' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request)

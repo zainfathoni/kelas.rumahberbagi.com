@@ -8,24 +8,29 @@ import {
   MenuIcon,
   ServerIcon,
   AcademicCapIcon,
+  VideoCameraIcon,
 } from '@heroicons/react/outline'
 import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { useSearchParams } from 'react-router-dom'
-import { User } from '@prisma/client'
 import { UserCircleIcon } from '@heroicons/react/solid'
-import { requireUser } from '~/services/auth.server'
+import { Course } from '@prisma/client'
+import { requireUpdatedUser } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
-import { requireAuthor } from '~/utils/permissions'
+import { requireActiveSubscription, requireAuthor } from '~/utils/permissions'
 import { Breadcrumbs } from '~/components/breadcrumbs'
+import { SideNavigationItem } from '~/utils/types'
+import { UserWithSubscriptions } from '~/models/user'
+import { getFirstCourse } from '~/models/course'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUser(request)
+  const user = await requireUpdatedUser(request)
+  const course = await getFirstCourse()
 
-  return json({ user })
+  return json({ user, course })
 }
 
-const navigation = [
+const navigation: SideNavigationItem[] = [
   { name: 'Beranda', href: '/dashboard/', icon: HomeIcon },
   {
     name: 'Pembelian',
@@ -37,6 +42,12 @@ const navigation = [
     href: '/dashboard/transactions?status=submitted',
     icon: ServerIcon,
     permission: requireAuthor,
+  },
+  {
+    name: 'Kelas',
+    href: '/dashboard/course',
+    icon: VideoCameraIcon,
+    permission: requireActiveSubscription,
   },
   { name: 'Tentang Kelas', href: '/', icon: AcademicCapIcon },
 ]
@@ -50,7 +61,8 @@ export default function Dashboard() {
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
   const [searchParams] = useSearchParams()
-  const { user } = useLoaderData<{ user: User }>()
+  const { user, course } =
+    useLoaderData<{ user: UserWithSubscriptions; course: Course }>()
 
   return (
     <>
@@ -117,7 +129,7 @@ export default function Dashboard() {
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => {
-                      if (item.permission && !item.permission(user)) {
+                      if (item.permission && !item.permission(user, course)) {
                         return null
                       }
                       return (
@@ -125,7 +137,7 @@ export default function Dashboard() {
                           key={item.name}
                           to={item.href}
                           className={classNames(
-                            item.href === currentPathname
+                            item.href.split('?')[0] === currentPathname
                               ? 'bg-gray-100 text-gray-900'
                               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                             'group flex items-center px-2 py-2 text-base font-medium rounded-md'
@@ -134,7 +146,7 @@ export default function Dashboard() {
                         >
                           <item.icon
                             className={classNames(
-                              item.href === currentPathname
+                              item.href.split('?')[0] === currentPathname
                                 ? 'text-gray-500'
                                 : 'text-gray-400 group-hover:text-gray-500',
                               'mr-4 shrink-0 h-6 w-6'
@@ -201,7 +213,7 @@ export default function Dashboard() {
               <LogoWithText />
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
                 {navigation.map((item) => {
-                  if (item.permission && !item.permission(user)) {
+                  if (item.permission && !item.permission(user, course)) {
                     return null
                   }
                   return (
@@ -209,7 +221,7 @@ export default function Dashboard() {
                       key={item.name}
                       to={item.href}
                       className={classNames(
-                        item.href === currentPathname
+                        item.href.split('?')[0] === currentPathname
                           ? 'bg-gray-100 text-gray-900'
                           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -218,7 +230,7 @@ export default function Dashboard() {
                     >
                       <item.icon
                         className={classNames(
-                          item.href === currentPathname
+                          item.href.split('?')[0] === currentPathname
                             ? 'text-gray-500'
                             : 'text-gray-400 group-hover:text-gray-500',
                           'mr-3 shrink-0 h-6 w-6'
@@ -272,7 +284,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="lg:pl-64 flex flex-col flex-1">
-          <div className="sticky top-0 z-10 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
+          <div className="sticky top-0 z-20 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-2 bg-white">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -281,23 +293,13 @@ export default function Dashboard() {
               <span className="sr-only">Open sidebar</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <Breadcrumbs matches={matches} searchParams={searchParams} />
-          </div>
-          <main className="flex-1">
             <Breadcrumbs
               matches={matches}
               searchParams={searchParams}
-              className="hidden lg:flex ml-8 py-4"
+              className="-translate-y-1"
             />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              {/*
-                <div className="py-4">
-                  <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-                </div>
-                {/* /End replace */}
-              <Outlet />
-            </div>
-          </main>
+          </div>
+          <Outlet />
         </div>
       </div>
     </>

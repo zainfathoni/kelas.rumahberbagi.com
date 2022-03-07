@@ -1,7 +1,13 @@
 import { Outlet } from 'remix'
+import { SingleColumnLayout } from '~/components/single-column-layout'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Profil' }
+export const handle: Handle = { name: 'Profil' }
 
 export default function ProfileRoot() {
-  return <Outlet />
+  return (
+    <SingleColumnLayout>
+      <Outlet />
+    </SingleColumnLayout>
+  )
 }
