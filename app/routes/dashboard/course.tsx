@@ -21,13 +21,20 @@ export const loader: LoaderFunction = async ({ request }) => {
   return { chapters }
 }
 
+export type CourseContextType = {
+  chapters: Chapters
+  selectedLessonIndex: number
+}
+
 export default function CourseRoot() {
   const { chapters } = useLoaderData<{ chapters: Chapters }>()
+
+  const context: CourseContextType = { chapters, selectedLessonIndex: 0 }
 
   return (
     <div className="flex-1 relative z-0 flex overflow-hidden">
       <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
-        <Outlet />
+        <Outlet context={context} />
       </main>
       <aside className="hidden relative h-screen xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200 overflow-y-auto">
         <Directory label="Direktori Video">
