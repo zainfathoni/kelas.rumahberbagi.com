@@ -19,6 +19,9 @@ export async function getAllChapters(courseId: string): Promise<Chapters> {
     .findUnique({
       where: { id: courseId },
     })
-    .chapters({ include: { lessons: true } })
+    .chapters({
+      orderBy: { order: 'asc' },
+      include: { lessons: { orderBy: { order: 'asc' } } },
+    })
   return chapters
 }
