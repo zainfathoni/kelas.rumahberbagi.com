@@ -16,8 +16,9 @@ import {
 import { Button, Field } from '~/components/form-elements'
 import { validatePhoneNumber, validateRequired } from '~/utils/validators'
 import { updateUser, UserFields } from '~/models/user'
+import { Handle } from '~/utils/types'
 
-export const handle = { name: 'Ubah Profil' }
+export const handle: Handle = { name: 'Ubah Profil' }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUpdatedUser(request)

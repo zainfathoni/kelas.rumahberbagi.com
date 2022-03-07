@@ -13,8 +13,10 @@ import {
   TertiaryButtonLink,
 } from '~/components/button-link'
 import { getWhatsAppLink } from '~/utils/whatsapp'
+import { Handle } from '~/utils/types'
+import { SingleColumnLayout } from '~/components/single-column-layout'
 
-export const handle = { name: 'Detail Transaksi' }
+export const handle: Handle = { name: 'Detail Transaksi' }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await requireUser(request)
@@ -44,7 +46,7 @@ export default function TransactionDetailsPage() {
   const [searchParams] = useSearchParams()
 
   return (
-    <>
+    <SingleColumnLayout>
       <div className="min-h-full">
         <TransactionDetails transaction={transaction} user={transaction.user}>
           {/* TODO: Disable rejecting a verified transaction */}
@@ -72,6 +74,6 @@ export default function TransactionDetailsPage() {
         </TransactionDetails>
       </div>
       <Outlet />
-    </>
+    </SingleColumnLayout>
   )
 }
