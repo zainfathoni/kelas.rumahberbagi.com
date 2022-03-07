@@ -191,7 +191,7 @@ export default function TransactionsList() {
             <div className="-mt-px w-0 flex-1 flex justify-end">
               <PageLink
                 to={`?${status ? `status=${status}&` : ''}${
-                  page ? `page=${parseInt(page) + 1}` : 1
+                  page ? `page=${parseInt(page) + 1}` : 'page=2'
                 }`}
                 isCurrentPage={isCurrentPage(pagesCount)}
                 disableOnCurrentPage
