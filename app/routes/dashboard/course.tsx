@@ -1,5 +1,6 @@
 import { redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
+import { ReactNode } from 'react'
 import { Chapters, getAllChapters, getFirstCourse } from '~/models/course'
 import { requireUser } from '~/services/auth.server'
 import { requireActiveSubscription } from '~/utils/permissions'
@@ -22,14 +23,30 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export type CourseContextType = {
-  chapters: Chapters
-  selectedLessonIndex: number
+  directory: ReactNode
 }
 
 export default function CourseRoot() {
   const { chapters } = useLoaderData<{ chapters: Chapters }>()
 
-  const context: CourseContextType = { chapters, selectedLessonIndex: 0 }
+  const directory = (
+    <Directory label="Direktori Video">
+      {chapters.map(({ id, name, lessons }) => (
+        <Directory.Group key={id} name={name}>
+          {lessons.map(({ id, name, description }) => (
+            <Directory.Item
+              key={id}
+              to={id}
+              name={name}
+              description={description}
+            />
+          ))}
+        </Directory.Group>
+      ))}
+    </Directory>
+  )
+
+  const context: CourseContextType = { directory }
 
   return (
     <div className="flex-1 relative z-0 flex overflow-hidden">
