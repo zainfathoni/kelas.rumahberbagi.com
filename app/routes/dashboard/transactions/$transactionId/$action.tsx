@@ -223,11 +223,10 @@ export default function VerifyTransaction() {
                           type="textarea"
                           name="notes"
                           label="Catatan"
-                          placeholder="Tuliskan catatan terkait verifikasi atau penolakan transaksi ini dengan maksimum 191 karakter."
+                          placeholder="Tuliskan catatan terkait verifikasi atau penolakan transaksi ini."
                           autoCapitalize="sentence"
                           rows={3}
                           defaultValue={transactionDetails.notes ?? ''}
-                          maxLength={191}
                         />
                       </div>
                     </div>

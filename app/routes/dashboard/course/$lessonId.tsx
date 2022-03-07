@@ -1,11 +1,14 @@
-import { Link, redirect, useLoaderData } from 'remix'
+import { Link, redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { Lesson } from '@prisma/client'
+import { Course, Lesson, User } from '@prisma/client'
 import { ChevronLeftIcon } from '@heroicons/react/solid'
 import { getFirstCourse } from '~/models/course'
 import { getLessonById } from '~/models/lesson'
 import { requireUser } from '~/services/auth.server'
-import { requireActiveSubscription } from '~/utils/permissions'
+import {
+  requireActiveSubscription,
+  requireCourseAuthor,
+} from '~/utils/permissions'
 import { Handle } from '~/utils/types'
 
 export const handle: Handle = { name: 'Video' }
@@ -28,11 +31,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     return redirect(`/dashboard/course`)
   }
 
-  return { lesson }
+  return { lesson, user, course }
 }
 
 export default function LessonPage() {
-  const { lesson } = useLoaderData<{ lesson: Lesson }>()
+  const { lesson, user, course } =
+    useLoaderData<{ lesson: Lesson; user: User; course: Course }>()
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
@@ -53,14 +57,14 @@ export default function LessonPage() {
         </Link>
       </nav>
       <article className="h-full">
-        <div className="bg-white m-8 py-5 border-b border-gray-200 rounded-lg">
+        <div className="bg-white m-0 py-5 border-b border-gray-200">
           <h3 className="px-6 sm:px-8 pb-5 text-lg leading-6 font-medium text-gray-900 border-b border-gray-200">
             {lesson.name}
           </h3>
-          <div className="mx-6 sm:mx-8 my-8 aspect-w-16 aspect-h-9">
+          <div className="mx-0 sm:mx-8 my-8 aspect-w-16 aspect-h-9">
             <iframe
               title={lesson.name}
-              className="rounded-md"
+              className="sm:rounded-md"
               src={`https://www.youtube.com/embed/${lesson.videoId}`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -71,7 +75,7 @@ export default function LessonPage() {
             <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <dt className="text-sm font-medium text-gray-500">Deskripsi</dt>
-                <dd className="mt-1 max-w-prose text-sm text-gray-900 space-y-5">
+                <dd className="whitespace-pre-line mt-1 max-w-prose text-sm text-gray-900 space-y-5">
                   {lesson.description}
                 </dd>
               </div>
@@ -81,6 +85,16 @@ export default function LessonPage() {
             className="bg-white px-6 sm:px-8 pt-4 flex items-center justify-between border-t border-gray-200"
             aria-label="Pertanyaan"
           >
+            {requireCourseAuthor(user, course) && (
+              <div className="flex-1 flex justify-start">
+                <Link
+                  to="edit"
+                  className="relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700'"
+                >
+                  Ubah
+                </Link>
+              </div>
+            )}
             <div className="flex-1 flex justify-end">
               <a
                 href="https://rbagi.id/menti"
@@ -94,6 +108,7 @@ export default function LessonPage() {
           </nav>
         </div>
       </article>
+      <Outlet />
     </div>
   )
 }

@@ -68,7 +68,7 @@ model Transaction {
   amount            Int
   datetime          DateTime?
   status            String
-  notes             String?
+  notes             String?   @db.Text
   user              User      @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
   author            User      @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
   course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -91,7 +91,7 @@ model Lesson {
   updatedAt   DateTime @updatedAt
   chapterId   String
   name        String
-  description String?
+  description String?  @db.Text
   videoId     String
   order       Int
   chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)

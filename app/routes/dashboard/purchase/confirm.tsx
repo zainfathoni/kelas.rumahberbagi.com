@@ -121,7 +121,7 @@ export default function PurchaseConfirm() {
   const { state } = useTransition()
 
   return (
-    <div className="mt-5 md:mt-0 md:col-span-2">
+    <div className="mt-5 md:mt-0 md:col-span-2 max-w-3xl mx-auto">
       <Form method="post">
         <div className="shadow overflow-hidden sm:rounded-md">
           <div className="px-4 py-5 bg-white sm:p-6">
