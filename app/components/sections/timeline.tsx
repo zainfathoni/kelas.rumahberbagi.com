@@ -25,8 +25,8 @@ const timeline = [
   },
   {
     content:
-      'Perkenalan antar peserta dan tim Tahun Prasekolahku; Proses mempelajari materi; Pengumpulan pertanyaan via telegram;',
-    date: '9—18 Maret',
+      'Perkenalan antar peserta dan tim Tahun Prasekolahku; Proses mempelajari materi; Pengumpulan pertanyaan via website;',
+    date: '9—17 Maret',
     datetime: '2022-03-09/2022-03-18',
     icon: HandIcon,
     iconBackground: 'bg-orange-500',
