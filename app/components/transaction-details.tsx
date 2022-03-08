@@ -20,7 +20,7 @@ export function TransactionDetails({
 }) {
   return (
     <main>
-      <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2">
+      <div className="lg:mt-0 max-w-3xl mx-auto grid grid-cols-1 gap-6 py-4 lg:grid-flow-col-dense lg:grid-cols-2">
         <div className="relative space-y-6 lg:col-start-1 lg:col-span-2">
           <section aria-labelledby="transaction-title">
             <div className="bg-white shadow sm:rounded-lg">

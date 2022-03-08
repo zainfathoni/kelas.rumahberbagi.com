@@ -283,7 +283,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="lg:pl-64 flex flex-col flex-1">
+        <div className="lg:pl-64 flex flex-col h-screen">
           <div className="sticky top-0 z-20 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-2 bg-white">
             <button
               type="button"
