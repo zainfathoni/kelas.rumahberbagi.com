@@ -1,9 +1,14 @@
-import { Lesson } from '@prisma/client'
+import { Attachment, Lesson } from '@prisma/client'
 import { db } from '~/utils/db.server'
 
-export async function getLessonById(id: string): Promise<Lesson | null> {
+export type LessonWithAttachments = Lesson & { attachments: Attachment[] }
+
+export async function getLessonById(
+  id: string
+): Promise<LessonWithAttachments | null> {
   return await db.lesson.findUnique({
     where: { id },
+    include: { attachments: true },
   })
 }
 
