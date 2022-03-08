@@ -49,7 +49,6 @@ export default function LessonPage() {
           to="/dashboard/course"
           className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
         >
-          <span className="absolute inset-0" aria-hidden="true" />
           <ChevronLeftIcon
             className="-ml-2 h-5 w-5 text-gray-400"
             aria-hidden="true"
