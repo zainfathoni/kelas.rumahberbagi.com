@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { attachmentBuilder } from '../app/models/__mocks__/attachment'
 import { chapterBuilder } from '../app/models/__mocks__/chapter'
 import { courseBuilder } from '../app/models/__mocks__/course'
 import { lessonBuilder } from '../app/models/__mocks__/lesson'
@@ -77,7 +78,6 @@ async function main() {
     prisma.chapter.create({ data: { courseId, ...chapterBuilder() } }),
     prisma.chapter.create({ data: { courseId, ...chapterBuilder() } }),
   ])
-
   await writeFixture(
     `../../e2e/fixtures/chapters/chapters.local.json`,
     chapters
@@ -102,8 +102,25 @@ async function main() {
       }),
     ])
   )
-
   await writeFixture(`../../e2e/fixtures/lessons/lessons.local.json`, lessons)
+
+  const attachments = await Promise.all(
+    lessons.flatMap((lesson) => [
+      prisma.attachment.create({
+        data: { lessonId: lesson.id, ...attachmentBuilder() },
+      }),
+      prisma.attachment.create({
+        data: {
+          lessonId: lesson.id,
+          ...attachmentBuilder({ traits: ['actual'] }),
+        },
+      }),
+    ])
+  )
+  await writeFixture(
+    `../../e2e/fixtures/lessons/attachments.local.json`,
+    attachments
+  )
 
   // create transaction with SUBMITTED status and store it as a local fixture
   const submitted = await prisma.transaction.create({

@@ -110,8 +110,7 @@ export default function LessonPage() {
                           <div className="ml-4 flex-shrink-0">
                             <a
                               href={attachment.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              download={attachment.name}
                               className="font-medium text-indigo-600 hover:text-indigo-500"
                             >
                               Unduh
