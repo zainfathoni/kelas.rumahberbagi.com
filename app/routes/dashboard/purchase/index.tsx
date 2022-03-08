@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Purchase() {
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div className="bg-white shadow overflow-hidden sm:rounded-lg max-w-3xl mx-auto">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900">
           Intruksi Pembayaran
