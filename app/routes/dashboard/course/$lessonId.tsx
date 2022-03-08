@@ -10,6 +10,7 @@ import {
   requireCourseAuthor,
 } from '~/utils/permissions'
 import { Handle } from '~/utils/types'
+import { transformURLwithinText } from '~/utils/format'
 
 export const handle: Handle = { name: 'Video' }
 
@@ -75,9 +76,12 @@ export default function LessonPage() {
             <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <dt className="text-sm font-medium text-gray-500">Deskripsi</dt>
-                <dd className="whitespace-pre-line mt-1 max-w-prose text-sm text-gray-900 space-y-5">
-                  {lesson.description}
-                </dd>
+                <dd
+                  className="whitespace-pre-line mt-1 max-w-prose text-sm text-gray-900 space-y-5"
+                  dangerouslySetInnerHTML={{
+                    __html: transformURLwithinText(lesson.description ?? '-'),
+                  }}
+                ></dd>
               </div>
             </dl>
           </div>
