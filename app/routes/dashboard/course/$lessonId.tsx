@@ -52,7 +52,7 @@ export default function LessonPage() {
   )
 
   return (
-    <div className="flex flex-col h-full w-full bg-gray-100">
+    <div className="flex flex-col h-auto w-full bg-white flex-grow">
       <nav
         className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden border-solid border-y-2 border-gray-200"
         aria-label="Kembali ke direktori"
@@ -68,11 +68,11 @@ export default function LessonPage() {
           <span>{currentChapter.name}</span>
         </Link>
       </nav>
-      <article className="h-full bg-white m-0 py-5 border-b border-gray-200 flex flex-col">
-        <h3 className="px-6 sm:px-8 pb-5 text-lg leading-6 font-medium text-gray-900 border-b border-gray-200">
+      <article className="h-full bg-white m-0 pt-2 md:pt-5 flex flex-col flex-grow">
+        <h3 className="px-6 sm:px-8 pb-2 md:pb-5 text-md sm:text-lg leading-6 font-medium text-gray-900 border-b border-gray-200">
           {lesson.name}
         </h3>
-        <div className="mx-0 sm:mx-8 my-8 aspect-w-16 aspect-h-9 flex-none">
+        <div className="mx-0 sm:mx-8 sm:my-8 aspect-w-16 aspect-h-9 flex-none">
           <iframe
             title={lesson.name}
             className="sm:rounded-md"
@@ -82,8 +82,8 @@ export default function LessonPage() {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="mx-6 sm:mx-8 my-6 flex-grow">
-          <dl className="grid grid-cols-1 gap-x-4 gap-y-8 2xl:grid-cols-2">
+        <div className="mx-6 sm:mx-8 my-2 flex-grow">
+          <dl className="grid grid-cols-1 gap-x-4 gap-y-4 2xl:grid-cols-2">
             <div className="col-span-2 2xl:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Deskripsi</dt>
               <dd
@@ -128,18 +128,18 @@ export default function LessonPage() {
               </div>
             ) : null}
           </dl>
-          <div className="flex-1 flex justify-start py-8 flex-col sm:flex-row gap-4">
+          <div className="flex-1 flex justify-start py-4 flex-row gap-4">
             {requireCourseAuthor(user, course) && (
-              <div className="flex-1 flex justify-center sm:justify-start">
+              <div className="flex-1 flex justify-start">
                 <Link
                   to="edit"
                   className="relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700'"
                 >
-                  Ubah Deskripsi
+                  Ubah
                 </Link>
               </div>
             )}
-            <div className="flex-1 flex justify-center sm:justify-end">
+            <div className="flex-1 flex justify-end">
               <a
                 href="https://rbagi.id/menti"
                 target="_blank"
@@ -152,7 +152,7 @@ export default function LessonPage() {
           </div>
         </div>
         <nav
-          className="bg-white px-6 sm:px-8 pt-4 flex items-center justify-between border-t border-gray-200 flex-initial"
+          className="bg-white px-6 sm:px-8 py-2 flex items-center justify-between border-t border-gray-200 flex-initial gap-4"
           aria-label="Navigasi"
         >
           <div className="flex-1 flex justify-start">
