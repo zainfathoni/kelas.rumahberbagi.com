@@ -1,9 +1,10 @@
 import { Link, redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { Course, Lesson, User } from '@prisma/client'
+import { Course, User } from '@prisma/client'
 import { ChevronLeftIcon } from '@heroicons/react/solid'
+import { PaperClipIcon } from '@heroicons/react/outline'
 import { getFirstCourse } from '~/models/course'
-import { getLessonById } from '~/models/lesson'
+import { getLessonById, LessonWithAttachments } from '~/models/lesson'
 import { requireUser } from '~/services/auth.server'
 import {
   requireActiveSubscription,
@@ -36,8 +37,11 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 }
 
 export default function LessonPage() {
-  const { lesson, user, course } =
-    useLoaderData<{ lesson: Lesson; user: User; course: Course }>()
+  const { lesson, user, course } = useLoaderData<{
+    lesson: LessonWithAttachments
+    user: User
+    course: Course
+  }>()
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
@@ -72,8 +76,8 @@ export default function LessonPage() {
             ></iframe>
           </div>
           <div className="mx-6 sm:mx-8 my-6">
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div className="sm:col-span-2">
+            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 2xl:grid-cols-2">
+              <div className="col-span-2 2xl:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Deskripsi</dt>
                 <dd
                   className="whitespace-pre-line mt-1 max-w-prose text-sm text-gray-900 space-y-5"
@@ -82,6 +86,42 @@ export default function LessonPage() {
                   }}
                 ></dd>
               </div>
+              {lesson.attachments.length ? (
+                <div className="col-span-2 2xl:col-span-1">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Lampiran
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900">
+                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                      {lesson.attachments.map((attachment) => (
+                        <li
+                          key={attachment.id}
+                          className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                        >
+                          <div className="w-0 flex-1 flex items-center">
+                            <PaperClipIcon
+                              className="flex-shrink-0 h-5 w-5 text-gray-400"
+                              aria-hidden="true"
+                            />
+                            <span className="ml-2 flex-1 w-0 truncate">
+                              {attachment.name}
+                            </span>
+                          </div>
+                          <div className="ml-4 flex-shrink-0">
+                            <a
+                              href={attachment.url}
+                              download={attachment.name}
+                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                            >
+                              Unduh
+                            </a>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              ) : null}
             </dl>
           </div>
           <nav
