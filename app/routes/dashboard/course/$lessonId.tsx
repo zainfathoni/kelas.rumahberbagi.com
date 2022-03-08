@@ -1,8 +1,9 @@
-import { Link, redirect, useLoaderData, Outlet } from 'remix'
+import { Link, redirect, useLoaderData, Outlet, useOutletContext } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Course, User } from '@prisma/client'
-import { ChevronLeftIcon } from '@heroicons/react/solid'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import { PaperClipIcon } from '@heroicons/react/outline'
+import { CourseContextType } from '../course'
 import { getFirstCourse } from '~/models/course'
 import { getLessonById, LessonWithAttachments } from '~/models/lesson'
 import { requireUser } from '~/services/auth.server'
@@ -12,6 +13,7 @@ import {
 } from '~/utils/permissions'
 import { Handle } from '~/utils/types'
 import { transformURLwithinText } from '~/utils/format'
+import { getAdjacentLessonIds } from '~/utils/pagination'
 
 export const handle: Handle = { name: 'Video' }
 
@@ -43,6 +45,12 @@ export default function LessonPage() {
     course: Course
   }>()
 
+  const { chapters } = useOutletContext<CourseContextType>()
+  const { currentChapter, nextLessonId, prevLessonId } = getAdjacentLessonIds(
+    chapters,
+    lesson
+  )
+
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
       <nav
@@ -57,7 +65,7 @@ export default function LessonPage() {
             className="-ml-2 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
-          <span>Kembali</span>
+          <span>{currentChapter.name}</span>
         </Link>
       </nav>
       <article className="h-full">
@@ -128,25 +136,53 @@ export default function LessonPage() {
             className="bg-white px-6 sm:px-8 pt-4 flex items-center justify-between border-t border-gray-200"
             aria-label="Pertanyaan"
           >
+            <div className="flex-1 flex justify-start">
+              {prevLessonId ? (
+                <Link
+                  to={`/dashboard/course/${prevLessonId}`}
+                  className="relative inline-flex items-center py-2 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <ChevronLeftIcon
+                    className="-ml-1 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-2">Sebelumnya</span>
+                </Link>
+              ) : null}
+            </div>
             {requireCourseAuthor(user, course) && (
-              <div className="flex-1 flex justify-start">
+              <div className="flex-1 flex justify-center">
                 <Link
                   to="edit"
                   className="relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700'"
                 >
-                  Ubah
+                  Ubah Deskripsi
                 </Link>
               </div>
             )}
-            <div className="flex-1 flex justify-end">
+            <div className="flex-1 flex justify-center">
               <a
                 href="https://rbagi.id/menti"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 text-center"
               >
                 Ajukan Pertanyaan
               </a>
+            </div>
+            <div className="flex-1 flex justify-end">
+              {nextLessonId ? (
+                <Link
+                  to={`/dashboard/course/${nextLessonId}`}
+                  className="relative inline-flex items-center py-2 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <span className="mr-2">Selanjutnya</span>
+                  <ChevronRightIcon
+                    className="-ml-1 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </Link>
+              ) : null}
             </div>
           </nav>
         </div>

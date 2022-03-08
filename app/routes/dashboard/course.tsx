@@ -23,16 +23,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export type CourseContextType = {
+  chapters: Chapters
   directory: ReactNode
 }
 
 export default function CourseRoot() {
   const { chapters } = useLoaderData<{ chapters: Chapters }>()
   const matches = useMatches()
-  const lessonId = matches[matches.length - 1]?.params?.lessonId
+  const currentLessonId = matches[matches.length - 1]?.params?.lessonId
 
   const directory = (
-    <Directory label="Direktori Video" currentId={lessonId}>
+    <Directory label="Direktori Video" currentId={currentLessonId}>
       {chapters.map(({ id, name, lessons }) => (
         <Directory.Group key={id} name={name}>
           {lessons.map(({ id, name, description }) => (
@@ -48,7 +49,7 @@ export default function CourseRoot() {
     </Directory>
   )
 
-  const context: CourseContextType = { directory }
+  const context: CourseContextType = { chapters, directory }
 
   return (
     <div className="flex-1 relative z-0 flex overflow-hidden">
