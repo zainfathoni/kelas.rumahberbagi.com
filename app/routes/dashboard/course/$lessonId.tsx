@@ -2,6 +2,7 @@ import { Link, redirect, useLoaderData, Outlet } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Course, Lesson, User } from '@prisma/client'
 import { ChevronLeftIcon } from '@heroicons/react/solid'
+import { PaperClipIcon } from '@heroicons/react/outline'
 import { getFirstCourse } from '~/models/course'
 import { getLessonById } from '~/models/lesson'
 import { requireUser } from '~/services/auth.server'
@@ -72,8 +73,8 @@ export default function LessonPage() {
             ></iframe>
           </div>
           <div className="mx-6 sm:mx-8 my-6">
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div className="sm:col-span-2">
+            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 2xl:grid-cols-2">
+              <div className="col-span-2 2xl:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Deskripsi</dt>
                 <dd
                   className="whitespace-pre-line mt-1 max-w-prose text-sm text-gray-900 space-y-5"
@@ -81,6 +82,55 @@ export default function LessonPage() {
                     __html: transformURLwithinText(lesson.description ?? '-'),
                   }}
                 ></dd>
+              </div>
+              <div className="col-span-2 2xl:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Lampiran</dt>
+                <dd className="mt-1 text-sm text-gray-900">
+                  <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                      <div className="w-0 flex-1 flex items-center">
+                        <PaperClipIcon
+                          className="flex-shrink-0 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-2 flex-1 w-0 truncate">
+                          resume_back_end_developer.pdf
+                        </span>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <a
+                          href="https://rbagi.id/menti"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                      <div className="w-0 flex-1 flex items-center">
+                        <PaperClipIcon
+                          className="flex-shrink-0 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <span className="ml-2 flex-1 w-0 truncate">
+                          coverletter_back_end_developer.pdf
+                        </span>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <a
+                          href="https://rbagi.id/menti"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          Download
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </dd>
               </div>
             </dl>
           </div>
