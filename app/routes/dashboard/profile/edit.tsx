@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
   const fields: UserFields = {
     name,
-    phoneNumber,
+    phoneNumber: phoneNumber.trim(),
     instagram: instagram ? String(instagram) : null,
     telegram: telegram ? String(telegram) : null,
   }
