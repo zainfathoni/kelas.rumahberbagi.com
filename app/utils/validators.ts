@@ -8,7 +8,7 @@ export const validateRequired: Validator = (label, value) => {
 
 export const validatePhoneNumber: Validator = (label, value) => {
   if (!value) return `${label} wajib diisi`
-  if (!/^\+[1-9]\d{1,14}$/.test(value))
+  if (!/^\+[1-9]\d{1,14}$/.test(value.trim()))
     return `${label} harus mengandung kode negara dan nomor telepon`
   return undefined
 }
