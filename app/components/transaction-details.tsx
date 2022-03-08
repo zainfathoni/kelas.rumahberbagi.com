@@ -3,7 +3,11 @@ import { ReactNode } from 'react'
 import { TransactionIcon } from './transaction-item'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { isNotEmpty } from '~/utils/assertions'
-import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
+import {
+  printLocaleDateTimeString,
+  printRupiah,
+  transformURLwithinText,
+} from '~/utils/format'
 
 export function TransactionDetails({
   transaction,
@@ -174,9 +178,12 @@ export function TransactionDetails({
                       <dd
                         id="notes"
                         className="whitespace-pre-line mt-1 text-sm text-gray-900"
-                      >
-                        {transaction.notes}
-                      </dd>
+                        dangerouslySetInnerHTML={{
+                          __html: transformURLwithinText(
+                            transaction.notes ?? '-'
+                          ),
+                        }}
+                      />
                     </div>
                   ) : null}
                 </dl>

@@ -28,3 +28,10 @@ export function printLocaleDateTimeString(date: Date | string | number) {
     })
   )
 }
+
+export function transformURLwithinText(text: string) {
+  return text.replace(
+    /(https?:\/\/[^\s]+)/g,
+    '<a class="text-indigo-600 hover:text-indigo-500 hover:underline" href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+  )
+}
