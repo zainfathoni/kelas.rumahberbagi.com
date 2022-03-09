@@ -1,7 +1,11 @@
 import { Link, redirect, useLoaderData, Outlet, useOutletContext } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { Course, User } from '@prisma/client'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ExternalLinkIcon,
+} from '@heroicons/react/solid'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import { CourseContextType } from '../course'
 import { getFirstCourse } from '~/models/course'
@@ -147,6 +151,10 @@ export default function LessonPage() {
                 className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 text-center"
               >
                 Ajukan Pertanyaan
+                <ExternalLinkIcon
+                  className="-mr-1 ml-2 h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </a>
             </div>
           </div>
