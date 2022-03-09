@@ -169,7 +169,9 @@ export default function PurchaseConfirm() {
                   Biodata Anda di atas masih kosong atau terdapat kesalahan?
                 </p>
                 <Link
-                  to="/dashboard/profile/edit"
+                  to={`/dashboard/profile/edit?${new URLSearchParams([
+                    ['redirectTo', '/dashboard/purchase/confirm'],
+                  ])}`}
                   className="text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
                 >
                   Ubah di sini

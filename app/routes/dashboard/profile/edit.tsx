@@ -7,6 +7,7 @@ import {
   Form,
   json,
   useLoaderData,
+  useSearchParams,
 } from 'remix'
 import {
   getHeadersWithUpdatedUser,
@@ -44,14 +45,20 @@ export const action: ActionFunction = async ({ request }) => {
   const phoneNumber = form.get('phoneNumber')
   const instagram = form.get('instagram')
   const telegram = form.get('telegram')
+  const redirectTo = form.get('redirectTo') || '/dashboard/profile'
+
   // TODO: Use `zod` instead
   if (
     typeof name !== 'string' ||
     typeof phoneNumber !== 'string' ||
     (typeof instagram !== 'string' && typeof instagram !== 'object') ||
-    (typeof telegram !== 'string' && typeof telegram !== 'object')
+    (typeof telegram !== 'string' && typeof telegram !== 'object') ||
+    typeof redirectTo !== 'string'
   ) {
-    return { formError: 'Form not submitted correctly.' }
+    return {
+      formError: 'Form not submitted correctly.',
+      fields: form.entries(),
+    }
   }
 
   const fieldErrors = {
@@ -72,7 +79,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const headers = await getHeadersWithUpdatedUser(request, user)
 
-  return redirect('/dashboard/profile', { headers })
+  return redirect(redirectTo, { headers })
 }
 
 const tabs = [{ name: 'Profil', href: '#', current: true }]
@@ -85,6 +92,7 @@ export default function Settings() {
   const { user } = useLoaderData<{ user: User }>()
   const actionData = useActionData<ActionData>()
   const { state } = useTransition()
+  const [searchParams] = useSearchParams()
 
   return (
     <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
@@ -202,6 +210,11 @@ export default function Settings() {
                           placeholder="@user.name"
                           defaultValue={user.instagram ?? ''}
                           autoComplete="nickname"
+                        />
+                        <input
+                          type="hidden"
+                          name="redirectTo"
+                          value={searchParams.get('redirectTo') ?? undefined}
                         />
                       </div>
                     </div>
