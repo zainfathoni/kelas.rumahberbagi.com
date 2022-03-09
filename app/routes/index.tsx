@@ -1,5 +1,5 @@
 import type { MetaFunction } from 'remix'
-import { HeroSection } from '~/components/hero-section'
+import { HeroSection } from '~/components/sections/hero'
 import {
   BenefitSection,
   BenefitDescription,
@@ -7,20 +7,20 @@ import {
   BenefitBottomContainer,
   BenefitContainerImage,
   BenefitItem,
-} from '~/components/benefit-section'
+} from '~/components/sections/benefit'
 import { FileInvoiceIcon } from '~/components/icons/file-invoice'
 import { FileSignatureIcon } from '~/components/icons/file-signature'
 import { FileVideoIcon } from '~/components/icons/file-video'
 import { CommentsAltIcon } from '~/components/icons/comments-alt'
 import { Content } from '~/components/sections/content'
 import { Pricing } from '~/components/sections/pricing'
-import { QnA } from '~/components/qna-section'
+import { QnA } from '~/components/sections/qna'
 import {
   CtaButton,
   CtaSection,
   CtaDescription,
   CtaTitle,
-} from '~/components/cta-section'
+} from '~/components/sections/cta'
 import { TelegramIcon } from '~/components/icons/telegram'
 import { Timeline } from '~/components/sections/timeline'
 
