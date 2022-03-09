@@ -112,24 +112,34 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   ])
 
   // Expect to see the new data on the View profile page
-  await expect(page.locator(`text=${user.name}`).first()).toBeVisible()
-  await expect(page.locator(`text=${user.phoneNumber}`).first()).toBeVisible()
-  await expect(page.locator(`text=${user.telegram}`).first()).toBeVisible()
-  await expect(page.locator(`text=${user.instagram}`).first()).toBeVisible()
+  await expect(page.locator('[aria-label="Nama Lengkap"]').first()).toHaveText(
+    user.name
+  )
+  await expect(
+    page.locator('[aria-label="Nomor WhatsApp"]').first()
+  ).toHaveText(user.phoneNumber)
+  await expect(page.locator('[aria-label="Telegram"]').first()).toHaveText(
+    user.telegram
+  )
+  await expect(page.locator('[aria-label="Instagram"]').first()).toHaveText(
+    user.instagram
+  )
 
   // Go back to the /profile/edit page
   await page.click('text=Ubah')
   await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
 
   // Expect to see the new data prefilled
-  await expect(page.locator(`[value="${user.name}"]`).first()).toBeVisible()
-  await expect(
-    page.locator(`[value="${user.phoneNumber}"]`).first()
-  ).toBeVisible()
-  await expect(page.locator(`[value="${user.telegram}"]`).first()).toBeVisible()
-  await expect(
-    page.locator(`[value="${user.instagram}"]`).first()
-  ).toBeVisible()
+  await expect(page.locator('[name="name"]').first()).toHaveValue(user.name)
+  await expect(page.locator('[name="phoneNumber"]').first()).toHaveValue(
+    user.phoneNumber
+  )
+  await expect(page.locator('[name="telegram"]').first()).toHaveValue(
+    user.telegram
+  )
+  await expect(page.locator('[name="instagram"]').first()).toHaveValue(
+    user.instagram
+  )
 })
 
 test('Redirect back to the confirm page when the user is coming from it', async ({
