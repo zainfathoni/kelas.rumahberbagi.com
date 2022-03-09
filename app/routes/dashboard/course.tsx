@@ -2,7 +2,7 @@ import { redirect, useLoaderData, Outlet, useMatches } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { ReactNode } from 'react'
 import { Chapters, getAllChapters, getFirstCourse } from '~/models/course'
-import { requireUser } from '~/services/auth.server'
+import { requireUpdatedUser } from '~/services/auth.server'
 import { requireActiveSubscription } from '~/utils/permissions'
 import { Handle } from '~/utils/types'
 import { Directory } from '~/components/directory'
@@ -10,7 +10,7 @@ import { Directory } from '~/components/directory'
 export const handle: Handle = { name: 'Kelas' }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUser(request)
+  const user = await requireUpdatedUser(request)
   const course = await getFirstCourse()
 
   if (!requireActiveSubscription(user, course)) {
