@@ -68,7 +68,7 @@ export async function requireUpdatedUser(
 
   const user = await getUser(id)
   if (!user) {
-    return logout(request)
+    throw logout(request)
   }
 
   return user
