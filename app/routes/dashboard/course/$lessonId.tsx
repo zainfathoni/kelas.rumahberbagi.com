@@ -54,12 +54,12 @@ export default function LessonPage() {
   return (
     <div className="flex flex-col h-full w-full bg-gray-50 flex-grow">
       <nav
-        className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden border-solid border-y-2 border-gray-200"
+        className="flex items-start px-4 sm:px-6 lg:px-8 xl:hidden border-solid border-y-2 border-gray-200"
         aria-label="Kembali ke direktori"
       >
         <Link
           to="/dashboard/course"
-          className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+          className="inline-flex items-center space-x-3 py-3 text-sm font-medium text-gray-900"
         >
           <ChevronLeftIcon
             className="-ml-2 h-5 w-5 text-gray-400"
@@ -159,7 +159,7 @@ export default function LessonPage() {
             {prevLessonId ? (
               <Link
                 to={`/dashboard/course/${prevLessonId}`}
-                className="relative inline-flex items-center py-2 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex items-center py-4 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <ChevronLeftIcon
                   className="-ml-1 h-5 w-5 text-gray-400"
