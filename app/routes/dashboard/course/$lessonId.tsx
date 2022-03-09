@@ -52,7 +52,7 @@ export default function LessonPage() {
   )
 
   return (
-    <div className="flex flex-col h-auto w-full bg-white flex-grow">
+    <div className="flex flex-col h-full w-full bg-gray-50 flex-grow">
       <nav
         className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden border-solid border-y-2 border-gray-200"
         aria-label="Kembali ke direktori"
@@ -68,7 +68,7 @@ export default function LessonPage() {
           <span>{currentChapter.name}</span>
         </Link>
       </nav>
-      <article className="h-full bg-white m-0 pt-2 md:pt-5 flex flex-col flex-grow">
+      <article className="h-full bg-gray-50 m-0 pt-2 md:pt-5 flex flex-col flex-grow">
         <h3 className="px-6 sm:px-8 pb-2 md:pb-5 text-md sm:text-lg leading-6 font-medium text-gray-900 border-b border-gray-200">
           {lesson.name}
         </h3>
@@ -97,11 +97,11 @@ export default function LessonPage() {
               <div className="col-span-2 2xl:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Lampiran</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                  <ul className="border-solid border border-gray-200 rounded-md divide-y divide-gray-200 overflow-hidden">
                     {lesson.attachments.map((attachment) => (
                       <li
                         key={attachment.id}
-                        className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                        className="pl-3 pr-4 py-3 flex items-center justify-between text-sm bg-white"
                       >
                         <div className="w-0 flex-1 flex items-center">
                           <PaperClipIcon
@@ -152,7 +152,7 @@ export default function LessonPage() {
           </div>
         </div>
         <nav
-          className="bg-white px-6 sm:px-8 py-2 flex items-center justify-between border-t border-gray-200 flex-initial gap-4"
+          className="bg-white px-6 sm:px-8 flex items-center justify-between border-t border-gray-200 flex-initial gap-4"
           aria-label="Navigasi"
         >
           <div className="flex-1 flex justify-start">
@@ -173,7 +173,7 @@ export default function LessonPage() {
             {nextLessonId ? (
               <Link
                 to={`/dashboard/course/${nextLessonId}`}
-                className="relative inline-flex items-center py-2 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex items-center py-4 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <span className="mr-2">Selanjutnya</span>
                 <ChevronRightIcon
