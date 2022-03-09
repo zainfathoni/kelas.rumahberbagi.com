@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { ReactNode } from 'react'
 
-export default function Alert({ children }: { children: ReactNode }) {
+export function Alert({ children }: { children: ReactNode }) {
   return (
     <div className="bg-green-50 border-l-4 border-green-400 py-3 px-4 mt-4">
       <div className="flex">
