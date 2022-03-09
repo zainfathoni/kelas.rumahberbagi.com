@@ -60,7 +60,10 @@ export default function ProfileIndex() {
                   </div>
                 </div>
                 <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-                  <h1 className="text-2xl font-bold text-gray-900 truncate">
+                  <h1
+                    aria-label="Nama Lengkap"
+                    className="text-2xl font-bold text-gray-900 truncate"
+                  >
                     {user.name}
                   </h1>
                 </div>
@@ -96,20 +99,30 @@ export default function ProfileIndex() {
             <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-1">
-                  <dt className="text-sm font-medium text-gray-500">Phone</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Nomor WhatsApp
+                  </dt>
+                  <dd
+                    aria-label="Nomor WhatsApp"
+                    className="mt-1 text-sm text-gray-900"
+                  >
                     {user.phoneNumber}
                   </dd>
                 </div>
                 <div className="sm:col-span-1">
                   <dt className="text-sm font-medium text-gray-500">Email</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{user.email}</dd>
+                  <dd aria-label="Email" className="mt-1 text-sm text-gray-900">
+                    {user.email}
+                  </dd>
                 </div>
                 <div className="sm:col-span-1">
                   <dt className="text-sm font-medium text-gray-500">
                     Telegram
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd
+                    aria-label="Telegram"
+                    className="mt-1 text-sm text-gray-900"
+                  >
                     {user.telegram ?? '-'}
                   </dd>
                 </div>
@@ -117,13 +130,18 @@ export default function ProfileIndex() {
                   <dt className="text-sm font-medium text-gray-500">
                     Instagram
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd
+                    aria-label="Instagram"
+                    className="mt-1 text-sm text-gray-900"
+                  >
                     {user.instagram ?? '-'}
                   </dd>
                 </div>
                 <div className="sm:col-span-1">
                   <dt className="text-sm font-medium text-gray-500">Role</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{user.role}</dd>
+                  <dd aria-label="Role" className="mt-1 text-sm text-gray-900">
+                    {user.role}
+                  </dd>
                 </div>
               </dl>
             </div>

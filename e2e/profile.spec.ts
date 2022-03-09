@@ -5,6 +5,13 @@ test.use({
   storageState: 'e2e/fixtures/auth/member-edit.local.json',
 })
 
+const user = {
+  name: 'Zain Fathoni',
+  phoneNumber: '+6512345678',
+  telegram: '@zainfathoni',
+  instagram: '@zain.fathoni',
+}
+
 test('Validate phone number when updating data', async ({
   page,
   noscript,
@@ -68,7 +75,7 @@ test('Validate name when updating data', async ({
     ).toBeVisible()
   }
 
-  await name.fill('Lorem I')
+  await name.fill(user.name)
   await page.click('text=Simpan')
 
   await expect(
@@ -93,10 +100,10 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
     name: /username instagram/i,
   })
   // Fill all input
-  await name.fill('Lorem Ipsum')
-  await phoneNumber.fill('+6289123456')
-  await telegram.fill('@lorem_tl')
-  await instagram.fill('@lorem_ig')
+  await name.fill(user.name)
+  await phoneNumber.fill(user.phoneNumber)
+  await telegram.fill(user.telegram)
+  await instagram.fill(user.instagram)
 
   // Submit form and wait for the redirect to the /profile page
   await Promise.all([
@@ -105,17 +112,63 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   ])
 
   // Expect to see the new data on the View profile page
-  await expect(page.locator('text=+6289123456').first()).toBeVisible()
-  await expect(page.locator('text=@lorem_tl').first()).toBeVisible()
-  await expect(page.locator('text=@lorem_ig').first()).toBeVisible()
+  await expect(page.locator('[aria-label="Nama Lengkap"]').first()).toHaveText(
+    user.name
+  )
+  await expect(
+    page.locator('[aria-label="Nomor WhatsApp"]').first()
+  ).toHaveText(user.phoneNumber)
+  await expect(page.locator('[aria-label="Telegram"]').first()).toHaveText(
+    user.telegram
+  )
+  await expect(page.locator('[aria-label="Instagram"]').first()).toHaveText(
+    user.instagram
+  )
 
   // Go back to the /profile/edit page
   await page.click('text=Ubah')
   await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
 
   // Expect to see the new data prefilled
-  await expect(page.locator('[value="Lorem Ipsum"]').first()).toBeVisible()
-  await expect(page.locator('[value="+6289123456"]').first()).toBeVisible()
-  await expect(page.locator('[value="@lorem_tl"]').first()).toBeVisible()
-  await expect(page.locator('[value="@lorem_ig"]').first()).toBeVisible()
+  await expect(page.locator('[name="name"]').first()).toHaveValue(user.name)
+  await expect(page.locator('[name="phoneNumber"]').first()).toHaveValue(
+    user.phoneNumber
+  )
+  await expect(page.locator('[name="telegram"]').first()).toHaveValue(
+    user.telegram
+  )
+  await expect(page.locator('[name="instagram"]').first()).toHaveValue(
+    user.instagram
+  )
+})
+
+test('Redirect back to the confirm page when the user is coming from it', async ({
+  page,
+  queries: { getByRole },
+}) => {
+  await page.goto(
+    '/dashboard/profile/edit?redirectTo=%2Fdashboard%2Fpurchase%2Fconfirm'
+  )
+
+  // Get element by role
+  const name = await getByRole('textbox', {
+    name: /nama lengkap/i,
+  })
+  const phoneNumber = await getByRole('textbox', {
+    name: /nomor whatsapp/i,
+  })
+
+  // Fill all input
+  await name.fill(user.name)
+  await phoneNumber.fill(user.phoneNumber)
+
+  // Submit form and wait for the redirect to the /dashboard/purchase/confirm page
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/purchase/confirm' }*/),
+    page.click('text=Simpan'),
+  ])
+
+  await expect(page).toHaveURL(
+    'http://localhost:3000/dashboard/purchase/confirm'
+  )
 })

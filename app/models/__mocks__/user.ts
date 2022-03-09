@@ -2,7 +2,14 @@ import { build, fake, perBuild } from '@jackfranklin/test-data-bot'
 import { User } from '@prisma/client'
 import { ROLES } from '../enum'
 
-export const userBuilder = build<Omit<User, 'id' | 'createdAt' | 'updatedAt'>>({
+type OmittedUser = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
+
+export interface BuiltUser extends OmittedUser {
+  name: NonNullable<User['name']>
+  phoneNumber: NonNullable<User['phoneNumber']>
+}
+
+export const userBuilder = build<BuiltUser>({
   fields: {
     email: fake((f) => f.internet.email()),
     name: fake((f) => f.name.findName()),
