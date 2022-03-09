@@ -1,10 +1,6 @@
 import * as React from 'react'
 
 export const HeroSection = (): JSX.Element => {
-  const handleWatchVideo = () => {
-    window.open('https://rbagi.id/video-tahun-prasekolahku', '_blank')
-  }
-
   return (
     <div className="relative bg-white overflow-hidden">
       <div
@@ -113,10 +109,12 @@ export const HeroSection = (): JSX.Element => {
                 />
               </svg>
               <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
-                <button
+                <a
                   type="button"
                   className="relative block w-full bg-white rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleWatchVideo}
+                  href="https://rbagi.id/video-tahun-prasekolahku"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="sr-only">
                     Tonton video ini untuk mengetahui lebih lanjut
@@ -147,7 +145,7 @@ export const HeroSection = (): JSX.Element => {
                       <path d="M55.5039 40.3359L37.1094 28.0729C35.7803 27.1869 34 28.1396 34 29.737V54.263C34 55.8604 35.7803 56.8131 37.1094 55.9271L55.5038 43.6641C56.6913 42.8725 56.6913 41.1275 55.5039 40.3359Z" />
                     </svg>
                   </div>
-                </button>
+                </a>
               </div>
             </div>
           </div>

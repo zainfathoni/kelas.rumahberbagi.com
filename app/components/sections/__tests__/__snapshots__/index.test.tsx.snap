@@ -1,0 +1,1783 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page renders the Home Page without error 1`] = `
+<div>
+  <div>
+    <main>
+      <div
+        class="relative bg-white overflow-hidden"
+      >
+        <div
+          aria-hidden="true"
+          class="hidden lg:block lg:absolute lg:inset-0"
+        >
+          <svg
+            class="absolute top-0 left-1/2 transform translate-x-64 -translate-y-8"
+            fill="none"
+            height="784"
+            viewBox="0 0 640 784"
+            width="640"
+          >
+            <defs>
+              <pattern
+                height="20"
+                id="9ebea6f4-a1f5-4d96-8c4e-4c2abf658047"
+                patternUnits="userSpaceOnUse"
+                width="20"
+                x="118"
+                y="0"
+              >
+                <rect
+                  class="text-gray-200"
+                  fill="currentColor"
+                  height="4"
+                  width="4"
+                  x="0"
+                  y="0"
+                />
+              </pattern>
+            </defs>
+            <rect
+              class="text-gray-50"
+              fill="currentColor"
+              height="640"
+              width="640"
+              y="72"
+            />
+            <rect
+              fill="url(#9ebea6f4-a1f5-4d96-8c4e-4c2abf658047)"
+              height="784"
+              width="404"
+              x="118"
+            />
+          </svg>
+        </div>
+        <div
+          class="relative pt-6 pb-16 sm:pb-24 lg:pb-32"
+        >
+          <main
+            class="mt-4 mx-auto max-w-7xl px-4 sm:mt-6 sm:px-6 lg:mt-8"
+          >
+            <div
+              class="lg:grid lg:grid-cols-12 lg:gap-8"
+            >
+              <div
+                class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left"
+              >
+                <h1>
+                  <span
+                    class="block text-sm font-semibold uppercase tracking-wide text-gray-500 sm:text-base lg:text-sm xl:text-base"
+                  >
+                    Kelas Rumah Berbagi
+                  </span>
+                  <span
+                    class="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl"
+                  >
+                    <span
+                      class="block text-gray-900"
+                    >
+                      Tahun
+                    </span>
+                    <span
+                      class="block text-indigo-600"
+                    >
+                      Prasekolahku
+                    </span>
+                  </span>
+                </h1>
+                <p
+                  class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl"
+                >
+                  Membangun fondasi pendidikan prasekolah (0-6 tahun), menguatkan akar masa depan.
+                </p>
+              </div>
+              <div
+                class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 scale-75 origin-top sm:scale-100 lg:hidden"
+                  fill="none"
+                  height="784"
+                  viewBox="0 0 640 784"
+                  width="640"
+                >
+                  <defs>
+                    <pattern
+                      height="20"
+                      id="4f4f415c-a0e9-44c2-9601-6ded5a34a13e"
+                      patternUnits="userSpaceOnUse"
+                      width="20"
+                      x="118"
+                      y="0"
+                    >
+                      <rect
+                        class="text-gray-200"
+                        fill="currentColor"
+                        height="4"
+                        width="4"
+                        x="0"
+                        y="0"
+                      />
+                    </pattern>
+                  </defs>
+                  <rect
+                    class="text-gray-50"
+                    fill="currentColor"
+                    height="640"
+                    width="640"
+                    y="72"
+                  />
+                  <rect
+                    fill="url(#4f4f415c-a0e9-44c2-9601-6ded5a34a13e)"
+                    height="784"
+                    width="404"
+                    x="118"
+                  />
+                </svg>
+                <div
+                  class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md"
+                >
+                  <a
+                    class="relative block w-full bg-white rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    href="https://rbagi.id/video-tahun-prasekolahku"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    type="button"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Tonton video ini untuk mengetahui lebih lanjut
+                    </span>
+                    <img
+                      alt="Tahun Prasekolahku Video Preview"
+                      class="w-full"
+                      height="959"
+                      src="/images/tahun-prasekolahku-video-preview.jpeg"
+                      width="1280"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="absolute inset-0 w-full h-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="h-20 w-20 text-indigo-500"
+                        fill="currentColor"
+                        viewBox="0 0 84 84"
+                      >
+                        <circle
+                          cx="42"
+                          cy="42"
+                          fill="white"
+                          opacity="0.9"
+                          r="42"
+                        />
+                        <path
+                          d="M55.5039 40.3359L37.1094 28.0729C35.7803 27.1869 34 28.1396 34 29.737V54.263C34 55.8604 35.7803 56.8131 37.1094 55.9271L55.5038 43.6641C56.6913 42.8725 56.6913 41.1275 55.5039 40.3359Z"
+                        />
+                      </svg>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <div
+        class="py-16 bg-gray-50 overflow-hidden lg:py-24"
+        id="benefit"
+      >
+        <div
+          class="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl"
+        >
+          <svg
+            aria-hidden="true"
+            class="hidden lg:block absolute left-full transform -translate-x-1/2 -translate-y-1/4"
+            fill="none"
+            height="784"
+            viewBox="0 0 404 784"
+            width="404"
+          >
+            <defs>
+              <pattern
+                height="20"
+                id="b1e6e422-73f8-40a6-b5d9-c8586e37e0e7"
+                patternUnits="userSpaceOnUse"
+                width="20"
+                x="0"
+                y="0"
+              >
+                <rect
+                  class="text-gray-200"
+                  fill="currentColor"
+                  height="4"
+                  width="4"
+                  x="0"
+                  y="0"
+                />
+              </pattern>
+            </defs>
+            <rect
+              fill="url(#b1e6e422-73f8-40a6-b5d9-c8586e37e0e7)"
+              height="784"
+              width="404"
+            />
+          </svg>
+          <div
+            class="relative"
+          >
+            <h2
+              class="text-3xl max-w-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+            >
+              Mendidik anak usia Prasekolah dengan lembut, bahagia, dan cinta
+            </h2>
+            <p
+              class="mt-4 max-w-3xl text-xl text-gray-500"
+            >
+              Menjadi seorang ibu baru dengan anak usia prasekolah adalah satu pekerjaan yang menantang. Kita tidak sedang membesarkan tanaman atau hewan, tetapi manusia dengan segala fitrah, kemampuan, dan potensinya yang terus berkembang. Kita berharap, mereka lahir lengkap dengan buku manual. Tetapi tidak, kita belajar sambil sekaligus membesarkannya. Tidak heran jika ini membuat para ibu merasa kelelahan dan kebingungan.
+            </p>
+            <p
+              class="mt-4 max-w-3xl text-xl text-gray-500"
+            >
+              Masa-masa prasekolah ini adalah masa awal kehidupan yang seharusnya bebas dari tekanan. Ini bukan masa anak belajar dengan jadwal terstruktur, juga bukan saat yang tepat menjejali anak dengan sebanyak-banyaknya fakta. Anak tidak harus belajar dari peralatan yang mahal, karena sarana pendidikan terbaik sudah Allah sediakan di alam, baik itu di luar atau bahkan di dalam rumah sendiri.
+            </p>
+            <p
+              class="mt-4 max-w-3xl text-xl text-gray-500"
+            >
+              Di kelas ini, saya akan menggunakan prinsip-prinsip pendidikan ala Charlotte Mason dan positive discipline untuk pendidikan prasekolah yang praktis, mudah dilakukan, dan menyenangkan. Di sini kita akan bersama-sama melihat bahwa anak usia ini tidak perlu diajari aktivitas-aktivitas akademis yang membuat mereka dan para ibu stress. Kita akan melangkah ke dunia pendidikan yang simpel dan menyenangkan tanpa mengorbankan kewarasan kita. Insyaa Allah.
+            </p>
+          </div>
+          <div
+            class="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center"
+          >
+            <div
+              class="relative"
+            >
+              <h3
+                class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl"
+              >
+                Kelas yang nyaman dan mudah
+              </h3>
+              <p
+                class="mt-3 text-lg text-gray-500"
+              >
+                Agar kelas ini nyaman diikuti dan mudah untuk dirujuk kembali di kemudian hari, maka saya sediakan:
+              </p>
+              <dl
+                class="mt-10 space-y-10"
+              >
+                <div
+                  class="relative"
+                >
+                  <dt>
+                    <div
+                      class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="h-6 w-6"
+                        data-icon="file-invoice"
+                        data-prefix="fad"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 384 512"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g>
+                          <path
+                            d="M96 320h192v-64H96zm288-192H272a16 16 0 0 1-16-16V0H24A23.94 23.94 0 0 0 0 23.88V488a23.94 23.94 0 0 0 23.88 24H360a23.94 23.94 0 0 0 24-23.88V128zM64 72a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H72a8 8 0 0 1-8-8zm0 64a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H72a8 8 0 0 1-8-8zm256 304a8 8 0 0 1-8 8h-80a8 8 0 0 1-8-8v-16a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8zm0-104a16 16 0 0 1-16 16H80a16 16 0 0 1-16-16v-96a16 16 0 0 1 16-16h224a16 16 0 0 1 16 16z"
+                            fill="currentColor"
+                            opacity="0.4"
+                          />
+                          <path
+                            d="M377 105L279.1 7a24 24 0 0 0-17-7H256v112a16 16 0 0 0 16 16h112v-6.1a23.9 23.9 0 0 0-7-16.9zm-73 119H80a16 16 0 0 0-16 16v96a16 16 0 0 0 16 16h224a16 16 0 0 0 16-16v-96a16 16 0 0 0-16-16zm-16 96H96v-64h192zm24 96h-80a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8z"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <p
+                      class="ml-16 text-lg leading-6 font-medium text-gray-900"
+                    >
+                      Handout dan catatan bergambar (sketch note)
+                    </p>
+                  </dt>
+                  <dd
+                    class="mt-2 ml-16 text-base text-gray-500"
+                  >
+                    Ini adalah sketchnote yang saya tulis dan gambar sendiri untuk membantu memudahkan teman-teman memahami materi yang saya sampaikan.
+                  </dd>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <dt>
+                    <div
+                      class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="h-6 w-6"
+                        data-icon="file-signature"
+                        data-prefix="fad"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 576 512"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g>
+                          <path
+                            d="M64 400a16 16 0 0 0 16 16h12.39a43.17 43.17 0 0 0 41-29.53L144 354.59l16.83 50.47c4.45 13.46 23.11 14.87 29.48 2.09l7.69-15.34a10.91 10.91 0 0 1 10-6.19 11.08 11.08 0 0 1 10.17 6.52A43 43 0 0 0 256 416h101l27-27.19v99.31A23.94 23.94 0 0 1 360 512H23.88A23.94 23.94 0 0 1 0 488V23.88A23.94 23.94 0 0 1 24 0h232v112a16 16 0 0 0 16 16h112v123.67L288 347v37h-32a11.63 11.63 0 0 1-9.35-6.5c-11.94-23.86-46.25-30.35-66-14.16l-13.88-41.64a24 24 0 0 0-45.55 0L103 376.34A11.21 11.21 0 0 1 92.39 384H80a16 16 0 0 0-16 16z"
+                            fill="currentColor"
+                            opacity="0.4"
+                          />
+                          <path
+                            d="M384 121.9a23.9 23.9 0 0 0-7-16.9L279.1 7a24 24 0 0 0-17-7H256v112a16 16 0 0 0 16 16h112zM288 347v69h69l161.67-162.78-67.88-67.88zm280.56-179.65l-31.87-31.87a25.48 25.48 0 0 0-36 0l-27.25 27.25 67.88 67.88 27.25-27.25a25.45 25.45 0 0 0-.01-36.01z"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <p
+                      class="ml-16 text-lg leading-6 font-medium text-gray-900"
+                    >
+                      Printable planner
+                    </p>
+                  </dt>
+                  <dd
+                    class="mt-2 ml-16 text-base text-gray-500"
+                  >
+                    Setelah memahami materi, kita akan mengeksplorasi planner untuk membantu menavigasi aplikasi materi dalam kehidupan mereka sehari-hari. Planner yang bisa dikostumisasi sesuai dengan kebutuhan kalian dan anak.
+                  </dd>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <dt>
+                    <div
+                      class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="h-6 w-6"
+                        data-icon="file-video"
+                        data-prefix="fad"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 384 512"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g>
+                          <path
+                            d="M384 128H272a16 16 0 0 1-16-16V0H24A23.94 23.94 0 0 0 0 23.88V488a23.94 23.94 0 0 0 23.88 24H360a23.94 23.94 0 0 0 24-23.88V128zm-64 264c0 21.44-25.94 32-41 17l-55-55v38a24 24 0 0 1-24 24H88a24 24 0 0 1-24-24V280a24 24 0 0 1 24-24h112a24 24 0 0 1 24 24v38.06l55-55c15-15.06 41-4.5 41 16.94z"
+                            fill="currentColor"
+                            opacity="0.4"
+                          />
+                          <path
+                            d="M377 105L279.1 7a24 24 0 0 0-17-7H256v112a16 16 0 0 0 16 16h112v-6.1a23.9 23.9 0 0 0-7-16.9zm-98 158.06l-55 55V280a24 24 0 0 0-24-24H88a24 24 0 0 0-24 24v112a24 24 0 0 0 24 24h112a24 24 0 0 0 24-24v-38l55 55c15.06 15 41 4.44 41-17V280c0-21.44-26-32-41-16.94z"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <p
+                      class="ml-16 text-lg leading-6 font-medium text-gray-900"
+                    >
+                      Materi Video rekaman (pre-recorded video)
+                    </p>
+                  </dt>
+                  <dd
+                    class="mt-2 ml-16 text-base text-gray-500"
+                  >
+                    Materi yang akan saya sampaikan sudah saya rekam sebelumnya dengan kualitas suara dan gambar yang lebih baik dari kelas-kelas sebelumnya. Materi saya partisi berdasarkan topik sehingga teman-teman mudah merujuk kembali sesuai dengan topik yang kalian inginkan atau butuhkan saat itu.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div
+              aria-hidden="true"
+              class="mt-10 -mx-4 relative lg:mt-0"
+            >
+              <svg
+                class="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"
+                fill="none"
+                height="404"
+                viewBox="0 0 784 404"
+                width="784"
+              >
+                <defs>
+                  <pattern
+                    height="20"
+                    id="ca9667ae-9f92-4be7-abcb-9e3d727f2941"
+                    patternUnits="userSpaceOnUse"
+                    width="20"
+                    x="0"
+                    y="0"
+                  >
+                    <rect
+                      class="text-gray-200"
+                      fill="currentColor"
+                      height="4"
+                      width="4"
+                      x="0"
+                      y="0"
+                    />
+                  </pattern>
+                </defs>
+                <rect
+                  fill="url(#ca9667ae-9f92-4be7-abcb-9e3d727f2941)"
+                  height="404"
+                  width="784"
+                />
+              </svg>
+              <img
+                alt="Halaman perencanaan"
+                class="relative mx-auto rounded-xl"
+                height="1280"
+                src="/images/interaction-preview.jpeg"
+                width="937"
+              />
+            </div>
+          </div>
+          <svg
+            aria-hidden="true"
+            class="hidden lg:block absolute right-full transform translate-x-1/2 translate-y-12"
+            fill="none"
+            height="784"
+            viewBox="0 0 404 784"
+            width="404"
+          >
+            <defs>
+              <pattern
+                height="20"
+                id="64e643ad-2176-4f86-b3d7-f2c5da3b6a6d"
+                patternUnits="userSpaceOnUse"
+                width="20"
+                x="0"
+                y="0"
+              >
+                <rect
+                  class="text-gray-200"
+                  fill="currentColor"
+                  height="4"
+                  width="4"
+                  x="0"
+                  y="0"
+                />
+              </pattern>
+            </defs>
+            <rect
+              fill="url(#64e643ad-2176-4f86-b3d7-f2c5da3b6a6d)"
+              height="784"
+              width="404"
+            />
+          </svg>
+          <div
+            class="relative mt-12 sm:mt-16 lg:mt-24"
+          >
+            <div
+              class="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-16 lg:items-center"
+            >
+              <div
+                class="lg:col-start-2"
+              >
+                <h3
+                  class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl"
+                >
+                  Interaksi dua arah
+                </h3>
+                <p
+                  class="mt-3 text-lg text-gray-500"
+                >
+                  Selain materi di atas yang bersifat satu arah, kami juga menyediakan sarana interaksi dua arah.
+                </p>
+                <dl
+                  class="mt-10 space-y-10"
+                >
+                  <div
+                    class="relative"
+                  >
+                    <dt>
+                      <div
+                        class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-6 w-6"
+                          data-icon="telegram"
+                          data-prefix="fab"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 496 512"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </div>
+                      <p
+                        class="ml-16 text-lg leading-6 font-medium text-gray-900"
+                      >
+                        Grup Telegram
+                      </p>
+                    </dt>
+                    <dd
+                      class="mt-2 ml-16 text-base text-gray-500"
+                    >
+                      Kami akan sediakan grup telegram untuk update informasi dan mengumpulkan pertanyaan-pertanyaan yang ingin diajukan. Oleh karena itu, setelah peserta mendapatkan akses materi, silakan materi tersebut dipelajari sesuai dengan kecepatan masing-masing. Teman-teman bisa melahap habis materi sekali waktu, atau dicicil untuk dipelajari dalam waktu beberapa hari. Jika ada pertanyaan, ajukanlah pertanyaan tersebut di grup telegram. Pertanyaan-pertanyaan tersebut akan dikumpulkan oleh Tim Tahun Prasekolahku.
+                    </dd>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <dt>
+                      <div
+                        class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-6 w-6"
+                          data-icon="comments-alt"
+                          data-prefix="fad"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 576 512"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g>
+                            <path
+                              d="M352 287.9H162.3L79.5 350a9.7 9.7 0 0 1-15.5-7.8V288a64.06 64.06 0 0 1-64-64V64A64.06 64.06 0 0 1 64 0h288a64.06 64.06 0 0 1 64 64v160a63.91 63.91 0 0 1-64 63.9z"
+                              fill="currentColor"
+                              opacity="0.4"
+                            />
+                            <path
+                              d="M576 224v160a64.06 64.06 0 0 1-64 64h-32v54.3a9.7 9.7 0 0 1-15.5 7.8L381.7 448H256a64.06 64.06 0 0 1-64-64v-64h160a96.15 96.15 0 0 0 96-96v-64h64a64.06 64.06 0 0 1 64 64z"
+                              fill="currentColor"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                      <p
+                        class="ml-16 text-lg leading-6 font-medium text-gray-900"
+                      >
+                        Diskusi via Zoom
+                      </p>
+                    </dt>
+                    <dd
+                      class="mt-2 ml-16 text-base text-gray-500"
+                    >
+                      Setelah pertanyaan terkumpul, kami akan mengadakan sesi Zoom untuk berdiskusi interaktif akan pertanyaan-pertanyaan tersebut. Sesi diskusi via Zoom akan diadakan secara berkala. Untuk periode pertama tahun 2022, diskusi Zoom diadakan pada hari Minggu, 20 Maret 2022. Untuk teman/teman yang ingin mengikuti Zoom bulan Maret ini, maka timeline-nya sbb:
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div
+                class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"
+                  fill="none"
+                  height="404"
+                  viewBox="0 0 784 404"
+                  width="784"
+                >
+                  <defs>
+                    <pattern
+                      height="20"
+                      id="e80155a9-dfde-425a-b5ea-1f6fadd20131"
+                      patternUnits="userSpaceOnUse"
+                      width="20"
+                      x="0"
+                      y="0"
+                    >
+                      <rect
+                        class="text-gray-200"
+                        fill="currentColor"
+                        height="4"
+                        width="4"
+                        x="0"
+                        y="0"
+                      />
+                    </pattern>
+                  </defs>
+                  <rect
+                    fill="url(#e80155a9-dfde-425a-b5ea-1f6fadd20131)"
+                    height="404"
+                    width="784"
+                  />
+                </svg>
+                <a
+                  href="https://rbagi.id/tutorial"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  <img
+                    alt="Materi interaksi di kelas"
+                    class="relative mx-auto rounded-xl"
+                    height="959"
+                    src="/images/tutorial-preview.jpeg"
+                    width="1280"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="absolute inset-0 w-full h-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="h-20 w-20 text-indigo-500"
+                      fill="currentColor"
+                      viewBox="0 0 84 84"
+                    >
+                      <circle
+                        cx="42"
+                        cy="42"
+                        fill="white"
+                        opacity="0.9"
+                        r="42"
+                      />
+                      <path
+                        d="M55.5039 40.3359L37.1094 28.0729C35.7803 27.1869 34 28.1396 34 29.737V54.263C34 55.8604 35.7803 56.8131 37.1094 55.9271L55.5038 43.6641C56.6913 42.8725 56.6913 41.1275 55.5039 40.3359Z"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white"
+        id="jadwal"
+      >
+        <div
+          class="max-w-xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8"
+        >
+          <div
+            class="max-w-3xl mx-auto mb-12 text-center"
+          >
+            <h2
+              class="text-3xl font-extrabold text-gray-900"
+            >
+              Timeline Maret 2022
+            </h2>
+          </div>
+          <div
+            class="flow-root"
+          >
+            <ul
+              class="-mb-8"
+            >
+              <li>
+                <div
+                  class="relative pb-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                  />
+                  <div
+                    class="relative flex space-x-3"
+                  >
+                    <div>
+                      <span
+                        class="bg-purple-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4"
+                    >
+                      <div>
+                        <p
+                          class="text-sm font-medium text-gray-900"
+                        >
+                          Proses Pendaftaran dan Pembayaran Kelas mulai dibuka. Setelah Peserta sudah melunasi pembayaran, peserta akan mendapatkan akses link untuk masuk ke grup telegram Kelas Tahun Prasekolahku 2022.
+                           
+                        </p>
+                      </div>
+                      <div
+                        class="text-right text-sm whitespace-nowrap text-gray-500"
+                      >
+                        <time
+                          datetime="2022-03-01"
+                        >
+                          1 Maret
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="relative pb-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                  />
+                  <div
+                    class="relative flex space-x-3"
+                  >
+                    <div>
+                      <span
+                        class="bg-green-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4"
+                    >
+                      <div>
+                        <p
+                          class="text-sm font-medium text-gray-900"
+                        >
+                          Peserta akan mendapatkan akses materi lengkap di website ini (kelas.rumahberbagi.com). Materi dapat diakses dan dipelajari kapanpun.
+                           
+                        </p>
+                      </div>
+                      <div
+                        class="text-right text-sm whitespace-nowrap text-gray-500"
+                      >
+                        <time
+                          datetime="2022-03-09"
+                        >
+                          9 Maret
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="relative pb-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                  />
+                  <div
+                    class="relative flex space-x-3"
+                  >
+                    <div>
+                      <span
+                        class="bg-orange-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4"
+                    >
+                      <div>
+                        <p
+                          class="text-sm font-medium text-gray-900"
+                        >
+                          Perkenalan antar peserta dan tim Tahun Prasekolahku; Proses mempelajari materi; Pengumpulan pertanyaan via website;
+                           
+                        </p>
+                      </div>
+                      <div
+                        class="text-right text-sm whitespace-nowrap text-gray-500"
+                      >
+                        <time
+                          datetime="2022-03-09/2022-03-18"
+                        >
+                          9—17 Maret
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="relative pb-8"
+                >
+                  <div
+                    class="relative flex space-x-3"
+                  >
+                    <div>
+                      <span
+                        class="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4"
+                    >
+                      <div>
+                        <p
+                          class="text-sm font-medium text-gray-900"
+                        >
+                          Review materi singkat,  jawaban pertanyaan dan diskusi interaktif via zoom. 20 Maret 2022 (pukul 16:00—18:00 WIB)
+                           
+                        </p>
+                      </div>
+                      <div
+                        class="text-right text-sm whitespace-nowrap text-gray-500"
+                      >
+                        <time
+                          datetime="2021-06-01/2021-06-08"
+                        >
+                          20 Maret
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white"
+      >
+        <div
+          class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8"
+        >
+          <div
+            class="max-w-3xl mx-auto text-center"
+          >
+            <h2
+              class="text-3xl font-extrabold text-gray-900"
+            >
+              Kisi-kisi materi
+            </h2>
+          </div>
+          <dl
+            class="mt-12 space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-8"
+          >
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Pendahuluan
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Sekilas Tentang Charlotte Mason dan kesesuaiannya untuk keluarga muslim
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Prinsip Dasar 1: Memahami Anak sebagai Individu
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Prinsip Dasar 2: Memahami 3 instrumen pendidikan
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Prinsip Dasar 3: Memahami 6 tahun pertama sebagai Masa Tumbuh yang Tenang
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Prioritas Pendidikan Prasekolah: Aspek Fisik dan Rohani (Mental-Spiritual)
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Mengasah Kebiasaan Baik pada Anak
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Pentingnya Bermain Bebas
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Kebutuhan Outdoor life
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Membangun ikatan anak dengan alam
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Memilih dan menyajikan buku dan kisah yang terbaik
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Mengasah Bahasa
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Membangun Kehidupan Spiritual
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Mengasah seni
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Tahap Pra Membaca, Berhitung, dan Menulis
+              </p>
+            </div>
+            <div
+              class="relative"
+            >
+              <svg
+                aria-hidden="true"
+                class="absolute h-6 w-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+              <p
+                class="ml-9 text-lg leading-6 font-medium text-gray-900"
+              >
+                Mengisi Planner Tahun Prasekolahku
+              </p>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div
+        class="bg-gray-100"
+        id="biaya"
+      >
+        <div
+          class="pt-12 sm:pt-16 lg:pt-20"
+        >
+          <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          >
+            <div
+              class="text-center"
+            >
+              <h2
+                class="text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl"
+              >
+                Pembayaran kelas
+              </h2>
+              <p
+                class="mt-4 text-xl text-gray-600"
+              >
+                Pembayaran harus dilakukan sebelum Anda dapat mengakses fasilitas kelas
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-8 bg-white pb-16 sm:mt-12 sm:pb-20 lg:pb-28"
+        >
+          <div
+            class="relative"
+          >
+            <div
+              class="absolute inset-0 h-1/2 bg-gray-100"
+            />
+            <div
+              class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+            >
+              <div
+                class="max-w-lg mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex"
+              >
+                <div
+                  class="flex-1 bg-white px-6 py-8 lg:p-12"
+                >
+                  <h3
+                    class="text-2xl font-extrabold text-gray-900 sm:text-3xl"
+                  >
+                    Sistem pendaftaran peserta melalui website ini
+                  </h3>
+                  <p
+                    class="mt-6 text-base text-gray-500"
+                  >
+                    Calon peserta yang sudah melakukan pendaftaran waiting list akan dihubungi oleh Tim Rumah Berbagi untuk mengakses link pembayaran. Peserta perlu mengikuti langkah-langkah yang akan diberikan untuk pembayaran kelas. Setelah pembayaran terkonfirmasi, tim akan memberikan link untuk masuk ke grup telegram Tahun Prasekolahku.
+                  </p>
+                  <div
+                    class="mt-8"
+                  >
+                    <div
+                      class="flex items-center"
+                    >
+                      <h4
+                        class="shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600"
+                      >
+                        Biaya termasuk
+                      </h4>
+                      <div
+                        class="flex-1 border-t-2 border-gray-200"
+                      />
+                    </div>
+                    <ul
+                      class="mt-8 space-y-5 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5"
+                    >
+                      <li
+                        class="flex items-start lg:col-span-1"
+                      >
+                        <div
+                          class="shrink-0"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="h-5 w-5 text-green-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <p
+                          class="ml-3 text-sm text-gray-700"
+                        >
+                          Handout catatan bergambar dan printable planner
+                        </p>
+                      </li>
+                      <li
+                        class="flex items-start lg:col-span-1"
+                      >
+                        <div
+                          class="shrink-0"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="h-5 w-5 text-green-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <p
+                          class="ml-3 text-sm text-gray-700"
+                        >
+                          Akses materi pre-recorded video
+                        </p>
+                      </li>
+                      <li
+                        class="flex items-start lg:col-span-1"
+                      >
+                        <div
+                          class="shrink-0"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="h-5 w-5 text-green-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <p
+                          class="ml-3 text-sm text-gray-700"
+                        >
+                          Akses grup Telegram
+                        </p>
+                      </li>
+                      <li
+                        class="flex items-start lg:col-span-1"
+                      >
+                        <div
+                          class="shrink-0"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="h-5 w-5 text-green-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <p
+                          class="ml-3 text-sm text-gray-700"
+                        >
+                          Akses diskusi langsung via Zoom
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div
+                  class="py-8 px-6 text-center bg-gray-50 lg:shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12"
+                >
+                  <p
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Sekali bayar
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900"
+                  >
+                    <span
+                      class="ml-3 text-xl font-medium text-gray-500"
+                    >
+                      Rp
+                    </span>
+                    <span>
+                      200.000
+                    </span>
+                    <span
+                      class="ml-3 text-xl font-medium text-gray-500"
+                    >
+                      ,-
+                    </span>
+                  </div>
+                  <p
+                    class="mt-4 text-sm"
+                  >
+                    <a
+                      class="font-medium text-gray-500 underline"
+                      href="#privacy-policy"
+                    >
+                      Kebijakan privasi
+                    </a>
+                  </p>
+                  <div
+                    class="mt-6"
+                  >
+                    <div
+                      class="rounded-md shadow"
+                    >
+                      <a
+                        class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                        href="/login"
+                      >
+                        Daftarkan Diri
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white"
+        id="faq"
+      >
+        <div
+          class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8"
+        >
+          <div
+            class="lg:grid lg:grid-cols-3 lg:gap-8"
+          >
+            <div>
+              <h2
+                class="text-3xl font-extrabold text-gray-900"
+              >
+                FAQ (Tanya Jawab)
+              </h2>
+              <p
+                class="mt-4 text-lg text-gray-500"
+              >
+                Tidak menemukan jawaban yang Anda cari? Hubungi saya
+                 
+                <a
+                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  href="https://www.instagram.com/vika.riandini/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  melalui Instagram
+                </a>
+                .
+              </p>
+            </div>
+            <div
+              class="mt-12 lg:mt-0 lg:col-span-2"
+            >
+              <dl
+                class="space-y-12"
+              >
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Kelas ini untuk siapa?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Kelas ini untuk para orang tua, khususnya untuk anak di bawah usia sekolah (0-6 tahun), tetapi tidak menutup kemungkinan orang tua dengan anak di usia sekolah masih membutuhkannya karena bisa jadi ada aspek yang terlewat dari fondasi yang harus dipersiapkan di usia prasekolah.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Berapa biaya kelas ini? Kapan saya harus membayarnya?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Biaya kelas adalah Rp 200.000,- dan dapat dibayarkan sesuai dengan alur pendaftaran di website ini.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Berapa jumlah peserta yang akan mengikuti kelas ini?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Semua peserta waiting list yang sudah mendaftar akan kami proses. Hanya calon peserta yang melunasi pembayaran yang akan berhak menjadi peserta Kelas Tahun Prasekolahku.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Apakah materi bisa diakses setelah kelas selesai?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Ya. Materi akan tetap dapat Anda akses melalui website yang sudah kami sediakan.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Apakah peserta akan mendapatkan rekaman diskusi zoom?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Ya. Diskusi zoom akan kami rekam dan peserta bisa mengakses rekaman tersebut di website.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Mengapa proses pendaftaran dan materi kelas menggunakan website?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Belajar dari pengalaman kelas-kelas sebelumnya, kami ingin meningkatkan pengalaman dan kualitas materi yang kami sampaikan. Kami ingin peserta bisa mendapatkan manfaat sebanyak mungkin dari materi yang sudah kami persiapkan. Selain itu, ke depannya, website ini akan terus dikembangkan dan akan menjadi portal aneka kelas Rumah Berbagi selanjutnya.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white"
+        id="daftar"
+      >
+        <div
+          class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8"
+        >
+          <div
+            class="bg-indigo-700 rounded-lg shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4"
+          >
+            <div
+              class="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20"
+            >
+              <div
+                class="lg:self-center"
+              >
+                <h2
+                  class="text-3xl font-extrabold text-white sm:text-4xl"
+                >
+                  <span
+                    class="block"
+                  >
+                    Tahun Prasekolahku
+                  </span>
+                </h2>
+                <p
+                  class="mt-4 text-lg leading-6 text-indigo-200"
+                >
+                  Anda berminat?
+                </p>
+                <a
+                  class="mt-8 bg-white border border-transparent rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-indigo-600 hover:bg-indigo-50"
+                  href="/login"
+                >
+                  Daftar sekarang
+                </a>
+              </div>
+            </div>
+            <div
+              class="-mt-6 aspect-w-5 aspect-h-4"
+            >
+              <img
+                alt="Foto Vika"
+                class="transform lg:-translate-x-20 lg:translate-y-20 rounded-md object-cover object-left-top"
+                src="/images/foto-vika.jpeg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white"
+        id="privacy-policy"
+      >
+        <div
+          class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8"
+        >
+          <div
+            class="lg:grid lg:grid-cols-3 lg:gap-8"
+          >
+            <div>
+              <h2
+                class="text-3xl font-extrabold text-gray-900"
+              >
+                Kebijakan Privasi
+              </h2>
+              <p
+                class="mt-4 text-lg text-gray-500"
+              >
+                Kebijakan privasi dan keanggotaan kelas
+              </p>
+            </div>
+            <div
+              class="mt-12 lg:mt-0 lg:col-span-2"
+            >
+              <dl
+                class="space-y-12"
+              >
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Mengapa data diri saya diperlukan saat pendaftaran?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Kami membutuhkan data diri Anda untuk memastikan bahwa Anda bisa kami hubungi untuk proses selanjutnya. Termasuk di antaranya pembayaran biaya kelas dan pemberian akses terhadap kelas yang kami sediakan.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Data apa saja yang perlu saya berikan?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Untuk keperluan yang telah kami jelaskan di atas, kami membutuhkan data diri Anda seperti nama, alamat email, nomor WhatsApp, dan akun Instagram Anda.
+                  </dd>
+                </div>
+                <div>
+                  <dt
+                    class="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Apakah saya bisa mengubah data diri saya?
+                  </dt>
+                  <dd
+                    class="mt-2 text-base text-gray-500"
+                  >
+                    Ya, Anda bisa mengubah data diri Anda di website ini melalui menu 
+                    <strong>
+                      Ubah Profil
+                    </strong>
+                     yang dapat Anda akses setelah Anda masuk ke halaman 
+                    <em>
+                      Dashboard
+                    </em>
+                    .
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
