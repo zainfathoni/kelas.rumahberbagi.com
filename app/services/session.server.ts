@@ -7,6 +7,7 @@ export const sessionStorage = createCookieSessionStorage({
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     secrets: [getRequiredServerEnvVar('SESSION_SECRET')],
     // normally you want this to be `secure: true`
     // but that doesn't work on localhost for Safari
