@@ -1,9 +1,7 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -230,6 +228,7 @@ Thanks goes to these wonderful people
     <td align="center"><a href="https://github.com/febrifahmi"><img src="https://avatars.githubusercontent.com/u/12995919?v=4?s=100" width="100px;" alt=""/><br /><sub><b>febrifahmi</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=febrifahmi" title="Code">💻</a></td>
     <td align="center"><a href="https://guntoroyk.com/"><img src="https://avatars.githubusercontent.com/u/24248495?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guntoro Yudhy Kusuma</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=guntoroyk" title="Code">💻</a></td>
     <td align="center"><a href="http://nurfitrapujo.vercel.app"><img src="https://avatars.githubusercontent.com/u/26681203?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nurfitra Pujo Santiko</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=NurfitraPujo" title="Code">💻</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=NurfitraPujo" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/AchmadWahyu"><img src="https://avatars.githubusercontent.com/u/39010275?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Achmad Wahyu</b></sub></a><br /><a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=AchmadWahyu" title="Code">💻</a> <a href="https://github.com/zainfathoni/kelas.rumahberbagi.com/commits?author=AchmadWahyu" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
