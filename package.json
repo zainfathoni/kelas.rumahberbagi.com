@@ -23,7 +23,7 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-    "postinstall": "remix setup && metronome setup",
+    "postinstall": "remix setup node && metronome setup",
     "test:e2e": "playwright test",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
