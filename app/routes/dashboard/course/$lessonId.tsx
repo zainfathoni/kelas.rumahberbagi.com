@@ -10,7 +10,7 @@ import { PaperClipIcon } from '@heroicons/react/outline'
 import { CourseContextType } from '../course'
 import { getFirstCourse } from '~/models/course'
 import { getLessonById, LessonWithAttachments } from '~/models/lesson'
-import { requireUser } from '~/services/auth.server'
+import { requireUpdatedUser } from '~/services/auth.server'
 import {
   requireActiveSubscription,
   requireCourseAuthor,
@@ -22,7 +22,7 @@ import { getAdjacentLessonIds } from '~/utils/pagination'
 export const handle: Handle = { name: 'Video' }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const user = await requireUser(request)
+  const user = await requireUpdatedUser(request)
   const course = await getFirstCourse()
 
   if (!requireActiveSubscription(user, course)) {
