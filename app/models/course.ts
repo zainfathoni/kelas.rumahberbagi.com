@@ -11,7 +11,7 @@ export async function getFirstCourse() {
 }
 
 export type Chapters = (Chapter & {
-  lessons: Lesson[]
+  lessons: Pick<Lesson, 'id' | 'name' | 'description'>[]
 })[]
 
 export async function getAllChapters(courseId: string): Promise<Chapters> {
@@ -21,7 +21,16 @@ export async function getAllChapters(courseId: string): Promise<Chapters> {
     })
     .chapters({
       orderBy: { order: 'asc' },
-      include: { lessons: { orderBy: { order: 'asc' } } },
+      include: {
+        lessons: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+          orderBy: { order: 'asc' },
+        },
+      },
     })
   return chapters
 }
