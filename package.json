@@ -28,6 +28,7 @@
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
     "type-check": "tsc --noEmit",
+    "preinstall": "npx only-allow pnpm",
     "setup": "npm install && prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run test:e2e:run",
     "presetup": "npx playwright install-deps"
   },
