@@ -1497,7 +1497,7 @@ exports[`Home Page renders the Home Page without error 1`] = `
                       Rp
                     </span>
                     <span>
-                      200.000
+                      150.000
                     </span>
                     <span
                       class="ml-3 text-xl font-medium text-gray-500"
@@ -1594,7 +1594,7 @@ exports[`Home Page renders the Home Page without error 1`] = `
                   <dd
                     class="mt-2 text-base text-gray-500"
                   >
-                    Biaya kelas adalah Rp 200.000,- dan dapat dibayarkan sesuai dengan alur pendaftaran di website ini.
+                    Biaya kelas adalah Rp 150.000,- dan dapat dibayarkan sesuai dengan alur pendaftaran di website ini.
                   </dd>
                 </div>
                 <div>

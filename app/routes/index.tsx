@@ -252,7 +252,7 @@ export default function HomePage() {
                 Berapa biaya kelas ini? Kapan saya harus membayarnya?
               </QnA.Question>
               <QnA.Answer>
-                Biaya kelas adalah Rp 200.000,- dan dapat dibayarkan sesuai
+                Biaya kelas adalah Rp 150.000,- dan dapat dibayarkan sesuai
                 dengan alur pendaftaran di website ini.
               </QnA.Answer>
             </div>
