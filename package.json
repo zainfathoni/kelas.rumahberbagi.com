@@ -13,8 +13,8 @@
     "dev": "cross-env DATABASE_URL=file:./dev.db NODE_ENV=development prisma generate --schema=./prisma/schema.sqlite.prisma && concurrently -k \"npm run dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,yml,yaml,md}\"",
-    "lint": "eslint \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
-    "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
+    "lint": "eslint \"app/**/*.{js,jsx,ts,tsx,yml,yaml}\"",
+    "lint:fix": "eslint --fix \"app/**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "prepare": "husky install",
     "start": "remix-serve build",
     "prestart:e2e": "DATABASE_URL=file:./test.db prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run build:css",
@@ -28,7 +28,8 @@
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
     "type-check": "tsc --noEmit",
-    "setup": "npm install && prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run test:e2e:run",
+    "preinstall": "npx only-allow pnpm",
+    "setup": "pnpm install && prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && pnpm run test:e2e:run",
     "presetup": "npx playwright install-deps"
   },
   "dependencies": {
@@ -104,12 +105,15 @@
     "typescript": "4.1.2"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "sideEffects": false,
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "jest --findRelatedTests",
     "*.{js,jsx,ts,tsx,yml,yaml}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
+  },
+  "volta": {
+    "node": "16.20.2"
   }
 }
