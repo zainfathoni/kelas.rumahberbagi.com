@@ -1,7 +1,9 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -23,18 +25,18 @@ Online course platform for Rumah Berbagi.
     - [System Requirements](#system-requirements)
     - [Development](#development)
     - [Testing](#testing)
-  - [Tools & References](#tools--references)
+  - [Tools \& References](#tools--references)
     - [Tools](#tools)
       - [Code Editor](#code-editor)
     - [References](#references)
   - [Frequently Used Commands](#frequently-used-commands)
     - [Prisma commands](#prisma-commands)
     - [PlanetScale commands](#planetscale-commands)
-    - [Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️](#fly-setup-️-warning-the-deployment-setup-is-untested-yet-️)
+    - [Fly Setup](#fly-setup)
     - [Deployment](#deployment)
   - [Contributing](#contributing)
     - [Important links](#important-links)
-  - [Contributors ✨](#contributors-)
+  - [Contributors](#contributors)
 
 ## Documentation
 
@@ -155,7 +157,9 @@ Commands to know:
 - `pscale database dump <DATABASE_NAME> <BRANCH_NAME> --output prisma/dumps/xx` -
   backup and dump the specified database
 
-### Fly Setup ⚠️ Warning, the deployment setup is untested yet ⚠️
+### Fly Setup
+
+> ⚠️ Warning, the deployment setup is untested yet ⚠️
 
 1. [Install Fly](https://fly.io/docs/getting-started/installing-flyctl/)
 
@@ -213,7 +217,7 @@ read why.
 
 <!-- markdownlint-restore -->
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
