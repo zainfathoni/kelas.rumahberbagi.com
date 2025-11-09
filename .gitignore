@@ -7,7 +7,9 @@ node_modules
 /.mf
 /app/tailwind.css
 .env
+.env.dev
 .env.staging
+.env.prod
 .DS_Store
 
 # ESLint
