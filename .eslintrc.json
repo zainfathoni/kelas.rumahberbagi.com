@@ -9,7 +9,6 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:playwright/playwright-test",
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:yml/standard",
@@ -60,6 +59,13 @@
       "files": ["**/__tests__/**/*.ts?(x)"],
       "rules": {
         "playwright/missing-playwright-await": "off"
+      }
+    },
+    {
+      "files": ["e2e/**/*.{ts,tsx}", "playwright-global-setup.ts", "playwright.config.ts"],
+      "extends": ["plugin:playwright/recommended"],
+      "rules": {
+        "playwright/no-wait-for-navigation": "off"
       }
     },
     {
