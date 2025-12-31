@@ -25,7 +25,6 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-    "postinstall": "remix setup node",
     "test:e2e": "playwright test",
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
@@ -37,20 +36,18 @@
     "@headlessui/react": "1.4.2",
     "@heroicons/react": "1.0.5",
     "@prisma/client": "^5.22.0",
-    "@reach/auto-id": "0.16.0",
-    "@remix-run/dev": "1.2.2",
-    "@remix-run/react": "1.2.2",
-    "@remix-run/vercel": "1.2.2",
+    "@remix-run/node": "^2.17.2",
+    "@remix-run/react": "^2.17.2",
     "@types/validator": "13.7.0",
     "burner-email-providers": "1.0.67",
     "clsx": "1.1.1",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "remix": "1.2.2",
-    "remix-auth": "3.2.1",
-    "remix-auth-email-link": "1.2.0",
+    "isbot": "^5.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remix-auth": "^3.7.0",
+    "remix-auth-email-link": "^2.1.1",
     "validator": "13.7.0"
   },
   "devDependencies": {
@@ -66,15 +63,16 @@
     "@jackfranklin/test-data-bot": "1.4.0",
     "@playwright-testing-library/test": "4.5.0",
     "@playwright/test": "1.57.0",
-    "@remix-run/serve": "1.2.2",
+    "@remix-run/dev": "^2.17.2",
+    "@remix-run/serve": "^2.17.2",
     "@tailwindcss/aspect-ratio": "0.4.0",
     "@tailwindcss/forms": "0.4.0",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
     "@types/jest": "27.4.0",
-    "@types/react": "17.0.24",
-    "@types/react-dom": "17.0.9",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "5.8.0",
     "@typescript-eslint/parser": "5.8.0",
     "autoprefixer": "10.4.2",
@@ -106,7 +104,10 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=24"
+  },
+  "volta": {
+    "node": "24.1.0"
   },
   "sideEffects": false,
   "lint-staged": {
