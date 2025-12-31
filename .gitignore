@@ -35,3 +35,6 @@ playwright-report
 .output
 
 /api/index.js
+
+# bv (beads viewer) local config and caches
+.bv/
