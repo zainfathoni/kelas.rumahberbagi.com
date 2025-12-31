@@ -4,5 +4,9 @@
   },
   "ul-style": {
     "style": "dash"
+  },
+  "line-length": {
+    "code_blocks": false,
+    "tables": false
   }
 }
