@@ -17,7 +17,7 @@ The production database is generated from MySQL dump files located in
 
 ## Directory Structure
 
-```
+```txt
 prisma/
 ├── dev.db                  # Development SQLite database
 ├── test.db                 # Testing SQLite database
@@ -207,7 +207,7 @@ EOF
 
 Expected output:
 
-```
+```txt
 User|220
 Course|1
 Chapter|18
