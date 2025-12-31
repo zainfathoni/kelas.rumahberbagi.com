@@ -21,6 +21,7 @@ coverage
 # Playwright
 *.local.*
 test-results
+playwright-report
 
 # Prisma
 /prisma/dev.db
