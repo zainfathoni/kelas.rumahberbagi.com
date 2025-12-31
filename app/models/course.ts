@@ -32,5 +32,5 @@ export async function getAllChapters(courseId: string): Promise<Chapters> {
         },
       },
     })
-  return chapters
+  return chapters ?? []
 }
