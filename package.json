@@ -21,7 +21,7 @@
     "start": "remix-serve build",
     "prestart:e2e": "DATABASE_URL=file:./test.db prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run build:css",
     "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db remix dev",
-    "test": "is-ci-cli test:coverage test:watch",
+    "test": "is-ci-cli test:coverage test",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
