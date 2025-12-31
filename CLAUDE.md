@@ -334,6 +334,38 @@ complete until `git push` succeeds.
 - NEVER say "ready to push when you are" - YOU must push
 - If push fails, resolve and retry until it succeeds
 
+### Issue Types
+
+| Type          | Description                         |
+| ------------- | ----------------------------------- |
+| bug           | Software defect or error            |
+| feature       | New functionality or enhancement    |
+| task          | General work item (default)         |
+| epic          | Large multi-step initiative         |
+| chore         | Maintenance or operational work     |
+| message       | Ephemeral inter-agent communication |
+| merge-request | Code review queue entry             |
+| molecule      | Workflow template or hierarchy      |
+| gate          | Async coordination primitive        |
+
+### Dependency Types
+
+| Type               | Category    | Description                            |
+| ------------------ | ----------- | -------------------------------------- |
+| blocks             | Workflow    | Hard blocker relationship              |
+| parent-child       | Workflow    | Hierarchical relationship              |
+| conditional-blocks | Workflow    | B runs only if A fails                 |
+| waits-for          | Workflow    | Fanout gate: wait for dynamic children |
+| related            | Association | Soft relationship                      |
+| discovered-from    | Association | Track issues found during work         |
+| replies-to         | Graph Link  | Conversation threading                 |
+| relates-to         | Graph Link  | Loose knowledge graph edges            |
+| duplicates         | Graph Link  | Deduplication link                     |
+| supersedes         | Graph Link  | Version chain link                     |
+| authored-by        | Entity      | Creator relationship                   |
+| assigned-to        | Entity      | Assignment relationship                |
+| approved-by        | Entity      | Approval relationship                  |
+
 <!-- bv-agent-instructions-v1 -->
 
 ---
