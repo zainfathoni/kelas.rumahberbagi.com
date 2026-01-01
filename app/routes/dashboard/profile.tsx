@@ -1,4 +1,4 @@
-import { Outlet } from 'remix'
+import { Outlet } from '@remix-run/react'
 import { SingleColumnLayout } from '~/components/single-column-layout'
 import { Handle } from '~/utils/types'
 

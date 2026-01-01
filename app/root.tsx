@@ -1,15 +1,16 @@
+import type { LinksFunction } from '@remix-run/node'
 import {
   Form,
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
   useMatches,
-} from 'remix'
-import type { LinksFunction } from 'remix'
+  useRouteError,
+} from '@remix-run/react'
 
 import { XCircleIcon } from '@heroicons/react/solid'
 import styles from './tailwind.css'
@@ -38,9 +39,47 @@ export default function App() {
   )
 }
 
-// https://remix.run/docs/en/v1/api/conventions#errorboundary
-export function ErrorBoundary({ error }: { error: Error }) {
+// https://remix.run/docs/en/v2/route/error-boundary
+export function ErrorBoundary() {
+  const error = useRouteError()
+
+  // Handle route error responses (formerly CatchBoundary)
+  if (isRouteErrorResponse(error)) {
+    let message
+    switch (error.status) {
+      case 401:
+        message = (
+          <p>
+            Oops! Looks like you tried to visit a page that you do not have
+            access to.
+          </p>
+        )
+        break
+      case 404:
+        message = (
+          <p>Oops! Looks like you tried to visit a page that does not exist.</p>
+        )
+        break
+      default:
+        message = <p>{error.data || error.statusText}</p>
+    }
+
+    return (
+      <Document title={`${error.status} ${error.statusText}`}>
+        <Layout>
+          <h1>
+            {error.status}: {error.statusText}
+          </h1>
+          {message}
+        </Layout>
+      </Document>
+    )
+  }
+
+  // Handle thrown errors
+  const errorMessage = error instanceof Error ? error.message : 'Unknown error'
   console.error(error)
+
   return (
     <Document title="Error!">
       <Layout>
@@ -57,7 +96,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
                 </div>
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-red-800">
-                    {error.message}
+                    {errorMessage}
                   </h3>
                 </div>
               </div>
@@ -89,42 +128,6 @@ export function ErrorBoundary({ error }: { error: Error }) {
           </main>
         </div>
         <Footer instagramUrl="https://instagram.com/vika.riandini" />
-      </Layout>
-    </Document>
-  )
-}
-
-// https://remix.run/docs/en/v1/api/conventions#catchboundary
-export function CatchBoundary() {
-  const caught = useCatch()
-
-  let message
-  switch (caught.status) {
-    case 401:
-      message = (
-        <p>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </p>
-      )
-      break
-    case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      )
-      break
-
-    default:
-      throw new Error(caught.data || caught.statusText)
-  }
-
-  return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
-      <Layout>
-        <h1>
-          {caught.status}: {caught.statusText}
-        </h1>
-        {message}
       </Layout>
     </Document>
   )

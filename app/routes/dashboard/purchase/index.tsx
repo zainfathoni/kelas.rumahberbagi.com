@@ -1,5 +1,6 @@
-import type { LoaderFunction } from 'remix'
-import { redirect, Link } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
+import { Link } from '@remix-run/react'
 import { getFirstTransaction } from '~/models/transaction'
 import { requireUser } from '~/services/auth.server'
 import { STEPS } from '~/utils/constants'

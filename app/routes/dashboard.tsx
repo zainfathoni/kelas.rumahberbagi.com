@@ -10,8 +10,9 @@ import {
   AcademicCapIcon,
   VideoCameraIcon,
 } from '@heroicons/react/outline'
-import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { Form, Link, Outlet, useLoaderData, useMatches } from '@remix-run/react'
 import { useSearchParams } from 'react-router-dom'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { Course } from '@prisma/client'

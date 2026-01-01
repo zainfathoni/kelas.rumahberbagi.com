@@ -1,5 +1,6 @@
-import { Link, redirect, useLoaderData, Outlet, useOutletContext } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
+import { Link, Outlet, useLoaderData, useOutletContext } from '@remix-run/react'
 import { Course, User } from '@prisma/client'
 import {
   ChevronLeftIcon,

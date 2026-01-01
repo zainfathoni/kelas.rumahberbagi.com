@@ -1,14 +1,13 @@
 import type { User } from '@prisma/client'
-import type { ActionFunction, LoaderFunction } from 'remix'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import {
-  redirect,
-  useActionData,
-  useTransition,
   Form,
-  json,
+  useActionData,
   useLoaderData,
+  useNavigation,
   useSearchParams,
-} from 'remix'
+} from '@remix-run/react'
 import {
   getHeadersWithUpdatedUser,
   requireUpdatedUser,
@@ -91,7 +90,7 @@ function classNames(...classes: string[]) {
 export default function Settings() {
   const { user } = useLoaderData<{ user: User }>()
   const actionData = useActionData<ActionData>()
-  const { state } = useTransition()
+  const { state } = useNavigation()
   const [searchParams] = useSearchParams()
 
   return (

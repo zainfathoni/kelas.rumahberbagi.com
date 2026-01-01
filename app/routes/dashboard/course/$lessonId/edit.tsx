@@ -1,14 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import {
   Form,
-  json,
-  redirect,
   useLoaderData,
   useMatches,
   useNavigate,
-} from 'remix'
-import type { LoaderFunction, ActionFunction } from 'remix'
+} from '@remix-run/react'
 import { Lesson } from '@prisma/client'
 import { Field } from '~/components/form-elements'
 import { classNames } from '~/utils/class-names'

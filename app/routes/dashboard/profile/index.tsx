@@ -1,5 +1,6 @@
-import { json, useLoaderData } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import { PencilAltIcon, UserCircleIcon } from '@heroicons/react/solid'
 import { User } from '@prisma/client'
 import { requireUpdatedUser } from '~/services/auth.server'

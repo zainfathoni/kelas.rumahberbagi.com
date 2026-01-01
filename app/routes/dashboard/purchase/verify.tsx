@@ -1,5 +1,6 @@
-import { redirect, Outlet, useLoaderData } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
+import { Outlet, useLoaderData } from '@remix-run/react'
 import { Transaction, User } from '@prisma/client'
 import { getFirstTransaction } from '~/models/transaction'
 import { requireUser } from '~/services/auth.server'

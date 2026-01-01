@@ -1,5 +1,5 @@
-import { useLoaderData } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import { Pricing } from '~/components/sections/pricing'
 import { SUBSCRIPTION_STATUS } from '~/models/enum'
 import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'

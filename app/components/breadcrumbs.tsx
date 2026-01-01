@@ -1,8 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
-import { RouteData } from '@remix-run/react/routeData'
-import { Params } from 'react-router-dom'
-import { Link } from 'remix'
+import type { Params } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { classNames } from '~/utils/class-names'
 import { Handle } from '~/utils/types'
 
@@ -38,7 +37,7 @@ export type Matches = {
   id: string
   pathname: string
   params: Params<string>
-  data: RouteData
+  data: unknown
   handle: Handle
 }[]
 

@@ -1,5 +1,6 @@
-import { redirect, useLoaderData, Outlet, useMatches } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
+import { Outlet, useLoaderData, useMatches } from '@remix-run/react'
 import { ReactNode } from 'react'
 import { Chapters, getAllChapters, getFirstCourse } from '~/models/course'
 import { requireUpdatedUser } from '~/services/auth.server'

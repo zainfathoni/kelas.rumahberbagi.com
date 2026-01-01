@@ -1,13 +1,13 @@
+import type { ActionFunction, LoaderFunction } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import {
   Form,
-  json,
   Link,
-  redirect,
-  useCatch,
+  isRouteErrorResponse,
   useLoaderData,
-  useTransition,
-} from 'remix'
-import type { ActionFunction, LoaderFunction, ThrownResponse } from 'remix'
+  useNavigation,
+  useRouteError,
+} from '@remix-run/react'
 import { Transaction, User } from '@prisma/client'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
@@ -118,7 +118,7 @@ export default function PurchaseConfirm() {
     user: User
     transaction?: Transaction
   }>()
-  const { state } = useTransition()
+  const { state } = useNavigation()
 
   return (
     <div className="mt-5 md:mt-0 md:col-span-2 max-w-3xl mx-auto">
@@ -241,41 +241,45 @@ export default function PurchaseConfirm() {
   )
 }
 
-export function CatchBoundary() {
-  const caught = useCatch<ThrownResponse>()
+export function ErrorBoundary() {
+  const error = useRouteError()
 
-  return (
-    <>
-      <div className="rounded-md bg-red-50 p-4 my-4">
-        <div className="flex">
-          <div className="shrink-0">
-            <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
-          </div>
-          <div className="ml-3">
-            <h3 className="text-sm font-medium text-red-800">
-              {caught.statusText}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div className="py-16">
-        <div className="text-center">
-          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
-            Error {caught.status}
-          </p>
-          <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-            Terjadi kesalahan
-          </h1>
-          <div className="mt-6">
-            <Link
-              to="/dashboard/purchase/confirm"
-              className="text-base font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Silakan coba lagi<span aria-hidden="true"> &rarr;</span>
-            </Link>
+  if (isRouteErrorResponse(error)) {
+    return (
+      <>
+        <div className="rounded-md bg-red-50 p-4 my-4">
+          <div className="flex">
+            <div className="shrink-0">
+              <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800">
+                {error.statusText}
+              </h3>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  )
+        <div className="py-16">
+          <div className="text-center">
+            <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
+              Error {error.status}
+            </p>
+            <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
+              Terjadi kesalahan
+            </h1>
+            <div className="mt-6">
+              <Link
+                to="/dashboard/purchase/confirm"
+                className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Silakan coba lagi<span aria-hidden="true"> &rarr;</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  throw error
 }

@@ -1,5 +1,5 @@
-import { Outlet, useMatches } from 'remix'
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from '@remix-run/node'
+import { Outlet, useMatches } from '@remix-run/react'
 import { Step } from '~/components/step'
 import { requireUser } from '~/services/auth.server'
 import { classNames } from '~/utils/class-names'

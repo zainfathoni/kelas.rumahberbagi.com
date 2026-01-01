@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Link } from 'remix'
+import { Link } from '@remix-run/react'
 import { classNames } from '~/utils/class-names'
 
 const buttonClassNames =

@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
-import { useLoaderData, redirect } from 'remix'
-import type { LoaderFunction } from 'remix'
-import { useNavigate } from 'react-router-dom'
+import type { LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
+import { useLoaderData, useNavigate } from '@remix-run/react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { getUser } from '~/models/user'
