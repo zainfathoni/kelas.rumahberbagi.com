@@ -313,8 +313,9 @@ complete until `git push` succeeds.
 1. **File issues for remaining work** - Create issues for anything that needs
    follow-up
 2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
+3. **Commit changes** - Stage and commit all related code changes
+4. **Update issue status** - Close finished work, update in-progress items
+5. **PUSH TO REMOTE** - This is MANDATORY:
 
    ```bash
    git pull --rebase
@@ -323,9 +324,9 @@ complete until `git push` succeeds.
    git status  # MUST show "up to date with origin"
    ```
 
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+6. **Clean up** - Clear stashes, prune remote branches
+7. **Verify** - All changes committed AND pushed
+8. **Hand off** - Provide context for next session
 
 **CRITICAL RULES:**
 
