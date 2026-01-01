@@ -185,6 +185,10 @@ jobs:
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
+      - name: Install Playwright system dependencies (on cache hit)
+        if: steps.cache-playwright.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
       - name: Cache Playwright dependencies
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         uses: actions/cache@v4
