@@ -299,6 +299,7 @@ started.
 bd ready              # Find available work
 bd show <id>          # View issue details
 bd update <id> --status in_progress  # Claim work
+bd comments add <id>  # Add comment
 bd close <id>         # Complete work
 bd sync               # Sync with git
 ```
