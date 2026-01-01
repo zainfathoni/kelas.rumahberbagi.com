@@ -25,10 +25,10 @@ import { TelegramIcon } from '~/components/icons/telegram'
 import { Timeline } from '~/components/sections/timeline'
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Kelas Rumah Berbagi',
-    description: 'Tahun Prasekolahku',
-  }
+  return [
+    { title: 'Kelas Rumah Berbagi' },
+    { name: 'description', content: 'Tahun Prasekolahku' },
+  ]
 }
 
 export default function HomePage() {
