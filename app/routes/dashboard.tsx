@@ -26,7 +26,7 @@ import { requireUpdatedUser } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { requireActiveSubscription, requireAuthor } from '~/utils/permissions'
 import { Breadcrumbs } from '~/components/breadcrumbs'
-import { SideNavigationItem } from '~/utils/types'
+import { Serialized, SideNavigationItem } from '~/utils/types'
 import { UserWithSubscriptions } from '~/models/user'
 import { getFirstCourse } from '~/models/course'
 
@@ -68,8 +68,10 @@ export default function Dashboard() {
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
   const [searchParams] = useSearchParams()
-  const { user, course } =
-    useLoaderData<{ user: UserWithSubscriptions; course: Course }>()
+  const { user, course } = useLoaderData<{
+    user: Serialized<UserWithSubscriptions>
+    course: Serialized<Course>
+  }>()
 
   return (
     <>

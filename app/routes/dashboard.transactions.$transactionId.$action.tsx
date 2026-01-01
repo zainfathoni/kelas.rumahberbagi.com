@@ -21,6 +21,7 @@ import { requireUser } from '~/services/auth.server'
 import { getFirstCourse } from '~/models/course'
 import { requireCourseAuthor } from '~/utils/permissions'
 import { classNames } from '~/utils/class-names'
+import { Serialized } from '~/utils/types'
 import {
   activateSubscription,
   deactivateSubscription,
@@ -93,7 +94,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export default function VerifyTransaction() {
-  const transactionDetails: TransactionWithUser = useLoaderData()
+  const transactionDetails: Serialized<TransactionWithUser> = useLoaderData()
   const navigate = useNavigate()
   const matches = useMatches()
   const [searchParams] = useSearchParams()

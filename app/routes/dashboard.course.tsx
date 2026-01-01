@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { Chapters, getAllChapters, getFirstCourse } from '~/models/course'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { requireActiveSubscription } from '~/utils/permissions'
-import { Handle } from '~/utils/types'
+import { Handle, Serialized } from '~/utils/types'
 import { Directory } from '~/components/directory'
 
 export const handle: Handle = { name: 'Kelas' }
@@ -24,12 +24,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export type CourseContextType = {
-  chapters: Chapters
+  chapters: Serialized<Chapters>
   directory: ReactNode
 }
 
 export default function CourseRoot() {
-  const { chapters } = useLoaderData<{ chapters: Chapters }>()
+  const { chapters } = useLoaderData<{ chapters: Serialized<Chapters> }>()
   const matches = useMatches()
   const currentLessonId = matches[matches.length - 1]?.params?.lessonId
 

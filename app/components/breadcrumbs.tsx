@@ -38,7 +38,7 @@ export type Matches = {
   pathname: string
   params: Params<string>
   data: unknown
-  handle: Handle
+  handle: unknown
 }[]
 
 export function Breadcrumbs({
@@ -64,17 +64,17 @@ export function Breadcrumbs({
             </Link>
           </div>
         </li>
-        {matches.map(
-          ({ pathname, handle }: { pathname: string; handle: Handle }, index) =>
-            handle?.name ? (
-              <BreadcrumbItem
-                key={handle.name}
-                name={handle.name}
-                to={`${pathname}?${searchParams.toString()}`}
-                current={index === matches.length - 1}
-              />
-            ) : null
-        )}
+        {matches.map(({ pathname, handle }, index) => {
+          const h = handle as Handle | undefined
+          return h?.name ? (
+            <BreadcrumbItem
+              key={h.name}
+              name={h.name}
+              to={`${pathname}?${searchParams.toString()}`}
+              current={index === matches.length - 1}
+            />
+          ) : null
+        })}
       </ol>
     </nav>
   )

@@ -18,7 +18,7 @@ export type TransactionItemProps = {
   to: string
   bankAccountName: string
   bankName: string
-  updatedAt: Date | null
+  updatedAt: Date | string | null
   bankAccountNumber: string
   notes: string | null
   status: TransactionStatus
