@@ -1,5 +1,5 @@
 import { VideoCameraIcon } from '@heroicons/react/outline'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext } from '@remix-run/react'
 import { CourseContextType } from '../course'
 
 export default function CourseIndex() {

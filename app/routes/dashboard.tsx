@@ -12,8 +12,14 @@ import {
 } from '@heroicons/react/outline'
 import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { Form, Link, Outlet, useLoaderData, useMatches } from '@remix-run/react'
-import { useSearchParams } from 'react-router-dom'
+import {
+  Form,
+  Link,
+  Outlet,
+  useLoaderData,
+  useMatches,
+  useSearchParams,
+} from '@remix-run/react'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { Course } from '@prisma/client'
 import { requireUpdatedUser } from '~/services/auth.server'

@@ -1,39 +1,32 @@
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen } from '@testing-library/react'
+import { render } from '#test/test-utils'
 import { Step } from '~/components/step'
 import { STEPS } from '~/utils/constants'
 
 describe('Step', () => {
   it('renders the link correctly', () => {
-    render(<Step step={STEPS[0]} isLastStep status="upcoming" />, {
-      wrapper: MemoryRouter,
-    })
+    render(<Step step={STEPS[0]} isLastStep status="upcoming" />)
 
     const link = screen.getByRole('link', {
-      name: /pembayaran tranfer biaya ke rekening yang ditentukan/i,
+      name: /instruksi pembayaran.*tranfer biaya ke rekening yang ditentukan/i,
     })
     expect(link).toHaveAttribute('href', STEPS[0].pathname)
     expect(link).not.toHaveAttribute('aria-current', 'step')
   })
 
   it('renders a current step correctly', () => {
-    render(<Step step={STEPS[0]} isLastStep={false} status="current" />, {
-      wrapper: MemoryRouter,
-    })
+    render(<Step step={STEPS[0]} isLastStep={false} status="current" />)
 
     expect(
       screen.getByRole('link', {
-        name: /pembayaran tranfer biaya ke rekening yang ditentukan/i,
+        name: /instruksi pembayaran.*tranfer biaya ke rekening yang ditentukan/i,
       })
     ).toHaveAttribute('aria-current', 'step')
   })
 
   it('renders a completed last step correctly', () => {
     const { container } = render(
-      <Step step={STEPS[0]} isLastStep status="completed" />,
-      {
-        wrapper: MemoryRouter,
-      }
+      <Step step={STEPS[0]} isLastStep status="completed" />
     )
 
     expect(container).toMatchInlineSnapshot(`
@@ -44,6 +37,7 @@ describe('Step', () => {
         />
         <a
           class="relative flex items-start group"
+          data-discover="true"
           href="/dashboard/purchase/"
         >
           <span
@@ -88,16 +82,14 @@ describe('Step', () => {
 
   it('renders a completed non-last step correctly', () => {
     const { container } = render(
-      <Step step={STEPS[0]} isLastStep={false} status="completed" />,
-      {
-        wrapper: MemoryRouter,
-      }
+      <Step step={STEPS[0]} isLastStep={false} status="completed" />
     )
 
     expect(container).toMatchInlineSnapshot(`
       <div>
         <a
           class="relative flex items-start group"
+          data-discover="true"
           href="/dashboard/purchase/"
         >
           <span
