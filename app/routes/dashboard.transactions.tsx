@@ -1,6 +1,12 @@
 import type { LoaderFunction } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import { Link, Outlet, useLoaderData, useMatches, useSearchParams } from '@remix-run/react'
+import {
+  Link,
+  Outlet,
+  useLoaderData,
+  useMatches,
+  useSearchParams,
+} from '@remix-run/react'
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid'
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline'
 import { ReactNode } from 'react'

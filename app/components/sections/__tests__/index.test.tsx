@@ -1,5 +1,5 @@
 import { render } from '#test/test-utils'
-import HomePage from '~/routes'
+import HomePage from '~/routes/_index'
 
 describe('Home Page', () => {
   it('renders the Home Page without error', () => {

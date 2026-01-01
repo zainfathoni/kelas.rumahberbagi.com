@@ -8,7 +8,7 @@ import {
   ExternalLinkIcon,
 } from '@heroicons/react/solid'
 import { PaperClipIcon } from '@heroicons/react/outline'
-import { CourseContextType } from '../course'
+import { CourseContextType } from './dashboard.course'
 import { getFirstCourse } from '~/models/course'
 import { getLessonById, LessonWithAttachments } from '~/models/lesson'
 import { requireUpdatedUser } from '~/services/auth.server'

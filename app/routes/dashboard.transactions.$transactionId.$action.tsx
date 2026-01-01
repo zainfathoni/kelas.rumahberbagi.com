@@ -1,6 +1,12 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import { Form, useLoaderData, useMatches, useNavigate, useSearchParams } from '@remix-run/react'
+import {
+  Form,
+  useLoaderData,
+  useMatches,
+  useNavigate,
+  useSearchParams,
+} from '@remix-run/react'
 import { CashIcon } from '@heroicons/react/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'

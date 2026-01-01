@@ -1,6 +1,6 @@
 import { VideoCameraIcon } from '@heroicons/react/outline'
 import { useOutletContext } from '@remix-run/react'
-import { CourseContextType } from '../course'
+import { CourseContextType } from './dashboard.course'
 
 export default function CourseIndex() {
   const { directory } = useOutletContext<CourseContextType>()
