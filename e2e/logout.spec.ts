@@ -16,10 +16,11 @@ test('Logout', async ({ page, isMobile, queries: { getByRole } }) => {
     await openSidebar.click()
   }
 
-  // Click the last item with text=Keluar and wait for the redirect to the /profile page
+  // Click the Keluar button and wait for the redirect to the homepage
+  const keluarButton = await getByRole('button', { name: /keluar/i })
   await Promise.all([
     page.waitForNavigation(/*{ url: 'http://localhost:3000' }*/),
-    page.click('text=Keluar >> nth=-1'),
+    keluarButton.click(),
   ])
 
   // Expect text=Masuk to be visible and linking to the
