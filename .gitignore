@@ -7,7 +7,9 @@ node_modules
 /.mf
 /app/tailwind.css
 .env
+.env.dev
 .env.staging
+.env.prod
 .DS_Store
 
 # ESLint
@@ -19,10 +21,12 @@ coverage
 # Playwright
 *.local.*
 test-results
+playwright-report
 
 # Prisma
 /prisma/dev.db
 /prisma/test.db
+/prisma/prod.db
 /prisma/*.db-journal
 /prisma/dumps/*
 
@@ -31,3 +35,7 @@ test-results
 .output
 
 /api/index.js
+
+# bv (beads viewer) local config and caches
+.bv/
+bv-pages/

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Home Page renders the Home Page without error 1`] = `
+exports[`Home Page > renders the Home Page without error 1`] = `
 <div>
   <div>
     <main>
@@ -1523,6 +1523,7 @@ exports[`Home Page renders the Home Page without error 1`] = `
                     >
                       <a
                         class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                        data-discover="true"
                         href="/login"
                       >
                         Daftarkan Diri
@@ -1682,6 +1683,7 @@ exports[`Home Page renders the Home Page without error 1`] = `
                 </p>
                 <a
                   class="mt-8 bg-white border border-transparent rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-indigo-600 hover:bg-indigo-50"
+                  data-discover="true"
                   href="/login"
                 >
                   Daftar sekarang

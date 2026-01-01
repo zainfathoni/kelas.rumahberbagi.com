@@ -1,8 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
-import { RouteData } from '@remix-run/react/routeData'
-import { Params } from 'react-router-dom'
-import { Link } from 'remix'
+import type { Params } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { classNames } from '~/utils/class-names'
 import { Handle } from '~/utils/types'
 
@@ -38,8 +37,8 @@ export type Matches = {
   id: string
   pathname: string
   params: Params<string>
-  data: RouteData
-  handle: Handle
+  data: unknown
+  handle: unknown
 }[]
 
 export function Breadcrumbs({
@@ -65,17 +64,17 @@ export function Breadcrumbs({
             </Link>
           </div>
         </li>
-        {matches.map(
-          ({ pathname, handle }: { pathname: string; handle: Handle }, index) =>
-            handle?.name ? (
-              <BreadcrumbItem
-                key={handle.name}
-                name={handle.name}
-                to={`${pathname}?${searchParams.toString()}`}
-                current={index === matches.length - 1}
-              />
-            ) : null
-        )}
+        {matches.map(({ pathname, handle }, index) => {
+          const h = handle as Handle | undefined
+          return h?.name ? (
+            <BreadcrumbItem
+              key={h.name}
+              name={h.name}
+              to={`${pathname}?${searchParams.toString()}`}
+              current={index === matches.length - 1}
+            />
+          ) : null
+        })}
       </ol>
     </nav>
   )

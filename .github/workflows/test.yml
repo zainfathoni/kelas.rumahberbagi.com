@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24.x'
 
       - name: Restore NPM cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache
         with:
           path: ~/.npm
@@ -34,7 +34,7 @@ jobs:
 
       - name: Cache NPM
         if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -47,15 +47,15 @@ jobs:
     needs: cache-npm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24.x'
 
       - name: Restore NPM cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -64,6 +64,9 @@ jobs:
 
       - name: Install locked dependencies
         run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
 
       - name: Build CSS assets from Tailwind CSS
         run: npm run build:css
@@ -79,15 +82,15 @@ jobs:
     needs: cache-npm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24.x'
 
       - name: Restore NPM cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -96,6 +99,9 @@ jobs:
 
       - name: Install locked dependencies
         run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
 
       - name: Type check
         run: npm run type-check
@@ -109,15 +115,15 @@ jobs:
     needs: cache-npm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24.x'
 
       - name: Restore NPM cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -133,7 +139,7 @@ jobs:
           CI: true
 
       - name: Upload code coverage reports to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -144,15 +150,15 @@ jobs:
     needs: cache-npm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24.x'
 
       - name: Restore NPM cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key:
@@ -164,34 +170,35 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Install operating system dependencies
-        run: npx playwright install-deps
-
       - name: Restore cached Playwright dependencies
         id: cache-playwright
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key:
             ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json')
             }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-i
+            ${{ runner.os }}-playwright-
 
-      - name: Install Playwright browsers
+      - name: Install Playwright browsers with dependencies
         if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: npx playwright install
+        run: npx playwright install --with-deps
+
+      - name: Install Playwright system dependencies (on cache hit)
+        if: steps.cache-playwright.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
 
       - name: Cache Playwright dependencies
         if: steps.cache-playwright.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key:
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{
-            hashFiles('**/playwright.config.ts') }}
+            ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json')
+            }}-${{ hashFiles('**/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-i
+            ${{ runner.os }}-playwright-
 
       - name: Run end-to-end tests
         run: npm run test:e2e:run

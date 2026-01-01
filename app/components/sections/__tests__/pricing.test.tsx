@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen } from '@testing-library/react'
 import { Pricing } from '../pricing'
+import { render } from '#test/test-utils'
 
 describe('Pricing', () => {
   it('renders the Pricing without error', () => {
@@ -22,10 +22,7 @@ describe('Pricing', () => {
           <Pricing.Item>Akses kelas online melalui Zoom</Pricing.Item>
           <Pricing.Item>Video rekaman kelas</Pricing.Item>
         </Pricing.Included>
-      </Pricing>,
-      {
-        wrapper: MemoryRouter,
-      }
+      </Pricing>
     )
 
     expect(

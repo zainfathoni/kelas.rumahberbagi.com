@@ -1,5 +1,6 @@
 import { Lesson } from '@prisma/client'
 import { Chapters } from '~/models/course'
+import { Serialized } from '~/utils/types'
 
 export const PAGE_SIZE = 10
 
@@ -12,8 +13,8 @@ export function getPagesCount(total = 0) {
 }
 
 export function getAdjacentLessonIds(
-  chapters: Chapters,
-  currentLesson: Lesson
+  chapters: Chapters | Serialized<Chapters>,
+  currentLesson: Lesson | Serialized<Lesson>
 ) {
   const currentChapterIndex = chapters.findIndex(
     (chapter) => chapter.id === currentLesson.chapterId

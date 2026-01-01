@@ -34,27 +34,27 @@ test('redirected to TransactionList page when transaction data with id of $trans
 test('render transaction data if transaction data exists', async ({ page }) => {
   await page.goto(`/dashboard/transactions/${submitted.id}`)
 
-  const username = await page.locator('id=user-name').textContent()
-  expect(username).toBe(memberSubmit.name)
+  await expect(page.locator('id=user-name')).toHaveText(
+    memberSubmit.name as string
+  )
 
-  const phoneNumber = await page.locator('id=user-phone-number').textContent()
-  expect(phoneNumber).toBe(memberSubmit.phoneNumber)
+  await expect(page.locator('id=user-phone-number')).toHaveText(
+    memberSubmit.phoneNumber as string
+  )
 
-  const bankName = await page.locator('id=bank-name').textContent()
-  expect(bankName).toBe(submitted.bankName)
+  await expect(page.locator('id=bank-name')).toHaveText(submitted.bankName)
 
-  const bankAccountNumber = await page
-    .locator('id=bank-account-number')
-    .textContent()
-  expect(bankAccountNumber).toBe(submitted.bankAccountNumber)
+  await expect(page.locator('id=bank-account-number')).toHaveText(
+    submitted.bankAccountNumber
+  )
 
-  const bankAccountName = await page
-    .locator('id=bank-account-name')
-    .textContent()
-  expect(bankAccountName).toBe(submitted.bankAccountName)
+  await expect(page.locator('id=bank-account-name')).toHaveText(
+    submitted.bankAccountName as string
+  )
 
-  const nominal = await page.locator('id=transaction-amount').textContent()
-  expect(nominal).toBe(printRupiah(submitted.amount))
+  await expect(page.locator('id=transaction-amount')).toHaveText(
+    printRupiah(submitted.amount)
+  )
 
   const transactionTime = page.locator('id=transaction-updatedAt').first()
   await expect(transactionTime).not.toBeEmpty()

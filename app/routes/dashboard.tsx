@@ -1,5 +1,4 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { useState } from 'react'
 import {
   HomeIcon,
   CashIcon,
@@ -10,16 +9,23 @@ import {
   AcademicCapIcon,
   VideoCameraIcon,
 } from '@heroicons/react/outline'
-import { useLoaderData, useMatches, Form, json, Outlet, Link } from 'remix'
-import type { LoaderFunction } from 'remix'
-import { useSearchParams } from 'react-router-dom'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import {
+  Form,
+  Link,
+  Outlet,
+  useLoaderData,
+  useMatches,
+  useSearchParams,
+} from '@remix-run/react'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { Course } from '@prisma/client'
 import { requireUpdatedUser } from '~/services/auth.server'
 import { LogoWithText } from '~/components/logo'
 import { requireActiveSubscription, requireAuthor } from '~/utils/permissions'
 import { Breadcrumbs } from '~/components/breadcrumbs'
-import { SideNavigationItem } from '~/utils/types'
+import { Serialized, SideNavigationItem } from '~/utils/types'
 import { UserWithSubscriptions } from '~/models/user'
 import { getFirstCourse } from '~/models/course'
 
@@ -61,8 +67,10 @@ export default function Dashboard() {
   const matches = useMatches()
   const currentPathname = matches[2]?.pathname
   const [searchParams] = useSearchParams()
-  const { user, course } =
-    useLoaderData<{ user: UserWithSubscriptions; course: Course }>()
+  const { user, course } = useLoaderData<{
+    user: Serialized<UserWithSubscriptions>
+    course: Serialized<Course>
+  }>()
 
   return (
     <>
@@ -75,56 +83,32 @@ export default function Dashboard() {
         ```
       */}
       <div>
-        <Transition.Root show={sidebarOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="fixed inset-0 flex z-40 lg:hidden"
-            onClose={setSidebarOpen}
+        {/* Mobile sidebar - native implementation to avoid HeadlessUI SSR issues */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 z-40 lg:hidden"
+            role="dialog"
+            aria-modal="true"
           >
-            <Transition.Child
-              as={Fragment}
-              enter="transition-opacity ease-linear duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity ease-linear duration-300"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-            </Transition.Child>
-            <Transition.Child
-              as={Fragment}
-              enter="transition ease-in-out duration-300 transform"
-              enterFrom="-translate-x-full"
-              enterTo="translate-x-0"
-              leave="transition ease-in-out duration-300 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="-translate-x-full"
-            >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-in-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in-out duration-300"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="absolute top-0 right-0 -mr-12 pt-2">
-                    <button
-                      type="button"
-                      className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="sr-only">Close sidebar</span>
-                      <XIcon
-                        className="h-6 w-6 text-white"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  </div>
-                </Transition.Child>
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 bg-gray-600 bg-opacity-75 z-0"
+              onClick={() => setSidebarOpen(false)}
+              aria-hidden="true"
+            />
+            {/* Sidebar panel */}
+            <div className="fixed inset-0 flex z-10 pointer-events-none">
+              <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white pointer-events-auto">
+                <div className="absolute top-0 right-0 -mr-12 pt-2">
+                  <button
+                    type="button"
+                    className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="sr-only">Close sidebar</span>
+                    <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </button>
+                </div>
                 <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                   <LogoWithText />
                   <nav className="mt-5 px-2 space-y-1">
@@ -198,12 +182,12 @@ export default function Dashboard() {
                   </Link>
                 </div>
               </div>
-            </Transition.Child>
-            <div className="shrink-0 w-14">
-              {/* Force sidebar to shrink to fit close icon */}
+              <div className="shrink-0 w-14" aria-hidden="true">
+                {/* Force sidebar to shrink to fit close icon */}
+              </div>
             </div>
-          </Dialog>
-        </Transition.Root>
+          </div>
+        )}
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">

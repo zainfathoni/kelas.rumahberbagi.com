@@ -1,4 +1,4 @@
-import { useMatches, useSearchParams } from 'remix'
+import { useMatches, useSearchParams } from '@remix-run/react'
 import { Breadcrumbs } from './breadcrumbs'
 
 export function SingleColumnLayout({

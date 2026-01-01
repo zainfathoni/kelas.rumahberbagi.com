@@ -1,0 +1,7 @@
+{
+  "enabledPlugins": {
+    "beads@beads-marketplace": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  }
+}

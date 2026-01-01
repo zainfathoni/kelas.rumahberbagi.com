@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, redirect } from 'remix'
+import { createCookieSessionStorage, redirect } from '@remix-run/node'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
 export const sessionStorage = createCookieSessionStorage({

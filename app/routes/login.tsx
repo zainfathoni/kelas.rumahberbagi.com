@@ -1,5 +1,6 @@
-import type { ActionFunction, LoaderFunction } from 'remix'
-import { useTransition, Form, json, useLoaderData } from 'remix'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { Form, useLoaderData, useNavigation } from '@remix-run/react'
 import { Alert } from '~/components/alerts'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
@@ -31,7 +32,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
   const { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
-  const { state } = useTransition()
+  const { state } = useNavigation()
 
   return (
     <div className="min-h-full flex max-w-7xl mx-auto">

@@ -8,14 +8,15 @@ import {
   printRupiah,
   transformURLwithinText,
 } from '~/utils/format'
+import { Serialized } from '~/utils/types'
 
 export function TransactionDetails({
   transaction,
   user,
   children,
 }: {
-  transaction: Transaction
-  user: User
+  transaction: Transaction | Serialized<Transaction>
+  user: User | Serialized<User>
   children: ReactNode
 }) {
   return (

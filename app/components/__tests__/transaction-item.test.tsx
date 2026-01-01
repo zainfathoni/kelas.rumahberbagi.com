@@ -1,7 +1,7 @@
 import { build, fake, oneOf } from '@jackfranklin/test-data-bot'
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen } from '@testing-library/react'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
+import { render } from '#test/test-utils'
 import { printLocaleDateTimeString } from '~/utils/format'
 import { TRANSACTION_STATUS } from '~/models/enum'
 
@@ -29,7 +29,7 @@ describe('TransactionItem', () => {
       },
     })
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByLabelText(/nama rekening/i)).toHaveTextContent(
       props.bankAccountName
@@ -42,7 +42,7 @@ describe('TransactionItem', () => {
       },
     })
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByLabelText(/nama bank/i)).toHaveTextContent(
       props.bankName
@@ -55,7 +55,7 @@ describe('TransactionItem', () => {
       },
     })
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByLabelText(/waktu transaksi/i)).toHaveTextContent(
       printLocaleDateTimeString(props.updatedAt ?? '')
@@ -64,7 +64,7 @@ describe('TransactionItem', () => {
   it('should display bankAccountNumber correctly', () => {
     const props = transactionItemBuilder()
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByLabelText(/nomor rekening/i)).toHaveTextContent(
       props.bankAccountNumber
@@ -73,7 +73,7 @@ describe('TransactionItem', () => {
   it('should link to transaction details page correctly', () => {
     const props = transactionItemBuilder()
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByRole('link')).toBeVisible()
     expect(screen.getByRole('link')).toHaveAttribute('href', `/${props.to}`)
@@ -81,7 +81,7 @@ describe('TransactionItem', () => {
   it('should display notes correctly', () => {
     const props = transactionItemBuilder()
 
-    render(<TransactionItem {...props} />, { wrapper: MemoryRouter })
+    render(<TransactionItem {...props} />)
 
     expect(screen.getByLabelText(/catatan/i)).toHaveTextContent(
       props.notes ?? ''

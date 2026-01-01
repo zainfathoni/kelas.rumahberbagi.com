@@ -11,6 +11,7 @@ describe('sendEmail', () => {
       magicLink: 'http://localhost:3000/magic',
       user,
       domainUrl: 'https://localhost:3000/',
+      form: new FormData(),
     })
 
     // TODO: assert emailProvider.sendEmail was called
