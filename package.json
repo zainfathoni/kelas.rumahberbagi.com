@@ -7,7 +7,7 @@
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run build:css && remix build",
+    "build": "prisma generate --schema=./prisma/schema.sqlite.prisma && cross-env NODE_ENV=production npm run build:css && remix build",
     "build:css": "tailwindcss --minify -o ./app/tailwind.css",
     "build:remix": "cross-env NODE_ENV=production remix build --sourcemap",
     "dev": "cross-env DATABASE_URL=file:./dev.db NODE_ENV=development prisma generate --schema=./prisma/schema.sqlite.prisma && concurrently -k \"npm run dev:css\" \"remix dev\"",
