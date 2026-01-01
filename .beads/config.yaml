@@ -6,7 +6,9 @@
 # Issue prefix for this repository (used by bd init)
 # If not set, bd init will auto-detect from directory name
 # Example: issue-prefix: "myproject" creates issues like "myproject-1", "myproject-2", etc.
-# issue-prefix: ""
+# IMPORTANT: Set explicitly to prevent prefix duplication during sync
+# See docs/issues/beads-prefix-duplication.md for details
+issue-prefix: "rb"
 
 # Use no-db mode: load from JSONL, no SQLite, write back after each command
 # When true, bd will use .beads/issues.jsonl as the source of truth
