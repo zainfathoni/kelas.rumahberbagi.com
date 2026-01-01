@@ -399,8 +399,11 @@ bd sync               # Commit and push changes
 1. **Start**: Run `bd ready` to find actionable work
 2. **Claim**: Use `bd update <id> --status=in_progress`
 3. **Work**: Implement the task
-4. **Complete**: Use `bd close <id>`
-5. **Sync**: Always run `bd sync` at session end
+4. **Test**: Test your changes thoroughly, including running all tests and
+   linters
+5. **Commit**: Stage and commit code changes
+6. **Complete**: Use `bd close <id>`
+7. **Sync**: Always run `bd sync` at session end
 
 ### Key Concepts
 
