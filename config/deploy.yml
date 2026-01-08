@@ -1,0 +1,76 @@
+# Kamal 2.0 deployment configuration for Kelas Rumah Berbagi
+# See: https://kamal-deploy.org/docs/configuration/
+
+service: kelas
+
+# Docker image configuration
+image: ghcr.io/zainfathoni/kelas.rumahberbagi.com
+
+# Deployment servers
+servers:
+  web:
+    hosts:
+      - 1.2.3.4  # TODO: Replace with actual VPS IP
+    options:
+      volume:
+        - /data/kelas/db:/app/prisma
+
+# Container registry (GitHub Container Registry)
+registry:
+  server: ghcr.io
+  username: zainfathoni
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Kamal Proxy configuration (replaces Traefik in Kamal 2.0)
+proxy:
+  ssl: true
+  host: kelas.rumahberbagi.com
+  app_port: 3000
+  healthcheck:
+    path: /
+    interval: 5
+    timeout: 5
+
+# Environment variables
+env:
+  # Clear (non-secret) environment variables
+  clear:
+    NODE_ENV: production
+    PORT: "3000"
+    DATABASE_URL: file:./prisma/prod.db
+  # Secret environment variables (loaded from .kamal/secrets)
+  secret:
+    - SESSION_SECRET
+    - MAGIC_LINK_SECRET
+    - MAILGUN_SENDING_KEY
+    - MAILGUN_DOMAIN
+
+# Build configuration
+builder:
+  multiarch: false
+  args:
+    NODE_ENV: production
+
+# Asset bridge for zero-downtime deployments
+# Copies public assets from old container to new one during deploy
+asset_path: /app/public
+
+# SSH configuration (optional, uses defaults)
+# ssh:
+#   user: root
+
+# Boot configuration
+# boot:
+#   limit: 10%  # Rolling deploy percentage
+
+# Accessories (optional services)
+# Uncomment to add Litestream for SQLite replication
+# accessories:
+#   litestream:
+#     image: litestream/litestream:0.3
+#     host: 1.2.3.4
+#     volumes:
+#       - /data/kelas/db:/data
+#       - /data/kelas/litestream.yml:/etc/litestream.yml
+#     cmd: replicate
