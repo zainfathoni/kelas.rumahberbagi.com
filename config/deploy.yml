@@ -4,7 +4,7 @@
 service: kelas
 
 # Docker image configuration
-image: ghcr.io/zainfathoni/kelas.rumahberbagi.com
+image: zainfathoni/kelas.rumahberbagi.com
 
 # Deployment servers
 servers:
@@ -38,7 +38,7 @@ env:
   clear:
     NODE_ENV: production
     PORT: "3000"
-    DATABASE_URL: file:./prisma/prod.db
+    DATABASE_URL: file:/app/prisma/prod.db
   # Secret environment variables (loaded from .kamal/secrets)
   secret:
     - SESSION_SECRET
@@ -48,7 +48,7 @@ env:
 
 # Build configuration
 builder:
-  multiarch: false
+  arch: amd64
   args:
     NODE_ENV: production
 
