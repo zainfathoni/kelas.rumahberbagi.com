@@ -388,7 +388,7 @@ bv
 bd ready              # Show issues ready to work (no blockers)
 bd list --status=open # All open issues
 bd show <id>          # Full issue details with dependencies
-bd create --title="..." --type=task --priority=2
+bd create --title="..." --type=task --priority=2 --id="..." # Creating with id
 bd update <id> --status=in_progress
 bd close <id> --reason="Completed"
 bd close <id1> <id2>  # Close multiple issues at once
@@ -433,6 +433,7 @@ git push                # Push to remote
 - Check `bd ready` at session start to find available work
 - Update status as you work (in_progress → closed)
 - Create new issues with `bd create` when you discover tasks
+  - Always ask for --id= param if it's unclear
 - Use descriptive titles and set appropriate priority/type
 - Always `bd sync` before ending session
 
