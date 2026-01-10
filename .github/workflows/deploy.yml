@@ -60,7 +60,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 103.235.75.227 >> ~/.ssh/known_hosts
+          # Add all host key types to avoid fingerprint mismatch
+          ssh-keyscan -t rsa,ecdsa,ed25519 103.235.75.227 >> ~/.ssh/known_hosts
 
       - name: Create Kamal secrets file
         run: |
