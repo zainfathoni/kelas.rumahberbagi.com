@@ -55,13 +55,13 @@ jobs:
       - name: Install Kamal
         run: gem install kamal
 
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          # Add all host key types to avoid fingerprint mismatch
-          ssh-keyscan -t rsa,ecdsa,ed25519 103.235.75.227 >> ~/.ssh/known_hosts
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: ssh-keyscan -t rsa,ecdsa,ed25519 103.235.75.227 >> ~/.ssh/known_hosts
 
       - name: Create Kamal secrets file
         run: |
