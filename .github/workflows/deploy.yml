@@ -176,8 +176,8 @@ jobs:
         run: npm run test:e2e:run
         env:
           CI: true
-          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-          MAGIC_LINK_SECRET: ${{ secrets.MAGIC_LINK_SECRET }}
+          SESSION_SECRET: test-session-secret
+          MAGIC_LINK_SECRET: test-magic-link-secret
           MAILGUN_SENDING_KEY: nothing
           MAILGUN_DOMAIN: nothing
 
@@ -185,6 +185,7 @@ jobs:
     name: Deploy to production
     runs-on: ubuntu-latest
     needs: [lint, type-check, unit-test, e2e-test]
+    environment: production
     # Only run on push to main (not on PRs)
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
 

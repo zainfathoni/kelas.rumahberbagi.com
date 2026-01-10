@@ -22,17 +22,28 @@ Deployment is automated via GitHub Actions:
 
 ## Required GitHub Secrets
 
-Configure these secrets in your repository settings
-(`Settings > Secrets and variables > Actions`):
+Configure secrets in `Settings > Secrets and variables > Actions`.
+
+### Repository Secrets (shared across environments)
 
 | Secret                    | Description                                              |
 | ------------------------- | -------------------------------------------------------- |
 | `SSH_PRIVATE_KEY`         | SSH private key for accessing the VPS                    |
 | `KAMAL_REGISTRY_PASSWORD` | GitHub Personal Access Token with `write:packages` scope |
-| `SESSION_SECRET`          | Session encryption secret                                |
-| `MAGIC_LINK_SECRET`       | Magic link email authentication secret                   |
 | `MAILGUN_SENDING_KEY`     | Mailgun API key for sending emails                       |
 | `MAILGUN_DOMAIN`          | Mailgun domain (e.g., `mg.rumahberbagi.com`)             |
+
+### Environment Secrets (per environment)
+
+Create two environments: `production` and `staging` in
+`Settings > Environments`. Add these secrets to each:
+
+| Secret              | Description                            |
+| ------------------- | -------------------------------------- |
+| `SESSION_SECRET`    | Session encryption secret              |
+| `MAGIC_LINK_SECRET` | Magic link email authentication secret |
+
+**Note:** Use different values for each environment to isolate auth tokens.
 
 ### SSH Key Setup
 
