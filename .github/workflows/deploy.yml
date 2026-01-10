@@ -10,6 +10,10 @@ on:
     branches: [main]
   workflow_dispatch: # Allow manual deployment
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: Deploy to production
@@ -62,9 +66,6 @@ jobs:
 
       - name: Add VPS to known hosts
         run: ssh-keyscan -t rsa,ecdsa,ed25519 103.235.75.227 >> ~/.ssh/known_hosts
-
-      - name: Test SSH connection
-        run: ssh -o StrictHostKeyChecking=no root@103.235.75.227 "echo SSH connection successful"
 
       - name: Create Kamal secrets file
         run: |
