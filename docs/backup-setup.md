@@ -95,6 +95,26 @@ ssh ${VPS_HOST} "/usr/local/bin/restore-db.sh /var/backups/kelas-db/prod_2026011
 ssh ${VPS_HOST} "tail -50 /var/log/kelas-backup.log"
 ```
 
+## E2E Testing Docker/Production
+
+Run smoke tests against Docker container or production:
+
+```bash
+# Test local Docker container (localhost:3000)
+npm run test:e2e:docker -- e2e/smoke.spec.ts
+
+# Test production deployment
+npm run test:e2e:production -- e2e/smoke.spec.ts
+
+# Test custom URL
+DOCKER_URL=http://staging.example.com npm run test:e2e:docker -- e2e/smoke.spec.ts
+```
+
+**Note:** Only smoke tests work against Docker/production. Full E2E suite
+requires the test database setup (see issue rb-myu for details).
+
+See `playwright.docker.config.ts` for configuration details.
+
 ## Future Improvements
 
 - **Litestream**: Real-time replication to S3 (see epic rb-8xp)
