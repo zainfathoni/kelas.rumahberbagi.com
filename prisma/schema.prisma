@@ -1,12 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -68,7 +66,7 @@ model Transaction {
   amount            Int
   datetime          DateTime?
   status            String
-  notes             String?   @db.Text
+  notes             String?
   user              User      @relation("UserTransactions", fields: [userId], references: [id], onDelete: Cascade)
   author            User      @relation("UserSales", fields: [authorId], references: [id], onDelete: Cascade)
   course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -91,7 +89,7 @@ model Lesson {
   updatedAt   DateTime     @updatedAt
   chapterId   String
   name        String
-  description String?      @db.Text
+  description String?
   videoId     String
   order       Int
   chapter     Chapter      @relation(fields: [chapterId], references: [id], onDelete: Cascade)

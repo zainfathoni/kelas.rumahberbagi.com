@@ -7,19 +7,19 @@
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
   "scripts": {
-    "build": "prisma generate --schema=./prisma/schema.sqlite.prisma && cross-env NODE_ENV=production npm run build:css && remix build",
+    "build": "prisma generate && cross-env NODE_ENV=production npm run build:css && remix build",
     "build:css": "tailwindcss --minify -o ./app/tailwind.css",
     "build:remix": "cross-env NODE_ENV=production remix build --sourcemap",
-    "dev": "cross-env DATABASE_URL=file:./dev.db NODE_ENV=development prisma generate --schema=./prisma/schema.sqlite.prisma && concurrently -k \"npm run dev:css\" \"remix dev\"",
+    "dev": "cross-env DATABASE_URL=file:./dev.db NODE_ENV=development prisma generate && concurrently -k \"npm run dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
-    "prod": "cross-env DATABASE_URL=file:./prod.db NODE_ENV=development prisma generate --schema=./prisma/schema.sqlite.prisma && concurrently -k \"npm run prod:css\" \"remix dev\"",
+    "prod": "cross-env DATABASE_URL=file:./prod.db NODE_ENV=development prisma generate && concurrently -k \"npm run prod:css\" \"remix dev\"",
     "prod:css": "tailwindcss -o ./app/tailwind.css --watch",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,yml,yaml,md}\"",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "prepare": "husky install",
     "start": "remix-serve build",
-    "prestart:e2e": "DATABASE_URL=file:./test.db prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run build:css",
+    "prestart:e2e": "DATABASE_URL=file:./test.db prisma migrate reset --force && npm run build:css",
     "start:e2e": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db remix dev",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -30,7 +30,7 @@
     "test:e2e:docker": "playwright test --config=playwright.docker.config.ts",
     "test:e2e:production": "cross-env BASE_URL=https://kelas.rumahberbagi.com playwright test --config=playwright.docker.config.ts",
     "type-check": "tsc --noEmit",
-    "setup": "npm install && prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma && npm run test:e2e:run",
+    "setup": "npm install && prisma migrate reset --force && npm run test:e2e:run",
     "presetup": "npx playwright install-deps"
   },
   "dependencies": {

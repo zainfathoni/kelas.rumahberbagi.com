@@ -41,8 +41,7 @@ prisma/
 │   │   └── kelas.Transaction.00001.sql
 │   └── prod/              # Converted SQLite dumps (generated, not committed)
 │       └── [same files as main, converted to SQLite]
-├── schema.prisma          # Prisma schema for MySQL (original)
-└── schema.sqlite.prisma   # Prisma schema for SQLite
+└── schema.prisma          # Prisma schema for SQLite
 ```
 
 ## Migration Process
@@ -54,11 +53,10 @@ converted to SQLite-compatible format using the `convert-dumps.js` script.
 
 ### Step 2: Create Database Schema
 
-The SQLite database is created using Prisma with the `schema.sqlite.prisma`
-schema file:
+The SQLite database is created using Prisma:
 
 ```bash
-DATABASE_URL="file:./prod.db" npx prisma db push --schema=prisma/schema.sqlite.prisma --skip-generate
+DATABASE_URL="file:./prod.db" npx prisma db push --skip-generate
 ```
 
 ### Step 3: Import Data
@@ -164,7 +162,7 @@ This script:
 ### 4. Create the database schema
 
 ```bash
-DATABASE_URL="file:./prod.db" npx prisma db push --schema=prisma/schema.sqlite.prisma --skip-generate
+DATABASE_URL="file:./prod.db" npx prisma db push --skip-generate
 ```
 
 ### 5. Import the data
@@ -265,8 +263,8 @@ If you encounter foreign key constraint errors during data import:
 
 ### Missing Tables
 
-If tables are not created, verify the `schema.sqlite.prisma` file exists and the
-Prisma command was executed correctly.
+If tables are not created, verify `prisma/schema.prisma` exists and the Prisma
+command was executed correctly.
 
 ## Environment Variables
 

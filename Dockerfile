@@ -17,8 +17,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Copy Prisma schema and generate client
-COPY prisma/schema.sqlite.prisma ./prisma/
-RUN npx prisma generate --schema=./prisma/schema.sqlite.prisma
+COPY prisma/schema.prisma ./prisma/
+RUN npx prisma generate
 
 # Copy application source
 COPY . .
@@ -51,8 +51,8 @@ COPY package.json ./
 COPY --from=build /app/node_modules ./node_modules
 
 # Copy Prisma schema and regenerate client for Alpine's OpenSSL version
-COPY --from=build /app/prisma/schema.sqlite.prisma ./prisma/
-RUN npx prisma generate --schema=./prisma/schema.sqlite.prisma
+COPY --from=build /app/prisma/schema.prisma ./prisma/
+RUN npx prisma generate
 
 # Copy built application
 COPY --from=build /app/build ./build
