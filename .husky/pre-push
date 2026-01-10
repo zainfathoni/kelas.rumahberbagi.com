@@ -1,5 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-bd hooks run pre-commit
-npx lint-staged
+bd hooks run pre-push
