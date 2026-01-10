@@ -1,0 +1,84 @@
+# Kamal deployment workflow for Staging
+# Deploys to staging after CI workflow passes on staging branch
+
+name: Deploy Staging
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [staging]
+  workflow_dispatch: # Allow manual deployment
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    environment: Staging
+    # Only run if CI passed (or manual trigger)
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'staging')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/zainfathoni/kelas.rumahberbagi.com:staging-${{ github.sha }}
+            ghcr.io/zainfathoni/kelas.rumahberbagi.com:staging-latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+      - name: Set up Ruby for Kamal
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: ssh-keyscan -t rsa,ecdsa,ed25519 103.235.75.227 >> ~/.ssh/known_hosts
+
+      - name: Create Kamal secrets file
+        run: |
+          mkdir -p .kamal
+          cat > .kamal/secrets << EOF
+          KAMAL_REGISTRY_PASSWORD=${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+          MAGIC_LINK_SECRET=${{ secrets.MAGIC_LINK_SECRET }}
+          MAILGUN_SENDING_KEY=${{ secrets.MAILGUN_SENDING_KEY }}
+          MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}
+          EOF
+
+      - name: Deploy with Kamal
+        run: kamal deploy -c config/deploy.staging.yml --skip-push --version staging-${{ github.sha }}
+        env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
