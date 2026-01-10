@@ -1,4 +1,5 @@
-import type { LinksFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Form,
   isRouteErrorResponse,
@@ -8,6 +9,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useMatches,
   useRouteError,
 } from '@remix-run/react'
@@ -17,6 +19,24 @@ import styles from './tailwind.css'
 import fonts from './fonts.css'
 import { Footer } from './components/footer'
 import { Header } from '~/components/header'
+
+type LoaderData = {
+  isStaging: boolean
+}
+
+export const loader: LoaderFunction = () => {
+  return json<LoaderData>({
+    isStaging: process.env.STAGING_ENVIRONMENT === 'true',
+  })
+}
+
+function StagingBanner() {
+  return (
+    <div className="bg-yellow-400 text-yellow-900 text-center py-1 px-4 text-sm font-medium">
+      Staging Environment - Data may be reset at any time
+    </div>
+  )
+}
 
 // https://remix.run/api/app#links
 export const links: LinksFunction = () => {
@@ -30,8 +50,10 @@ export const links: LinksFunction = () => {
 // https://remix.run/api/conventions#default-export
 // https://remix.run/api/conventions#route-filenames
 export default function App() {
+  const { isStaging } = useLoaderData<LoaderData>()
   return (
     <Document>
+      {isStaging && <StagingBanner />}
       <Layout>
         <Outlet />
       </Layout>
