@@ -82,6 +82,23 @@ npm run setup              # Install deps, reset DB, run E2E tests
 npm run presetup          # Install Playwright browser dependencies
 ```
 
+### Database Inspection
+
+```bash
+# Inspect dev.db with Prisma Studio
+npx prisma studio
+
+# Inspect prod.db with Prisma Studio
+DATABASE_URL="file:./prod.db" npx prisma studio
+
+# Direct SQLite queries
+sqlite3 prisma/dev.db
+sqlite3 prisma/prod.db
+
+# Browse prod data via UI (starts dev server with prod.db)
+npm run prod
+```
+
 ## Architecture
 
 ### Tech Stack
