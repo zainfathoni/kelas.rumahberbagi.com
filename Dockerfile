@@ -71,8 +71,9 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Kamal requires service label
-LABEL service="kelas"
+# Kamal requires service label (configurable for staging)
+ARG SERVICE_NAME=kelas
+LABEL service="${SERVICE_NAME}"
 
 # Start the application
 # Using explicit path for CJS compatibility with Node 24
