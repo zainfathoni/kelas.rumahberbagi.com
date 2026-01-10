@@ -71,6 +71,9 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
+# Kamal requires service label
+LABEL service="kelas"
+
 # Start the application
 # Using explicit path for CJS compatibility with Node 24
 CMD ["npx", "remix-serve", "./build/index.js"]
