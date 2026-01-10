@@ -5,7 +5,11 @@ deployment.
 
 ## Overview
 
-- **Production URL**: <https://kelas.rumahberbagi.com>
+| Environment | URL                                      | Branch    | Config                      |
+| ----------- | ---------------------------------------- | --------- | --------------------------- |
+| Production  | <https://kelas.rumahberbagi.com>         | `main`    | `config/deploy.yml`         |
+| Staging     | <https://staging.kelas.rumahberbagi.com> | `staging` | `config/deploy.staging.yml` |
+
 - **VPS**: 103.235.75.227 (Jetorbit)
 - **Container Registry**: GitHub Container Registry (ghcr.io)
 - **SSL**: Managed by kamal-proxy (Let's Encrypt)
@@ -101,3 +105,53 @@ kamal app logs
 ## Database Backups
 
 See [backup-setup.md](backup-setup.md) for database backup configuration.
+
+## Staging Environment
+
+### Staging Deployment
+
+Staging deploys automatically when CI passes on the `staging` branch:
+
+```bash
+# Create staging branch from main
+git checkout main
+git pull
+git checkout -b staging
+git push -u origin staging
+```
+
+### Staging Kamal Commands
+
+```bash
+# Deploy to staging
+kamal deploy -c config/deploy.staging.yml
+
+# View staging logs
+kamal app logs -c config/deploy.staging.yml
+
+# Rollback staging
+kamal rollback <version> -c config/deploy.staging.yml
+
+# SSH to staging container
+kamal app exec -c config/deploy.staging.yml -i bash
+```
+
+### Database Sync (Production → Staging)
+
+To refresh staging with production data:
+
+```bash
+ssh root@103.235.75.227 /usr/local/bin/sync-staging-db.sh
+```
+
+This script:
+
+1. Stops the staging container
+2. Backs up current staging database
+3. Copies production database to staging
+4. Restarts the staging container
+
+### Staging Backups
+
+Staging database is backed up daily at 4 AM (1 hour after production) with 7-day
+retention. Backups are stored in `/var/backups/kelas-staging-db/`.
