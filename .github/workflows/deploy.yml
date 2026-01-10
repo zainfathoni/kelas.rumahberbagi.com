@@ -1,193 +1,25 @@
 # Kamal deployment workflow
-# Deploys to production after all tests pass on push to main
+# Deploys to production after CI workflow passes on main branch
 
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
   workflow_dispatch: # Allow manual deployment
 
 jobs:
-  # Run all tests before deploying
-  cache-npm:
-    name: Cache NPM libraries
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Restore NPM cache
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install locked dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-
-  lint:
-    name: ESLint
-    runs-on: ubuntu-latest
-    needs: cache-npm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Restore NPM cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install locked dependencies
-        run: npm ci
-
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Build CSS assets from Tailwind CSS
-        run: npm run build:css
-
-      - name: Lint files
-        run: npm run lint
-        env:
-          CI: true
-
-  type-check:
-    name: Type check
-    runs-on: ubuntu-latest
-    needs: cache-npm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Restore NPM cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install locked dependencies
-        run: npm ci
-
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Type check
-        run: npm run type-check
-        env:
-          CI: true
-
-  unit-test:
-    name: Unit and integration test
-    runs-on: ubuntu-latest
-    needs: cache-npm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Restore NPM cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install locked dependencies
-        run: npm ci
-
-      - name: Run unit and integration tests
-        run: npm t
-        env:
-          CI: true
-
-  e2e-test:
-    name: End-to-end test
-    runs-on: ubuntu-latest
-    needs: cache-npm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-
-      - name: Restore NPM cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install locked dependencies
-        run: npm ci
-
-      - name: Restore cached Playwright dependencies
-        id: cache-playwright
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/playwright.config.ts') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install Playwright browsers with dependencies
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
-
-      - name: Install Playwright system dependencies (on cache hit)
-        if: steps.cache-playwright.outputs.cache-hit == 'true'
-        run: npx playwright install-deps
-
-      - name: Run end-to-end tests
-        run: npm run test:e2e:run
-        env:
-          CI: true
-          SESSION_SECRET: test-session-secret
-          MAGIC_LINK_SECRET: test-magic-link-secret
-          MAILGUN_SENDING_KEY: nothing
-          MAILGUN_DOMAIN: nothing
-
   deploy:
     name: Deploy to production
     runs-on: ubuntu-latest
-    needs: [lint, type-check, unit-test, e2e-test]
-    environment: production
-    # Only run on push to main (not on PRs)
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    environment: Production
+    # Only run if CI passed (or manual trigger)
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
 
     steps:
       - name: Checkout repository
