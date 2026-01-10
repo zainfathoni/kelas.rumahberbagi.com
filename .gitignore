@@ -42,3 +42,6 @@ bv-pages/
 
 # Kamal deployment secrets
 .kamal/secrets
+
+# Local backup files
+prisma/backups/
