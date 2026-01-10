@@ -47,6 +47,8 @@ jobs:
           tags: |
             ghcr.io/zainfathoni/kelas.rumahberbagi.com:staging-${{ github.sha }}
             ghcr.io/zainfathoni/kelas.rumahberbagi.com:staging-latest
+          build-args: |
+            SERVICE_NAME=kelas-staging
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
