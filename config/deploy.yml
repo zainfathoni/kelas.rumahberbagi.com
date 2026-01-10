@@ -10,7 +10,7 @@ image: zainfathoni/kelas.rumahberbagi.com
 servers:
   web:
     hosts:
-      - 1.2.3.4  # TODO: Replace with actual VPS IP
+      - 103.235.75.227
     options:
       volume:
         - /data/kelas/db:/app/prisma
