@@ -39,3 +39,9 @@ playwright-report
 # bv (beads viewer) local config and caches
 .bv/
 bv-pages/
+
+# Kamal deployment secrets
+.kamal/secrets
+
+# Local backup files
+prisma/backups/

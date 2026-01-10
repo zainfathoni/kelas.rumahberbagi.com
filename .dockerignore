@@ -1,1 +1,49 @@
+# Dependencies
 node_modules
+
+# Build outputs (will be rebuilt in container)
+build
+.cache
+
+# Database files (mounted as volumes in production)
+prisma/*.db
+prisma/*.db-journal
+prisma/dumps
+
+# Environment files (use Docker secrets or env vars)
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE and editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Testing
+e2e
+coverage
+playwright-report
+test-results
+*.spec.ts
+
+# CI/CD
+.github
+.husky
+
+# Misc
+.DS_Store
+*.log
+.beads
+.claude
