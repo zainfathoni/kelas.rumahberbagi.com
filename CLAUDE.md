@@ -52,27 +52,21 @@ npm run type-check        # TypeScript type checking
 
 ### Database Operations
 
-The project uses **two Prisma schemas**:
-
-- `prisma/schema.prisma` - MySQL schema (original)
-- `prisma/schema.sqlite.prisma` - SQLite schema (current)
-
-**Always specify `--schema=./prisma/schema.sqlite.prisma`** for local
-development.
+The project uses SQLite with Prisma. The schema is at `prisma/schema.prisma`.
 
 ```bash
 # Development database (dev.db)
-npm run dev                                      # Auto-generates Prisma client for dev.db
+npm run dev                        # Auto-generates Prisma client for dev.db
 
 # Production database (prod.db) - from MySQL dumps
-npm run prod                                     # Auto-generates Prisma client for prod.db
+npm run prod                       # Auto-generates Prisma client for prod.db
 
 # Database management
-npx prisma studio --schema=./prisma/schema.sqlite.prisma                    # Open Prisma Studio
-npx prisma db push --schema=./prisma/schema.sqlite.prisma                   # Push schema changes
-npx prisma migrate dev --name <name> --schema=./prisma/schema.sqlite.prisma # Create migration
-npx prisma migrate reset --force --schema=./prisma/schema.sqlite.prisma     # Reset DB and run seed
-npx prisma generate --schema=./prisma/schema.sqlite.prisma                  # Generate Prisma Client
+npx prisma studio                  # Open Prisma Studio
+npx prisma db push                 # Push schema changes
+npx prisma migrate dev --name <name>  # Create migration
+npx prisma migrate reset --force   # Reset DB and run seed
+npx prisma generate                # Generate Prisma Client
 ```
 
 **Three SQLite databases**:
@@ -147,8 +141,7 @@ app/
 └── root.tsx          # Root layout
 
 prisma/
-├── schema.prisma           # MySQL schema (original)
-├── schema.sqlite.prisma    # SQLite schema (current)
+├── schema.prisma           # Prisma schema (SQLite)
 ├── migrations/             # Migration files
 ├── seed.ts                # Seed data script
 ├── dumps/                 # Database dumps (gitignored)
@@ -268,8 +261,7 @@ Pre-commit hooks run:
 
 ## Important Notes
 
-- **Database schema**: Always use `schema.sqlite.prisma` with `--schema` flag
-  for local work
+- **Database schema**: Schema is at `prisma/schema.prisma`
 - **Environment**: Copy `.env.example` to `.env` before starting
 - **Node version**: Requires Node.js >= 14
 - **Git hooks**: Husky manages pre-commit hooks for linting and testing
