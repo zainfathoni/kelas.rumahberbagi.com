@@ -2,6 +2,7 @@ import { Subscription } from '@prisma/client'
 import { SUBSCRIPTION_STATUS } from './enum'
 import { getFirstCourse } from './course'
 import { db } from '~/utils/db.server'
+import { generateId } from '~/utils/nanoid'
 
 type SubscriptionStatus = 'ACTIVE' | 'INACTIVE'
 
@@ -29,6 +30,7 @@ async function updateSubscription(
   } else {
     subscription = await db.subscription.create({
       data: {
+        id: generateId(),
         userId,
         courseId: course.id,
         authorId: course.authorId,

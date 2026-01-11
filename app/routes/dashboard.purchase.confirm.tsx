@@ -13,6 +13,7 @@ import { XCircleIcon } from '@heroicons/react/solid'
 import { validateRequired } from '~/utils/validators'
 import { requireUser } from '~/services/auth.server'
 import { db } from '~/utils/db.server'
+import { generateId } from '~/utils/nanoid'
 import { getFirstCourse } from '~/models/course'
 import { getFirstTransaction } from '~/models/transaction'
 import { Button, Field } from '~/components/form-elements'
@@ -20,6 +21,7 @@ import { TRANSACTION_STATUS } from '~/models/enum'
 import { Handle } from '~/utils/types'
 
 interface TransactionFields {
+  id?: string
   userId: string
   courseId: string
   authorId: string
@@ -103,7 +105,9 @@ export const action: ActionFunction = async ({ request }) => {
       data: fields,
     })
   } else {
-    transaction = await db.transaction.create({ data: fields })
+    transaction = await db.transaction.create({
+      data: { ...fields, id: generateId() },
+    })
   }
 
   if (!transaction) {
