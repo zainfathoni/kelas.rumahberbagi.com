@@ -108,7 +108,7 @@ npm run prod
 - **Database**: SQLite with Prisma ORM v3.10.0
 - **Authentication**: remix-auth with email magic link (remix-auth-email-link)
 - **Testing**: Jest (unit), Playwright (E2E), MSW (API mocking)
-- **Deployment**: Vercel (configured with `remix.config.js`)
+- **Deployment**: Kamal 2.0 to VPS (see `docs/deployment.md`)
 
 ### Database Schema
 
@@ -282,8 +282,7 @@ Pre-commit hooks run:
 - **Environment**: Copy `.env.example` to `.env` before starting
 - **Node version**: Requires Node.js >= 14
 - **Git hooks**: Husky manages pre-commit hooks for linting and testing
-- **Deployment**: Configured for Vercel (see `remix.config.js` and
-  `vercel.json`)
+- **Deployment**: Uses Kamal 2.0 to VPS (see `docs/deployment.md`)
 - **GitHub Projects**: Issues tracked on
   [rbagi.id/board](https://rbagi.id/board)
 - **Language**: Use English for all issues and PRs
