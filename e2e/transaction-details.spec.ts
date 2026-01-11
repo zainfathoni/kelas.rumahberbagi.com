@@ -1,9 +1,8 @@
-import { expect } from '@playwright/test'
 import { Transaction, User } from '@prisma/client'
 import { printRupiah } from '../app/utils/format'
 import { readFixture } from '../app/utils/fixtures'
 import { stripLeadingPlus } from '../app/utils/misc'
-import { test } from './base-test'
+import { test, expect } from './base-test'
 
 test.use({
   storageState: 'e2e/fixtures/auth/author.local.json',
