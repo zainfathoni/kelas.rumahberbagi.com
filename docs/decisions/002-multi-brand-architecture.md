@@ -43,7 +43,7 @@ Each brand runs as an independent Kamal deployment with:
 │                                                                   │
 ├───────────────────────────┬───────────────────────────────────────┤
 │  Kamal Deploy A           │  Kamal Deploy B                       │
-│  kelas.rumahberbagi.com   │  kelas.bitcoinschool.com              │
+│  kelas.rumahberbagi.com   │  kprbtc.id              │
 │                           │                                       │
 │  config/deploy.yml        │  config/deploy.bitcoinschool.yml      │
 │  /data/kelas/db/prod.db   │  /data/bitcoinschool/db/prod.db       │
@@ -202,7 +202,7 @@ function getBrandConfig(): BrandConfig {
       id: 'bitcoinschool',
       name: 'Bitcoin School',
       tagline: 'Learn Bitcoin',
-      domain: 'kelas.bitcoinschool.com',
+      domain: 'kprbtc.id',
       logo: {
         src: '/bitcoin-school.svg',
         alt: 'Bitcoin School Logo',
@@ -264,7 +264,7 @@ servers:
 
 proxy:
   ssl: true
-  host: kelas.bitcoinschool.com
+  host: kprbtc.id
   app_port: 3000
 
 env:
