@@ -14,7 +14,8 @@ import {
   requireUser,
 } from '~/services/auth.server'
 import { Button, Field } from '~/components/form-elements'
-import { validatePhoneNumber, validateRequired } from '~/utils/validators'
+import { validatePhoneNumber } from '~/utils/validators'
+import { parseFormData, userProfileSchema } from '~/utils/schemas'
 import { updateUser, UserFields } from '~/models/user'
 import { Handle } from '~/utils/types'
 
@@ -39,39 +40,25 @@ type ActionData = {
 export const action: ActionFunction = async ({ request }) => {
   let user = await requireUser(request)
 
-  const form = await request.formData()
-  const name = form.get('name')
-  const phoneNumber = form.get('phoneNumber')
-  const instagram = form.get('instagram')
-  const telegram = form.get('telegram')
-  const redirectTo = form.get('redirectTo') || '/dashboard/profile'
+  const result = await parseFormData(request, userProfileSchema)
 
-  // TODO: Use `zod` instead
-  if (
-    typeof name !== 'string' ||
-    typeof phoneNumber !== 'string' ||
-    (typeof instagram !== 'string' && typeof instagram !== 'object') ||
-    (typeof telegram !== 'string' && typeof telegram !== 'object') ||
-    typeof redirectTo !== 'string'
-  ) {
-    return {
-      formError: 'Form not submitted correctly.',
-      fields: form.entries(),
-    }
+  if (!result.success) {
+    return json<ActionData>(
+      {
+        fieldErrors: result.fieldErrors as ActionData['fieldErrors'],
+        fields: undefined,
+      },
+      { status: 400 }
+    )
   }
 
-  const fieldErrors = {
-    name: validateRequired('Nama Lengkap', name),
-    phoneNumber: validatePhoneNumber('Nomor WhatsApp', phoneNumber),
-  }
+  const { name, phoneNumber, instagram, telegram, redirectTo } = result.data
+
   const fields: UserFields = {
     name,
-    phoneNumber: phoneNumber.trim(),
-    instagram: instagram ? String(instagram) : null,
-    telegram: telegram ? String(telegram) : null,
-  }
-  if (Object.values(fieldErrors).some(Boolean)) {
-    return { fieldErrors, fields }
+    phoneNumber,
+    instagram,
+    telegram,
   }
 
   user = await updateUser(user.id, fields)
