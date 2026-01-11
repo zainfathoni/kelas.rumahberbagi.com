@@ -11,13 +11,12 @@ if (process.env.EMAIL_FROM) {
 
 export const sendEmail: SendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
+  const siteHost = new URL(options.magicLink).host
   const body = renderToString(
     <main>
       Halo {options.user?.name || 'pengguna baru'},<br />
       <br />
-      <a href={options.magicLink}>
-        Klik di sini untuk masuk ke kelas.rumahberbagi.com
-      </a>
+      <a href={options.magicLink}>Klik di sini untuk masuk ke {siteHost}</a>
       <br />
       <p>
         Apabila bermasalah,{' '}
