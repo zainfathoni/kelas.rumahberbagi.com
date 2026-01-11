@@ -4,6 +4,11 @@ import type { SendEmailFunction } from 'remix-auth-email-link'
 import * as emailProvider from '~/services/email-provider.server'
 import { writeFixture } from '~/utils/fixtures'
 
+let emailFrom = 'Rumah Berbagi <admin@rumahberbagi.com>'
+if (process.env.EMAIL_FROM) {
+  emailFrom = process.env.EMAIL_FROM
+}
+
 export const sendEmail: SendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
   const body = renderToString(
@@ -42,7 +47,7 @@ export const sendEmail: SendEmailFunction<User> = async (options) => {
   } else {
     await emailProvider.sendEmail({
       to: options.emailAddress,
-      from: 'Rumah Berbagi <admin@rumahberbagi.com>',
+      from: emailFrom,
       subject,
       html: body,
     })
