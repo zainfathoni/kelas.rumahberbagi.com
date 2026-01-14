@@ -63,14 +63,12 @@ export default function ProfileIndex() {
                     </div>
                   </div>
                 </div>
-                <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-                  <h1
-                    aria-label="Nama Lengkap"
-                    className="text-2xl font-bold text-gray-900 truncate"
-                  >
-                    {user.name}
-                  </h1>
-                </div>
+                <h1
+                  aria-hidden="true"
+                  className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1 text-2xl font-bold text-gray-900 truncate"
+                >
+                  {user.name}
+                </h1>
               </div>
             </div>
 
