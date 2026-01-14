@@ -1,5 +1,4 @@
-import { expect } from '@playwright/test'
-import { test } from './base-test'
+import { test, expect } from './base-test'
 
 test.use({
   storageState: 'e2e/fixtures/auth/member-edit.local.json',
@@ -15,90 +14,83 @@ const user = {
 test('Validate phone number when updating data', async ({
   page,
   noscript,
-  queries: { getByRole },
+  screen,
 }) => {
-  // Go to http://localhost:3000/dashboard/profile/edit
-
   await page.goto('/dashboard/profile/edit')
-  // Query phoneNumber
-  const phoneNumber = await getByRole('textbox', {
+
+  // Query phoneNumber - using Locator-based screen queries
+  const phoneNumber = screen.getByRole('textbox', {
     name: /nomor whatsapp/i,
   })
-  // Fill phoneNumber
+
+  // Fill phoneNumber with invalid value
   await phoneNumber.fill('6512345678')
-  // Press Tab
   await phoneNumber.press('Tab')
+
   // Expect visibility only when JavaScript is enabled
   if (!noscript) {
-    await expect(
-      page
-        .locator(
-          'text=Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
-        )
-        .first()
-    ).toBeVisible()
+    const errorMessage = page.getByText(
+      'Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
+    )
+    await expect(errorMessage).toBeVisible()
   }
-  // Fill phoneNumber
+
+  // Fill phoneNumber with valid value
   await phoneNumber.fill('+6512345678')
-  // Click text=Save
-  await Promise.all([
-    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard' }*/),
-    page.click('text=Simpan'),
-  ])
-  // Expect invisibility
+
+  // Submit form - use click and wait for navigation separately
+  await page.getByRole('button', { name: /simpan/i }).click()
+  await page.waitForURL('**/dashboard/profile')
+
+  // Expect error message to be hidden
   await expect(
-    page
-      .locator(
-        'text=Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
-      )
-      .first()
-  ).not.toBeVisible()
+    page.getByText(
+      'Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
+    )
+  ).toBeHidden()
 })
 
-test('Validate name when updating data', async ({
-  page,
-  noscript,
-  queries: { getByRole },
-}) => {
+test('Validate name when updating data', async ({ page, noscript, screen }) => {
   await page.goto('/dashboard/profile/edit')
 
-  const name = await getByRole('textbox', {
+  const name = screen.getByRole('textbox', {
     name: /nama lengkap/i,
   })
 
+  // Clear name and trigger validation
   await name.fill('')
   await name.press('Tab')
 
   if (!noscript) {
-    await expect(
-      page.locator('text=Nama Lengkap wajib diisi').first()
-    ).toBeVisible()
+    const errorMessage = page.getByText('Nama Lengkap wajib diisi')
+    await expect(errorMessage).toBeVisible()
   }
 
+  // Fill valid name and submit
   await name.fill(user.name)
-  await page.click('text=Simpan')
+  await page.getByRole('button', { name: /simpan/i }).click()
 
-  await expect(
-    page.locator('text=Nama Lengkap wajib diisi').first()
-  ).not.toBeVisible()
+  // Expect error message to be hidden after navigation
+  await expect(page.getByText('Nama Lengkap wajib diisi')).toBeHidden()
 })
 
-test('Update profile', async ({ page, queries: { getByRole } }) => {
+test('Update profile', async ({ page, screen }) => {
   await page.goto('/dashboard/profile/edit')
 
-  // Get element by role
-  const name = await getByRole('textbox', {
+  // Get element by role - using Locator-based screen queries
+  const name = screen.getByRole('textbox', {
     name: /nama lengkap/i,
   })
-  const phoneNumber = await getByRole('textbox', {
+  const phoneNumber = screen.getByRole('textbox', {
     name: /nomor whatsapp/i,
   })
-  const telegram = await getByRole('textbox', {
+  const telegram = screen.getByRole('textbox', {
     name: /username telegram/i,
   })
-  const instagram = await getByRole('textbox', {
+  const instagram = screen.getByRole('textbox', {
     name: /username instagram/i,
   })
+
   // Fill all input
   await name.fill(user.name)
   await phoneNumber.fill(user.phoneNumber)
@@ -106,53 +98,41 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   await instagram.fill(user.instagram)
 
   // Submit form and wait for the redirect to the /profile page
-  await page.click('text=Simpan')
+  await page.getByRole('button', { name: /simpan/i }).click()
   await page.waitForURL('**/dashboard/profile')
 
   // Expect to see the new data on the View profile page
-  await expect(page.locator('[aria-label="Nama Lengkap"]').first()).toHaveText(
-    user.name
-  )
-  await expect(
-    page.locator('[aria-label="Nomor WhatsApp"]').first()
-  ).toHaveText(user.phoneNumber)
-  await expect(page.locator('[aria-label="Telegram"]').first()).toHaveText(
-    user.telegram
-  )
-  await expect(page.locator('[aria-label="Instagram"]').first()).toHaveText(
-    user.instagram
-  )
+  await expect(page.getByLabel('Nama Lengkap')).toHaveText(user.name)
+  await expect(page.getByLabel('Nomor WhatsApp')).toHaveText(user.phoneNumber)
+  await expect(page.getByLabel('Telegram')).toHaveText(user.telegram)
+  await expect(page.getByLabel('Instagram')).toHaveText(user.instagram)
 
   // Go back to the /profile/edit page
-  await page.click('text=Ubah')
-  await expect(page).toHaveURL('http://localhost:3000/dashboard/profile/edit')
+  await page.getByRole('link', { name: /ubah/i }).click()
+  await page.waitForURL('**/dashboard/profile/edit')
 
   // Expect to see the new data prefilled
-  await expect(page.locator('[name="name"]').first()).toHaveValue(user.name)
-  await expect(page.locator('[name="phoneNumber"]').first()).toHaveValue(
+  await expect(page.locator('[name="name"]')).toHaveValue(user.name)
+  await expect(page.locator('[name="phoneNumber"]')).toHaveValue(
     user.phoneNumber
   )
-  await expect(page.locator('[name="telegram"]').first()).toHaveValue(
-    user.telegram
-  )
-  await expect(page.locator('[name="instagram"]').first()).toHaveValue(
-    user.instagram
-  )
+  await expect(page.locator('[name="telegram"]')).toHaveValue(user.telegram)
+  await expect(page.locator('[name="instagram"]')).toHaveValue(user.instagram)
 })
 
 test('Redirect back to the confirm page when the user is coming from it', async ({
   page,
-  queries: { getByRole },
+  screen,
 }) => {
   await page.goto(
     '/dashboard/profile/edit?redirectTo=%2Fdashboard%2Fpurchase%2Fconfirm'
   )
 
-  // Get element by role
-  const name = await getByRole('textbox', {
+  // Get element by role - using Locator-based screen queries
+  const name = screen.getByRole('textbox', {
     name: /nama lengkap/i,
   })
-  const phoneNumber = await getByRole('textbox', {
+  const phoneNumber = screen.getByRole('textbox', {
     name: /nomor whatsapp/i,
   })
 
@@ -160,13 +140,10 @@ test('Redirect back to the confirm page when the user is coming from it', async 
   await name.fill(user.name)
   await phoneNumber.fill(user.phoneNumber)
 
-  // Submit form and wait for the redirect to the /dashboard/purchase/confirm page
-  await Promise.all([
-    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/purchase/confirm' }*/),
-    page.click('text=Simpan'),
-  ])
+  // Submit form and wait for redirect
+  await page.getByRole('button', { name: /simpan/i }).click()
+  await page.waitForURL('**/dashboard/purchase/confirm')
 
-  await expect(page).toHaveURL(
-    'http://localhost:3000/dashboard/purchase/confirm'
-  )
+  // Verify we're on the confirm page
+  await expect(page).toHaveURL(/dashboard\/purchase\/confirm/)
 })
