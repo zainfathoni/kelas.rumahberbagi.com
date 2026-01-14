@@ -104,6 +104,22 @@ describe('userProfileSchema', () => {
     }
   })
 
+  it('uses default redirectTo when empty string is provided', () => {
+    const data = {
+      name: 'John Doe',
+      phoneNumber: '+6281234567890',
+      instagram: '',
+      telegram: '',
+      redirectTo: '',
+    }
+
+    const result = userProfileSchema.safeParse(data)
+    expect(result.success).toBe(true)
+    if (result.success) {
+      expect(result.data.redirectTo).toBe('/dashboard/profile')
+    }
+  })
+
   it('trims phone number whitespace', () => {
     const data = {
       name: 'John Doe',

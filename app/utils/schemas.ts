@@ -30,7 +30,10 @@ export const userProfileSchema = z.object({
   phoneNumber: phoneNumberSchema,
   instagram: optionalUsernameSchema,
   telegram: optionalUsernameSchema,
-  redirectTo: z.string().default('/dashboard/profile'),
+  redirectTo: z
+    .string()
+    .transform((val) => (val === '' ? '/dashboard/profile' : val))
+    .default('/dashboard/profile'),
 })
 
 export type UserProfileFormData = z.infer<typeof userProfileSchema>

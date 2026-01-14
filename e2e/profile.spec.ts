@@ -106,10 +106,8 @@ test('Update profile', async ({ page, queries: { getByRole } }) => {
   await instagram.fill(user.instagram)
 
   // Submit form and wait for the redirect to the /profile page
-  await Promise.all([
-    page.waitForNavigation(/*{ url: 'http://localhost:3000/dashboard/profile' }*/),
-    page.click('text=Simpan'),
-  ])
+  await page.click('text=Simpan')
+  await page.waitForURL('**/dashboard/profile')
 
   // Expect to see the new data on the View profile page
   await expect(page.locator('[aria-label="Nama Lengkap"]').first()).toHaveText(
