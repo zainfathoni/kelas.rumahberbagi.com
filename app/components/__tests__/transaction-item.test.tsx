@@ -1,17 +1,18 @@
-import { build, fake, oneOf } from '@jackfranklin/test-data-bot'
+import { build, fake, oneOf, perBuild } from '@jackfranklin/test-data-bot'
 import { screen } from '@testing-library/react'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
 import { render } from '#test/test-utils'
 import { printLocaleDateTimeString } from '~/utils/format'
 import { TRANSACTION_STATUS } from '~/models/enum'
+import { generateId } from '~/utils/nanoid'
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
-    to: fake(
-      (f) =>
-        `${f.datatype.uuid()}?status=${oneOf(
-          TRANSACTION_STATUS
-        )}&page=${f.datatype.number()}`
+    to: perBuild(
+      () =>
+        `${generateId()}?status=${oneOf(TRANSACTION_STATUS)}&page=${Math.floor(
+          Math.random() * 100
+        )}`
     ),
     bankAccountName: fake((f) => f.finance.accountName()),
     bankAccountNumber: fake((f) => f.finance.account()),

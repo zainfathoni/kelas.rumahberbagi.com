@@ -54,6 +54,7 @@ model Course {
   transactions  Transaction[]
   chapters      Chapter[]
   contents      Content[]
+  consumptions  Consumption[]
 }
 
 model Transaction {
@@ -139,6 +140,7 @@ model Consumption {
   status    String   @default("PRISTINE")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, contentId])
 }
