@@ -231,11 +231,12 @@ test.use({
 For generating consistent test data, use `@jackfranklin/test-data-bot`:
 
 ```typescript
-import { build, fake } from '@jackfranklin/test-data-bot'
+import { build, fake, perBuild } from '@jackfranklin/test-data-bot'
+import { generateId } from '~/utils/nanoid'
 
 const userBuilder = build('User', {
   fields: {
-    id: fake((f) => f.datatype.uuid()),
+    id: perBuild(() => generateId()),
     email: fake((f) => f.internet.email()),
     name: fake((f) => f.name.fullName()),
   },
