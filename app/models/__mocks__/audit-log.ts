@@ -1,7 +1,7 @@
 import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { AuditLog } from '@prisma/client'
 import { AUDIT_ACTION, AUDIT_ENTITY_TYPE } from '../enum'
-import { generateId } from '~/utils/nanoid'
+import { generateId } from '../../utils/nanoid'
 
 export const auditLogBuilder = build<Omit<AuditLog, 'id' | 'createdAt'>>({
   fields: {
