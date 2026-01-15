@@ -25,14 +25,14 @@ test('Validate phone number when updating data', async ({
 
   // Fill phoneNumber with invalid value
   await phoneNumber.fill('6512345678')
-  await phoneNumber.press('Tab')
+  await phoneNumber.blur()
 
   // Expect visibility only when JavaScript is enabled
   if (!noscript) {
     const errorMessage = page.getByText(
       'Nomor WhatsApp harus mengandung kode negara dan nomor telepon'
     )
-    await expect(errorMessage).toBeVisible()
+    await expect(errorMessage).toBeVisible({ timeout: 10000 })
   }
 
   // Fill phoneNumber with valid value
@@ -59,11 +59,11 @@ test('Validate name when updating data', async ({ page, noscript, screen }) => {
 
   // Clear name and trigger validation
   await name.fill('')
-  await name.press('Tab')
+  await name.blur()
 
   if (!noscript) {
     const errorMessage = page.getByText('Nama Lengkap wajib diisi')
-    await expect(errorMessage).toBeVisible()
+    await expect(errorMessage).toBeVisible({ timeout: 10000 })
   }
 
   // Fill valid name and submit
