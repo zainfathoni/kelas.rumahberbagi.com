@@ -141,14 +141,16 @@ export const Field = React.forwardRef<
   const instructionId = `${inputId}-instruction`
 
   const [value, setValue] = React.useState(defaultValue ?? '')
-  const [touched, setTouched] = React.useState(false)
+  const [interacted, setInteracted] = React.useState(false)
+  const [focused, setFocused] = React.useState(false)
 
   const errorMessage =
     validator?.(label, value) ??
     (required ? validateRequired(label, value) : undefined) ??
     error
 
-  const status = (touched && errorMessage) || error ? 'error' : 'default'
+  const showError = interacted && !focused && !!errorMessage
+  const status = showError || !!error ? 'error' : 'default'
 
   return (
     <div className={className}>
@@ -182,10 +184,15 @@ export const Field = React.forwardRef<
         readOnly={readOnly}
         disabled={readOnly}
         value={value}
-        onChange={(event: React.BaseSyntheticEvent) =>
+        onFocus={() => {
+          setFocused(true)
+          setInteracted(true)
+        }}
+        onChange={(event: React.BaseSyntheticEvent) => {
           setValue(event.currentTarget.value)
-        }
-        onBlur={() => setTouched(true)}
+          setInteracted(true)
+        }}
+        onBlur={() => setFocused(false)}
         status={status}
         aria-describedby={
           errorMessage

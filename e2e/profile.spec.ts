@@ -15,11 +15,7 @@ test('Validate phone number when updating data', async ({
   page,
   noscript,
   screen,
-  browserName,
 }) => {
-  // Skip on WebKit - validation error messages don't appear reliably after blur()
-  // See: rb-webkit-validation
-  test.skip(browserName === 'webkit', 'WebKit blur validation is unreliable')
   await page.goto('/dashboard/profile/edit')
 
   // Query phoneNumber - using Locator-based screen queries
