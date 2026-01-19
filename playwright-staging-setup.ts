@@ -15,15 +15,15 @@ const REQUIRED_AUTH_FILES = [
  * because emails are sent to real addresses. Instead, this setup validates that
  * auth fixtures exist, which are generated using Playwright codegen.
  *
- * To create auth fixtures for staging, use Playwright codegen with --save-storage:
+ * To create auth fixtures for staging, use the npm scripts:
  *
- *   npx playwright codegen https://staging.kelas.rumahberbagi.com \
- *     --save-storage=e2e/fixtures/auth/staging/member.staging.json
+ *   npm run test:e2e:staging:auth:member  # Login with: member@rumahberbagi.com
+ *   npm run test:e2e:staging:auth:author  # Login with: vika@rumahberbagi.com
+ *   npm run test:e2e:staging:auth:admin   # Login with: admin@rumahberbagi.com
  *
- * 1. Run the codegen command above
- * 2. Login manually in the browser that opens
+ * 1. Run the npm script for the role you need
+ * 2. Login with the email shown above in the browser that opens
  * 3. Close the browser - storage state is saved automatically
- * 4. Repeat for each role (member, author, admin)
  */
 async function globalSetup() {
   if (!fs.existsSync(STAGING_AUTH_DIR)) {
@@ -45,9 +45,11 @@ async function globalSetup() {
     for (const file of missingFiles) {
       console.warn(`   - ${STAGING_AUTH_DIR}/${file}`)
     }
-    console.warn(
-      '\nGenerate with: npx playwright codegen https://staging.kelas.rumahberbagi.com --save-storage=<path>\n'
-    )
+    console.warn('\nGenerate with: npm run test:e2e:staging:auth:<role>\n')
+    console.warn('Staging emails:')
+    console.warn('  member: member@rumahberbagi.com')
+    console.warn('  author: vika@rumahberbagi.com')
+    console.warn('  admin:  admin@rumahberbagi.com\n')
   }
 
   console.log('✓ Staging global setup complete')

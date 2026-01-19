@@ -227,32 +227,26 @@ npm run test:e2e:staging
 
 #### Setting Up Staging Authentication
 
-Since staging uses real email delivery, auth fixtures are created using
-Playwright codegen with `--save-storage`:
+Since staging uses real email delivery, auth fixtures are created using npm
+scripts that run Playwright codegen:
 
 ```bash
-# Generate auth fixture for member role
-npx playwright codegen https://staging.kelas.rumahberbagi.com \
-  --save-storage=e2e/fixtures/auth/staging/member.staging.json
-
-# Generate auth fixture for author role
-npx playwright codegen https://staging.kelas.rumahberbagi.com \
-  --save-storage=e2e/fixtures/auth/staging/author.staging.json
-
-# Generate auth fixture for admin role
-npx playwright codegen https://staging.kelas.rumahberbagi.com \
-  --save-storage=e2e/fixtures/auth/staging/admin.staging.json
+npm run test:e2e:staging:auth:member  # Login with: member@rumahberbagi.com
+npm run test:e2e:staging:auth:author  # Login with: vika@rumahberbagi.com
+npm run test:e2e:staging:auth:admin   # Login with: admin@rumahberbagi.com
 ```
 
-1. Run the codegen command for the role you need
-2. Login manually in the browser that opens
+1. Run the npm script for the role you need
+2. Login with the email shown in the terminal
 3. Close the browser - storage state is saved automatically
 
 Required auth fixtures:
 
-- `member.staging.json` - Regular member
-- `author.staging.json` - Course author
-- `admin.staging.json` - Administrator
+| Fixture               | Email                   | Role           |
+| --------------------- | ----------------------- | -------------- |
+| `member.staging.json` | member@rumahberbagi.com | Regular member |
+| `author.staging.json` | vika@rumahberbagi.com   | Course author  |
+| `admin.staging.json`  | admin@rumahberbagi.com  | Administrator  |
 
 **Note:** Auth fixtures are gitignored and must be recreated when sessions
 expire.
