@@ -1,449 +1,95 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with
-code in this repository.
-
 ## Project Overview
 
-Kelas Rumah Berbagi is an online course platform for Rumah Berbagi, built with
-Remix framework. The project enables users to purchase and access online courses
-with features for authentication, course management, and transactions.
+Kelas Rumah Berbagi - an online course platform built with Remix. Users purchase
+and access courses with email magic link authentication.
 
-## Key Commands
-
-### Development
+## Commands
 
 ```bash
-npm run dev                 # Start development server (uses dev.db)
-npm run prod               # Start dev server with prod.db
-npm run build              # Build for production
-npm run start              # Start production server
-```
+# Development
+npm run dev              # Dev server with dev.db (localhost:3000)
+npm run prod             # Dev server with prod.db
+npm run build            # Production build
 
-The development server runs on <http://localhost:3000>
+# Testing
+npm test                 # Vitest unit tests
+npm run test:e2e:run     # Playwright E2E tests
 
-### Testing
+# Code Quality
+npm run lint             # ESLint
+npm run type-check       # TypeScript check
+npm run format           # Prettier
 
-```bash
-# Unit tests (Jest)
-npm test                   # Run tests (coverage in CI, standard run locally)
-npm run test:coverage      # Run tests with coverage report
-npm run test:watch         # Run tests in watch mode
-npm run test:debug         # Debug tests with Node inspector
-
-# E2E tests (Playwright)
-npm run test:e2e          # Run Playwright tests (requires server)
-npm run test:e2e:run      # Build, start server, and run E2E tests
-npm run test:e2e:dev      # Run E2E tests against dev server
-```
-
-Playwright runs tests across multiple browsers/devices: Pixel 4 (Chromium),
-iPhone 11 (WebKit), Desktop Firefox, Desktop Safari, and Desktop Chrome with JS
-disabled.
-
-### Code Quality
-
-```bash
-npm run lint               # Lint JS/TS/YAML files with ESLint
-npm run lint:fix          # Auto-fix linting issues
-npm run format            # Format code with Prettier
-npm run type-check        # TypeScript type checking
-```
-
-### Database Operations
-
-The project uses SQLite with Prisma. The schema is at `prisma/schema.prisma`.
-
-```bash
-# Development database (dev.db)
-npm run dev                        # Auto-generates Prisma client for dev.db
-
-# Production database (prod.db) - from MySQL dumps
-npm run prod                       # Auto-generates Prisma client for prod.db
-
-# Database management
-npx prisma studio                  # Open Prisma Studio
-npx prisma db push                 # Push schema changes
+# Database
+npx prisma studio        # Browse database
 npx prisma migrate dev --name <name>  # Create migration
-npx prisma migrate reset --force   # Reset DB and run seed
-npx prisma generate                # Generate Prisma Client
 ```
 
-**Three SQLite databases**:
+## Tech Stack
 
-- `prisma/dev.db` - Development database (auto-generated)
-- `prisma/test.db` - Testing database (E2E tests)
-- `prisma/prod.db` - Production data migrated from MySQL dumps
+- **Framework**: Remix v2 (React 18, TypeScript)
+- **Styling**: Tailwind CSS v3, Headless UI
+- **Database**: SQLite with Prisma v5
+- **Auth**: remix-auth with email magic link
+- **Testing**: Vitest (unit), Playwright (E2E)
+- **Deployment**: Kamal 2.0 with Docker to VPS
+- **Node**: v24+ (Volta managed)
 
-### Initial Setup
+## Database
 
-```bash
-npm run setup              # Install deps, reset DB, run E2E tests
-npm run presetup          # Install Playwright browser dependencies
-```
+Schema at `prisma/schema.prisma`. Three SQLite databases:
 
-### Database Inspection
+- `prisma/dev.db` - Development
+- `prisma/test.db` - E2E tests
+- `prisma/prod.db` - Production data
 
-```bash
-# Inspect dev.db with Prisma Studio
-npx prisma studio
+Key models: User → Course → Chapter → Lesson → Attachment, plus Subscription,
+Transaction, Content, Consumption, AuditLog.
 
-# Inspect prod.db with Prisma Studio
-DATABASE_URL="file:./prod.db" npx prisma studio
+## Routes
 
-# Direct SQLite queries
-sqlite3 prisma/dev.db
-sqlite3 prisma/prod.db
+- `/` - Homepage
+- `/login` → `/magic` - Email magic link auth
+- `/dashboard/*` - Protected course management
 
-# Browse prod data via UI (starts dev server with prod.db)
-npm run prod
-```
+## Commit Convention
 
-## Architecture
+Conventional Commits: `<type>[scope]: <description>`
 
-### Tech Stack
-
-- **Framework**: Remix v1.2.2 (React 17, TypeScript)
-- **Styling**: Tailwind CSS v3 with Headless UI components
-- **Database**: SQLite with Prisma ORM v3.10.0
-- **Authentication**: remix-auth with email magic link (remix-auth-email-link)
-- **Testing**: Jest (unit), Playwright (E2E), MSW (API mocking)
-- **Deployment**: Vercel (configured with `remix.config.js`)
-
-### Database Schema
-
-The data model follows this hierarchy:
-
-```txt
-User (email-based auth, roles)
-├── Course[] (as author)
-│   ├── Chapter[]
-│   │   └── Lesson[]
-│   │       └── Attachment[]
-│   ├── Subscription[]
-│   └── Transaction[]
-├── Subscription[] (as subscriber)
-└── Transaction[] (as purchaser)
-```
-
-**Key models**:
-
-- **User**: Email, name, contact info (phone/telegram/instagram), role
-- **Course**: Name, description, price, image, category (belongs to User author)
-- **Chapter**: Name, order (belongs to Course)
-- **Lesson**: Name, description, videoId, order (belongs to Chapter, has
-  Attachments)
-- **Subscription**: Links User to Course with status (approved author can see
-  subscriber)
-- **Transaction**: Payment tracking (bankName, bankAccountNumber, amount,
-  datetime, status, notes)
-
-All models use UUID primary keys and have createdAt/updatedAt timestamps.
-
-### Directory Structure
-
-```txt
-app/
-├── components/         # React components (organized by feature)
-├── contexts/          # React contexts
-├── models/            # Prisma model utilities and queries
-├── routes/            # Remix file-based routing
-│   ├── index.tsx     # Homepage
-│   ├── login.tsx     # Email login
-│   ├── magic.tsx     # Magic link handler
-│   ├── logout.tsx    # Logout
-│   └── dashboard/    # Protected dashboard routes
-├── services/          # Business logic (auth, email, session, verifier)
-├── utils/            # Utility functions
-└── root.tsx          # Root layout
-
-prisma/
-├── schema.prisma           # Prisma schema (SQLite)
-├── migrations/             # Migration files
-├── seed.ts                # Seed data script
-├── dumps/                 # Database dumps (gitignored)
-│   ├── main/             # Original MySQL dumps
-│   └── prod/             # Converted SQLite dumps
-├── dev.db                # Development database
-├── test.db               # Testing database
-└── prod.db               # Production database
-
-e2e/                    # Playwright E2E tests
-├── fixtures/          # Test fixtures and data builders
-└── *.spec.ts         # Test specs
-
-scripts/                # Utility scripts
-└── convert-mysql-dumps.js  # MySQL to SQLite dump converter
-```
-
-### Authentication System
-
-Uses `remix-auth` with email magic link strategy:
-
-1. User enters email on `/login`
-2. System sends magic link via email
-3. User clicks link, redirected to `/magic?code=...`
-4. System verifies code and creates session
-5. User redirected to `/dashboard`
-
-Session managed via cookies (see `app/services/session.server.ts`).
-
-### Routes Structure
-
-- `/` - Public homepage
-- `/login` - Email authentication
-- `/magic` - Magic link verification
-- `/logout` - Session termination
-- `/dashboard` - Protected area (requires auth)
-  - Nested routes for course management, profile, transactions, etc.
-
-### Database Migration (MySQL → SQLite)
-
-The project recently migrated from MySQL to SQLite. The conversion process:
-
-1. Export MySQL dumps to `prisma/dumps/main/`
-2. Run `node scripts/convert-mysql-dumps.js` to convert syntax
-3. Create SQLite schema with Prisma
-4. Import converted dumps in dependency order
-
-**Key conversions**:
-
-- Backticks → double quotes
-- DateTime format: `YYYY-MM-DD HH:MM:SS.mmm` → `YYYY-MM-DDTHH:MM:SS.mmmZ`
-- Remove MySQL-specific syntax (ENGINE, CHARSET, COLLATE)
-- Quote reserved keywords (`order`, `Transaction`)
-
-See `docs/database-migration.md` for full details.
-
-## Development Practices
-
-### Commit Convention
-
-This project uses Conventional Commits with commitlint. All commits MUST follow
-this format:
-
-```txt
-<type>[optional scope]: <description>
-```
-
-**Types**: `build`, `chore`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`,
-`test`
-
-**Scopes**: `assets`, `ci`, `cms`, `components`, `cypress`, `deps`, `dx`, `e2e`,
-`fetcher`, `pages`, `security`, `seo`, `ui`
-
-Component scopes: `donasi`, `education`, `home`, `json-ld`, `kontak-darurat`,
-`layout`, `telemedicine`
-
-Use [commitlint.io](https://commitlint.io/) if needed for assistance.
-
-### Pull Request Template
-
-When creating PRs, follow `.github/pull_request_template.md`:
-
-```markdown
-Closes #<issue-number>
-
-## Description
-
-<!-- Implementation plan and approach -->
-
-## Current Tasks
-
-- [ ] Task 1
-- [ ] Task 2
-```
-
-**Important**: Never add Claude co-authorship to commit messages per user's
-global instructions.
-
-### Testing Strategy
-
-- **Unit tests**: Jest with Testing Library for components and utilities
-- **E2E tests**: Playwright for user flows across multiple browsers
-- **Fixtures**: Use `@jackfranklin/test-data-bot` for test data generation
-- **Mocking**: MSW for API mocking (work in progress)
-
-Pre-commit hooks run:
-
-- Jest tests on related files
-- ESLint with auto-fix
-- Prettier formatting
-
-### Code Style
-
-- ESLint configured for TypeScript, React, JSX a11y, Playwright
-- Prettier for formatting
-- Tailwind CSS for styling (no CSS modules)
-
-## Important Notes
-
-- **Database schema**: Schema is at `prisma/schema.prisma`
-- **Environment**: Copy `.env.example` to `.env` before starting
-- **Node version**: Requires Node.js >= 14
-- **Git hooks**: Husky manages pre-commit hooks for linting and testing
-- **Deployment**: Configured for Vercel (see `remix.config.js` and
-  `vercel.json`)
-- **GitHub Projects**: Issues tracked on
-  [rbagi.id/board](https://rbagi.id/board)
-- **Language**: Use English for all issues and PRs
-
-## References
-
-- [Remix Docs](https://remix.run/docs)
-- [Prisma Docs](https://www.prisma.io/docs)
-- [Playwright Docs](https://playwright.dev)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Project Values](docs/values.md)
-- [UML Diagrams](docs/diagrams.md)
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 ## Agent Instructions
 
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get
-started.
-
-### Quick Reference
+Uses **bd** (beads) for issue tracking:
 
 ```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
+bd ready                           # Find available work
+bd show <id>                       # View issue
 bd update <id> --status in_progress  # Claim work
-bd comments add <id>  # Add comment
-bd close <id>         # Complete work
-bd sync               # Sync with git
+bd close <id>                      # Complete work
+bd sync                            # Sync with git
 ```
 
-### Landing the Plane (Session Completion)
+### Session Completion
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT
-complete until `git push` succeeds.
+Work is NOT complete until `git push` succeeds:
 
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs
-   follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Commit changes** - Stage and commit all related code changes
-4. **Update issue status** - Close finished work, update in-progress items
-5. **PUSH TO REMOTE** - This is MANDATORY:
-
-   ```bash
-   git pull --rebase
-   bd sync
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-
-6. **Clean up** - Clear stashes, prune remote branches
-7. **Verify** - All changes committed AND pushed
-8. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-
-### Issue Types
-
-| Type          | Description                         |
-| ------------- | ----------------------------------- |
-| bug           | Software defect or error            |
-| feature       | New functionality or enhancement    |
-| task          | General work item (default)         |
-| epic          | Large multi-step initiative         |
-| chore         | Maintenance or operational work     |
-| message       | Ephemeral inter-agent communication |
-| merge-request | Code review queue entry             |
-| molecule      | Workflow template or hierarchy      |
-| gate          | Async coordination primitive        |
-
-### Dependency Types
-
-| Type               | Category    | Description                            |
-| ------------------ | ----------- | -------------------------------------- |
-| blocks             | Workflow    | Hard blocker relationship              |
-| parent-child       | Workflow    | Hierarchical relationship              |
-| conditional-blocks | Workflow    | B runs only if A fails                 |
-| waits-for          | Workflow    | Fanout gate: wait for dynamic children |
-| related            | Association | Soft relationship                      |
-| discovered-from    | Association | Track issues found during work         |
-| replies-to         | Graph Link  | Conversation threading                 |
-| relates-to         | Graph Link  | Loose knowledge graph edges            |
-| duplicates         | Graph Link  | Deduplication link                     |
-| supersedes         | Graph Link  | Version chain link                     |
-| authored-by        | Entity      | Creator relationship                   |
-| assigned-to        | Entity      | Assignment relationship                |
-| approved-by        | Entity      | Approval relationship                  |
-
-<!-- bv-agent-instructions-v1 -->
-
----
-
-## Beads Workflow Integration
-
-This project uses
-[beads_viewer](https://github.com/Dicklesworthstone/beads_viewer) for issue
-tracking. Issues are stored in `.beads/` and tracked in git.
-
-### Essential Commands
-
-```bash
-# View issues (launches TUI - avoid in automated sessions)
-bv
-
-# CLI commands for agents (use these instead)
-bd ready              # Show issues ready to work (no blockers)
-bd list --status=open # All open issues
-bd show <id>          # Full issue details with dependencies
-bd create --title="..." --type=task --priority=2 --id="..." # Creating with id
-bd update <id> --status=in_progress
-bd close <id> --reason="Completed"
-bd close <id1> <id2>  # Close multiple issues at once
-bd sync               # Commit and push changes
-```
-
-### Workflow Pattern
-
-1. **Start**: Run `bd ready` to find actionable work
-2. **Claim**: Use `bd update <id> --status=in_progress`
-3. **Work**: Implement the task
-4. **Test**: Test your changes thoroughly, including running all tests and
-   linters
-5. **Commit**: Stage and commit code changes
-6. **Complete**: Use `bd close <id>`
-7. **Sync**: Always run `bd sync` at session end
-
-### Key Concepts
-
-- **Dependencies**: Issues can block other issues. `bd ready` shows only
-  unblocked work.
-- **Priority**: P0=critical, P1=high, P2=medium, P3=low, P4=backlog (use
-  numbers, not words)
-- **Types**: task, bug, feature, epic, question, docs
-- **Blocking**: `bd dep add <issue> <depends-on>` to add dependencies
-
-### Session Protocol
-
-**Before ending any session, run this checklist:**
-
-```bash
-git status              # Check what changed
-git add <files>         # Stage code changes
-bd sync                 # Commit beads changes
-git commit -m "..."     # Commit code
-bd sync                 # Commit any new beads changes
-git push                # Push to remote
-```
+1. Run quality gates if code changed
+2. Commit changes
+3. Update/close issues
+4. **Push**: `git pull --rebase && bd sync && git push`
 
 ### Best Practices
 
 - Check `bd ready` at session start to find available work
-- Update status as you work (in_progress → closed)
+- Update status as you work (open → in_progress → closed)
 - Create new issues with `bd create` when you discover tasks
-  - Always ask for --id= param if it's unclear
-- Use descriptive titles and set appropriate priority/type
+  - Use descriptive titles and set appropriate priority/type
+  - Link to parent issues using `--parent` flag when applicable
+    - When not applicable, define `--id` explicitly with short semantic
+      identifier
+    - `--id` and `--parent` cannot be used together
+  - Always add detailed descriptions using `--description` flag
 - Always `bd sync` before ending session
-
-<!-- end-bv-agent-instructions -->
