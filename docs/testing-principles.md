@@ -227,30 +227,26 @@ npm run test:e2e:staging
 
 #### Setting Up Staging Authentication
 
-Since staging uses real email delivery, auth fixtures must be created manually:
+Since staging uses real email delivery, auth fixtures are created using
+Playwright codegen with `--save-storage`:
 
-1. Login to https://staging.kelas.rumahberbagi.com in your browser
-2. Open DevTools > Application > Storage > Cookies
-3. Export cookies using a browser extension (e.g., "EditThisCookie")
-4. Save to `e2e/fixtures/auth/staging/<role>.staging.json` in this format:
+```bash
+# Generate auth fixture for member role
+npx playwright codegen https://staging.kelas.rumahberbagi.com \
+  --save-storage=e2e/fixtures/auth/staging/member.staging.json
 
-```json
-{
-  "cookies": [
-    {
-      "name": "__session",
-      "value": "...",
-      "domain": "staging.kelas.rumahberbagi.com",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "Lax"
-    }
-  ],
-  "origins": []
-}
+# Generate auth fixture for author role
+npx playwright codegen https://staging.kelas.rumahberbagi.com \
+  --save-storage=e2e/fixtures/auth/staging/author.staging.json
+
+# Generate auth fixture for admin role
+npx playwright codegen https://staging.kelas.rumahberbagi.com \
+  --save-storage=e2e/fixtures/auth/staging/admin.staging.json
 ```
+
+1. Run the codegen command for the role you need
+2. Login manually in the browser that opens
+3. Close the browser - storage state is saved automatically
 
 Required auth fixtures:
 
