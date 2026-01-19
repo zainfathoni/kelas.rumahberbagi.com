@@ -28,6 +28,7 @@
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
     "test:e2e:docker": "playwright test --config=playwright.docker.config.ts",
+    "test:e2e:staging": "playwright test --config=playwright.staging.config.ts",
     "test:e2e:production": "cross-env BASE_URL=https://kelas.rumahberbagi.com playwright test --config=playwright.docker.config.ts",
     "type-check": "tsc --noEmit",
     "setup": "npm install && prisma migrate reset --force && npm run test:e2e:run",

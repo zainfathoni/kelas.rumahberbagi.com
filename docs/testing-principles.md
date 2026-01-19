@@ -216,6 +216,51 @@ test.use({
 })
 ```
 
+### Staging E2E Tests
+
+Run E2E tests against the staging environment to validate deployments:
+
+```bash
+# Run staging E2E tests
+npm run test:e2e:staging
+```
+
+#### Setting Up Staging Authentication
+
+Since staging uses real email delivery, auth fixtures must be created manually:
+
+1. Login to https://staging.kelas.rumahberbagi.com in your browser
+2. Open DevTools > Application > Storage > Cookies
+3. Export cookies using a browser extension (e.g., "EditThisCookie")
+4. Save to `e2e/fixtures/auth/staging/<role>.staging.json` in this format:
+
+```json
+{
+  "cookies": [
+    {
+      "name": "__session",
+      "value": "...",
+      "domain": "staging.kelas.rumahberbagi.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
+```
+
+Required auth fixtures:
+
+- `member.staging.json` - Regular member
+- `author.staging.json` - Course author
+- `admin.staging.json` - Administrator
+
+**Note:** Auth fixtures are gitignored and must be recreated when sessions
+expire.
+
 ### Best Practices
 
 1. **Test user journeys** - Focus on complete user flows

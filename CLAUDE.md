@@ -16,6 +16,7 @@ npm run build            # Production build
 # Testing
 npm test                 # Vitest unit tests
 npm run test:e2e:run     # Playwright E2E tests
+npm run test:e2e:staging # E2E tests against staging (requires auth fixtures)
 
 # Code Quality
 npm run lint             # ESLint
