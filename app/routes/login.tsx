@@ -1,10 +1,10 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, useLoaderData, useNavigation } from '@remix-run/react'
-import { Alert } from '~/components/alerts'
+import { Alert, ErrorAlert } from '~/components/alerts'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
-import { getUserSession } from '~/services/session.server'
+import { commitSession, getUserSession } from '~/services/session.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
   await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
@@ -12,10 +12,21 @@ export const loader: LoaderFunction = async ({ request }) => {
   // This session key `auth:magiclink` is the default one used by the EmailLinkStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
   // instance.
-  return json({
-    user: session.get('user'),
-    magicLinkSent: session.has('zain:magiclink'),
-  })
+  const error = session.get(auth.sessionErrorKey) as
+    | { message: string }
+    | undefined
+  return json(
+    {
+      user: session.get('user'),
+      magicLinkSent: session.has('zain:magiclink'),
+      error: error?.message,
+    },
+    {
+      headers: {
+        'Set-Cookie': await commitSession(session),
+      },
+    }
+  )
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -31,7 +42,10 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Login() {
-  const { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
+  const { magicLinkSent, error } = useLoaderData<{
+    magicLinkSent: boolean
+    error?: string
+  }>()
   const { state } = useNavigation()
 
   return (
@@ -79,6 +93,7 @@ export default function Login() {
                   </Button>
                 </div>
               </Form>
+              {error ? <ErrorAlert>{error}</ErrorAlert> : null}
               {magicLinkSent ? (
                 <Form action="/logout" method="post">
                   <input type="hidden" name="redirectTo" value="/login" />
