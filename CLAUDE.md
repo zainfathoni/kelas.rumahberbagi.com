@@ -61,6 +61,8 @@ Conventional Commits: `<type>[scope]: <description>`
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
+<!-- bv-agent-instructions-v1 -->
+
 ## Agent Instructions
 
 Uses **bd** (beads) for issue tracking:
@@ -94,3 +96,5 @@ Work is NOT complete until `git push` succeeds:
     - `--id` and `--parent` cannot be used together
   - Always add detailed descriptions using `--description` flag
 - Always `bd sync` before ending session
+
+<!-- end-bv-agent-instructions -->
