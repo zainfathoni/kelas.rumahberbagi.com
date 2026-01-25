@@ -3,7 +3,7 @@ import { printRupiah } from '../app/utils/format'
 import { readFixture } from '../app/utils/fixtures'
 import { stripLeadingPlus } from '../app/utils/misc'
 import { test, expect } from './base-test'
-import { authFixtures, isStagingEnv } from './fixtures'
+import { authFixtures, getDataFixturePath, isStagingEnv } from './fixtures'
 
 test.use({
   storageState: authFixtures.author,
@@ -11,18 +11,18 @@ test.use({
 
 let memberSubmit: User, submitted: Transaction, rejected: Transaction
 
-// Skip transaction-details tests on staging (no data fixtures available)
-test.skip(isStagingEnv, 'Skipping on staging - no data fixtures available')
+// Skip tests that verify specific fixture data on staging (data refreshed from production)
+test.describe.configure({ mode: 'serial' })
 
 test.beforeAll(async () => {
   memberSubmit = JSON.parse(
-    await readFixture(`../../e2e/fixtures/users/member-submit.local.json`)
+    await readFixture(getDataFixturePath('users', 'member-submit'))
   )
   submitted = JSON.parse(
-    await readFixture(`../../e2e/fixtures/transactions/submitted.local.json`)
+    await readFixture(getDataFixturePath('transactions', 'submitted'))
   )
   rejected = JSON.parse(
-    await readFixture(`../../e2e/fixtures/transactions/rejected.local.json`)
+    await readFixture(getDataFixturePath('transactions', 'rejected'))
   )
 })
 
@@ -35,6 +35,7 @@ test('redirected to TransactionList page when transaction data with id of $trans
   expect(page.url()).toBe(`${baseURL}/dashboard/transactions`)
 })
 
+test.skip(isStagingEnv, 'Skipping on staging - requires stable fixture data')
 test('render transaction data if transaction data exists', async ({ page }) => {
   await page.goto(`/dashboard/transactions/${submitted.id}`)
 

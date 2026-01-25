@@ -5,8 +5,11 @@ test.use({
   storageState: authFixtures.memberEdit,
 })
 
-// Skip profile tests on staging - requires member-edit fixture with specific user state
-test.skip(isStagingEnv, 'Skipping on staging - requires member-edit fixture')
+// Skip profile tests on staging - member user state refreshed from production
+test.skip(
+  isStagingEnv,
+  'Skipping on staging - requires stable member-edit fixture'
+)
 
 const user = {
   name: 'Zain Fathoni',
