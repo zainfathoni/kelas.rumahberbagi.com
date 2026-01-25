@@ -1,8 +1,12 @@
 import { test, expect } from './base-test'
+import { authFixtures, isStagingEnv } from './fixtures'
 
 test.use({
-  storageState: 'e2e/fixtures/auth/member-edit.local.json',
+  storageState: authFixtures.memberEdit,
 })
+
+// Skip profile tests on staging - requires member-edit fixture with specific user state
+test.skip(isStagingEnv, 'Skipping on staging - requires member-edit fixture')
 
 const user = {
   name: 'Zain Fathoni',

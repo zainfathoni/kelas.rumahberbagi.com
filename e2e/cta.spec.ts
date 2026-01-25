@@ -1,7 +1,8 @@
 import { test, expect } from './base-test'
+import { authFixtures } from './fixtures'
 
 test.use({
-  storageState: 'e2e/fixtures/auth/member-no-transaction.local.json',
+  storageState: authFixtures.memberNoTransaction,
 })
 
 test('Call to action has rendered in dashboard page', async ({ page }) => {

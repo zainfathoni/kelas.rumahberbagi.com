@@ -1,7 +1,8 @@
 import { test, expect } from './base-test'
+import { authFixtures } from './fixtures'
 
 test.use({
-  storageState: 'e2e/fixtures/auth/member.local.json',
+  storageState: authFixtures.member,
 })
 
 test('Logout', async ({ page, isMobile, screen }) => {

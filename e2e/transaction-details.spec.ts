@@ -3,12 +3,16 @@ import { printRupiah } from '../app/utils/format'
 import { readFixture } from '../app/utils/fixtures'
 import { stripLeadingPlus } from '../app/utils/misc'
 import { test, expect } from './base-test'
+import { authFixtures, isStagingEnv } from './fixtures'
 
 test.use({
-  storageState: 'e2e/fixtures/auth/author.local.json',
+  storageState: authFixtures.author,
 })
 
 let memberSubmit: User, submitted: Transaction, rejected: Transaction
+
+// Skip transaction-details tests on staging (no data fixtures available)
+test.skip(isStagingEnv, 'Skipping on staging - no data fixtures available')
 
 test.beforeAll(async () => {
   memberSubmit = JSON.parse(
@@ -24,10 +28,11 @@ test.beforeAll(async () => {
 
 test('redirected to TransactionList page when transaction data with id of $transactionId is not exist', async ({
   page,
+  baseURL,
 }) => {
   await page.goto('/dashboard/transactions/1')
 
-  expect(page.url()).toBe('http://localhost:3000/dashboard/transactions')
+  expect(page.url()).toBe(`${baseURL}/dashboard/transactions`)
 })
 
 test('render transaction data if transaction data exists', async ({ page }) => {

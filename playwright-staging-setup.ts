@@ -26,6 +26,8 @@ const REQUIRED_AUTH_FILES = [
  * 3. Close the browser - storage state is saved automatically
  */
 async function globalSetup() {
+  // Set BASE_URL for fixture path resolution
+  process.env.BASE_URL = 'https://staging.kelas.rumahberbagi.com'
   if (!fs.existsSync(STAGING_AUTH_DIR)) {
     fs.mkdirSync(STAGING_AUTH_DIR, { recursive: true })
     console.log(`Created staging auth directory: ${STAGING_AUTH_DIR}`)
