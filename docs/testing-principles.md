@@ -227,36 +227,26 @@ npm run test:e2e:staging
 
 #### Setting Up Staging Authentication
 
-Since staging uses real email delivery, auth fixtures must be created manually:
+Since staging uses real email delivery, auth fixtures are created using npm
+scripts that run Playwright codegen:
 
-1. Login to https://staging.kelas.rumahberbagi.com in your browser
-2. Open DevTools > Application > Storage > Cookies
-3. Export cookies using a browser extension (e.g., "EditThisCookie")
-4. Save to `e2e/fixtures/auth/staging/<role>.staging.json` in this format:
-
-```json
-{
-  "cookies": [
-    {
-      "name": "__session",
-      "value": "...",
-      "domain": "staging.kelas.rumahberbagi.com",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "Lax"
-    }
-  ],
-  "origins": []
-}
+```bash
+npm run test:e2e:staging:auth:member  # Login with: member@rumahberbagi.com
+npm run test:e2e:staging:auth:author  # Login with: vika@rumahberbagi.com
+npm run test:e2e:staging:auth:admin   # Login with: admin@rumahberbagi.com
 ```
+
+1. Run the npm script for the role you need
+2. Login with the email shown in the terminal
+3. Close the browser - storage state is saved automatically
 
 Required auth fixtures:
 
-- `member.staging.json` - Regular member
-- `author.staging.json` - Course author
-- `admin.staging.json` - Administrator
+| Fixture               | Email                   | Role           |
+| --------------------- | ----------------------- | -------------- |
+| `member.staging.json` | member@rumahberbagi.com | Regular member |
+| `author.staging.json` | vika@rumahberbagi.com   | Course author  |
+| `admin.staging.json`  | admin@rumahberbagi.com  | Administrator  |
 
 **Note:** Auth fixtures are gitignored and must be recreated when sessions
 expire.

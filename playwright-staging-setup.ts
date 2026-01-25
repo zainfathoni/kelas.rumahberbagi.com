@@ -13,18 +13,17 @@ const REQUIRED_AUTH_FILES = [
  *
  * Unlike local tests, staging authentication cannot be automated via magic link
  * because emails are sent to real addresses. Instead, this setup validates that
- * manually-exported auth fixtures exist.
+ * auth fixtures exist, which are generated using Playwright codegen.
  *
- * To create auth fixtures for staging:
- * 1. Login to https://staging.kelas.rumahberbagi.com in your browser
- * 2. Open DevTools > Application > Storage > Cookies
- * 3. Export the cookies using browser extension or manually copy them
- * 4. Save to e2e/fixtures/auth/staging/<role>.staging.json in Playwright's
- *    storageState format:
- *    {
- *      "cookies": [{ "name": "...", "value": "...", "domain": "...", ... }],
- *      "origins": []
- *    }
+ * To create auth fixtures for staging, use the npm scripts:
+ *
+ *   npm run test:e2e:staging:auth:member  # Login with: member@rumahberbagi.com
+ *   npm run test:e2e:staging:auth:author  # Login with: vika@rumahberbagi.com
+ *   npm run test:e2e:staging:auth:admin   # Login with: admin@rumahberbagi.com
+ *
+ * 1. Run the npm script for the role you need
+ * 2. Login with the email shown above in the browser that opens
+ * 3. Close the browser - storage state is saved automatically
  */
 async function globalSetup() {
   if (!fs.existsSync(STAGING_AUTH_DIR)) {
@@ -46,9 +45,11 @@ async function globalSetup() {
     for (const file of missingFiles) {
       console.warn(`   - ${STAGING_AUTH_DIR}/${file}`)
     }
-    console.warn(
-      '\nSee playwright-staging-setup.ts for instructions on creating these files.\n'
-    )
+    console.warn('\nGenerate with: npm run test:e2e:staging:auth:<role>\n')
+    console.warn('Staging emails:')
+    console.warn('  member: member@rumahberbagi.com')
+    console.warn('  author: vika@rumahberbagi.com')
+    console.warn('  admin:  admin@rumahberbagi.com\n')
   }
 
   console.log('✓ Staging global setup complete')
