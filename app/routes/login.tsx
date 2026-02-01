@@ -7,7 +7,10 @@ import { auth } from '~/services/auth.server'
 import { commitSession, getUserSession } from '~/services/session.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await auth.isAuthenticated(request, { successRedirect: '/dashboard' })
+  const url = new URL(request.url)
+  const redirectTo = url.searchParams.get('redirectTo') ?? '/dashboard'
+
+  await auth.isAuthenticated(request, { successRedirect: redirectTo })
   const session = await getUserSession(request)
   // This session key `auth:magiclink` is the default one used by the EmailLinkStrategy
   // you can customize it passing a `sessionMagicLinkKey` when creating an
@@ -15,6 +18,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   const error = session.get(auth.sessionErrorKey) as
     | { message: string }
     | undefined
+
+  session.set('redirectTo', redirectTo)
+
   return json(
     {
       user: session.get('user'),
@@ -30,14 +36,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  const url = new URL(request.url)
+  const redirectTo = url.searchParams.get('redirectTo') ?? '/dashboard'
+
   // The success redirect is required in this action, this is where the user is
   // going to be redirected after the magic link is sent, note that here the
   // user is not yet authenticated, so you can't send it to a private page.
   await auth.authenticate('email-link', request, {
-    successRedirect: '/login',
+    successRedirect: `/login?redirectTo=${encodeURIComponent(redirectTo)}`,
     // If this is not set, any error will be throw and the ErrorBoundary will be
     // rendered.
-    failureRedirect: '/login',
+    failureRedirect: `/login?redirectTo=${encodeURIComponent(redirectTo)}`,
   })
 }
 
