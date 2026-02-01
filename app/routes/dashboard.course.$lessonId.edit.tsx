@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 
   if (!requireCourseAuthor(user, course)) {
-    return redirect(`/dashboard/course/${lessonId}`)
+    return redirect('/dashboard')
   }
 
   const lesson = await getLessonById(lessonId)
@@ -40,7 +40,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
-    return redirect('/dashboard/transactions')
+    return redirect('/dashboard')
   }
 
   const { lessonId } = params
