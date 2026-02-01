@@ -1,5 +1,6 @@
 import { Subscription, User } from '@prisma/client'
 import { db } from '~/utils/db.server'
+import { generateId } from '~/utils/nanoid'
 import { ROLES } from '~/models/enum'
 
 export type UserFields = Pick<
@@ -28,6 +29,7 @@ export async function updateUser(id: string, data: UserFields) {
 export async function createUserByEmail(email: string) {
   return await db.user.create({
     data: {
+      id: generateId(),
       email,
       role: ROLES.MEMBER,
     },

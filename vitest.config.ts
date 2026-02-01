@@ -7,7 +7,10 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],
-    include: ['app/**/__tests__/**/*.test.{ts,tsx}'],
+    include: [
+      'app/**/__tests__/**/*.test.{ts,tsx}',
+      'prisma/__tests__/**/*.test.{ts,tsx}',
+    ],
     coverage: {
       provider: 'v8',
       include: [

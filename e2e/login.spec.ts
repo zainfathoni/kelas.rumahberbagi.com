@@ -1,50 +1,43 @@
-import { expect } from '@playwright/test'
 import { readFixture } from '../app/utils/fixtures'
-import { test } from './base-test'
+import { test, expect } from './base-test'
 
 test.use({
   storageState: 'e2e/fixtures/auth/public.json',
 })
 
-test.skip('Login', async ({ page, queries: { getByRole } }) => {
-  // Go to http://localhost:3000/
+test.skip('Login', async ({ page, screen }) => {
+  // Go to homepage
   await page.goto('/')
 
-  // Click text=Masuk
-  await page.click('text=Masuk')
-  await expect(page).toHaveURL('http://localhost:3000/login')
+  // Click login link and wait for navigation
+  await page.getByRole('link', { name: /masuk/i }).click()
+  await page.waitForURL('**/login')
 
   const { email } = JSON.parse(
     await readFixture(`../../e2e/fixtures/users/member.local.json`)
   )
 
-  // Query email
-  const emailField = await getByRole('textbox', {
+  // Query email - using Locator-based screen queries
+  const emailField = screen.getByRole('textbox', {
     name: /alamat email/i,
   })
 
   // Fill email
   await emailField.fill(email)
 
-  // Click text=Kirim link ke alamat email
-  await Promise.all([
-    page.waitForNavigation(/*{ url: 'http://localhost:3000/login' }*/),
-    page.click('text=Kirim link ke alamat email'),
-  ])
+  // Submit login form
+  await page.getByRole('button', { name: /kirim link/i }).click()
 
-  // Click text=Link telah dikirim ke alamat email Anda
+  // Wait for success message
   await expect(
-    page.locator('text=Link telah dikirim ke alamat email Anda').first()
+    page.getByText('Link telah dikirim ke alamat email Anda')
   ).toBeVisible()
 
   const { magicLink } = JSON.parse(
     await readFixture(`../../e2e/fixtures/magic.local.json`)
   )
 
-  // Go to the magic link
+  // Go to the magic link and verify dashboard redirect
   await page.goto(magicLink)
-
-  // If the magic link matches the current token stored in the session storage,
-  // the user will be redirected to the dashboard automatically.
-  await expect(page).toHaveURL('http://localhost:3000/dashboard')
+  await page.waitForURL('**/dashboard')
 })

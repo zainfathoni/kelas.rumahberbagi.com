@@ -28,6 +28,10 @@
     "test:e2e:dev": "cross-env RUNNING_E2E=true start-server-and-test dev http-get://localhost:3000/ test:e2e",
     "test:e2e:run": "cross-env RUNNING_E2E=true DATABASE_URL=file:./test.db start-server-and-test start:e2e http-get://localhost:3000/ test:e2e",
     "test:e2e:docker": "playwright test --config=playwright.docker.config.ts",
+    "test:e2e:staging": "playwright test --config=playwright.staging.config.ts",
+    "test:e2e:staging:auth:member": "echo 'Login with: member@rumahberbagi.com' && playwright codegen https://staging.kelas.rumahberbagi.com --save-storage=e2e/fixtures/auth/staging/member.staging.json",
+    "test:e2e:staging:auth:author": "echo 'Login with: vika@rumahberbagi.com' && playwright codegen https://staging.kelas.rumahberbagi.com --save-storage=e2e/fixtures/auth/staging/author.staging.json",
+    "test:e2e:staging:auth:admin": "echo 'Login with: admin@rumahberbagi.com' && playwright codegen https://staging.kelas.rumahberbagi.com --save-storage=e2e/fixtures/auth/staging/admin.staging.json",
     "test:e2e:production": "cross-env BASE_URL=https://kelas.rumahberbagi.com playwright test --config=playwright.docker.config.ts",
     "type-check": "tsc --noEmit",
     "setup": "npm install && prisma migrate reset --force && npm run test:e2e:run",
@@ -45,11 +49,13 @@
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "isbot": "^5.1.0",
+    "nanoid": "^5.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remix-auth": "^3.7.0",
     "remix-auth-email-link": "^2.1.1",
-    "validator": "13.7.0"
+    "validator": "13.7.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@commitlint/cli": "15.0.0",

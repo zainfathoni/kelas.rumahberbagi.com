@@ -20,6 +20,7 @@ coverage
 
 # Playwright
 *.local.*
+*.staging.json
 test-results
 playwright-report
 

@@ -2,7 +2,6 @@ import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { SendEmailFunction } from 'remix-auth-email-link'
 import * as emailProvider from '~/services/email-provider.server'
-import { writeFixture } from '~/utils/fixtures'
 
 let emailFrom = 'Rumah Berbagi <admin@rumahberbagi.com>'
 if (process.env.EMAIL_FROM) {
@@ -34,21 +33,17 @@ export const sendEmail: SendEmailFunction<User> = async (options) => {
     </main>
   )
 
-  if (
-    process.env.RUNNING_E2E === 'true' ||
-    process.env.NODE_ENV === 'development'
-  ) {
-    // TODO: Mock the HTTP transport layer properly by using MSW
-    console.warn(`\n${options.magicLink}\n`)
-    await writeFixture(`../e2e/fixtures/magic.local.json`, {
-      magicLink: options.magicLink,
-    })
-  } else {
-    await emailProvider.sendEmail({
-      to: options.emailAddress,
-      from: emailFrom,
-      subject,
-      html: body,
-    })
+  // In E2E mode, MSW intercepts the Mailgun API call and captures the magic link.
+  // In development, we log the magic link for convenience.
+  if (process.env.NODE_ENV === 'development') {
+    console.info(`\n🔗 Magic link: ${options.magicLink}\n`)
   }
+
+  // Send email via Mailgun API - MSW will intercept in E2E mode
+  await emailProvider.sendEmail({
+    to: options.emailAddress,
+    from: emailFrom,
+    subject,
+    html: body,
+  })
 }

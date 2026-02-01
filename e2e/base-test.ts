@@ -1,15 +1,18 @@
 import {
-  fixtures,
-  TestingLibraryFixtures,
+  locatorFixtures,
+  LocatorFixtures,
 } from '@playwright-testing-library/test/fixture'
-import { test as base } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
 
-export interface Fixtures extends TestingLibraryFixtures {
+export interface Fixtures extends LocatorFixtures {
   noscript: boolean
 }
 
 export const test = base.extend<Fixtures>({
-  ...fixtures,
+  ...locatorFixtures,
   // Default value for noscript
   noscript: [false, { option: true }],
 })
+
+// Re-export expect for convenience
+export { expect }
