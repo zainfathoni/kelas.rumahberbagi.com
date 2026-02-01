@@ -28,8 +28,14 @@ import {
 } from '~/models/subscription'
 import { Field } from '~/components/form-elements'
 
-export const loader: LoaderFunction = async ({ params }) => {
-  // TODO: block if the current user is not an admin or the author of the course
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const user = await requireUser(request)
+  const course = await getFirstCourse()
+
+  if (!requireCourseAuthor(user, course)) {
+    return redirect('/dashboard')
+  }
+
   const { transactionId } = params
 
   if (!transactionId) {
@@ -50,7 +56,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const course = await getFirstCourse()
 
   if (!requireCourseAuthor(user, course)) {
-    return redirect('/dashboard/transactions')
+    return redirect('/dashboard')
   }
 
   const { transactionId } = params
