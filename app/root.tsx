@@ -19,14 +19,20 @@ import styles from './tailwind.css'
 import fonts from './fonts.css'
 import { Footer } from './components/footer'
 import { Header } from '~/components/header'
+import { branding, type BrandingConfig } from '~/config/branding.server'
+import { course, type CourseConfig } from '~/config/course.server'
 
 type LoaderData = {
   isStaging: boolean
+  branding: BrandingConfig
+  course: CourseConfig
 }
 
 export const loader: LoaderFunction = () => {
   return json<LoaderData>({
     isStaging: process.env.STAGING_ENVIRONMENT === 'true',
+    branding,
+    course,
   })
 }
 
@@ -186,13 +192,25 @@ function Layout({ children }: { children: React.ReactNode }) {
   const authenticated = matches.find(
     ({ pathname }) => pathname === '/dashboard'
   )
+  const { branding: brandingData, course: courseData } = (useLoaderData<LoaderData>() ?? {
+    branding: { siteName: 'Rumah Berbagi', copyrightHolder: 'Rumah Berbagi', parentSiteUrl: 'https://rumahberbagi.com' },
+    course: { instagramUrl: 'https://instagram.com/vika.riandini' },
+  })
 
   return (
     <div className="remix-app">
-      {authenticated ? null : <Header />}
+      {authenticated ? null : (
+        <Header
+          siteName={brandingData.siteName}
+          parentSiteUrl={brandingData.parentSiteUrl}
+        />
+      )}
       <main>{children}</main>
       {authenticated ? null : (
-        <Footer instagramUrl="https://instagram.com/vika.riandini" />
+        <Footer
+          instagramUrl={courseData.instagramUrl}
+          copyrightHolder={brandingData.copyrightHolder}
+        />
       )}
     </div>
   )

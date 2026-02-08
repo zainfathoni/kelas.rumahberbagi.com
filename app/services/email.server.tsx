@@ -2,14 +2,12 @@ import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { SendEmailFunction } from 'remix-auth-email-link'
 import * as emailProvider from '~/services/email-provider.server'
+import { branding } from '~/config/branding.server'
 
-let emailFrom = 'Rumah Berbagi <admin@rumahberbagi.com>'
-if (process.env.EMAIL_FROM) {
-  emailFrom = process.env.EMAIL_FROM
-}
+const emailFrom = branding.emailFrom
 
 export const sendEmail: SendEmailFunction<User> = async (options) => {
-  const subject = 'Link login untuk Kelas Rumah Berbagi'
+  const subject = `Link login untuk ${branding.siteNameFull}`
   const siteHost = new URL(options.magicLink).host
   const body = renderToString(
     <main>
