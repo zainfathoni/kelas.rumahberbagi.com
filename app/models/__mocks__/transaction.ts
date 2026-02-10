@@ -1,4 +1,5 @@
-import { build, fake, perBuild } from '@jackfranklin/test-data-bot'
+import { faker } from '@faker-js/faker'
+import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { Transaction } from '@prisma/client'
 import { TRANSACTION_STATUS } from '../enum'
 
@@ -16,10 +17,10 @@ export const transactionBuilder = build<
   >
 >({
   fields: {
-    bankName: fake((f) => f.company.companyName()),
-    bankAccountName: fake((f) => f.name.findName()),
-    bankAccountNumber: fake((f) => f.phone.phoneNumber()),
-    amount: fake((f) => f.datatype.number({ min: 10000, max: 100000 })),
+    bankName: perBuild(() => faker.company.name()),
+    bankAccountName: perBuild(() => faker.person.fullName()),
+    bankAccountNumber: perBuild(() => faker.phone.number()),
+    amount: perBuild(() => faker.number.int({ min: 10000, max: 100000 })),
     status: perBuild(() => TRANSACTION_STATUS.SUBMITTED),
   },
   traits: {

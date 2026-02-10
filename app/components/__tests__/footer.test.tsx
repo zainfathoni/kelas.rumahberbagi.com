@@ -1,11 +1,12 @@
+import { build, perBuild } from '@jackfranklin/test-data-bot'
+import { faker } from '@faker-js/faker'
 import { render, screen } from '@testing-library/react'
-import { build, fake } from '@jackfranklin/test-data-bot'
 import type { FooterProps } from '~/components/footer'
 import { Footer } from '~/components/footer'
 
 const footerBuilder = build<FooterProps>('Footer', {
   fields: {
-    instagramUrl: fake((f) => f.internet.url()),
+    instagramUrl: perBuild(() => faker.internet.url()),
   },
 })
 

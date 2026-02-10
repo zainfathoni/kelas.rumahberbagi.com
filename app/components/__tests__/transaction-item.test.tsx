@@ -1,4 +1,5 @@
-import { build, fake, oneOf, perBuild } from '@jackfranklin/test-data-bot'
+import { faker } from '@faker-js/faker'
+import { build, oneOf, perBuild } from '@jackfranklin/test-data-bot'
 import { screen } from '@testing-library/react'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
 import { render } from '#test/test-utils'
@@ -14,12 +15,12 @@ const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
           Math.random() * 100
         )}`
     ),
-    bankAccountName: fake((f) => f.finance.accountName()),
-    bankAccountNumber: fake((f) => f.finance.account()),
-    bankName: fake((f) => f.company.companyName()),
-    updatedAt: fake((f) => f.date.past()),
+    bankAccountName: perBuild(() => faker.finance.accountName()),
+    bankAccountNumber: perBuild(() => faker.finance.accountNumber()),
+    bankName: perBuild(() => faker.company.name()),
+    updatedAt: perBuild(() => faker.date.past()),
     status: oneOf(TRANSACTION_STATUS),
-    notes: fake((f) => f.lorem.sentence()),
+    notes: perBuild(() => faker.lorem.sentence()),
   },
 })
 describe('TransactionItem', () => {

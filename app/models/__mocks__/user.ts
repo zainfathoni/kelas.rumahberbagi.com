@@ -1,4 +1,5 @@
-import { build, fake, perBuild } from '@jackfranklin/test-data-bot'
+import { faker } from '@faker-js/faker'
+import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { User } from '@prisma/client'
 import { ROLES } from '../enum'
 
@@ -11,8 +12,8 @@ export interface BuiltUser extends OmittedUser {
 
 export const userBuilder = build<BuiltUser>({
   fields: {
-    email: fake((f) => f.internet.email()),
-    name: fake((f) => f.name.findName()),
+    email: perBuild(() => faker.internet.email()),
+    name: perBuild(() => faker.person.fullName()),
     role: perBuild(() => ROLES.MEMBER),
     phoneNumber: perBuild(() => '+6512345678'),
     telegram: null,
