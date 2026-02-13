@@ -22,7 +22,15 @@ export function createRemixStubWrapper(
       Component: () => ui,
     },
   ])
-  return <RemixStub initialEntries={initialEntries} />
+  return (
+    <RemixStub
+      initialEntries={initialEntries}
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    />
+  )
 }
 
 /**
