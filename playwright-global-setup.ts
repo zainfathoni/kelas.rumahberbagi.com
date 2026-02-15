@@ -42,6 +42,9 @@ async function globalSetup() {
   // course author
   await loginAs(browser, 'author')
 
+  // admin
+  await loginAs(browser, 'admin')
+
   await browser.close()
 }
 
