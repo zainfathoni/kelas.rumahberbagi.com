@@ -26,8 +26,7 @@ export function createRemixStubWrapper(
     <RemixStub
       initialEntries={initialEntries}
       future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
+        v3_relativeSplatPath: true,
       }}
     />
   )
