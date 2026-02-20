@@ -1,16 +1,19 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
+[![Build Status][build-badge]][build]
+[![O'Saasy License][license-badge]][license]
 
 <!-- prettier-ignore-start -->
 
 [build-badge]: https://img.shields.io/github/workflow/status/zainfathoni/kelas.rumahberbagi.com/CI?logo=github&style=flat-square
 [build]: https://github.com/zainfathoni/kelas.rumahberbagi.com/actions?query=workflow%3ACI
-[license-badge]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
+[license-badge]: https://img.shields.io/badge/license-O%27Saasy-blue?style=flat-square
 [license]: LICENSE
 
 <!-- prettier-ignore-end -->

@@ -2,7 +2,7 @@
   "private": false,
   "name": "kelas-rumah-berbagi",
   "description": "Kelas Rumah Berbagi",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
