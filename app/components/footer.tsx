@@ -1,8 +1,9 @@
 export type FooterProps = {
   instagramUrl: string
+  copyrightHolder?: string
 }
 
-export function Footer({ instagramUrl }: FooterProps) {
+export function Footer({ instagramUrl, copyrightHolder = 'Rumah Berbagi' }: FooterProps) {
   return (
     <footer className="bg-white">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
@@ -32,8 +33,8 @@ export function Footer({ instagramUrl }: FooterProps) {
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
           <p className="text-center text-base text-gray-400">
-            &copy; 2021-{new Date().getFullYear()} Rumah Berbagi. All rights
-            reserved.
+            &copy; 2021-{new Date().getFullYear()} {copyrightHolder}.
+            All rights reserved.
           </p>
         </div>
       </div>

@@ -65,7 +65,8 @@
       "files": ["e2e/**/*.{ts,tsx}", "playwright-global-setup.ts", "playwright.config.ts"],
       "extends": ["plugin:playwright/recommended"],
       "rules": {
-        "playwright/no-wait-for-navigation": "off"
+        "playwright/no-wait-for-navigation": "off",
+        "playwright/no-skipped-test": ["warn", { "allowConditional": true }]
       }
     },
     {

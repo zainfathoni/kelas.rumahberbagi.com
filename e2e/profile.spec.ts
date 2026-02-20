@@ -31,6 +31,8 @@ test('Validate phone number when updating data', async ({
   })
 
   // Fill phoneNumber with invalid value
+  // Explicitly click to ensure focus event fires (needed for webkit)
+  await phoneNumber.click()
   await phoneNumber.fill('6512345678')
   await phoneNumber.blur()
 

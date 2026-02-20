@@ -1,0 +1,62 @@
+# Kamal 2.0 deployment configuration for Kelas Pejuang Kode
+# See: https://kamal-deploy.org/docs/configuration/
+
+service: kelas-pejuangkode
+
+# Docker image configuration
+image: zainfathoni/kelas.rumahberbagi.com
+
+# Deployment servers
+servers:
+  web:
+    hosts:
+      - 103.235.75.227
+    options:
+      volume:
+        - /data/kelas-pejuangkode/db:/app/prisma
+
+# Container registry (GitHub Container Registry)
+registry:
+  server: ghcr.io
+  username: zainfathoni
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Kamal Proxy configuration (replaces Traefik in Kamal 2.0)
+proxy:
+  ssl: true
+  host: kelas.pejuangkode.com
+  app_port: 3000
+  healthcheck:
+    path: /
+    interval: 5
+    timeout: 5
+
+# Environment variables
+env:
+  # Clear (non-secret) environment variables
+  clear:
+    NODE_ENV: production
+    PORT: "3000"
+    DATABASE_URL: file:/app/prisma/pejuangkode.db
+    # Branding configuration
+    SITE_NAME: Pejuang Kode
+    SITE_DOMAIN: kelas.pejuangkode.com
+    SITE_URL: https://kelas.pejuangkode.com
+    EMAIL_FROM: Pejuang Kode <admin@pejuangkode.com>
+  # Secret environment variables (loaded from .kamal/secrets)
+  secret:
+    - SESSION_SECRET
+    - MAGIC_LINK_SECRET
+    - MAILGUN_SENDING_KEY
+    - MAILGUN_DOMAIN
+
+# Build configuration
+builder:
+  arch: amd64
+  args:
+    NODE_ENV: production
+
+# Asset bridge for zero-downtime deployments
+# Copies public assets from old container to new one during deploy
+asset_path: /app/public

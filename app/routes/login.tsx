@@ -5,6 +5,7 @@ import { Alert, ErrorAlert } from '~/components/alerts'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
 import { commitSession, getUserSession } from '~/services/session.server'
+import { branding } from '~/config/branding.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url)
@@ -26,6 +27,8 @@ export const loader: LoaderFunction = async ({ request }) => {
       user: session.get('user'),
       magicLinkSent: session.has('zain:magiclink'),
       error: error?.message,
+      siteName: branding.siteName,
+      logoPath: branding.logoPath,
     },
     {
       headers: {
@@ -51,9 +54,11 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Login() {
-  const { magicLinkSent, error } = useLoaderData<{
+  const { magicLinkSent, error, siteName, logoPath } = useLoaderData<{
     magicLinkSent: boolean
     error?: string
+    siteName: string
+    logoPath: string
   }>()
   const { state } = useNavigation()
 
@@ -127,8 +132,8 @@ export default function Login() {
       <div className="hidden lg:block relative w-0 flex-1">
         <img
           className="absolute inset-0 h-full w-full object-contain"
-          src="/rumah-berbagi.svg"
-          alt="Rumah Berbagi"
+          src={logoPath || '/rumah-berbagi.svg'}
+          alt={siteName}
         />
       </div>
     </div>
