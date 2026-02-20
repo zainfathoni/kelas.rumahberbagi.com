@@ -1,4 +1,6 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { MetaFunction, LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import { HeroSection } from '~/components/sections/hero'
 import {
   BenefitSection,
@@ -23,19 +25,101 @@ import {
 } from '~/components/sections/cta'
 import { TelegramIcon } from '~/components/icons/telegram'
 import { Timeline } from '~/components/sections/timeline'
+import { branding } from '~/config/branding.server'
+import { course } from '~/config/course.server'
 
-export const meta: MetaFunction = () => {
+type LoaderData = {
+  siteName: string
+  siteNameFull: string
+  courseTitle: string
+  courseSubtitle: string
+  courseDescription: string
+  courseVideoUrl: string | null
+  courseVideoPreviewImage: string | null
+  ctaText: string
+  ctaUrl: string
+}
+
+export const loader: LoaderFunction = () => {
+  return json<LoaderData>({
+    siteName: branding.siteName,
+    siteNameFull: branding.siteNameFull,
+    courseTitle: course.title,
+    courseSubtitle: course.subtitle,
+    courseDescription: course.description,
+    courseVideoUrl: course.videoUrl,
+    courseVideoPreviewImage: course.videoPreviewImage,
+    ctaText: course.ctaText,
+    ctaUrl: course.ctaUrl,
+  })
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
-    { title: 'Kelas Rumah Berbagi' },
-    { name: 'description', content: 'Tahun Prasekolahku' },
+    { title: data?.siteNameFull ?? 'Kelas' },
+    { name: 'description', content: data?.courseTitle ?? 'Online learning platform' },
   ]
 }
 
-export default function HomePage() {
+// Pejuang Kode landing page (minimal for workshop)
+function PejuangKodeHome() {
+  const data = useLoaderData<LoaderData>()
+
   return (
     <div>
       <main>
-        <HeroSection />
+        <HeroSection
+          siteNameFull={data.siteNameFull}
+          courseTitle={data.courseTitle}
+          courseSubtitle={data.courseSubtitle}
+          courseDescription={data.courseDescription}
+          videoUrl={data.courseVideoUrl}
+          videoPreviewImage={data.courseVideoPreviewImage}
+          ctaText={data.ctaText}
+          ctaUrl={data.ctaUrl}
+        />
+        <Pricing
+          title="Pendaftaran Workshop"
+          description={
+            <Pricing.Description>
+              Daftar sekarang untuk mengikuti workshop
+            </Pricing.Description>
+          }
+        >
+          <Pricing.Included title="Yang akan kamu dapatkan">
+            <Pricing.Item>Akses workshop live via Google Meet</Pricing.Item>
+            <Pricing.Item>Materi dan contoh kode</Pricing.Item>
+            <Pricing.Item>Rekaman workshop</Pricing.Item>
+            <Pricing.Item>Akses grup diskusi</Pricing.Item>
+          </Pricing.Included>
+        </Pricing>
+        <CtaSection>
+          <CtaTitle>{data.courseTitle}</CtaTitle>
+          <CtaDescription>Siap belajar bareng?</CtaDescription>
+          <CtaButton>Daftar Sekarang</CtaButton>
+        </CtaSection>
+      </main>
+    </div>
+  )
+}
+
+// Rumah Berbagi landing page (full content)
+function RumahBerbagiHome() {
+  const data = useLoaderData<LoaderData>()
+
+  return (
+    <div>
+      <main>
+        <HeroSection
+          siteNameFull={data.siteNameFull}
+          courseTitle={data.courseTitle}
+          courseSubtitle={data.courseSubtitle}
+          courseDescription={data.courseDescription}
+          videoUrl={data.courseVideoUrl}
+          videoPreviewImage={data.courseVideoPreviewImage}
+          ctaText={data.ctaText}
+          ctaUrl={data.ctaUrl}
+        />
         <BenefitSection
           title="Mendidik anak usia Prasekolah dengan lembut, bahagia, dan cinta"
           top={
@@ -350,4 +434,25 @@ export default function HomePage() {
       </main>
     </div>
   )
+}
+
+export default function HomePage() {
+  const data = useLoaderData<LoaderData>() ?? {
+    siteName: 'Rumah Berbagi',
+    siteNameFull: 'Kelas Rumah Berbagi',
+    courseTitle: 'Tahun Prasekolahku',
+    courseSubtitle: 'Membangun fondasi pendidikan prasekolah (0-6 tahun), menguatkan akar masa depan.',
+    courseDescription: 'Kelas untuk orang tua yang ingin mendidik anak usia prasekolah.',
+    courseVideoUrl: 'https://rbagi.id/video-tahun-prasekolahku',
+    courseVideoPreviewImage: '/images/tahun-prasekolahku-video-preview.jpeg',
+    ctaText: 'Gabung Kelas',
+    ctaUrl: '/login',
+  }
+
+  // Show different landing page based on site
+  if (data.siteName === 'Pejuang Kode') {
+    return <PejuangKodeHome />
+  }
+
+  return <RumahBerbagiHome />
 }

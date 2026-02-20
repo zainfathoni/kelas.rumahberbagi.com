@@ -1,17 +1,25 @@
 import { Link } from '@remix-run/react'
 
-export function Header() {
+export type HeaderProps = {
+  siteName?: string
+  parentSiteUrl?: string
+}
+
+export function Header({
+  siteName = 'Rumah Berbagi',
+  parentSiteUrl = 'https://rumahberbagi.com',
+}: HeaderProps = {}) {
   return (
     <header>
       <div className="relative bg-white">
         <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 space-x-10 lg:px-8">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link prefetch="intent" to="/">
-              <span className="sr-only">Rumah Berbagi</span>
+              <span className="sr-only">{siteName}</span>
               <img
                 className="h-8 w-auto sm:h-10"
                 src="/rumah-berbagi.svg"
-                alt="Rumah Berbagi"
+                alt={siteName}
                 height={32}
                 width={32}
               />
@@ -19,7 +27,7 @@ export function Header() {
           </div>
           <nav className="flex space-x-10">
             <a
-              href="https://rumahberbagi.com"
+              href={parentSiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
