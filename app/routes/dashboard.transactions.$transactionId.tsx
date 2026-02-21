@@ -49,11 +49,13 @@ export default function TransactionDetailsPage() {
     <SingleColumnLayout>
       <div className="min-h-full">
         <TransactionDetails transaction={transaction} user={transaction.user}>
-          {/* TODO: Disable rejecting a verified transaction */}
           <TertiaryButtonLink
             to={`reject?${searchParams.toString()}`}
             replace
-            disabled={transaction.status === TRANSACTION_STATUS.REJECTED}
+            disabled={
+              transaction.status === TRANSACTION_STATUS.REJECTED ||
+              transaction.status === TRANSACTION_STATUS.VERIFIED
+            }
           >
             Tolak Transaksi
           </TertiaryButtonLink>

@@ -15,6 +15,7 @@ import {
   TransactionWithUser,
   updateTransactionStatus,
 } from '~/models/transaction'
+import { canUpdateTransactionStatus } from '~/utils/transaction-status'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { requireUser } from '~/services/auth.server'
@@ -73,6 +74,26 @@ export const action: ActionFunction = async ({ request, params }) => {
       formError: 'Form not submitted correctly.',
       field: formData.entries(),
     }
+  }
+
+  const existingTransaction = await getTransactionById(transactionId)
+  if (!existingTransaction) {
+    return redirect('/dashboard/transactions')
+  }
+
+  if (
+    !canUpdateTransactionStatus(
+      existingTransaction.status as TransactionStatus,
+      status as TransactionStatus
+    )
+  ) {
+    throw json(
+      {
+        formError:
+          'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.',
+      },
+      { status: 400 }
+    )
   }
 
   const transaction = await updateTransactionStatus(
