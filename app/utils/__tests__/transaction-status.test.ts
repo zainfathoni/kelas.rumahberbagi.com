@@ -37,4 +37,22 @@ describe('canUpdateTransactionStatus', () => {
       )
     ).toBe(true)
   })
+
+  it('allows rejected to be re-verified', () => {
+    expect(
+      canUpdateTransactionStatus(
+        TRANSACTION_STATUS.REJECTED,
+        TRANSACTION_STATUS.VERIFIED
+      )
+    ).toBe(true)
+  })
+
+  it('allows rejected to remain rejected', () => {
+    expect(
+      canUpdateTransactionStatus(
+        TRANSACTION_STATUS.REJECTED,
+        TRANSACTION_STATUS.REJECTED
+      )
+    ).toBe(true)
+  })
 })
