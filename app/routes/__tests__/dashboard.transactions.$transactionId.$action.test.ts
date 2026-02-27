@@ -129,7 +129,8 @@ describe('dashboard.transactions.$transactionId.$action action', () => {
     expect(updateTransactionStatus).toHaveBeenCalledWith(
       'tx-1',
       'Catatan verifikasi',
-      TRANSACTION_STATUS.VERIFIED
+      TRANSACTION_STATUS.VERIFIED,
+      [TRANSACTION_STATUS.SUBMITTED, TRANSACTION_STATUS.REJECTED]
     )
   })
 })

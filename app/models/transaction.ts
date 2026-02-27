@@ -102,10 +102,26 @@ export async function getTransactionById(
 export async function updateTransactionStatus(
   id: string,
   notes: string,
-  status: TransactionStatus
+  status: TransactionStatus,
+  allowedCurrentStatuses?: TransactionStatus[]
 ) {
-  return await db.transaction.update({
-    where: { id },
-    data: { notes, status },
-  })
+  try {
+    return await db.transaction.update({
+      where: allowedCurrentStatuses
+        ? { id, status: { in: allowedCurrentStatuses } }
+        : { id },
+      data: { notes, status },
+    })
+  } catch (e: unknown) {
+    // Prisma P2025: record not found (concurrent status change)
+    if (
+      e instanceof Error &&
+      'code' in e &&
+      (e as { code: string }).code === 'P2025'
+    ) {
+      return null
+    }
+
+    throw e
+  }
 }

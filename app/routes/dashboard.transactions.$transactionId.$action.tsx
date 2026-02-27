@@ -103,10 +103,15 @@ export const action: ActionFunction = async ({ request, params }) => {
   const transaction = await updateTransactionStatus(
     transactionId,
     notes,
-    status
+    status as TransactionStatus,
+    status === TRANSACTION_STATUS.REJECTED
+      ? [TRANSACTION_STATUS.SUBMITTED]
+      : [TRANSACTION_STATUS.SUBMITTED, TRANSACTION_STATUS.REJECTED]
   )
   if (!transaction) {
-    throw json({ transaction, notes, status }, { status: 500 })
+    throw json('Transaksi gagal diperbarui karena status sudah berubah.', {
+      status: 409,
+    })
   }
 
   if (transaction.status === TRANSACTION_STATUS.VERIFIED) {
