@@ -60,7 +60,7 @@
   "devDependencies": {
     "@commitlint/cli": "15.0.0",
     "@commitlint/config-conventional": "15.0.0",
-    "@jackfranklin/test-data-bot": "1.4.0",
+    "@jackfranklin/test-data-bot": "2.1.0",
     "@playwright-testing-library/test": "4.5.0",
     "@playwright/test": "1.57.0",
     "@remix-run/dev": "^2.17.2",
