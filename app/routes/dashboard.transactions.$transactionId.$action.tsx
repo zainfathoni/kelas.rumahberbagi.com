@@ -76,6 +76,18 @@ export const action: ActionFunction = async ({ request, params }) => {
     }
   }
 
+  if (
+    status !== TRANSACTION_STATUS.VERIFIED &&
+    status !== TRANSACTION_STATUS.REJECTED
+  ) {
+    throw json(
+      {
+        formError: 'Status transaksi tidak valid.',
+      },
+      { status: 400 }
+    )
+  }
+
   const existingTransaction = await getTransactionById(transactionId)
   if (!existingTransaction) {
     return redirect('/dashboard/transactions')
@@ -99,7 +111,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const transaction = await updateTransactionStatus(
     transactionId,
     notes,
-    status as TransactionStatus
+    status
   )
   if (!transaction) {
     throw json({ transaction, notes, status }, { status: 500 })
