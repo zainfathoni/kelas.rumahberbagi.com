@@ -30,7 +30,9 @@ test('Validate phone number when updating data', async ({
     name: /nomor whatsapp/i,
   })
 
-  // Fill phoneNumber with invalid value
+  // Click first to ensure onFocus fires reliably on WebKit (iPhone 11),
+  // then fill with invalid value and blur to trigger client-side validation.
+  await phoneNumber.click()
   await phoneNumber.fill('6512345678')
   await phoneNumber.blur()
 
@@ -64,7 +66,9 @@ test('Validate name when updating data', async ({ page, noscript, screen }) => {
     name: /nama lengkap/i,
   })
 
-  // Clear name and trigger validation
+  // Click first to ensure onFocus fires reliably on WebKit (iPhone 11),
+  // then clear and blur to trigger client-side validation.
+  await name.click()
   await name.fill('')
   await name.blur()
 

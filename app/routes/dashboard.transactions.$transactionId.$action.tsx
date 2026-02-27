@@ -15,6 +15,7 @@ import {
   TransactionWithUser,
   updateTransactionStatus,
 } from '~/models/transaction'
+import { canUpdateTransactionStatus } from '~/utils/transaction-status'
 import { printLocaleDateTimeString, printRupiah } from '~/utils/format'
 import { TransactionStatus, TRANSACTION_STATUS } from '~/models/enum'
 import { requireUser } from '~/services/auth.server'
@@ -75,13 +76,42 @@ export const action: ActionFunction = async ({ request, params }) => {
     }
   }
 
+  if (
+    status !== TRANSACTION_STATUS.VERIFIED &&
+    status !== TRANSACTION_STATUS.REJECTED
+  ) {
+    throw json('Status transaksi tidak valid.', { status: 400 })
+  }
+
+  const existingTransaction = await getTransactionById(transactionId)
+  if (!existingTransaction) {
+    return redirect('/dashboard/transactions')
+  }
+
+  if (
+    !canUpdateTransactionStatus(
+      existingTransaction.status as TransactionStatus,
+      status as TransactionStatus
+    )
+  ) {
+    throw json(
+      'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.',
+      { status: 400 }
+    )
+  }
+
   const transaction = await updateTransactionStatus(
     transactionId,
     notes,
-    status as TransactionStatus
+    status as TransactionStatus,
+    status === TRANSACTION_STATUS.REJECTED
+      ? [TRANSACTION_STATUS.SUBMITTED]
+      : [TRANSACTION_STATUS.SUBMITTED, TRANSACTION_STATUS.REJECTED]
   )
   if (!transaction) {
-    throw json({ transaction, notes, status }, { status: 500 })
+    throw json('Transaksi gagal diperbarui karena status sudah berubah.', {
+      status: 409,
+    })
   }
 
   if (transaction.status === TRANSACTION_STATUS.VERIFIED) {

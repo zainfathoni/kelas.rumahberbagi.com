@@ -27,9 +27,10 @@ export const TRANSACTION_STATUS = {
   SUBMITTED: 'SUBMITTED',
   VERIFIED: 'VERIFIED',
   REJECTED: 'REJECTED',
-}
+} as const
 
-export type TransactionStatus = 'SUBMITTED' | 'VERIFIED' | 'REJECTED'
+export type TransactionStatus =
+  typeof TRANSACTION_STATUS[keyof typeof TRANSACTION_STATUS]
 
 export const TRANSACTION_METHOD = {
   BANK_TRANSFER: 'BANK_TRANSFER',
