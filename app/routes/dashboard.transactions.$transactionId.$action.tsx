@@ -80,12 +80,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     status !== TRANSACTION_STATUS.VERIFIED &&
     status !== TRANSACTION_STATUS.REJECTED
   ) {
-    throw json(
-      {
-        formError: 'Status transaksi tidak valid.',
-      },
-      { status: 400 }
-    )
+    throw json('Status transaksi tidak valid.', { status: 400 })
   }
 
   const existingTransaction = await getTransactionById(transactionId)
@@ -100,10 +95,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     )
   ) {
     throw json(
-      {
-        formError:
-          'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.',
-      },
+      'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.',
       { status: 400 }
     )
   }

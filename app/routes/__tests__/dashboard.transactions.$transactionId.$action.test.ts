@@ -87,9 +87,9 @@ describe('dashboard.transactions.$transactionId.$action action', () => {
       expect(error).toBeInstanceOf(Response)
       const response = error as Response
       expect(response.status).toBe(400)
-      await expect(response.json()).resolves.toMatchObject({
-        formError: 'Status transaksi tidak valid.',
-      })
+      await expect(response.json()).resolves.toBe(
+        'Status transaksi tidak valid.'
+      )
     }
 
     expect(updateTransactionStatus).not.toHaveBeenCalled()
@@ -109,10 +109,9 @@ describe('dashboard.transactions.$transactionId.$action action', () => {
       expect(error).toBeInstanceOf(Response)
       const response = error as Response
       expect(response.status).toBe(400)
-      await expect(response.json()).resolves.toMatchObject({
-        formError:
-          'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.',
-      })
+      await expect(response.json()).resolves.toBe(
+        'Transaksi yang sudah diverifikasi tidak dapat diubah menjadi ditolak.'
+      )
     }
 
     expect(updateTransactionStatus).not.toHaveBeenCalled()
@@ -122,6 +121,7 @@ describe('dashboard.transactions.$transactionId.$action action', () => {
     const response = await runAction(TRANSACTION_STATUS.VERIFIED)
 
     expect(response).toBeInstanceOf(Response)
+    if (!(response instanceof Response)) throw new Error('Expected Response')
     expect(response.status).toBe(302)
     expect(response.headers.get('Location')).toBe(
       '/dashboard/transactions/tx-1'
