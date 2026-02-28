@@ -60,7 +60,7 @@ export async function deactivateSubscription(
   )
 }
 
-export async function getFirstActiveSubcriptionByUserId(userId: string) {
+export async function getFirstActiveSubscriptionByUserId(userId: string) {
   return await db.subscription.findFirst({
     where: {
       userId,
