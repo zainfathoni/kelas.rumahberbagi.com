@@ -1,0 +1,68 @@
+[
+  {
+    "label": "test: run all",
+    "command": "npm",
+    "args": ["test"],
+    "tags": ["js-test"]
+  },
+  {
+    "label": "test: watch",
+    "command": "npm",
+    "args": ["run", "test:watch"],
+    "tags": ["js-test"]
+  },
+  {
+    "label": "test: e2e",
+    "command": "npm",
+    "args": ["run", "test:e2e:run"],
+    "tags": ["js-test"]
+  },
+  {
+    "label": "dev: start server",
+    "command": "npm",
+    "args": ["run", "dev"],
+    "tags": ["js-dev"]
+  },
+  {
+    "label": "build: production",
+    "command": "npm",
+    "args": ["run", "build"],
+    "tags": ["js-build"]
+  },
+  {
+    "label": "lint: check",
+    "command": "npm",
+    "args": ["run", "lint"],
+    "tags": ["js-lint"]
+  },
+  {
+    "label": "lint: fix",
+    "command": "npm",
+    "args": ["run", "lint:fix"],
+    "tags": ["js-lint"]
+  },
+  {
+    "label": "format: all",
+    "command": "npm",
+    "args": ["run", "format"],
+    "tags": ["js-format"]
+  },
+  {
+    "label": "typecheck",
+    "command": "npm",
+    "args": ["run", "type-check"],
+    "tags": ["js-typecheck"]
+  },
+  {
+    "label": "prisma: migrate",
+    "command": "npx",
+    "args": ["prisma", "migrate", "dev"],
+    "tags": ["prisma"]
+  },
+  {
+    "label": "prisma: studio",
+    "command": "npx",
+    "args": ["prisma", "studio"],
+    "tags": ["prisma"]
+  }
+]
