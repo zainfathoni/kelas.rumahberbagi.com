@@ -75,9 +75,9 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const fieldErrors = {
-    bankName: validateRequired('Nomor WhatsApp', bankName),
-    bankAccountNumber: validateRequired('Nama Bank', bankAccountNumber),
-    bankAccountName: validateRequired('Nomor Rekening', bankAccountName),
+    bankName: validateRequired('Nama Bank', bankName),
+    bankAccountNumber: validateRequired('Nomor Rekening', bankAccountNumber),
+    bankAccountName: validateRequired('Nama Pemilik Rekening', bankAccountName),
     amount: validateRequired('Nominal', amount),
   }
 
