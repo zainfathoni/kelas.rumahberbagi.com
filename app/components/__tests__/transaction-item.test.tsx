@@ -1,25 +1,36 @@
-import { build, fake, oneOf, perBuild } from '@jackfranklin/test-data-bot'
+import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { screen } from '@testing-library/react'
 import { TransactionItem, TransactionItemProps } from '../transaction-item'
 import { render } from '#test/test-utils'
 import { printLocaleDateTimeString } from '~/utils/format'
 import { TRANSACTION_STATUS } from '~/models/enum'
 import { generateId } from '~/utils/nanoid'
+import {
+  mockBankAccountNumber,
+  mockName,
+  mockPastDate,
+  mockSentence,
+  pick,
+  randomInt,
+} from '~/models/__mocks__/mock-data'
+
+const transactionStatuses = Object.values(TRANSACTION_STATUS)
 
 const transactionItemBuilder = build<TransactionItemProps>('TransactionItem', {
   fields: {
     to: perBuild(
       () =>
-        `${generateId()}?status=${oneOf(TRANSACTION_STATUS)}&page=${Math.floor(
-          Math.random() * 100
+        `${generateId()}?status=${pick(transactionStatuses)}&page=${randomInt(
+          1,
+          100
         )}`
     ),
-    bankAccountName: fake((f) => f.finance.accountName()),
-    bankAccountNumber: fake((f) => f.finance.account()),
-    bankName: fake((f) => f.company.companyName()),
-    updatedAt: fake((f) => f.date.past()),
-    status: oneOf(TRANSACTION_STATUS),
-    notes: fake((f) => f.lorem.sentence()),
+    bankAccountName: perBuild(() => mockName('Account Holder')),
+    bankAccountNumber: perBuild(mockBankAccountNumber),
+    bankName: perBuild(() => mockName('Bank')),
+    updatedAt: perBuild(mockPastDate),
+    status: perBuild(() => pick(transactionStatuses)),
+    notes: perBuild(() => mockSentence('Note')),
   },
 })
 describe('TransactionItem', () => {

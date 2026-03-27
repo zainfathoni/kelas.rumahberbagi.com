@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 
 // Path to store the magic link for E2E tests to read
 const MAGIC_LINK_FIXTURE_PATH = path.join(
@@ -18,10 +18,10 @@ function extractMagicLink(html: string): string | null {
 }
 
 export const mailgunHandlers = [
-  rest.post(
+  http.post(
     'https://api.mailgun.net/v3/:domain/messages',
-    async (req, res, ctx) => {
-      const body = Object.fromEntries(new URLSearchParams(req.body?.toString()))
+    async ({ request, params }) => {
+      const body = Object.fromEntries(new URLSearchParams(await request.text()))
       console.info('🔶 MSW intercepted email request:', {
         to: body.to,
         subject: body.subject,
@@ -40,8 +40,8 @@ export const mailgunHandlers = [
       }
 
       const randomId = '20210321210543.1.E01B8B612C44B41B'
-      const id = `<${randomId}>@${req.params.domain}`
-      return res(ctx.json({ id, message: 'Queued. Thank you.' }))
+      const id = `<${randomId}>@${String(params.domain)}`
+      return HttpResponse.json({ id, message: 'Queued. Thank you.' })
     }
   ),
 ]

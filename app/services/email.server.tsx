@@ -1,3 +1,5 @@
+import * as fs from 'fs'
+import * as path from 'path'
 import { User } from '@prisma/client'
 import { renderToString } from 'react-dom/server'
 import type { SendEmailFunction } from 'remix-auth-email-link'
@@ -33,13 +35,27 @@ export const sendEmail: SendEmailFunction<User> = async (options) => {
     </main>
   )
 
-  // In E2E mode, MSW intercepts the Mailgun API call and captures the magic link.
-  // In development, we log the magic link for convenience.
+  // In development, log the magic link for convenience.
   if (process.env.NODE_ENV === 'development') {
     console.info(`\n🔗 Magic link: ${options.magicLink}\n`)
   }
 
-  // Send email via Mailgun API - MSW will intercept in E2E mode
+  // In E2E mode, write the magic link fixture directly for Playwright to read.
+  // This replaces MSW interception which breaks when bundled by Remix's esbuild.
+  if (process.env.RUNNING_E2E === 'true') {
+    const fixturePath = path.join(
+      process.cwd(),
+      'e2e/fixtures/magic.local.json'
+    )
+    fs.writeFileSync(
+      fixturePath,
+      JSON.stringify({ magicLink: options.magicLink }, null, 2)
+    )
+    console.info('🔶 E2E: Captured magic link:', options.magicLink)
+    return
+  }
+
+  // Send email via Mailgun API
   await emailProvider.sendEmail({
     to: options.emailAddress,
     from: emailFrom,

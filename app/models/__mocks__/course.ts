@@ -1,15 +1,21 @@
-import { build, fake, perBuild } from '@jackfranklin/test-data-bot'
+import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { Course } from '@prisma/client'
 import { CATEGORIES } from '../enum'
+import {
+  mockImageUrl,
+  mockParagraph,
+  mockSentence,
+  randomInt,
+} from './mock-data'
 
 export const courseBuilder = build<
   Omit<Course, 'id' | 'userId' | 'authorId' | 'createdAt' | 'updatedAt'>
 >({
   fields: {
-    name: fake((f) => f.commerce.productName()),
-    description: fake((f) => f.commerce.productDescription()),
-    price: fake((f) => f.datatype.number({ min: 10000, max: 100000 })),
-    image: fake((f) => f.image.imageUrl()),
+    name: perBuild(() => mockSentence('Course')),
+    description: perBuild(() => mockParagraph('Course description')),
+    price: perBuild(() => randomInt(10_000, 100_000)),
+    image: perBuild(mockImageUrl),
     category: perBuild(() => CATEGORIES.PARENTING),
   },
 })
