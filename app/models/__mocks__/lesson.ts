@@ -1,13 +1,14 @@
-import { build, fake } from '@jackfranklin/test-data-bot'
+import { build, perBuild } from '@jackfranklin/test-data-bot'
 import { Lesson } from '@prisma/client'
+import { mockParagraph, mockSentence, randomInt } from './mock-data'
 
 export const lessonBuilder = build<
   Omit<Lesson, 'id' | 'createdAt' | 'updatedAt' | 'chapterId'>
 >({
   fields: {
-    name: fake((f) => f.lorem.sentence()),
-    description: fake((f) => f.lorem.paragraphs()),
+    name: perBuild(() => mockSentence('Lesson')),
+    description: perBuild(() => mockParagraph('Lesson description')),
     videoId: 'G3ZS8x86588', // https://www.youtube.com/watch?v=G3ZS8x86588
-    order: fake((f) => f.datatype.number()),
+    order: perBuild(() => randomInt(1, 20)),
   },
 })

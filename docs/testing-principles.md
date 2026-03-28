@@ -21,7 +21,7 @@ velocity:
 | Vitest          | Unit testing         | `app/**/__tests__/` |
 | Testing Library | Component testing    | `app/**/__tests__/` |
 | Playwright      | End-to-end testing   | `e2e/`              |
-| MSW             | API mocking          | `mocks/`            |
+| App-level mocks | API mocking (E2E)    | `email.server.tsx`  |
 | test-data-bot   | Test data generation | `e2e/fixtures/`     |
 
 ## Unit Testing with Vitest
@@ -297,24 +297,16 @@ e2e/fixtures/
 
 ## Mocking Strategies
 
-### MSW for API Mocking
+### E2E API Mocking
 
-Mock Service Worker (MSW) intercepts network requests for isolated testing:
+External API calls (e.g. Mailgun) are mocked at the application level in E2E
+mode. When `RUNNING_E2E=true`, `email.server.tsx` writes the magic link fixture
+directly instead of calling Mailgun, bypassing the need for network-level
+interception.
 
-```typescript
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
-
-const server = setupServer(
-  rest.post('/api/login', (req, res, ctx) => {
-    return res(ctx.json({ user: { id: '1', email: 'test@example.com' } }))
-  })
-)
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-```
+> **Note:** MSW was previously used but removed because its interceptors break
+> when bundled by Remix's esbuild. The app-level approach is simpler and more
+> reliable.
 
 ### Module Mocking
 
@@ -405,5 +397,5 @@ npx playwright test --trace on
 - [Vitest Documentation](https://vitest.dev/)
 - [Testing Library Docs](https://testing-library.com/docs/)
 - [Playwright Documentation](https://playwright.dev/docs/intro)
-- [MSW Documentation](https://mswjs.io/docs/)
+- [Remix Testing Guide](https://remix.run/docs/en/main/guides/testing)
 - [test-data-bot](https://github.com/jackfranklin/test-data-bot)

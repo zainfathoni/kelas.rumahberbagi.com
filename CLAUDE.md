@@ -55,6 +55,21 @@ Transaction, Content, Consumption, AuditLog.
 - `/login` → `/magic` - Email magic link auth
 - `/dashboard/*` - Protected course management
 
+## Testing Gotchas
+
+### Mock emails must not use burner domains
+
+The `burner-email-providers` package blocks domains like `@example.com` during
+login. Mock/seed data must use a non-burner domain (e.g. `@rumahberbagi.test`).
+If e2e login tests fail silently (no magic link sent, no error logged), check
+the email domain first.
+
+### MSW and Remix bundling
+
+MSW v2 interceptors break when bundled by Remix's esbuild. Instead of relying on
+MSW to intercept API calls in e2e mode, the app writes the magic link fixture
+directly when `RUNNING_E2E=true` (see `email.server.tsx`).
+
 ## Commit Convention
 
 Conventional Commits: `<type>[scope]: <description>`
