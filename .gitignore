@@ -46,3 +46,4 @@ bv-pages/
 
 # Local backup files
 prisma/backups/
+.zed/
