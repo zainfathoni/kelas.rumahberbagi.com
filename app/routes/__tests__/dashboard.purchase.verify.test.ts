@@ -54,7 +54,7 @@ describe('dashboard.purchase.verify loader', () => {
   it('returns transaction and user when transaction is not verified', async () => {
     const fakeTransaction = {
       id: 'tx-1',
-      status: TRANSACTION_STATUS.CREATED,
+      status: TRANSACTION_STATUS.SUBMITTED,
     }
     vi.mocked(getFirstTransaction).mockResolvedValue(fakeTransaction as never)
 
