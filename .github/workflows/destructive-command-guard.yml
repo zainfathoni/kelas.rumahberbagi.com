@@ -1,0 +1,18 @@
+name: Destructive Command Guard
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Dicklesworthstone/destructive_command_guard/action@v0
+        with:
+          paths: .
+          fail-on: error
+          format: markdown
