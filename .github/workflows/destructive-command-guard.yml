@@ -15,9 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Destructive Command Guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="v0.4.5"
+          platform="x86_64-unknown-linux-gnu"
+          install_dir="$RUNNER_TEMP/dcg"
+          mkdir -p "$install_dir"
+          curl --fail --location --silent --show-error \
+            "https://github.com/Dicklesworthstone/destructive_command_guard/releases/download/${version}/dcg-${platform}.tar.xz" \
+            --output "$install_dir/dcg.tar.xz"
+          tar -xJf "$install_dir/dcg.tar.xz" -C "$install_dir"
+          chmod +x "$install_dir/dcg"
+          echo "$install_dir" >> "$GITHUB_PATH"
+
       - name: Run Destructive Command Guard
-        uses: Dicklesworthstone/destructive_command_guard/action@v0.4.5
-        with:
-          paths: .
-          fail-on: error
-          format: pretty
+        shell: bash
+        run: dcg scan --paths . --fail-on error --format pretty
