@@ -41,6 +41,7 @@ env:
     DATABASE_URL: file:/app/prisma/staging.db
     STAGING_ENVIRONMENT: "true"
     EMAIL_FROM: Rumah Berbagi Staging <staging@rumahberbagi.com>
+    MAGIC_LINK_EMAIL_DELIVERY: log
   # Secret environment variables (loaded from .kamal/secrets)
   secret:
     - SESSION_SECRET

@@ -10,6 +10,28 @@ if (process.env.EMAIL_FROM) {
   emailFrom = process.env.EMAIL_FROM
 }
 
+function getMagicLinkEmailDelivery() {
+  const delivery = process.env.MAGIC_LINK_EMAIL_DELIVERY ?? 'mailgun'
+
+  if (delivery !== 'mailgun' && delivery !== 'log') {
+    throw new Error(`Unsupported MAGIC_LINK_EMAIL_DELIVERY: ${delivery}`)
+  }
+
+  if (process.env.STAGING_ENVIRONMENT === 'true' && delivery !== 'log') {
+    throw new Error('Staging requires MAGIC_LINK_EMAIL_DELIVERY=log')
+  }
+
+  if (
+    process.env.NODE_ENV === 'production' &&
+    process.env.STAGING_ENVIRONMENT !== 'true' &&
+    delivery === 'log'
+  ) {
+    throw new Error('MAGIC_LINK_EMAIL_DELIVERY=log is only allowed in staging')
+  }
+
+  return delivery
+}
+
 export const sendEmail: SendEmailFunction<User> = async (options) => {
   const subject = 'Link login untuk Kelas Rumah Berbagi'
   const siteHost = new URL(options.magicLink).host
@@ -52,6 +74,14 @@ export const sendEmail: SendEmailFunction<User> = async (options) => {
       JSON.stringify({ magicLink: options.magicLink }, null, 2)
     )
     console.info('🔶 E2E: Captured magic link:', options.magicLink)
+    return
+  }
+
+  // In staging, allow operators to inspect magic links without sending Mailgun
+  // messages. This must be enabled explicitly so production behavior remains
+  // unchanged.
+  if (getMagicLinkEmailDelivery() === 'log') {
+    console.info('🔶 Magic link email delivery disabled:', options.magicLink)
     return
   }
 
