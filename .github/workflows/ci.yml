@@ -147,6 +147,7 @@ jobs:
     name: End-to-end test
     if: github.repository == 'zainfathoni/kelas.rumahberbagi.com'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: cache-npm
     steps:
       - name: Checkout repository
