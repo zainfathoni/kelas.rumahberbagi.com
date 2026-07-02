@@ -3,6 +3,10 @@ import { json, redirect } from '@remix-run/node'
 import { Form, useLoaderData, useNavigation } from '@remix-run/react'
 import { Alert, ErrorAlert } from '~/components/alerts'
 import { Button } from '~/components/form-elements'
+import {
+  enforceMagicLinkRateLimit,
+  MAGIC_LINK_RATE_LIMIT_MESSAGE,
+} from '~/services/magic-link-rate-limit.server'
 import { auth } from '~/services/auth.server'
 import { commitSession, getUserSession } from '~/services/session.server'
 
@@ -75,10 +79,29 @@ export const action: ActionFunction = async ({ request }) => {
     headers: verifiedRequestHeaders,
   })
 
+  try {
+    await enforceMagicLinkRateLimit(verifiedRequest.clone())
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message === MAGIC_LINK_RATE_LIMIT_MESSAGE
+    ) {
+      session.flash(auth.sessionErrorKey, { message: error.message })
+
+      return redirect(failureRedirect, {
+        headers: {
+          'Set-Cookie': await commitSession(session),
+        },
+      })
+    }
+
+    throw error
+  }
+
   // The success redirect is required in this action, this is where the user is
   // going to be redirected after the magic link is sent, note that here the
   // user is not yet authenticated, so you can't send it to a private page.
-  await auth.authenticate('email-link', verifiedRequest, {
+  return await auth.authenticate('email-link', verifiedRequest, {
     successRedirect: failureRedirect,
     // If this is not set, any error will be throw and the ErrorBoundary will be
     // rendered.
