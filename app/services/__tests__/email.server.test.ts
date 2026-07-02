@@ -141,6 +141,9 @@ describe('Mailgun email provider', () => {
   it('throws and logs sanitized context for failed Mailgun responses', async () => {
     const apiKey = 'key-some-mailgun-key'
     const encodedApiKey = Buffer.from(`api:${apiKey}`).toString('base64')
+    const encodedRecipient = encodeURIComponent(message.to)
+    const encodedMagicLinkToken = encodeURIComponent('token=secret-token')
+    const echoedRequestBody = new URLSearchParams(message).toString()
     const consoleError = vi
       .spyOn(console, 'error')
       .mockImplementation(() => undefined)
@@ -149,8 +152,8 @@ describe('Mailgun email provider', () => {
       vi.fn().mockResolvedValue(
         new Response(
           JSON.stringify({
-            message:
-              'Monthly limit reached for member@rumahberbagi.test at https://kelas.rumahberbagi.test/magic?token=secret-token',
+            message: `Monthly limit reached for ${message.to} at https://kelas.rumahberbagi.test/magic?token=secret-token`,
+            echoedRequestBody,
           }),
           {
             status: 429,
@@ -176,7 +179,9 @@ describe('Mailgun email provider', () => {
     const logOutput = JSON.stringify(consoleError.mock.calls)
     expect(logOutput).toContain('[redacted-url]')
     expect(logOutput).not.toContain('member@rumahberbagi.test')
+    expect(logOutput).not.toContain(encodedRecipient)
     expect(logOutput).not.toContain('secret-token')
+    expect(logOutput).not.toContain(encodedMagicLinkToken)
     expect(logOutput).not.toContain(apiKey)
     expect(logOutput).not.toContain(encodedApiKey)
   })

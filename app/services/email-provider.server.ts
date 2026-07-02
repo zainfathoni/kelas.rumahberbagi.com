@@ -20,9 +20,18 @@ type MailgunMessage = {
 }
 
 function sanitizeMailgunResponseBody(body: string) {
-  return body
+  let decodedBody = body
+
+  try {
+    decodedBody = decodeURIComponent(body.replace(/\+/g, ' '))
+  } catch {
+    // Keep the raw body if Mailgun returns malformed percent encoding.
+  }
+
+  return decodedBody
     .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[redacted-email]')
     .replace(/https?:\/\/\S+/gi, '[redacted-url]')
+    .replace(/\b(token|secret)=([^&\s"'<>]+)/gi, '$1=[redacted]')
     .slice(0, 500)
 }
 
