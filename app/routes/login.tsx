@@ -1,10 +1,17 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import { Form, useLoaderData, useNavigation } from '@remix-run/react'
 import { Alert, ErrorAlert } from '~/components/alerts'
 import { Button } from '~/components/form-elements'
 import { auth } from '~/services/auth.server'
 import { commitSession, getUserSession } from '~/services/session.server'
+
+const loginNonceSessionKey = 'login:nonce'
+const loginNonceFormKey = 'loginNonce'
+
+function createLoginNonce() {
+  return crypto.randomUUID()
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url)
@@ -18,14 +25,18 @@ export const loader: LoaderFunction = async ({ request }) => {
   const error = session.get(auth.sessionErrorKey) as
     | { message: string }
     | undefined
+  const loginNonce = createLoginNonce()
 
   session.set('redirectTo', redirectTo)
+  session.set(loginNonceSessionKey, loginNonce)
 
   return json(
     {
       user: session.get('user'),
       magicLinkSent: session.has('zain:magiclink'),
       error: error?.message,
+      redirectTo,
+      loginNonce,
     },
     {
       headers: {
@@ -38,22 +49,49 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   const url = new URL(request.url)
   const redirectTo = url.searchParams.get('redirectTo') ?? '/dashboard'
+  const failureRedirect = `/login?redirectTo=${encodeURIComponent(redirectTo)}`
+  const session = await getUserSession(request)
+  const form = await request.clone().formData()
+  const submittedNonce = form.get(loginNonceFormKey)
+  const expectedNonce = session.get(loginNonceSessionKey)
+
+  if (
+    typeof submittedNonce !== 'string' ||
+    typeof expectedNonce !== 'string' ||
+    submittedNonce !== expectedNonce
+  ) {
+    return redirect(failureRedirect, {
+      headers: {
+        'Set-Cookie': await commitSession(session),
+      },
+    })
+  }
+
+  session.unset(loginNonceSessionKey)
+  const committedSession = await commitSession(session)
+  const verifiedRequestHeaders = new Headers(request.headers)
+  verifiedRequestHeaders.set('Cookie', committedSession.split(';', 1)[0])
+  const verifiedRequest = new Request(request, {
+    headers: verifiedRequestHeaders,
+  })
 
   // The success redirect is required in this action, this is where the user is
   // going to be redirected after the magic link is sent, note that here the
   // user is not yet authenticated, so you can't send it to a private page.
-  await auth.authenticate('email-link', request, {
-    successRedirect: `/login?redirectTo=${encodeURIComponent(redirectTo)}`,
+  await auth.authenticate('email-link', verifiedRequest, {
+    successRedirect: failureRedirect,
     // If this is not set, any error will be throw and the ErrorBoundary will be
     // rendered.
-    failureRedirect: `/login?redirectTo=${encodeURIComponent(redirectTo)}`,
+    failureRedirect,
   })
 }
 
 export default function Login() {
-  const { magicLinkSent, error } = useLoaderData<{
+  const { magicLinkSent, error, redirectTo, loginNonce } = useLoaderData<{
     magicLinkSent: boolean
     error?: string
+    redirectTo: string
+    loginNonce: string
   }>()
   const { state } = useNavigation()
 
@@ -70,7 +108,16 @@ export default function Login() {
 
           <div className="mt-8">
             <div className="mt-6">
-              <Form action="/login" method="post" className="space-y-6">
+              <Form
+                action={`/login?redirectTo=${encodeURIComponent(redirectTo)}`}
+                method="post"
+                className="space-y-6"
+              >
+                <input
+                  type="hidden"
+                  name={loginNonceFormKey}
+                  value={loginNonce}
+                />
                 <div>
                   <label
                     htmlFor="email"
