@@ -33,10 +33,13 @@ describe('sendEmail', () => {
     resetEmailEnv()
     vi.unstubAllEnvs()
     vi.restoreAllMocks()
+    vi.unstubAllGlobals()
   })
 
   it('call emailProvider.sendEmail method', async () => {
-    const spy = vi.spyOn(emailProvider, 'sendEmail')
+    const spy = vi
+      .spyOn(emailProvider, 'sendEmail')
+      .mockResolvedValue(new Response(null, { status: 200 }))
 
     await sendMagicLink()
 
@@ -97,5 +100,84 @@ describe('sendEmail', () => {
       'Staging requires MAGIC_LINK_EMAIL_DELIVERY=log'
     )
     expect(sendSpy).not.toHaveBeenCalled()
+  })
+
+  it('fails when the email provider fails', async () => {
+    vi.spyOn(emailProvider, 'sendEmail').mockRejectedValue(
+      new Error('Mailgun email delivery failed with 429')
+    )
+
+    await expect(sendMagicLink()).rejects.toThrow(
+      'Mailgun email delivery failed with 429'
+    )
+  })
+})
+
+describe('Mailgun email provider', () => {
+  const message = {
+    to: 'member@rumahberbagi.test',
+    from: 'Rumah Berbagi <admin@rumahberbagi.com>',
+    subject: 'Link login untuk Kelas Rumah Berbagi',
+    html: '<a href="https://kelas.rumahberbagi.test/magic?token=secret-token">Login</a>',
+  }
+
+  beforeEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('returns successful Mailgun responses', async () => {
+    const response = new Response('{"id":"message-id"}', { status: 200 })
+    const fetch = vi.fn().mockResolvedValue(response)
+    vi.stubGlobal('fetch', fetch)
+
+    await expect(emailProvider.sendEmail(message)).resolves.toBe(response)
+    expect(fetch).toHaveBeenCalledOnce()
+  })
+
+  it('throws and logs sanitized context for failed Mailgun responses', async () => {
+    const apiKey = 'key-some-mailgun-key'
+    const encodedApiKey = Buffer.from(`api:${apiKey}`).toString('base64')
+    const consoleError = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => undefined)
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            message:
+              'Monthly limit reached for member@rumahberbagi.test at https://kelas.rumahberbagi.test/magic?token=secret-token',
+          }),
+          {
+            status: 429,
+            statusText: 'Too Many Requests',
+            headers: { 'content-type': 'application/json' },
+          }
+        )
+      )
+    )
+
+    await expect(emailProvider.sendEmail(message)).rejects.toThrow(
+      'Mailgun email delivery failed with 429'
+    )
+
+    expect(consoleError).toHaveBeenCalledWith('Mailgun email delivery failed', {
+      response: {
+        status: 429,
+        statusText: 'Too Many Requests',
+        contentType: 'application/json',
+        body: expect.stringContaining('[redacted-email]'),
+      },
+    })
+    const logOutput = JSON.stringify(consoleError.mock.calls)
+    expect(logOutput).toContain('[redacted-url]')
+    expect(logOutput).not.toContain('member@rumahberbagi.test')
+    expect(logOutput).not.toContain('secret-token')
+    expect(logOutput).not.toContain(apiKey)
+    expect(logOutput).not.toContain(encodedApiKey)
   })
 })
