@@ -54,9 +54,9 @@ describe('enforceMagicLinkRateLimit', () => {
 
   it('allows the boundary attempt before email and IP limits are reached', async () => {
     count
-      .mockResolvedValueOnce(2)
-      .mockResolvedValueOnce(9)
-      .mockResolvedValueOnce(19)
+      .mockResolvedValueOnce(3)
+      .mockResolvedValueOnce(10)
+      .mockResolvedValueOnce(20)
 
     await enforceMagicLinkRateLimit(
       createRequest('member@rumahberbagi.test', '203.0.113.10'),
@@ -66,8 +66,8 @@ describe('enforceMagicLinkRateLimit', () => {
     expect(create).toHaveBeenCalledTimes(2)
   })
 
-  it('blocks an email after three requests in the short window', async () => {
-    count.mockResolvedValueOnce(3)
+  it('blocks an email after three previous requests in the short window', async () => {
+    count.mockResolvedValueOnce(4)
 
     await expect(
       enforceMagicLinkRateLimit(
@@ -76,14 +76,27 @@ describe('enforceMagicLinkRateLimit', () => {
       )
     ).rejects.toThrow(MAGIC_LINK_RATE_LIMIT_MESSAGE)
 
-    expect(create).not.toHaveBeenCalled()
+    expect(create).toHaveBeenCalledTimes(2)
+  })
+
+  it('blocks an email after ten previous requests in the daily window', async () => {
+    count.mockResolvedValueOnce(1).mockResolvedValueOnce(11)
+
+    await expect(
+      enforceMagicLinkRateLimit(
+        createRequest('member@rumahberbagi.test', '203.0.113.10'),
+        now
+      )
+    ).rejects.toThrow(MAGIC_LINK_RATE_LIMIT_MESSAGE)
+
+    expect(create).toHaveBeenCalledTimes(2)
   })
 
   it('blocks an obvious IP burst after twenty requests in the short window', async () => {
     count
-      .mockResolvedValueOnce(0)
-      .mockResolvedValueOnce(0)
-      .mockResolvedValueOnce(20)
+      .mockResolvedValueOnce(1)
+      .mockResolvedValueOnce(1)
+      .mockResolvedValueOnce(21)
 
     await expect(
       enforceMagicLinkRateLimit(
@@ -92,19 +105,68 @@ describe('enforceMagicLinkRateLimit', () => {
       )
     ).rejects.toThrow(MAGIC_LINK_RATE_LIMIT_MESSAGE)
 
+    expect(create).toHaveBeenCalledTimes(2)
+  })
+
+  it('uses x-real-ip when x-forwarded-for is absent', async () => {
+    count.mockResolvedValue(0)
+
+    await enforceMagicLinkRateLimit(
+      createRequest('member@rumahberbagi.test', undefined, '198.51.100.20'),
+      now
+    )
+
+    expect(create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        entityId: 'ip:198.51.100.20',
+        ipAddress: '198.51.100.20',
+      }),
+    })
+  })
+
+  it('does not record invalid email requests that will not send email', async () => {
+    await enforceMagicLinkRateLimit(createRequest('not-an-email'), now)
+
+    expect(transaction).not.toHaveBeenCalled()
     expect(create).not.toHaveBeenCalled()
+  })
+
+  it('does not record burner email requests that will not send email', async () => {
+    await enforceMagicLinkRateLimit(createRequest('user@example.com'), now)
+
+    expect(transaction).not.toHaveBeenCalled()
+    expect(create).not.toHaveBeenCalled()
+  })
+
+  it('excludes requests exactly at the window cutoff', async () => {
+    count.mockResolvedValue(0)
+
+    await enforceMagicLinkRateLimit(
+      createRequest('member@rumahberbagi.test', '203.0.113.10'),
+      now
+    )
+
+    expect(count).toHaveBeenCalledWith({
+      where: expect.objectContaining({
+        entityId: 'email:member@rumahberbagi.test',
+        createdAt: { gt: new Date('2026-07-02T09:45:00.000Z') },
+      }),
+    })
   })
 })
 
-function createRequest(email: string, ip: string) {
+function createRequest(email: string, forwardedIp?: string, realIp?: string) {
   const form = new URLSearchParams({ email })
+  const headers = new Headers({
+    'content-type': 'application/x-www-form-urlencoded',
+  })
+
+  if (forwardedIp) headers.set('x-forwarded-for', `${forwardedIp}, 10.0.0.1`)
+  if (realIp) headers.set('x-real-ip', realIp)
 
   return new Request('http://localhost:3000/login', {
     method: 'POST',
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-      'x-forwarded-for': `${ip}, 10.0.0.1`,
-    },
+    headers,
     body: form,
   })
 }

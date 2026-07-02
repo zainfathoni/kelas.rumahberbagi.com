@@ -1,5 +1,6 @@
 import { db } from '~/utils/db.server'
 import { generateId } from '~/utils/nanoid'
+import { verifyEmailAddress } from '~/services/verifier.server'
 
 const RATE_LIMIT_ACTION = 'MAGIC_LINK_EMAIL_REQUESTED'
 const RATE_LIMIT_ENTITY_TYPE = 'MagicLinkRateLimit'
@@ -20,6 +21,8 @@ type RateLimitScope = {
   windowMs: number
 }
 
+class RateLimitExceeded extends Error {}
+
 export async function enforceMagicLinkRateLimit(
   request: Request,
   now = new Date()
@@ -31,6 +34,12 @@ export async function enforceMagicLinkRateLimit(
 
   const normalizedEmail = email.trim().toLowerCase()
   if (!normalizedEmail) return
+
+  try {
+    await verifyEmailAddress(email)
+  } catch {
+    return
+  }
 
   const scopes: RateLimitScope[] = [
     {
@@ -54,43 +63,47 @@ export async function enforceMagicLinkRateLimit(
     })
   }
 
-  const blocked = await db.$transaction(async (tx) => {
-    for (const scope of scopes) {
-      const count = await tx.auditLog.count({
-        where: {
-          action: RATE_LIMIT_ACTION,
-          entityType: RATE_LIMIT_ENTITY_TYPE,
-          entityId: scope.entityId,
-          createdAt: { gte: new Date(now.getTime() - scope.windowMs) },
-        },
-      })
+  try {
+    await db.$transaction(async (tx) => {
+      const entityIds = Array.from(
+        new Set(scopes.map((scope) => scope.entityId))
+      )
 
-      if (count >= scope.limit) return true
-    }
+      await Promise.all(
+        entityIds.map((entityId) =>
+          tx.auditLog.create({
+            data: {
+              id: generateId(),
+              action: RATE_LIMIT_ACTION,
+              entityType: RATE_LIMIT_ENTITY_TYPE,
+              entityId,
+              createdAt: now,
+              metadata: JSON.stringify({ email: normalizedEmail }),
+              ipAddress: clientIp,
+            },
+          })
+        )
+      )
 
-    const entityIds = Array.from(new Set(scopes.map((scope) => scope.entityId)))
-
-    await Promise.all(
-      entityIds.map((entityId) =>
-        tx.auditLog.create({
-          data: {
-            id: generateId(),
+      for (const scope of scopes) {
+        const count = await tx.auditLog.count({
+          where: {
             action: RATE_LIMIT_ACTION,
             entityType: RATE_LIMIT_ENTITY_TYPE,
-            entityId,
-            createdAt: now,
-            metadata: JSON.stringify({ email: normalizedEmail }),
-            ipAddress: clientIp,
+            entityId: scope.entityId,
+            createdAt: { gt: new Date(now.getTime() - scope.windowMs) },
           },
         })
-      )
-    )
 
-    return false
-  })
+        if (count > scope.limit) throw new RateLimitExceeded()
+      }
+    })
+  } catch (error) {
+    if (error instanceof RateLimitExceeded) {
+      throw new Error(MAGIC_LINK_RATE_LIMIT_MESSAGE)
+    }
 
-  if (blocked) {
-    throw new Error(MAGIC_LINK_RATE_LIMIT_MESSAGE)
+    throw error
   }
 }
 
