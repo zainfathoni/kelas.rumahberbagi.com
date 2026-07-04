@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { action, loader } from '../login'
 import { auth } from '~/services/auth.server'
 import * as emailProvider from '~/services/email-provider.server'
+import {
+  enforceMagicLinkRateLimit,
+  MAGIC_LINK_RATE_LIMIT_MESSAGE,
+} from '~/services/magic-link-rate-limit.server'
 
 vi.mock('~/services/auth.server', () => ({
   auth: {
@@ -9,6 +13,12 @@ vi.mock('~/services/auth.server', () => ({
     isAuthenticated: vi.fn(),
     sessionErrorKey: 'auth:error',
   },
+}))
+
+vi.mock('~/services/magic-link-rate-limit.server', () => ({
+  enforceMagicLinkRateLimit: vi.fn(),
+  MAGIC_LINK_RATE_LIMIT_MESSAGE:
+    'Terlalu banyak permintaan link login. Silakan coba lagi nanti.',
 }))
 
 function getSetCookie(response: Response) {
@@ -53,7 +63,9 @@ function postLogin({ cookie, nonce }: { cookie?: string; nonce?: string }) {
 describe('login route nonce', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
+    vi.clearAllMocks()
     vi.mocked(auth.isAuthenticated).mockResolvedValue(null as never)
+    vi.mocked(enforceMagicLinkRateLimit).mockResolvedValue(undefined)
   })
 
   it('blocks direct POSTs without a nonce before email authentication can send Mailgun email', async () => {
@@ -90,6 +102,12 @@ describe('login route nonce', () => {
 
   it('allows a browser POST with the session-backed nonce to request a magic link', async () => {
     const { cookie, nonce } = await loadLogin()
+    vi.mocked(enforceMagicLinkRateLimit).mockImplementation(async (request) => {
+      const form = await request.formData()
+
+      expect(form.get('email')).toBe('user@rumahberbagi.test')
+      expect(form.get('loginNonce')).toBe(nonce)
+    })
     vi.mocked(auth.authenticate).mockImplementation(
       async (_strategy, request) => {
         const body = await (request as Request).text()
@@ -103,6 +121,7 @@ describe('login route nonce', () => {
 
     await postLogin({ cookie, nonce })
 
+    expect(enforceMagicLinkRateLimit).toHaveBeenCalledOnce()
     expect(auth.authenticate).toHaveBeenCalledOnce()
     expect(auth.authenticate).toHaveBeenCalledWith(
       'email-link',
@@ -112,5 +131,24 @@ describe('login route nonce', () => {
         failureRedirect: '/login?redirectTo=%2Fdashboard',
       }
     )
+  })
+
+  it('blocks a nonce-valid POST when rate limited before email authentication can send Mailgun email', async () => {
+    const sendEmail = vi.spyOn(emailProvider, 'sendEmail')
+    const { cookie, nonce } = await loadLogin()
+    vi.mocked(enforceMagicLinkRateLimit).mockRejectedValue(
+      new Error(MAGIC_LINK_RATE_LIMIT_MESSAGE)
+    )
+
+    const response = (await postLogin({ cookie, nonce })) as Response
+
+    expect(response).toBeInstanceOf(Response)
+    expect(response.status).toBe(302)
+    expect(response.headers.get('Location')).toBe(
+      '/login?redirectTo=%2Fdashboard'
+    )
+    expect(enforceMagicLinkRateLimit).toHaveBeenCalledOnce()
+    expect(auth.authenticate).not.toHaveBeenCalled()
+    expect(sendEmail).not.toHaveBeenCalled()
   })
 })
