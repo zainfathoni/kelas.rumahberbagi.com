@@ -144,6 +144,7 @@ describe('Mailgun email provider', () => {
     const encodedRecipient = encodeURIComponent(message.to)
     const encodedMagicLinkToken = encodeURIComponent('token=secret-token')
     const echoedRequestBody = new URLSearchParams(message).toString()
+    const malformedPercentEncoding = 'bad%ZZ'
     const consoleError = vi
       .spyOn(console, 'error')
       .mockImplementation(() => undefined)
@@ -154,6 +155,7 @@ describe('Mailgun email provider', () => {
           JSON.stringify({
             message: `Monthly limit reached for ${message.to} at https://kelas.rumahberbagi.test/magic?token=secret-token`,
             echoedRequestBody,
+            malformedPercentEncoding,
           }),
           {
             status: 429,

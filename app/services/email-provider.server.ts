@@ -19,16 +19,18 @@ type MailgunMessage = {
   html: string
 }
 
+function bestEffortDecodeUrlEncodedText(body: string) {
+  return body.replace(/\+/g, ' ').replace(/(?:%[0-9a-fA-F]{2})+/g, (part) => {
+    try {
+      return decodeURIComponent(part)
+    } catch {
+      return part
+    }
+  })
+}
+
 function sanitizeMailgunResponseBody(body: string) {
-  let decodedBody = body
-
-  try {
-    decodedBody = decodeURIComponent(body.replace(/\+/g, ' '))
-  } catch {
-    // Keep the raw body if Mailgun returns malformed percent encoding.
-  }
-
-  return decodedBody
+  return bestEffortDecodeUrlEncodedText(body)
     .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[redacted-email]')
     .replace(/https?:\/\/\S+/gi, '[redacted-url]')
     .replace(/\b(token|secret)=([^&\s"'<>]+)/gi, '$1=[redacted]')
