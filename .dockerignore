@@ -45,5 +45,4 @@ test-results
 # Misc
 .DS_Store
 *.log
-.beads
 .claude

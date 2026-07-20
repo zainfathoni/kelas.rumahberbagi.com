@@ -11,12 +11,10 @@ if ! command -v volta >/dev/null 2>&1; then
   curl --fail --silent --show-error https://get.volta.sh | bash
 fi
 volta install node@24.1.0
-volta install @beads/bd@0.49.6
 mkdir -p "$HOME/.local/bin"
-for command in bd node npm npx volta; do
+for command in node npm npx volta; do
   ln -sfn "$VOLTA_HOME/bin/$command" "$HOME/.local/bin/$command"
 done
-bd ready --no-daemon >/dev/null
 
 echo "Installing locked npm dependencies..."
 npm ci
@@ -30,6 +28,13 @@ if [[ ! -f .env ]]; then
 elif ! grep -q '^DATABASE_URL=' .env; then
   printf '\nDATABASE_URL="file:./dev.db"\n' >>.env
 fi
-DATABASE_URL='file:./dev.db' npx prisma migrate reset --force
+seed_database=false
+if [[ ! -f prisma/dev.db ]]; then
+  seed_database=true
+fi
+DATABASE_URL='file:./dev.db' npx prisma migrate deploy
+if [[ "$seed_database" == true ]]; then
+  DATABASE_URL='file:./dev.db' npx prisma db seed
+fi
 
 echo "Orb setup complete."
