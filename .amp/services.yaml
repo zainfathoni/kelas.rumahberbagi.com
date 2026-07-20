@@ -1,0 +1,9 @@
+services:
+  app:
+    command: ORB_PORTAL=true RUNNING_E2E=true npm run dev
+    access: same-as-thread
+    portal:
+      title: Kelas Rumah Berbagi
+      description:
+        Preview with a seeded user at
+        /magic?previewEmail=admin%40rumahberbagi.com

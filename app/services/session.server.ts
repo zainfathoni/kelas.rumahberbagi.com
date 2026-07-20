@@ -1,10 +1,13 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
 import { getRequiredServerEnvVar } from '~/utils/misc'
 
+const isOrbPortal = process.env.ORB_PORTAL === 'true'
+
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
     name: '_session',
-    sameSite: 'lax',
+    sameSite: isOrbPortal ? 'none' : 'lax',
+    partitioned: isOrbPortal,
     path: '/',
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
@@ -13,8 +16,9 @@ export const sessionStorage = createCookieSessionStorage({
     // but that doesn't work on localhost for Safari
     // https://web.dev/when-to-use-local-https/
     secure:
-      process.env.NODE_ENV === 'production' &&
-      process.env.RUNNING_E2E !== 'true',
+      isOrbPortal ||
+      (process.env.NODE_ENV === 'production' &&
+        process.env.RUNNING_E2E !== 'true'),
   },
 })
 

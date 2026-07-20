@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+export VOLTA_HOME="${VOLTA_HOME:-$HOME/.volta}"
+export PATH="$VOLTA_HOME/bin:$HOME/.local/bin:$PATH"
+
+# This project uses an in-process SQLite database and has no external services
+# to reconnect after an orb wakes. Check the pinned runtime without doing slow
+# installation or database work.
+node --version >/dev/null
+
+echo "Orb resumed; no external services need repair."

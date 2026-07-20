@@ -4,6 +4,7 @@ node_modules
 /build
 /dist
 /public/build
+/.amp/portals
 /.mf
 /app/tailwind.css
 .env
@@ -36,10 +37,6 @@ playwright-report
 .output
 
 /api/index.js
-
-# bv (beads viewer) local config and caches
-.bv/
-bv-pages/
 
 # Kamal deployment secrets
 .kamal/secrets

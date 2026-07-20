@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "planet57.vscode-beads",
     "Prisma.prisma",
     "bradlc.vscode-tailwindcss",
     "GitHub.vscode-pull-request-github"
