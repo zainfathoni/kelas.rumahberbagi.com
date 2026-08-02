@@ -39,6 +39,9 @@ async function globalSetup() {
   // editable member
   await loginAs(browser, 'member-edit')
 
+  // member with submitted transaction
+  await loginAs(browser, 'member-submit')
+
   // course author
   await loginAs(browser, 'author')
 

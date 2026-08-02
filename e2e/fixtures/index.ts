@@ -16,6 +16,7 @@ type AuthFixture =
   | 'member'
   | 'member-edit'
   | 'member-no-transaction'
+  | 'member-submit'
   | 'author'
   | 'admin'
   | 'public'
@@ -57,6 +58,7 @@ export const authFixtures = {
   member: getAuthFixture('member'),
   memberEdit: getAuthFixture('member-edit'),
   memberNoTransaction: getAuthFixture('member-no-transaction'),
+  memberSubmit: getAuthFixture('member-submit'),
   author: getAuthFixture('author'),
   admin: getAuthFixture('admin'),
   public: isStaging
