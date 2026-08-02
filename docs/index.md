@@ -11,7 +11,8 @@ of content. The initial build includes a simple mechanism of online course
 purchase and access.
 
 We plan to maintain this project for the long term. As guidance in making
-decisions, we hold on to [some values we defined here](values.md).
+decisions, we hold on to [some values we defined here](values.md) and we employ
+rigorous [testing methodologies](testing.md).
 
 ## List of Features
 

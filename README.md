@@ -1,7 +1,9 @@
 # Kelas Rumah Berbagi
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Build Status][build-badge]][build] [![MIT License][license-badge]][license]
@@ -23,6 +25,8 @@ Online course platform for Rumah Berbagi.
     - [System Requirements](#system-requirements)
     - [Development](#development)
     - [Testing](#testing)
+      - [Unit and integration testing](#unit-and-integration-testing)
+      - [End-to-end testing](#end-to-end-testing)
   - [Tools & References](#tools--references)
     - [Tools](#tools)
       - [Code Editor](#code-editor)
@@ -90,6 +94,19 @@ your app in development mode, rebuilding assets on file changes.
 
 ### Testing
 
+#### Unit and integration testing
+
+Run this command to start running the unit and integration tests locally.
+
+```sh
+npm t
+```
+
+`npm t` is an alias for `npm test`, which is an alias of `npm run test`. Any of
+those commands should work exactly the same.
+
+#### End-to-end testing
+
 Run this command to start the end-to-end testing locally.
 
 ```sh
@@ -100,8 +117,8 @@ Here's what that script does (along with the corresponding NPM commands):
 
 1. It builds the app (`npm run build`)
 2. It starts the server using the test database (`npm run start:e2e`)
-3. After <http://localhost:3000/> is available, it starts testing (`npm t`
-   a.k.a. `npm test` a.k.a. `npm run test`)
+3. After <http://localhost:3000/> is available, it starts testing
+   (`npm run test:e2e`)
 
 If you want, you can also manually run those commands above.
 
