@@ -23,7 +23,7 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "jsx-a11y"],
+  "plugins": ["react", "@typescript-eslint", "jsx-a11y", "tailwindcss"],
   "rules": {
     "import/extensions": [
       "warn",
@@ -42,7 +42,8 @@
     "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
     "import/no-extraneous-dependencies": 2,
     "import/order": "error",
-    "react/react-in-jsx-scope": ["off"]
+    "react/react-in-jsx-scope": ["off"],
+    "tailwindcss/no-arbitrary-value": "error"
   },
   "settings": {
     "import/resolver": {
@@ -52,6 +53,9 @@
     },
     "react": {
       "version": "detect"
+    },
+    "tailwindcss": {
+      "config": "tailwind.config.js"
     }
   },
   "overrides": [
