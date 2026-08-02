@@ -2,7 +2,7 @@ import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { Pricing } from '~/components/sections/pricing'
 import { SUBSCRIPTION_STATUS } from '~/models/enum'
-import { getFirstActiveSubcriptionByUserId } from '~/models/subscription'
+import { getFirstActiveSubscriptionByUserId } from '~/models/subscription'
 import { requireUser } from '~/services/auth.server'
 import { Handle } from '~/utils/types'
 import { SingleColumnLayout } from '~/components/single-column-layout'
@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { id } = await requireUser(request)
 
   // Get the subscription data from user where status is active
-  const subscription = await getFirstActiveSubcriptionByUserId(id)
+  const subscription = await getFirstActiveSubscriptionByUserId(id)
   return { isSubscribed: subscription?.status === SUBSCRIPTION_STATUS.ACTIVE }
 }
 
