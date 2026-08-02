@@ -70,6 +70,23 @@ describe('sendEmail', () => {
     )
   })
 
+  it('disables delivery without logging the magic link', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    process.env.MAGIC_LINK_EMAIL_DELIVERY = 'disabled'
+    const sendSpy = vi.spyOn(emailProvider, 'sendEmail')
+    const infoSpy = vi
+      .spyOn(console, 'info')
+      .mockImplementation(() => undefined)
+
+    await sendMagicLink()
+
+    expect(sendSpy).not.toHaveBeenCalled()
+    expect(infoSpy).toHaveBeenCalledWith(
+      '🔶 Magic link email delivery disabled'
+    )
+    expect(JSON.stringify(infoSpy.mock.calls)).not.toContain(magicLink)
+  })
+
   it('throws when the delivery mode is unsupported', async () => {
     process.env.MAGIC_LINK_EMAIL_DELIVERY = 'noop'
     const sendSpy = vi.spyOn(emailProvider, 'sendEmail')

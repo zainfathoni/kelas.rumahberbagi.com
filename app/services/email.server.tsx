@@ -13,7 +13,7 @@ if (process.env.EMAIL_FROM) {
 function getMagicLinkEmailDelivery() {
   const delivery = process.env.MAGIC_LINK_EMAIL_DELIVERY ?? 'mailgun'
 
-  if (delivery !== 'mailgun' && delivery !== 'log') {
+  if (delivery !== 'mailgun' && delivery !== 'log' && delivery !== 'disabled') {
     throw new Error(`Unsupported MAGIC_LINK_EMAIL_DELIVERY: ${delivery}`)
   }
 
@@ -82,6 +82,11 @@ export const sendEmail: SendEmailFunction<User> = async (options) => {
   // unchanged.
   if (getMagicLinkEmailDelivery() === 'log') {
     console.info('🔶 Magic link email delivery disabled:', options.magicLink)
+    return
+  }
+
+  if (getMagicLinkEmailDelivery() === 'disabled') {
+    console.info('🔶 Magic link email delivery disabled')
     return
   }
 
