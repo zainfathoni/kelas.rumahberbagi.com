@@ -39,6 +39,7 @@ env:
     NODE_ENV: production
     PORT: "3000"
     DATABASE_URL: file:/app/prisma/prod.db
+    MAGIC_LINK_EMAIL_DELIVERY: disabled
   # Secret environment variables (loaded from .kamal/secrets)
   secret:
     - SESSION_SECRET
