@@ -34,19 +34,11 @@ export default function Verify() {
     useLoaderData<{ transaction: Transaction; user: User }>()
   return (
     <>
-      {/* TODO: Render action buttons conditionally */}
       <TransactionDetails transaction={transaction} user={user}>
-        <SecondaryButtonLink
-          to="/dashboard/purchase/confirm"
-          disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
-        >
+        <SecondaryButtonLink to="/dashboard/purchase/confirm">
           Ubah Detail Transaksi
         </SecondaryButtonLink>
-        <PrimaryButtonLink
-          to={transaction.id}
-          replace
-          disabled={transaction.status === TRANSACTION_STATUS.VERIFIED}
-        >
+        <PrimaryButtonLink to={transaction.id} replace>
           Verifikasi Pembelian
         </PrimaryButtonLink>
       </TransactionDetails>

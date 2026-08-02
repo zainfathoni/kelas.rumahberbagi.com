@@ -43,7 +43,6 @@ export default function Completed() {
   }>()
   return (
     <>
-      {/* TODO: Render action buttons conditionally */}
       <TransactionDetails transaction={transaction} user={user}>
         <SecondaryButtonLink to={getWhatsAppLink(authorPhoneNumber)} external>
           Kontak Admin

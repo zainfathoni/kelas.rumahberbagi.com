@@ -43,3 +43,4 @@ playwright-report
 
 # Local backup files
 prisma/backups/
+.zed/
