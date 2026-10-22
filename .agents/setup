@@ -10,7 +10,7 @@ echo "Installing the pinned Node.js toolchain..."
 if ! command -v volta >/dev/null 2>&1; then
   curl --fail --silent --show-error https://get.volta.sh | bash
 fi
-volta install node@24.1.0
+volta install node@24.22.1
 mkdir -p "$HOME/.local/bin"
 for command in node npm npx volta; do
   ln -sfn "$VOLTA_HOME/bin/$command" "$HOME/.local/bin/$command"

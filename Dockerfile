@@ -3,7 +3,7 @@
 # Multi-stage Dockerfile for Remix app with Prisma and SQLite
 
 # Build stage
-FROM node:24-alpine AS build
+FROM node:24.22.1-alpine AS build
 
 WORKDIR /app
 
@@ -33,7 +33,7 @@ RUN npm run build:remix
 RUN npm prune --omit=dev && npm install @remix-run/serve@^2.17.2 --ignore-scripts
 
 # Production stage
-FROM node:24-alpine AS production
+FROM node:24.22.1-alpine AS production
 
 WORKDIR /app
 
