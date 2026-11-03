@@ -54,7 +54,7 @@
     "remix-auth": "^3.7.0",
     "remix-auth-email-link": "^2.1.1",
     "validator": "^13.15.26",
-    "zod": "^4.3.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
